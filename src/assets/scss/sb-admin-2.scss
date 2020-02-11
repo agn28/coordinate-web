@@ -1,0 +1,44 @@
+// Import Custom SB Admin 2 Variables (Overrides Default Bootstrap Variables)
+@import "variables.scss";
+
+// Import Bootstrap
+@import "../public/vendor/bootstrap/scss/bootstrap.scss";
+
+// Import Custom SB Admin 2 Mixins and Components
+@import "mixins.scss";
+@import "global.scss";
+@import "utilities.scss";
+
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+
+.account-info {
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 14rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14px;
+  color: $white
+}
+
+.sidebar-brand-icon {
+  img {
+    width: 132px;
+  }
+}
+
+.sidebar {
+  .sidebar-brand {
+    font-weight: normal;
+    text-transform: none;
+    font-size: .6rem;
+  }
+}
