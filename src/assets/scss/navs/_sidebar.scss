@@ -11,14 +11,21 @@
       text-align: center;
       padding: 0.75rem 1rem;
       width: $sidebar-collapsed-width;
+      margin-left: 9px;
+      display: inline-block;
       span {
-        font-size: 0.65rem;
-        display: block;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 24px;
       }
     }
     &.active {
       .nav-link {
         font-weight: 700;
+        background-color: #004C87;
+        border-radius: 3px;
       }
     }
     // Accordion
@@ -134,9 +141,18 @@
   }
 }
 
+
+@include media-breakpoint-up(xs) {}
+@include media-breakpoint-up(sm) {}
 @include media-breakpoint-up(md) {
   .sidebar {
-    width: $sidebar-base-width !important;
+    width: 280px !important;
+    .sidebar-brand-text{
+      color: $white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
     .nav-item {
       // Accordion
       .collapse {
@@ -159,18 +175,20 @@
         margin: 0 1rem;
       }
       .nav-link {
-        display: block;
-        width: 100%;
+        display: inline-block;
         text-align: left;
         padding: 1rem;
-        width: $sidebar-base-width;
+        width: 13.8rem;
         i {
-          font-size: 0.85rem;
-          margin-right: 0.25rem;
+          font-size: 16px;
+          margin-right: 1.25rem;
         }
         span {
-          font-size: 0.85rem;
-          display: inline;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 24px;
         }
         // Accordion Arrow Icon
         &[data-toggle="collapse"] {
@@ -260,7 +278,82 @@
       }
     }
   }
+  #sidebarToggle {
+    background-color: transparent;
+    position: absolute;
+    bottom: 62px;
+    left: 200px;
+    &::after {
+      color: $gray-500;
+    }
+    &:hover {
+      background-color: transparent;
+    }
+  }
 }
+
+@include media-breakpoint-up(lg) {
+  .sidebar{
+    width: 280px !important;
+
+    .sidebar-brand-text{
+      color: $white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .nav-item {
+
+      .nav-link {
+        display: inline-block;
+        text-align: left;
+        padding: 1rem;
+        width: $sidebar-base-width;
+        i {
+          font-size: 16px;
+          margin-right: 1.25rem;
+        }
+        span {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 24px;
+        }
+        // Accordion Arrow Icon
+        &[data-toggle="collapse"] {
+          &::after {
+            width: 1rem;
+            text-align: center;
+            float: right;
+            vertical-align: 0;
+            border: 0;
+            font-weight: 900;
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+          }
+          &.collapsed::after {
+            content: '\f105';
+          }
+        }
+      }
+    }
+    #sidebarToggle {
+      background-color: transparent;
+      position: absolute;
+      bottom: 62px;
+      left: 200px;
+      &::after {
+        color: $gray-500;
+      }
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+
 
 // Sidebar Color Variants
 
@@ -305,7 +398,10 @@
   }
   // Color the sidebar toggler
   #sidebarToggle {
-    background-color: $gray-200;
+    background-color: transparent;
+    position: absolute;
+    bottom: 62px;
+    left: 10.6%;
     &::after {
       color: $gray-500;
     }
@@ -356,12 +452,12 @@
   }
   // Color the sidebar toggler
   #sidebarToggle {
-    background-color: fade-out($white, 0.8);
+    background-color: transparent;
     &::after {
       color: fade-out($white, 0.5);
     }
     &:hover {
-      background-color: fade-out($white, 0.75);
+      background-color: transparent;
     }
   }
   &.toggled {

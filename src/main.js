@@ -5,6 +5,9 @@ import { routes } from './routes/routes';
 import axios from 'axios'
 import Vuex from 'vuex'
 import moment from 'moment'
+import { VuejsDatatableFactory } from 'vuejs-datatable';
+
+Vue.use( VuejsDatatableFactory );
 
 Vue.use(Vuex)
 Vue.use(VueRouter)

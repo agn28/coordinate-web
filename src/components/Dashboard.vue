@@ -3,15 +3,17 @@
   <div id="content">
 
     <div class="col-md-12">
-      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top">
-        <h2 class="title">Home</h2>
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 mt-4 static-top">
+        <div class="flex-column login_user mt-3">
+          <div class="welcomeMsg">Welcome</div>
+          <h2 class="title">User Name</h2>
+          <div class="roleUser">Role User</div>
+        </div>
+
 
         <div class="navbar-nav ml-auto">
           <a href="#" class="btn btn-light btn-icon-split">
-                    <span class="icon">
-                      <i class="large material-icons">add</i>
-                    </span>
-            <span class="text">Register a New Patient</span>
+            <span class="text"><i class="large material-icons">add</i>Register a New Patient</span>
           </a>
         </div>
 
@@ -29,29 +31,29 @@
 
               <p class="text-black text-bold mt-3">2459</p>
 
-              <a class="text-link" href="#">Manage an Existing Patient</a>
+              <a class="text-link custom-text-link" href="#">Manage an Existing Patient</a>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card mb-4">
             <div class="card-body">
-              <span class="">Total Patients</span>
+              <span class="">Patients Pending Recommendations</span>
 
               <p class="text-black text-bold mt-3">2459</p>
 
-              <a class="text-link" href="#">Manage an Existing Patient</a>
+              <router-link :to="{name: 'pendingReviews'}" class="text-link custom-text-link" href="#">View Patients Pending Review</router-link>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card mb-4">
             <div class="card-body">
-              <span class="">Total Patients</span>
+              <span class="">Patients Pending Care Plan</span>
 
               <p class="text-black text-bold mt-3">2459</p>
 
-              <a class="text-link" href="#">Manage an Existing Patient</a>
+              <a class="text-link custom-text-link" href="#">View</a>
             </div>
           </div>
         </div>
@@ -61,6 +63,35 @@
       <div class="mt-5">
         <div class="col-md-12">
           <h2 class="title text-20">Assessment Performance</h2>
+        </div>
+        <div class="col-md-12 col-lg-12">
+          <form action="" class="assessmentForm mt-4">
+            <div class="row w-100">
+              <div class="col-md-8 col-lg-5">
+                <div class="mb-2">
+                  <label class="mr-1">Period: &nbsp;</label>
+                  <date-range-picker
+                          v-model="dateRange"
+                  ></date-range-picker>
+                </div>
+              </div>
+              <div class="col-md-4 col-lg-3">
+                <div class="d-flex justify-content-center md-2">
+                  <input type="button" class="border-0 chartSelectBtn activeBtn" value="Week" >
+                  <input type="button" class="border-0 chartSelectBtn" value="Day">
+                  <input type="button" class="border-0 chartSelectBtn" value="Month">
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-4">
+                <div class="d-flex justify-content-center mb-2">
+                  <button class="border-0 chartSelectBtn w-100"><span class="bttn1"></span>Participant Registered</button>
+                  <button class="border-0 chartSelectBtn w-100"><span class="bttn2"></span>Screenings completed</button>
+                </div>
+              </div>
+            </div>
+
+
+          </form>
         </div>
         <div class="col-md-12">
           <bar-chart></bar-chart>
@@ -75,12 +106,26 @@
 
 <script>
     import BarChart from './utils/BarChart.vue'
+    import DateRangePicker from 'vue2-daterange-picker'
+    import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
     export default {
         components: {
-            BarChart
+            BarChart,
+            DateRangePicker
+
         },
+      data () {
+        return {
+          dateRange: {
+            startDate: '2020-01-01',
+            endDate: '2020-01-10',
+            format: 'DD-MM-YYYY',
+          },
+        }
+      },
     };
 </script>
 
 <style>
+  @import "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css";
 </style>

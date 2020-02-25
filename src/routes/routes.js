@@ -3,8 +3,14 @@ import HealthList from '../components/health-records/List'
 import HealthDetail from '../components/health-records/Show'
 import Assessments from '../components/health-records/assessments/Show'
 import Patients from '../components/patients/List'
+import PatientsOverview from '../components/patients/Overview'
 import PatientCreate from '../components/patients/Create'
 import PatientEdit from '../components/patients/Edit'
+
+import PendingReviews from '../components/pending-reviews/List'
+import PendingReviewDetail from '../components/pending-reviews/Show'
+import PendingReviewGenerate from '../components/pending-reviews/Generate'
+
 import Encounters from '../components/encounters/List'
 import EncounterCreate from '../components/encounters/Create'
 
@@ -59,9 +65,14 @@ export const routes = [
     component: HealthEncounters
   },
   {
-    path: '/patients',
+    path: '/patients/list',
     name: 'patients',
     component: Patients
+  },
+  {
+    path: '/patients/:patientId/overview',
+    name: 'patientOverview',
+    component: PatientsOverview
   },
   {
     path: '/patients/create',
@@ -144,5 +155,21 @@ export const routes = [
     path: '/patients/:patientId/encounters/:encounterId/diagnostics/create',
     name: 'diagnosticCreate',
     component: DiagnosticCreate
+  },
+
+  {
+    path: '/pending-reviews/list',
+    name: 'pendingReviews',
+    component: PendingReviews
+  },
+  {
+    path: '/pending-reviews/:reviewId',
+    name: 'pendingReviewDetail',
+    component: PendingReviewDetail
+  },
+  {
+    path: '/pending-reviews/:reviewId/generate',
+    name: 'pendingReviewGenerate',
+    component: PendingReviewGenerate
   },
 ]

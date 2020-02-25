@@ -26,18 +26,19 @@
     "vue-multiselect": "^2.1.6",
     "vue-router": "^3.1.2",
     "vue-svg-gauge": "^1.2.1",
+    "vue2-daterange-picker": "^0.4.4",
+    "vuejs-datatable": "^2.0.0-alpha.7",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-service": "^4.2.2",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10",
     "browser-sync": "2.26.7",
     "del": "5.1.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "7.0.0",
     "gulp-clean-css": "4.2.0",
@@ -46,7 +47,8 @@
     "gulp-rename": "1.4.0",
     "gulp-sass": "4.0.2",
     "gulp-uglify": "3.0.2",
-    "merge-stream": "2.0.0"
+    "merge-stream": "2.0.0",
+    "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,
