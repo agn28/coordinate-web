@@ -1,0 +1,362 @@
+//Pending Patients Preview
+
+.edit-icon {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  justify-content: flex-end;
+  color: #01579B;
+}
+
+.custom-card-body {
+  padding: 0.75rem 1.25rem !important;
+}
+
+.generation {
+  margin: 32px 32px 10px;
+
+  h4 {
+    margin-left: 10px;
+    margin-bottom: 30px;
+    color: #000000;
+  }
+
+  .card-body {
+    min-height: 204px;
+    h4 {
+      font-style: normal;
+      font-weight: 600;
+      margin-left: 16px;
+      margin-bottom: 16px;
+      color: #000000;
+    }
+
+    .disease-list {
+      margin-left: 10px;
+      padding: 0;
+
+      li {
+        list-style: none;
+        margin-bottom: 12px;
+        color: #000000;
+        img {
+          margin-right: 12px;
+        }
+      }
+    }
+
+    .medicine-list {
+      margin-left: 17px;
+      padding: 0;
+
+      li {
+        list-style: none;
+        color: #000000;
+      }
+    }
+  }
+}
+
+.body-content {
+  margin: 3px 32px 33px;
+
+  h4 {
+    margin: 28px 36px 6px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .body-content-row {
+    margin: 0;
+  }
+
+  .patient-habit {
+    background: #F9F9F9;
+    min-height: 156px;
+
+    .edit-icon {
+      margin-top: 5px;
+      margin-right: 10px;
+    }
+
+    .habit-type {
+      background: #F9F9F9;
+      padding: 23px 16px;
+      display: flex;
+      flex-direction: column;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+
+      .type-image {
+        margin-bottom: 14px;
+        margin-left: 2px;
+        background: #9A9A9A;
+      }
+
+      .type-name {
+        font-weight: bold;
+        text-transform: capitalize;
+        margin-bottom: 10px;
+        margin-left: 6px;
+      }
+
+      .recent-activity {
+        margin-left: 6px;
+      }
+
+      .type-1 {
+        color: #D43640;
+        margin-bottom: 7px;
+        margin-left: 6px;
+      }
+
+      .type-2 {
+        color: #3B853E;
+        margin-bottom: 7px;
+        margin-left: 6px;
+      }
+
+      .type-3 {
+        color: #D95331;
+        margin-bottom: 7px;
+        margin-left: 6px;
+      }
+    }
+  }
+}
+
+.body-composition {
+  margin: 3px 29px 33px;
+
+  .body-content-row {
+    margin: 0 1px;
+  }
+
+  h4 {
+    margin: 28px 36px 16px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .body-condition {
+    background: #F9F9F9;
+    min-height: 156px;
+
+    .condition {
+      background: #F9F9F9;
+      padding: 23px 16px;
+      display: flex;
+      flex-direction: column;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+
+      .condition-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 14px;
+
+        .type-name {
+          font-style: normal;
+          font-size: 18px;
+          font-weight: 600;
+          text-transform: capitalize;
+        }
+      }
+
+      .condition-details {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        color: #CF0026;
+        display: flex;
+        margin-bottom: 14px;
+
+        .measurement {
+          margin-right: 16px;
+        }
+        .result {
+          margin-right: 13px;
+        }
+
+        .color-code {
+          position: relative;
+          display: flex;
+
+          .color-1 {
+            position: absolute;
+            top: 7px;
+            left: 6px;
+            width: 56.94px;
+            height: 14px;
+            background: #2E7D32;
+          }
+
+          .color-2 {
+            position: absolute;
+            top: 7px;
+            left: 76px;
+            width: 56.94px;
+            height: 14px;
+            background: #D43900;
+          }
+          .color-3 {
+            position: absolute;
+            top: 7px;
+            left: 145px;
+            width: 56.94px;
+            height: 14px;
+            background: #CF0026;
+          }
+        }
+      }
+
+      .condition-range {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  .suggest {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-top: 20px;
+
+  }
+}
+
+.disease-name {
+  font-family: Roboto;
+  margin: 3px 30px 40px;
+
+  .disease-name-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 26px 28px 1px;
+
+    .type-name {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 26px;
+      text-transform: capitalize;
+    }
+  }
+
+  .body-condition {
+
+    .condition {
+      display: flex;
+      flex-direction: column;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      font-family: Roboto;
+      margin-left: 7px;
+
+      .type {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 24px;
+        color: rgba(0, 0, 0, 0.87);
+        margin-bottom: 10px;
+      }
+
+      .condition-details {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        color: #CF0026;
+        display: flex;
+        margin-bottom: 14px;
+
+        .color-code {
+          position: relative;
+          display: flex;
+
+          .color-1 {
+            position: absolute;
+            top: 7px;
+            left: 6px;
+            width: 56.94px;
+            height: 14px;
+            background: #2E7D32;
+          }
+
+          .color-2 {
+            position: absolute;
+            top: 7px;
+            left: 76px;
+            width: 56.94px;
+            height: 14px;
+            background: #D43900;
+          }
+          .color-3 {
+            position: absolute;
+            top: 7px;
+            left: 145px;
+            width: 56.94px;
+            height: 14px;
+            background: #CF0026;
+          }
+        }
+      }
+
+      .condition-range {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  .suggest {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-top: 20px;
+    margin-left: 4px;
+    margin-bottom: 22px;
+
+  }
+}
+
+.comment-section {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  margin-left: 31px;
+  textarea {
+    resize: none;
+  }
+}
+
