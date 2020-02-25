@@ -19,6 +19,11 @@
 @import "error.scss";
 @import "footer.scss";
 @import "_responsive.scss";
+@import "pending-review-generate";
+
+body {
+  font-family: "Roboto" !important;
+}
 
 
 //Home page

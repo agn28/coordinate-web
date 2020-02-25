@@ -69,6 +69,30 @@
   }
 }
 
+.btn-primary {
+  background-color: $primary-color !important;
+  border-radius: 2px;
+  border-color: $primary-color !important;
+}
+
+.btn-outline-primary.btn-coordinate {
+  border-color: $primary-color !important;
+  color: $primary-color;
+  border-radius: 2px;
+
+  i {
+    font-size: 10px;
+    margin-right: 8px;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+}
+
+
 @include media-breakpoint-up(md) {
   .btn-icon-split {
     padding: 0;
