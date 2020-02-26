@@ -57,29 +57,33 @@
                   </ul>
 
                   <div class="card-actions">
-                    <button class="btn btn-outline-primary btn-coordinate w-100" v-b-modal.diagnosis-modal>
+                    <button class="btn btn-outline-primary btn-coordinate w-100" v-b-modal.modal-diagnosis>
                       <i class="fas fa-plus"></i>
                       Add a Diagnosis
                     </button>
                   </div>
 
-                  <b-modal id="diagnosis-modal" class="modal-coordinate" title="Add diagnosis">
+                  <b-modal id="modal-diagnosis" class="modal-coordinate">
                     <template v-slot:modal-header>
                       <span class="title">Add Diagnosis</span>
                     </template>
-                      <p class="my-4">Hello from modal!</p>
+                      <div class="form-group">
+                        <label for="">Diagnosis</label>
+                        <input type="text" class="form-control form-coordinate" v-modal="newDiagnosis">
+                      </div>
                       <template v-slot:modal-footer>
                         <div class="w-100">
-                        <b-button variant="link" size="sm" class="float-right font-weight-bold">
+                        <b-button variant="link" size="sm" class="float-right font-weight-bold p-0 pl-4" @click="addDiagnosis()">
                           Add
                         </b-button>
                         
-                        <b-button @click="$bvModal.hide('diagnosis-modal')" variant="link" size="sm" class="float-right font-weight-bold">
+                        <b-button @click="$bvModal.hide('modal-diagnosis')" variant="link" size="sm" class="float-right font-weight-bold p-0">
                           Cancel
                         </b-button>
                       </div>
                     </template>
                   </b-modal>
+
                 </div>
               </div>
             </div>
@@ -286,11 +290,14 @@ export default {
       cvd: '',
       goals: [],
       referrals: [],
-      assessment_date: ''
+      assessment_date: '',
+      newDiagnosis: ''
     };
   },
   methods: {
-
+    addDiagnosis() {
+      // this.$bvModal.hide('modal-diagnosis');
+    }
   },
   mounted() {
 
