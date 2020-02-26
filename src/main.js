@@ -6,11 +6,17 @@ import axios from 'axios'
 import Vuex from 'vuex'
 import moment from 'moment'
 import { VuejsDatatableFactory } from 'vuejs-datatable';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use( VuejsDatatableFactory );
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 axios.defaults.baseURL = 'https://fhirapi.monarko.com';  
 // axios.defaults.baseURL = 'http://127.0.0.1:3000';

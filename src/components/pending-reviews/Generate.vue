@@ -57,11 +57,29 @@
                   </ul>
 
                   <div class="card-actions">
-                    <div class="btn btn-outline-primary btn-coordinate w-100">
+                    <button class="btn btn-outline-primary btn-coordinate w-100" v-b-modal.diagnosis-modal>
                       <i class="fas fa-plus"></i>
                       Add a Diagnosis
-                    </div>
+                    </button>
                   </div>
+
+                  <b-modal id="diagnosis-modal" class="modal-coordinate" title="Add diagnosis">
+                    <template v-slot:modal-header>
+                      <span class="title">Add Diagnosis</span>
+                    </template>
+                      <p class="my-4">Hello from modal!</p>
+                      <template v-slot:modal-footer>
+                        <div class="w-100">
+                        <b-button variant="link" size="sm" class="float-right font-weight-bold">
+                          Add
+                        </b-button>
+                        
+                        <b-button @click="$bvModal.hide('diagnosis-modal')" variant="link" size="sm" class="float-right font-weight-bold">
+                          Cancel
+                        </b-button>
+                      </div>
+                    </template>
+                  </b-modal>
                 </div>
               </div>
             </div>
