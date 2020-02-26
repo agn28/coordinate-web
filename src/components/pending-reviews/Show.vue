@@ -1,19 +1,19 @@
 <template>
-  <div class="content assessment">
+  <div class="content pending-review-assessment">
     <div class="loader" v-if="isLoading">
       <rotate-square2></rotate-square2>
     </div>
     <div class="animated fadeIn">
-      <div class="col-lg-12 d-flex mt-3 mb-3 ml-3">
-        <a href=""><i class="fa fa-arrow-left mr-3 text-secondary"></i></a>
-        <div class="patient-overview">
+      <div class="col-lg-12 d-flex breadcrumb-wrap">
+        <i class="fa fa-arrow-left text-secondary back-icon"></i>
+        <div class="">
           <h4>Health Assessment</h4>
           <div class="breadcrumb"><span>Patients</span>/ patient name / Health Assessment</div>
         </div>
       </div>
 
       <div class="col-lg-12 border-top border-bottom">
-        <div class="patient mt-2 mb-3 ml-3">
+        <div class="patient">
           <div class="patient-image mr-4">
             <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="100" height="100" alt="">
           </div>
@@ -150,7 +150,7 @@
                         <div class="condition-details">
                           <div class="measurement">99cm</div>
                           <div class="result">High</div>
-                          <div class="color-code">
+                          <div class="color-code" id="circumference">
                             <div class="color-1"></div>
                             <div class="color-2"></div>
                             <div class="color-3"></div>
@@ -324,7 +324,7 @@
                 <label for="exampleFormControlTextarea3">Comments/Notes (Optional)</label>
                 <textarea class="form-control" id="exampleFormControlTextarea3" rows="4"></textarea>
               </div>
-              <button class="btn btn-primary">Proceed to generating Care Plan</button>
+              <button class="btn btn-primary" @click="$router.push({ name: 'pendingReviewGenerate', params: { reviewId: '1234s'}})">Proceed to generating Care Plan</button>
           </div>
 
         </div>

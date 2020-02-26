@@ -118,7 +118,6 @@
 <script>
 
 import { VueSvgGauge } from 'vue-svg-gauge'
-import { store } from '../../store/store'
 import {RotateSquare2} from 'vue-loading-spinner'
 
 export default {
