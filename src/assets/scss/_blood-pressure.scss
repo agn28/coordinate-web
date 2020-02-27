@@ -1,0 +1,216 @@
+.blood-pressure-add {
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  label {
+    font-size: 14px;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 22px;;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 12px 20px 17px 20px;
+
+    .patient-image {
+      margin-right: 12px;
+
+      img {
+        width: 25px;
+      }
+
+    }
+
+    .patient-details {
+      flex-direction: row;
+
+      .patient-name {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 8px;
+        margin-right: 30px;
+      }
+
+      .details {
+        div {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  .require-msg {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 30px;
+
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .pressure-add {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    margin: 0 30px 30px;
+
+    .arm {
+
+      h6 {
+        margin-bottom: 19px;
+      }
+
+      .arm-select {
+        display: flex;
+
+        .custom-control {
+          margin-right: 22px;
+        }
+      }
+    }
+
+    .custom-pressure-input {
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+      border-radius: 3px;
+    }
+
+    .btn-outline-primary {
+      margin-top: 30px;
+      width: 227px;
+      font-style: normal;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+  }
+
+  .measurement-number {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.87);
+    margin: 0 32px 33px;
+
+    th {
+      font-weight: 500;
+    }
+
+    .no-data {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+
+  .comment-section {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    margin-left: 31px;
+
+    textarea {
+      resize: none;
+    }
+
+    .select-device {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      color: #000000;
+      margin-bottom: 27px;
+
+      h5 {
+        font-size: 16px;
+      }
+
+      .select-wrapper {
+        position: relative;
+        // Dropdown icon
+        &::after {
+          color: black;
+          content: '▾';
+          margin-right: 10px;
+          pointer-events: none;
+          position: absolute;
+          right: 10px;
+          top: 7px;
+          font-size: 20px;
+        }
+      }
+
+      // Default state
+      .select {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background: #FFFFFF;
+        border: 1px solid #CED4DA;
+        box-sizing: border-box;
+        border-radius: 3px;
+        cursor: pointer;
+        padding: 7px;
+        width: 100%;
+        font-size: 16px;
+        &:focus {
+          color: black;
+        }
+        // Hack for IE 11+
+        &::-ms-expand {
+          display: none;
+        }
+      }
+    }
+  }
+
+
+}

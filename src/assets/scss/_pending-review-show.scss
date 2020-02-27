@@ -26,11 +26,12 @@
     line-height: 20px;
     background: transparent;
 
-    span{
+    span {
       color: #01579B;
       margin-right: 4.5px;
     }
   }
+
   .patient {
     padding: 19px 20px 18px 20px;
   }
@@ -52,6 +53,7 @@
     display: flex;
     justify-content: flex-end;
     color: #01579B;
+    outline: none;
   }
 
   .custom-card-body {
@@ -69,6 +71,7 @@
 
     .card-body {
       min-height: 204px;
+
       h4 {
         font-style: normal;
         font-weight: 600;
@@ -86,6 +89,7 @@
           list-style: none;
           margin-bottom: 12px;
           color: #000000;
+
           img {
             margin-right: 12px;
           }
@@ -230,6 +234,7 @@
           .measurement {
             margin-right: 16px;
           }
+
           .result {
             margin-right: 13px;
           }
@@ -269,6 +274,7 @@
               height: 14px;
               background: #D43900;
             }
+
             .color-3 {
               position: absolute;
               top: 7px;
@@ -372,6 +378,7 @@
               height: 14px;
               background: #D43900;
             }
+
             .color-3 {
               position: absolute;
               top: 7px;
@@ -414,8 +421,408 @@
     font-size: 18px;
     line-height: 24px;
     margin-left: 31px;
+
     textarea {
       resize: none;
+    }
+  }
+}
+
+
+
+//All Modal scass
+
+#modal-circumference {
+
+  .circumference-input {
+    background: #FFFFFF;
+    border: 1px solid #CED4DA;
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 105px;
+    margin-right: 21px;
+  }
+
+  .measurement-type {
+    display: flex;
+    margin-top: 16px;
+    .custom-control {
+      margin-right: 35px;
+    }
+  }
+
+  .select-device {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+
+    h5 {
+      font-size: 16px;
+    }
+
+    .select-wrapper {
+      position: relative;
+      // Dropdown icon
+      &::after {
+        color: black;
+        content: '▾';
+        margin-right: 10px;
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        font-size: 20px;
+      }
+    }
+
+    // Default state
+    .select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      &:focus {
+        color: black;
+      }
+      // Hack for IE 11+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+  }
+
+  .comment-section {
+    margin-top: 27px;
+
+    textarea {
+      resize: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#modal-bmi {
+
+  .circumference-input {
+    background: #FFFFFF;
+    border: 1px solid #CED4DA;
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 105px;
+    margin-right: 21px;
+  }
+
+  .measurement-type {
+    display: flex;
+    margin-top: 16px;
+    .custom-control {
+      margin-right: 35px;
+    }
+  }
+
+  .select-device {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+
+    h5 {
+      font-size: 16px;
+    }
+
+    .select-wrapper {
+      position: relative;
+      // Dropdown icon
+      &::after {
+        color: black;
+        content: '▾';
+        margin-right: 10px;
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        font-size: 20px;
+      }
+    }
+
+    // Default state
+    .select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      &:focus {
+        color: black;
+      }
+      // Hack for IE 11+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+  }
+
+  .comment-section {
+    margin-top: 27px;
+
+    textarea {
+      resize: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#modal-diabetese {
+
+  .circumference-input {
+    background: #FFFFFF;
+    border: 1px solid #CED4DA;
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 105px;
+    margin-right: 21px;
+  }
+
+  .measurement-type {
+    display: flex;
+    margin-top: 16px;
+    .custom-control {
+      margin-right: 35px;
+    }
+  }
+
+  .select-device {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+
+    h5 {
+      font-size: 16px;
+    }
+
+    .select-wrapper {
+      position: relative;
+      // Dropdown icon
+      &::after {
+        color: black;
+        content: '▾';
+        margin-right: 10px;
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        font-size: 20px;
+      }
+    }
+
+    // Default state
+    .select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      &:focus {
+        color: black;
+      }
+      // Hack for IE 11+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+  }
+
+  .comment-section {
+    margin-top: 27px;
+
+    textarea {
+      resize: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#modal-cholesterol {
+
+  .circumference-input {
+    background: #FFFFFF;
+    border: 1px solid #CED4DA;
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 105px;
+    margin-right: 21px;
+  }
+
+  .measurement-type {
+    display: flex;
+    margin-top: 16px;
+    .custom-control {
+      margin-right: 35px;
+    }
+  }
+
+  .select-device {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+
+    h5 {
+      font-size: 16px;
+    }
+
+    .select-wrapper {
+      position: relative;
+      // Dropdown icon
+      &::after {
+        color: black;
+        content: '▾';
+        margin-right: 10px;
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        font-size: 20px;
+      }
+    }
+
+    // Default state
+    .select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      &:focus {
+        color: black;
+      }
+      // Hack for IE 11+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+  }
+
+  .comment-section {
+    margin-top: 27px;
+
+    textarea {
+      resize: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#modal-cvd {
+
+  .circumference-input {
+    background: #FFFFFF;
+    border: 1px solid #CED4DA;
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 105px;
+    margin-right: 21px;
+  }
+
+  .measurement-type {
+    display: flex;
+    margin-top: 16px;
+    .custom-control {
+      margin-right: 35px;
+    }
+  }
+
+  .select-device {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+
+    h5 {
+      font-size: 16px;
+    }
+
+    .select-wrapper {
+      position: relative;
+      // Dropdown icon
+      &::after {
+        color: black;
+        content: '▾';
+        margin-right: 10px;
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        font-size: 20px;
+      }
+    }
+
+    // Default state
+    .select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      &:focus {
+        color: black;
+      }
+      // Hack for IE 11+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+  }
+
+  .comment-section {
+    margin-top: 27px;
+
+    textarea {
+      resize: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
     }
   }
 }

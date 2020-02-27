@@ -73,11 +73,11 @@
                       </div>
                       <template v-slot:modal-footer>
                         <div class="w-100">
-                        <b-button variant="link" size="sm" class="float-right font-weight-bold p-0 pl-4" @click="addDiagnosis()">
+                        <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1" @click="addDiagnosis()">
                           Add
                         </b-button>
                         
-                        <b-button @click="$bvModal.hide('modal-diagnosis')" variant="link" size="sm" class="float-right font-weight-bold p-0">
+                        <b-button @click="$bvModal.hide('modal-diagnosis')" variant="link" size="md" class="float-right font-weight-bold p-0">
                           Cancel
                         </b-button>
                       </div>
@@ -126,10 +126,38 @@
                   </div>
 
                   <div class="card-actions">
-                    <div class="btn btn-outline-primary btn-coordinate w-100">
+                    <div class="btn btn-outline-primary btn-coordinate w-100" v-b-modal.modal-medications>
                       <i class="fas fa-plus"></i>
                       Add a Drug Category
                     </div>
+
+                    <b-modal id="modal-medications" class="modal-coordinate">
+                      <template v-slot:modal-header>
+                        <span class="title">Add Medicine</span>
+                      </template>
+                      <div class="select-medicine">
+                        <h5>Select Medicine</h5>
+                        <div class="select-wrapper">
+                          <select class="select">
+                            <option value="" selected>Select medicine</option>
+                            <option value="napa">Napa</option>
+                            <option value="adderall">Adderall</option>
+                            <option value="alprazolam">Alprazolam</option>
+                          </select>
+                        </div>
+                      </div>
+                      <template v-slot:modal-footer>
+                        <div class="w-100">
+                          <b-button variant="link" size="sm" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                            Add
+                          </b-button>
+
+                          <b-button variant="link" size="sm" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-medications')">
+                            Cancel
+                          </b-button>
+                        </div>
+                      </template>
+                    </b-modal>
                   </div>
                 </div>
               </div>
@@ -200,10 +228,75 @@
 
 
                   <div class="card-actions">
-                    <div class="btn btn-outline-primary btn-coordinate w-100">
+                    <div class="btn btn-outline-primary btn-coordinate w-100" v-b-modal.modal-actions>
                       <i class="fas fa-plus"></i>
                       Add an Action
                     </div>
+
+                    <b-modal id="modal-actions" class="modal-coordinate">
+                      <template v-slot:modal-header>
+                        <span class="title">Add Actions</span>
+                      </template>
+                      <div class="form-group">
+                        <label for="">input box 1</label>
+                        <input type="text" class="form-control form-coordinate action-input">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="">input box 2</label>
+                        <input type="text" class="form-control form-coordinate action-input">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="">input box 3</label>
+                        <input type="text" class="form-control form-coordinate action-input">
+                      </div>
+
+                      <div class="select-actions">
+                        <h5>Select box 1</h5>
+                        <div class="select-wrapper">
+                          <select class="select">
+                            <option value=""></option>
+                            <option value="value1">add option</option>
+                            <option value="value1">add option</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="select-actions">
+                        <h5>Select box 2</h5>
+                        <div class="select-wrapper">
+                          <select class="select">
+                            <option value=""></option>
+                            <option value="value1">add option</option>
+                            <option value="value1">add option</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="select-actions">
+                        <h5>Select box 2</h5>
+                        <div class="select-wrapper">
+                          <select class="select">
+                            <option value=""></option>
+                            <option value="value1">add option</option>
+                            <option value="value1">add option</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <template v-slot:modal-footer>
+                        <div class="w-100">
+                          <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                            Add
+                          </b-button>
+
+                          <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-actions')">
+                            Cancel
+                          </b-button>
+                        </div>
+                      </template>
+                    </b-modal>
                   </div>
                 </div>
               </div>

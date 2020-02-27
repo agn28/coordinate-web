@@ -10,6 +10,7 @@ import PatientEdit from '../components/patients/Edit'
 import PendingReviews from '../components/pending-reviews/List'
 import PendingReviewDetail from '../components/pending-reviews/Show'
 import PendingReviewGenerate from '../components/pending-reviews/Generate'
+import PendingReviewBloodPressure from '../components/pending-reviews/BloodPressure'
 
 import Encounters from '../components/encounters/List'
 import EncounterCreate from '../components/encounters/Create'
@@ -172,4 +173,10 @@ export const routes = [
     name: 'pendingReviewGenerate',
     component: PendingReviewGenerate
   },
+  {
+    path: '/pending-reviews/:reviewId/blood-pressure',
+    name: 'pendingReviewBloodPressure',
+    component: PendingReviewBloodPressure
+  },
+
 ]

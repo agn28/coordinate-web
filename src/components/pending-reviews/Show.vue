@@ -145,7 +145,62 @@
                       <div class="condition">
                         <div class="condition-header">
                           <div class="type-name">Hip Circumference</div>
-                          <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                          <span class="edit-icon" v-b-modal.modal-circumference> <i class="fas fa-pen"></i></span>
+                          <b-modal id="modal-circumference" class="modal-coordinate">
+                            <template v-slot:modal-header>
+                              <span class="title">Set Hip Circumference</span>
+                            </template>
+                            <div class="d-flex align-items-center">
+                              <div class="form-group">
+                                <label for="">Hip</label>
+                                <input type="text" class="form-control form-coordinate circumference-input">
+                              </div>
+                              <div class="measurement-type">
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked>
+                                  <label class="custom-control-label" for="customRadio1">cm</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                  <label class="custom-control-label" for="customRadio2">inch</label>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div class="select-device">
+                              <h5>Select Device</h5>
+                              <div class="select-wrapper">
+                                <select class="select">
+                                  <option value=""></option>
+                                  <option value="value1">Device 1</option>
+                                  <option value="value1">Device 2</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="comment-section">
+
+                              <div class="form-group">
+                                <label for="comment">Comments/Notes (Optional)</label>
+                                <textarea class="form-control" id="comment" rows="4"></textarea>
+                              </div>
+                            </div>
+
+                            <template v-slot:modal-footer>
+                              <div class="w-100">
+                                <b-button variant="link" size="md" class="float-left font-weight-bold p-0 pl-1">
+                                  Unable to Perform
+                                </b-button>
+
+                                <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                  Add
+                                </b-button>
+
+                                <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-circumference')">
+                                  Cancel
+                                </b-button>
+                              </div>
+                            </template>
+                          </b-modal>
                         </div>
                         <div class="condition-details">
                           <div class="measurement">99cm</div>
@@ -168,7 +223,62 @@
                       <div class="condition">
                         <div class="condition-header">
                           <div class="type-name">BMI</div>
-                          <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                          <span class="edit-icon" v-b-modal.modal-bmi> <i class="fas fa-pen"></i></span>
+                          <b-modal id="modal-bmi" class="modal-coordinate">
+                            <template v-slot:modal-header>
+                              <span class="title">Set BMI</span>
+                            </template>
+                            <div class="d-flex align-items-center">
+                              <div class="form-group">
+                                <label for="">BMI</label>
+                                <input type="text" class="form-control form-coordinate circumference-input">
+                              </div>
+                              <div class="measurement-type">
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" checked>
+                                  <label class="custom-control-label" for="customRadio3">cm</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+                                  <label class="custom-control-label" for="customRadio4">inch</label>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="select-device">
+                              <h5>Select Device</h5>
+                              <div class="select-wrapper">
+                                <select class="select">
+                                  <option value=""></option>
+                                  <option value="value1">Device 1</option>
+                                  <option value="value1">Device 2</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="comment-section">
+
+                              <div class="form-group">
+                                <label for="comment">Comments/Notes (Optional)</label>
+                                <textarea class="form-control" id="commentBmi" rows="4"></textarea>
+                              </div>
+                            </div>
+
+                            <template v-slot:modal-footer>
+                              <div class="w-100">
+                                <b-button variant="link" size="md" class="float-left font-weight-bold p-0 pl-1">
+                                  Unable to Perform
+                                </b-button>
+
+                                <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                  Add
+                                </b-button>
+
+                                <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-bmi')">
+                                  Cancel
+                                </b-button>
+                              </div>
+                            </template>
+                          </b-modal>
                         </div>
                         <div class="condition-details">
                           <div class="measurement">31.4</div>
@@ -196,7 +306,7 @@
             <div class="card">
               <div class="disease-name-header">
                 <h4 class="type-name">Blood Pressure</h4>
-                <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                <span @click="$router.push({ name: 'pendingReviewBloodPressure', params: { reviewId: '1234s'}})" class="edit-icon"> <i class="fas fa-pen"></i></span>
               </div>
               <div class="card-body custom-card-body">
                 <div class="body-condition">
@@ -226,7 +336,62 @@
             <div class="card">
               <div class="disease-name-header">
                 <h4 class="type-name">Diabetese</h4>
-                <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                <span class="edit-icon" v-b-modal.modal-diabetese> <i class="fas fa-pen"></i></span>
+                <b-modal id="modal-diabetese" class="modal-coordinate">
+                  <template v-slot:modal-header>
+                    <span class="title">Set Diabetese</span>
+                  </template>
+                  <div class="d-flex align-items-center">
+                    <div class="form-group">
+                      <label for="">Fasting Blood Sugar</label>
+                      <input type="text" class="form-control form-coordinate circumference-input">
+                    </div>
+                    <div class="measurement-type">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="diabeteseMg" name="cholesterol" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="customRadio3">mg/dL</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="diabeteseMmol" name="cholesterol" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio4">mmol/L</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="select-device">
+                    <h5>Select Device</h5>
+                    <div class="select-wrapper">
+                      <select class="select">
+                        <option value=""></option>
+                        <option value="value1">Device 1</option>
+                        <option value="value1">Device 2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="comment-section">
+
+                    <div class="form-group">
+                      <label for="comment">Comments/Notes (Optional)</label>
+                      <textarea class="form-control" id="commentDiabetese" rows="4"></textarea>
+                    </div>
+                  </div>
+
+                  <template v-slot:modal-footer>
+                    <div class="w-100">
+                      <b-button variant="link" size="md" class="float-left font-weight-bold p-0 pl-1">
+                        Unable to Perform
+                      </b-button>
+
+                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                        Add
+                      </b-button>
+
+                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-diabetese')">
+                        Cancel
+                      </b-button>
+                    </div>
+                  </template>
+                </b-modal>
               </div>
               <div class="card-body custom-card-body">
                 <div class="body-condition">
@@ -257,13 +422,68 @@
           <div class="disease-name">
             <div class="card">
               <div class="disease-name-header">
-                <h4 class="type-name">Cholestrol</h4>
-                <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                <h4 class="type-name">Cholesterol</h4>
+                <span class="edit-icon" v-b-modal.modal-cholesterol> <i class="fas fa-pen"></i></span>
+                <b-modal id="modal-cholesterol" class="modal-coordinate">
+                  <template v-slot:modal-header>
+                    <span class="title">Set Total Cholesterol</span>
+                  </template>
+                  <div class="d-flex align-items-center">
+                    <div class="form-group">
+                      <label for="">Total Cholesterol</label>
+                      <input type="text" class="form-control form-coordinate circumference-input">
+                    </div>
+                    <div class="measurement-type">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cholesterolMg" name="cholesterol" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="customRadio3">mg/dL</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cholesterolMm" name="cholesterol" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio4">mmol/L</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="select-device">
+                    <h5>Select Device</h5>
+                    <div class="select-wrapper">
+                      <select class="select">
+                        <option value=""></option>
+                        <option value="value1">Device 1</option>
+                        <option value="value1">Device 2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="comment-section">
+
+                    <div class="form-group">
+                      <label for="comment">Comments/Notes (Optional)</label>
+                      <textarea class="form-control" id="commentCholesterol" rows="4"></textarea>
+                    </div>
+                  </div>
+
+                  <template v-slot:modal-footer>
+                    <div class="w-100">
+                      <b-button variant="link" size="md" class="float-left font-weight-bold p-0 pl-1">
+                        Unable to Perform
+                      </b-button>
+
+                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4">
+                        Add
+                      </b-button>
+
+                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-cholesterol')">
+                        Cancel
+                      </b-button>
+                    </div>
+                  </template>
+                </b-modal>
               </div>
               <div class="card-body custom-card-body">
                 <div class="body-condition">
                   <div class="condition">
-                    <div class="type">Total Cholestrol</div>
+                    <div class="type">Total Cholesterol</div>
                     <div class="condition-details">
                       <div class="measurement mr-3">250mg/dL</div>
                       <div class="result mr-3">High</div>
@@ -290,7 +510,58 @@
             <div class="card">
               <div class="disease-name-header">
                 <h4 class="type-name">Cardiovascular Risk</h4>
-                <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                <span class="edit-icon" v-b-modal.modal-cvd> <i class="fas fa-pen"></i></span>
+                <b-modal id="modal-cvd" class="modal-coordinate">
+                  <template v-slot:modal-header>
+                    <span class="title">Set Cardiovascular</span>
+                  </template>
+                  <div class="d-flex align-items-center">
+                    <div class="form-group">
+                      <label for="">CVD</label>
+                      <input type="text" class="form-control form-coordinate circumference-input">
+                    </div>
+                    <div class="measurement-type">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cvdPercent" name="cholesterol" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="customRadio3">%</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="select-device">
+                    <h5>Select Device</h5>
+                    <div class="select-wrapper">
+                      <select class="select">
+                        <option value=""></option>
+                        <option value="value1">Device 1</option>
+                        <option value="value1">Device 2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="comment-section">
+
+                    <div class="form-group">
+                      <label for="comment">Comments/Notes (Optional)</label>
+                      <textarea class="form-control" id="commentCvd" rows="4"></textarea>
+                    </div>
+                  </div>
+
+                  <template v-slot:modal-footer>
+                    <div class="w-100">
+                      <b-button variant="link" size="md" class="float-left font-weight-bold p-0 pl-1">
+                        Unable to Perform
+                      </b-button>
+
+                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                        Add
+                      </b-button>
+
+                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-cvd')">
+                        Cancel
+                      </b-button>
+                    </div>
+                  </template>
+                </b-modal>
               </div>
               <div class="card-body custom-card-body">
                 <div class="body-condition">
