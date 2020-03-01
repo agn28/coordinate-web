@@ -79,7 +79,7 @@
                 <div class="patient-habit">
 
                   <div class="habit-type">
-                    <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                    <span class="edit-icon" @click="$router.push({ name: 'tobacco', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
                     <img src="../../assets/images/icon_smoker.png" class="type-image" width="50" height="50" alt="">
                     <div class="type-name">Tobacco Use</div>
                     <div class="type-1">Smoke</div>
@@ -92,7 +92,7 @@
               <div class="card-body lifestyle-card-body">
                 <div class="patient-habit">
                   <div class="habit-type">
-                    <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                    <span class="edit-icon" @click="$router.push({ name: 'alcohol', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
                     <img src="../../assets/images/icon_alcohol.png" class="type-image" width="50" height="50" alt="">
                     <div class="type-name">Alcohol Consumption</div>
                     <div class="type-2">None</div>
@@ -105,7 +105,7 @@
               <div class="card-body lifestyle-card-body">
                 <div class="patient-habit">
                   <div class="habit-type">
-                    <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                    <span class="edit-icon" @click="$router.push({ name: 'diet', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
                     <img src="../../assets/images/icon_fruits.png" class="type-image" width="50" height="50" alt="">
                     <div class="type-name">Fruits and vegetables intake</div>
                     <div class="type-3">Adequate</div>
@@ -118,7 +118,7 @@
               <div class="card-body lifestyle-card-body">
                 <div class="patient-habit">
                   <div class="habit-type">
-                    <span class="edit-icon"> <i class="fas fa-pen"></i></span>
+                    <span class="edit-icon" @click="$router.push({ name: 'physical', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
                     <img src="../../assets/images/icon_physical-activity.png" class="type-image" width="50" height="50" alt="">
                     <div class="type-name">Physical Activity</div>
                     <div class="type-3">Inadequate</div>
@@ -166,7 +166,7 @@
                                 </div>
                               </div>
                             </div>
-                            
+
                             <div class="select-device">
                               <h5>Select Device</h5>
                               <div class="select-wrapper">

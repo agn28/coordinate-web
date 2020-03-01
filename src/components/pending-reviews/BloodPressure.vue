@@ -46,8 +46,51 @@
                       <label class="custom-control-label" for="leftArm">Left</label>
                     </div>
                     <div class="custom-control custom-radio">
-                      <input type="radio" id="rightArm" name="customRadio" class="custom-control-input">
+                      <input type="radio" id="rightArm" name="customRadio" class="custom-control-input" v-b-modal.modal-right>
                       <label class="custom-control-label" for="rightArm">Right</label>
+                      <b-modal id="modal-right" class="modal-coordinate">
+                        <template v-slot:modal-header>
+                          <span class="title">Reason for using Right Arm</span>
+                        </template>
+                        <div class="d-flex align-items-center">
+                          <div class="reason-type">
+                            <div class="form-group">
+                              <div class="custom-control custom-radio">
+                                <input type="radio" id="left-missing" name="left-missing" class="custom-control-input" >
+                                <label class="custom-control-label" for="left-missing">Left arm is missing</label>
+                              </div>
+                              <div class="custom-control custom-radio">
+                                <input type="radio" id="arm-broken" name="arm-broken" class="custom-control-input">
+                                <label class="custom-control-label" for="arm-broken">Participant’s hand is broken into pieces</label>
+                              </div>
+                              <div class="custom-control custom-radio">
+                                <input type="radio" id="other" name="other" class="custom-control-input">
+                                <label class="custom-control-label" for="other">Other</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="comment-section">
+
+                          <div class="form-group">
+                            <label for="comment">State Reason</label>
+                            <textarea class="form-control" id="comment" rows="4"></textarea>
+                          </div>
+                        </div>
+
+                        <template v-slot:modal-footer>
+                          <div class="w-100">
+                            <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                              Save
+                            </b-button>
+
+                            <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-right')">
+                              Cancel
+                            </b-button>
+                          </div>
+                        </template>
+                      </b-modal>
                     </div>
                   </div>
                 </div>
@@ -106,7 +149,17 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="warning-msg">
 
+            <p class="msg-section"><span><i class="fas fa-exclamation-circle"></i></span>Measurement added. Participant must rest for one or
+              two minutes before taking the next BP measurement.
+            </p>
+          </div>
+
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-lg-6">
@@ -127,7 +180,54 @@
               </div>
             </div>
               <button class="btn btn-primary mr-4" @click="$router.push({ name: 'pendingReviewGenerate', params: { reviewId: '1234s'}})">Save</button>
-              <button class="btn btn-light border" >Unable to Perform</button>
+              <button class="btn btn-light border" v-b-modal.modal-unable>Unable to Perform</button>
+              <b-modal id="modal-unable" class="modal-coordinate">
+              <template v-slot:modal-header>
+                <span class="title">Reason for Skipping</span>
+              </template>
+              <div class="d-flex align-items-center">
+                <div class="reason-type">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="refuse" name="" class="custom-control-input" >
+                      <label class="custom-control-label" for="refuse">Patient refused</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="p-unable" name="" class="custom-control-input">
+                      <label class="custom-control-label" for="p-unable">Patient unable</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="ins-error" name="" class="custom-control-input">
+                      <label class="custom-control-label" for="ins-error">Instrument error</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="other-skipping" name="other" class="custom-control-input">
+                      <label class="custom-control-label" for="other-skipping">Other</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="comment-section">
+
+                <div class="form-group">
+                  <label for="comment-unable">State Reason</label>
+                  <textarea class="form-control" id="comment-unable" rows="4"></textarea>
+                </div>
+              </div>
+
+              <template v-slot:modal-footer>
+                <div class="w-100">
+                  <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                    Skip
+                  </b-button>
+
+                  <b-button variant="link" size="md" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-unable')">
+                    Cancel
+                  </b-button>
+                </div>
+              </template>
+            </b-modal>
           </div>
 
         </div>

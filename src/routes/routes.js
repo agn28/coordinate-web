@@ -12,6 +12,13 @@ import PendingReviewDetail from '../components/pending-reviews/Show'
 import PendingReviewGenerate from '../components/pending-reviews/Generate'
 import PendingReviewBloodPressure from '../components/pending-reviews/BloodPressure'
 
+import Tobacco from '../components/questionnaire/Tobacco'
+import Alcohol from '../components/questionnaire/Alcohol'
+import Diet from '../components/questionnaire/Diet'
+import Physical from '../components/questionnaire/Physical-activity'
+import Medication from '../components/questionnaire/Medication'
+import Medical from '../components/questionnaire/Medical'
+
 import Encounters from '../components/encounters/List'
 import EncounterCreate from '../components/encounters/Create'
 
@@ -178,5 +185,43 @@ export const routes = [
     name: 'pendingReviewBloodPressure',
     component: PendingReviewBloodPressure
   },
+
+  {
+    path: '/questionnaire/tobacco',
+    name: 'tobacco',
+    component: Tobacco
+  },
+
+  {
+    path: '/questionnaire/alcohol',
+    name: 'alcohol',
+    component: Alcohol
+  },
+
+  {
+    path: '/questionnaire/diet',
+    name: 'diet',
+    component: Diet
+  },
+
+  {
+    path: '/questionnaire/physical-activity',
+    name: 'physical',
+    component: Physical
+  },
+
+  {
+    path: '/questionnaire/medication',
+    name: 'medication',
+    component: Medication
+  },
+
+  {
+    path: '/questionnaire/medical',
+    name: 'medical',
+    component: Medical
+  },
+
+
 
 ]

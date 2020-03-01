@@ -149,6 +149,32 @@
     }
   }
 
+  .warning-msg {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+    margin: 0 30px 30px;
+
+    .msg-section {
+      background: #FFF8E1;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding: 22px;
+
+      span {
+        margin-right: 16px;
+
+        i {
+          color: #DADADA;
+        }
+      }
+    }
+  }
+
 
   .comment-section {
     font-family: Roboto;
@@ -201,9 +227,11 @@
         padding: 7px;
         width: 100%;
         font-size: 16px;
+
         &:focus {
           color: black;
         }
+
         // Hack for IE 11+
         &::-ms-expand {
           display: none;
@@ -213,4 +241,59 @@
   }
 
 
+}
+
+
+#modal-right {
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+
+  .reason-type {
+    .custom-control {
+      margin-bottom: 20px;
+    }
+  }
+
+  .comment-section {
+    margin-top: 19px;
+
+    textarea {
+      resize: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#modal-unable {
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+
+  .reason-type {
+    .custom-control {
+      margin-bottom: 20px;
+    }
+  }
+
+  .comment-section {
+    margin-top: 19px;
+
+    textarea {
+      resize: none;
+      background: #FFFFFF;
+      border: 1px solid #CED4DA;
+      box-sizing: border-box;
+    }
+  }
 }
