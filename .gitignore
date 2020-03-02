@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-
+/public/assets/css/sb-admin-2.css
+/public/assets/css/sb-admin-2.min.css
 # local env files
 .env.local
 .env.*.local

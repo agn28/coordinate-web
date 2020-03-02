@@ -17,7 +17,7 @@
           <div class="input-group md-form form-sm form-1 pl-0">
             <div class="input-group-prepend">
             <span class="input-group-text lighten-3" id="basic-text1"><i class="fas fa-search"
-                                                                                aria-hidden="true"></i></span>
+                                                                         aria-hidden="true"></i></span>
             </div>
             <input class="form-control my-0 py-1 border-left-0" type="text" placeholder="Patient Name, ID, NID" aria-label="Search">
           </div>
@@ -28,7 +28,7 @@
         <div class="patient-list-table ml-3 mr-3">
           <div class="table-responsive">
             <table class="table">
-            <thead>
+              <thead>
               <tr>
                 <th scope="col">
                   <div class="custom-control custom-checkbox">
@@ -42,29 +42,29 @@
                 <th scope="col">Age</th>
                 <th scope="col">Gender</th>
               </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(patient, index) in patients" :key="index" @click="$router.push({ name: 'pendingReviewDetail', params: { reviewId: '1234s'}})">
-                <template v-if="patient.resource.identifier && patient.resource.birthDate && patient.resource.gender">
+              </thead>
+              <tbody>
+              <tr v-for="(patient, index) in patients" :key="index" @click="$router.push({ name: 'pendingReviewDetail', params: { patientId: patient.id}})">
+                <template v-if="patient.body && patient.body.first_name">
                   <th scope="row">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input">
                       <label class="custom-control-label" ></label>
                     </div>
                   </th>
-                  <td>{{ getId(patient.resource.identifier, 'official') }}</td>
+                  <td>{{ patient.body.first_name + " " + patient.body.last_name }}</td>
                   <!-- <td>{{ getId(patient.resource.identifier, 'usual') }}</td> -->
 
-                  <td>{{ patient.resource.birthDate }}</td>
+                  <td>{{ patient.body.pid }}</td>
                   <td>
-                    NID: 123456
+                    {{ patient.body.nid }}
                   </td>
-                  <td class="text-capitalize">45</td>
-                  <td class="text-capitalize">{{ patient.resource.gender }}</td>
+                  <td class="text-capitalize">{{ patient.body.age}}</td>
+                  <td class="text-capitalize">{{ patient.body.gender }}</td>
                 </template>
               </tr>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -75,48 +75,48 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import {RotateSquare2} from 'vue-loading-spinner';
-import Vue from 'vue';
-import { VuejsDatatableFactory } from 'vuejs-datatable';
+  // @ is an alias to /src
+  import {RotateSquare2} from 'vue-loading-spinner';
+  import Vue from 'vue';
+  import { VuejsDatatableFactory } from 'vuejs-datatable';
 
-Vue.use( VuejsDatatableFactory );
+  Vue.use( VuejsDatatableFactory );
 
-export default {
-  name: "patients",
-  components: { RotateSquare2 },
-  data() {
-    return {
-      isLoading: true,
-      patients: []
-    };
-  },
-  methods: {
-    getPatients() {
-      this.$http.get("/patients").then(response => {
-        if (response.status == 200) {
-          this.patients = response.data.entry;
-          this.isLoading = false;
-        }
-      });
+  export default {
+    name: "patients",
+    components: { RotateSquare2 },
+    data() {
+      return {
+        isLoading: true,
+        patients: []
+      };
     },
+    methods: {
+      getPatients() {
+        this.$http.get("/patients").then(response => {
+          if (response.status == 200) {
+            this.patients = response.data.data;
+            this.isLoading = false;
+          }
+        });
+      },
 
-    getId(identifier, type) {
-      if (!identifier) {
+      getId(identifier, type) {
+        if (!identifier) {
+          return '';
+        }
+        let id = identifier.find(x => x.use === type);
+
+        if (id) {
+          return id.value;
+        }
         return '';
       }
-      let id = identifier.find(x => x.use === type);
-
-      if (id) {
-        return id.value;
-      }
-      return '';
+    },
+    created() {
+      this.getPatients();
     }
-  },
-  mounted() {
-    this.getPatients();
-  }
-};
+  };
 </script>
 
 <style lang="">

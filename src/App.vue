@@ -12,7 +12,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <sidebar></sidebar>
+    <sidebar v-if="authenticated"></sidebar>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -36,14 +36,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
+
 
 export default {
   name: 'app',
   components: {
     Sidebar,
     Topbar
+  },
+  computed : {
+    ...mapGetters({
+      authenticated: 'auth/authenticated',
+      user: 'auth/userInfo'
+    })
   }
 }
 </script>

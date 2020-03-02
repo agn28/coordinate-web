@@ -1,5 +1,14 @@
 //Pending Patients Preview
 
+.RED {
+  color: #cf0026;
+}
+.AMBER {
+  color: #D95331;
+}
+.GREEN {
+  color: #3B853E;
+}
 .pending-review-assessment {
   font-family: Roboto;
   font-style: normal;
@@ -16,8 +25,6 @@
     margin-top: 4px;
     margin-right: 20px;
   }
-
-
   .breadcrumb {
     margin-bottom: 0 !important;
     padding: 0 !important;
@@ -159,20 +166,7 @@
           margin-left: 6px;
         }
 
-        .type-1 {
-          color: #D43640;
-          margin-bottom: 7px;
-          margin-left: 6px;
-        }
-
-        .type-2 {
-          color: #3B853E;
-          margin-bottom: 7px;
-          margin-left: 6px;
-        }
-
-        .type-3 {
-          color: #D95331;
+        .type {
           margin-bottom: 7px;
           margin-left: 6px;
         }
@@ -227,7 +221,6 @@
           font-weight: normal;
           font-size: 16px;
           line-height: 24px;
-          color: #CF0026;
           display: flex;
           margin-bottom: 14px;
 
@@ -353,7 +346,6 @@
           font-weight: normal;
           font-size: 16px;
           line-height: 24px;
-          color: #CF0026;
           display: flex;
           margin-bottom: 14px;
 
