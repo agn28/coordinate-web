@@ -1,0 +1,29 @@
+.modal-dialog {
+    .modal-content {
+        padding: 17px 22px 12px 22px;
+    }
+    .modal-body {
+        padding: 20px 0px;
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+    .modal-footer {
+        border-top: none;
+        font-size: 16px;
+        padding: 0px;
+        margin-bottom: 13px;
+    }
+
+    .modal-header {
+        border-bottom: none;
+        padding: 0px;
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            padding: 0 0 10px 0;
+            border-bottom: none;
+            margin-top: 9px;
+            margin-left: 6px;
+        }
+    }
+}

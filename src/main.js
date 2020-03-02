@@ -5,9 +5,28 @@ import { routes } from './routes/routes';
 import axios from 'axios'
 import Vuex from 'vuex'
 import moment from 'moment'
+import { VuejsDatatableFactory } from 'vuejs-datatable';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VueFormWizard from 'vue-form-wizard'
+import { MultiSelectPlugin } from '@syncfusion/ej2-vue-dropdowns';
 
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
+import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+
+
+
+Vue.use( VuejsDatatableFactory );
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+Vue.use(VueFormWizard)
+Vue.use(MultiSelectPlugin);
 
 axios.defaults.baseURL = 'https://fhirapi.monarko.com';  
 // axios.defaults.baseURL = 'http://127.0.0.1:3000';

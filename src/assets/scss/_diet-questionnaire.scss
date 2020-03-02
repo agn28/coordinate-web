@@ -1,0 +1,297 @@
+.diet-questionnaire {
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  label {
+    font-size: 14px;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 22px;;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 12px 20px 17px 20px;
+
+    .patient-image {
+      margin-right: 12px;
+
+      img {
+        width: 25px;
+      }
+
+    }
+
+    .patient-details {
+      flex-direction: row;
+
+      .patient-name {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 8px;
+        margin-right: 30px;
+      }
+
+      .details {
+        div {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  .diet-question {
+    margin: 39px 30px 30px;
+
+    .custom-card-body {
+      .wizard-header {
+        display: none;
+      }
+
+      .wizard-navigation {
+        .wizard-progress-with-circle {
+          display: none;
+        }
+
+        .wizard-nav-pills {
+          display: none;
+        }
+      }
+
+      .wizard-tab-content {
+        border-bottom: 2px solid #F8F8F8;
+        margin-bottom: 30px;
+        .step-1 {
+          .question-msg {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            color: #000000;
+            margin-bottom: 19px;
+
+            p {
+              background: #F8F8F8;
+              border-radius: 4px;
+              display: flex;
+              align-items: center;
+              padding: 22px;
+
+              span {
+                margin-right: 16px;
+
+                i {
+                  color: #DADADA;
+                }
+              }
+            }
+          }
+
+          .question-section {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(0, 0, 0, 0.87);
+            p {
+              margin-bottom: 27px !important;
+            };
+
+            .btn {
+              &:hover {
+                background: #E1F5FE;
+              }
+            }
+          }
+        }
+
+        .step-2 {
+
+          .question-section {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(0, 0, 0, 0.87);
+            p {
+              margin-bottom: 27px !important;
+            };
+
+            .checkbox-ans {
+              margin: 0 32px;
+
+              .custom-control {
+                margin-bottom: 18px;
+              }
+
+            }
+          }
+        }
+
+        .step-3 {
+          .question-msg {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            color: #000000;
+            margin-bottom: 19px;
+
+            p {
+              background: #F8F8F8;
+              border-radius: 4px;
+              display: flex;
+              align-items: center;
+              padding: 22px;
+
+              span {
+                margin-right: 16px;
+
+                i {
+                  color: #DADADA;
+                }
+              }
+            }
+          }
+
+          .question-section {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(0, 0, 0, 0.87);
+            p {
+              margin-bottom: 27px !important;
+            };
+
+            .btn {
+              &:hover {
+                background: #E1F5FE;
+              }
+            }
+
+            .custom-control {
+              margin-bottom: 18px;
+            }
+          }
+        }
+      }
+
+      .wizard-footer-left {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        button {
+          background: transparent !important;
+          position: relative;
+          color: rgba(0, 0, 0, 0.87) !important;
+          border: none !important;
+
+          &:before {
+            position: absolute;
+            top: 12px;
+            left: 24px;
+            content: '';
+            width: 9px;
+            height: 9px;
+            border-top: 2px solid #000000;
+            border-left: 2px solid #000000;
+            transform: rotate(-45deg);
+            color: rgba(0, 0, 0, 0.87);
+          }
+        }
+      }
+
+      .wizard-footer-right {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        button {
+          background: transparent !important;
+          position: relative;
+          color: rgba(0, 0, 0, 0.87) !important;
+          border: none !important;
+
+          &:after {
+            position: absolute;
+            top: 12px;
+            right: 34px;
+            content: '';
+            width: 9px;
+            height: 9px;
+            border-top: 2px solid #000000;
+            border-right: 2px solid #000000;
+            transform: rotate(45deg);
+            color: rgba(0, 0, 0, 0.87);
+          }
+        }
+      }
+
+      .wizard-footer-bullet {
+        display: flex;
+        justify-content: center;
+        margin-top: 19px;
+        .bullet-btn {
+          width: 8px;
+          height: 8px;
+          background: rgba(0, 0, 0, 0.16);
+          margin-right: 8px;
+          border-radius: 50%;
+
+          &.active {
+            background: #01579B;
+          }
+        }
+      }
+    }
+
+
+
+  }
+}

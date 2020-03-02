@@ -1,10 +1,25 @@
+import Login from '../components/login/Login'
 import Dashboard from '../components/Dashboard'
 import HealthList from '../components/health-records/List'
 import HealthDetail from '../components/health-records/Show'
 import Assessments from '../components/health-records/assessments/Show'
 import Patients from '../components/patients/List'
+import PatientsOverview from '../components/patients/Overview'
 import PatientCreate from '../components/patients/Create'
 import PatientEdit from '../components/patients/Edit'
+
+import PendingReviews from '../components/pending-reviews/List'
+import PendingReviewDetail from '../components/pending-reviews/Show'
+import PendingReviewGenerate from '../components/pending-reviews/Generate'
+import PendingReviewBloodPressure from '../components/pending-reviews/BloodPressure'
+
+import Tobacco from '../components/questionnaire/Tobacco'
+import Alcohol from '../components/questionnaire/Alcohol'
+import Diet from '../components/questionnaire/Diet'
+import Physical from '../components/questionnaire/Physical-activity'
+import Medication from '../components/questionnaire/Medication'
+import Medical from '../components/questionnaire/Medical'
+
 import Encounters from '../components/encounters/List'
 import EncounterCreate from '../components/encounters/Create'
 
@@ -29,6 +44,11 @@ import DiagnosticCreate from '../components/diagnostics/Create'
 import HealthEncounters from '../components/health-records/encounters/List'
 
 export const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
     {
         path: '/',
         redirect: '/dashboard'
@@ -59,9 +79,14 @@ export const routes = [
     component: HealthEncounters
   },
   {
-    path: '/patients',
+    path: '/patients/list',
     name: 'patients',
     component: Patients
+  },
+  {
+    path: '/patients/:patientId/overview',
+    name: 'patientOverview',
+    component: PatientsOverview
   },
   {
     path: '/patients/create',
@@ -145,4 +170,64 @@ export const routes = [
     name: 'diagnosticCreate',
     component: DiagnosticCreate
   },
+
+  {
+    path: '/pending-reviews/list',
+    name: 'pendingReviews',
+    component: PendingReviews
+  },
+  {
+    path: '/pending-reviews/:reviewId',
+    name: 'pendingReviewDetail',
+    component: PendingReviewDetail
+  },
+  {
+    path: '/pending-reviews/:reviewId/generate',
+    name: 'pendingReviewGenerate',
+    component: PendingReviewGenerate
+  },
+  {
+    path: '/pending-reviews/:reviewId/blood-pressure',
+    name: 'pendingReviewBloodPressure',
+    component: PendingReviewBloodPressure
+  },
+
+  {
+    path: '/questionnaire/tobacco',
+    name: 'tobacco',
+    component: Tobacco
+  },
+
+  {
+    path: '/questionnaire/alcohol',
+    name: 'alcohol',
+    component: Alcohol
+  },
+
+  {
+    path: '/questionnaire/diet',
+    name: 'diet',
+    component: Diet
+  },
+
+  {
+    path: '/questionnaire/physical-activity',
+    name: 'physical',
+    component: Physical
+  },
+
+  {
+    path: '/questionnaire/medication',
+    name: 'medication',
+    component: Medication
+  },
+
+  {
+    path: '/questionnaire/medical',
+    name: 'medical',
+    component: Medical
+  },
+
+
+
 ]
