@@ -12,7 +12,6 @@
       <div class="sidebar-brand-text ml-2">Coordinate</div>
     </a>
 
-
     <!-- Nav Item - Dashboard -->
     <li class="nav-item" :class="this.$route.path.includes('dashboard') ? 'active' : ''">
       <router-link to="/dashboard" class="nav-link">
@@ -52,7 +51,7 @@
 
         </div>
         <div class="account-item">
-          <a href="#">
+          <a href="#" @click.prevent="signOut">
               <i class="large material-icons bg-icon">exit_to_app</i>
           </a>
         </div>
@@ -68,9 +67,29 @@
 </template>
 
 <script>
-export default {
-  mounted() {}
-};
+  import { mapGetters, mapActions } from 'vuex'
+    export default {
+      computed : {
+        ...mapGetters({
+          authenticated: 'auth/authenticated',
+          user: 'auth/userInfo'
+        })
+      },
+      mounted() {},
+      methods: {
+        ...mapActions({
+          signOutAction: 'auth/signOut'
+        }),
+        signOut() {
+          this.signOutAction().then(() => {
+            console.log('hello')
+            this.$router.replace({
+              name: 'login'
+            })
+          })
+        }
+      },
+    };
 </script>
 
 <style>

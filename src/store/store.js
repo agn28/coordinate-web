@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import auth from "./auth";
 Vue.use(Vuex)
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
   state: {
     count: 0,
     patients: []
@@ -20,5 +20,11 @@ export const store = new Vuex.Store({
     getPatients: state => {
       return state.patients;
     }
+  },
+  actions: {
+
+  },
+  modules: {
+    auth
   }
 })

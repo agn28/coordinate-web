@@ -1,10 +1,9 @@
 /*!
  * Start Bootstrap -  v0.1.0 ()
- * Copyright 2013-2020 
+ * Copyright 2013-2019
  * Licensed under  (https://github.com/BlackrockDigital/health-records/blob/master/LICENSE)
  */
 
-@charset "UTF-8";
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -4205,15 +4204,17 @@ input[type="button"].btn-block {
   background-color: #01579B;
   border: 0;
   border-radius: 1rem;
-  -moz-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   -moz-appearance: none;
   appearance: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .custom-range::-moz-range-thumb {
-    -moz-transition: none;
+    -webkit-transition: none;
     transition: none;
   }
 }
@@ -4241,14 +4242,16 @@ input[type="button"].btn-block {
   background-color: #01579B;
   border: 0;
   border-radius: 1rem;
-  -ms-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   appearance: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .custom-range::-ms-thumb {
-    -ms-transition: none;
+    -webkit-transition: none;
     transition: none;
   }
 }
@@ -10862,15 +10865,6 @@ a:focus {
   font-size: 20px;
 }
 
-.custom-text-link {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 24px;
-  color: #0277BD;
-}
-
 .border-left-primary {
   border-left: 0.25rem solid #01579B !important;
 }
@@ -11004,34 +10998,6 @@ a:focus {
 
 .topbar {
   height: 4.375rem;
-}
-
-.topbar .login_user {
-  font-family: Roboto;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.topbar .login_user .welcomeMsg {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  margin-bottom: 5px;
-}
-
-.topbar .login_user .title {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 30px;
-}
-
-.topbar .login_user .roleUser {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 24px;
-  color: #2E7D32;
 }
 
 .topbar #sidebarToggleTop {
@@ -11191,22 +11157,15 @@ a:focus {
   text-align: center;
   padding: 0.75rem 1rem;
   width: 6.5rem;
-  margin-left: 9px;
-  display: inline-block;
 }
 
 .sidebar .nav-item .nav-link span {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 0.65rem;
+  display: block;
 }
 
 .sidebar .nav-item.active .nav-link {
-  font-weight: 500;
-  background-color: #004C87;
-  border-radius: 3px;
+  font-weight: 700;
 }
 
 .sidebar .nav-item .collapse {
@@ -11271,7 +11230,7 @@ a:focus {
 .sidebar .nav-item .collapse .collapse-inner .collapse-item.active,
 .sidebar .nav-item .collapsing .collapse-inner .collapse-item.active {
   color: #01579B;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .sidebar #sidebarToggle {
@@ -11341,12 +11300,7 @@ a:focus {
 
 @media (min-width: 768px) {
   .sidebar {
-    width: 280px !important;
-  }
-  .sidebar .sidebar-brand-text {
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
+    width: 14rem !important;
   }
   .sidebar .nav-item .collapse {
     position: relative;
@@ -11371,21 +11325,19 @@ a:focus {
     margin: 0 1rem;
   }
   .sidebar .nav-item .nav-link {
-    display: inline-block;
+    display: block;
+    width: 100%;
     text-align: left;
     padding: 1rem;
-    width: 13.8rem;
+    width: 14rem;
   }
   .sidebar .nav-item .nav-link i {
-    font-size: 16px;
-    margin-right: 1.25rem;
+    font-size: 0.85rem;
+    margin-right: 0.25rem;
   }
   .sidebar .nav-item .nav-link span {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 0.85rem;
+    display: inline;
   }
   .sidebar .nav-item .nav-link[data-toggle="collapse"]::after {
     width: 1rem;
@@ -11466,71 +11418,6 @@ a:focus {
   .sidebar.toggled .sidebar-heading {
     text-align: center;
   }
-  #sidebarToggle {
-    background-color: transparent;
-    position: absolute;
-    bottom: 62px;
-    left: 200px;
-  }
-  #sidebarToggle::after {
-    color: #b7b9cc;
-  }
-  #sidebarToggle:hover {
-    background-color: transparent;
-  }
-}
-
-@media (min-width: 992px) {
-  .sidebar {
-    width: 280px !important;
-  }
-  .sidebar .sidebar-brand-text {
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-  }
-  .sidebar .nav-item .nav-link {
-    display: inline-block;
-    text-align: left;
-    padding: 1rem;
-    width: 14rem;
-  }
-  .sidebar .nav-item .nav-link i {
-    font-size: 16px;
-    margin-right: 1.25rem;
-  }
-  .sidebar .nav-item .nav-link span {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  .sidebar .nav-item .nav-link[data-toggle="collapse"]::after {
-    width: 1rem;
-    text-align: center;
-    float: right;
-    vertical-align: 0;
-    border: 0;
-    font-weight: 900;
-    content: '\f107';
-    font-family: 'Font Awesome 5 Free';
-  }
-  .sidebar .nav-item .nav-link[data-toggle="collapse"].collapsed::after {
-    content: '\f105';
-  }
-  .sidebar #sidebarToggle {
-    background-color: transparent;
-    position: absolute;
-    bottom: 62px;
-    left: 200px;
-  }
-  .sidebar #sidebarToggle::after {
-    color: #b7b9cc;
-  }
-  .sidebar #sidebarToggle:hover {
-    background-color: transparent;
-  }
 }
 
 .sidebar-light .sidebar-brand {
@@ -11574,10 +11461,7 @@ a:focus {
 }
 
 .sidebar-light #sidebarToggle {
-  background-color: transparent;
-  position: absolute;
-  bottom: 62px;
-  left: 10.6%;
+  background-color: #eaecf4;
 }
 
 .sidebar-light #sidebarToggle::after {
@@ -11629,7 +11513,7 @@ a:focus {
 }
 
 .sidebar-dark #sidebarToggle {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-dark #sidebarToggle::after {
@@ -11637,7 +11521,7 @@ a:focus {
 }
 
 .sidebar-dark #sidebarToggle:hover {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .sidebar-dark.toggled #sidebarToggle::after {
@@ -11694,20 +11578,7 @@ a:focus {
 
 .btn-icon-split .text {
   display: inline-block;
-  padding: 11px 15px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 100%;
-  color: #6C757D;
-}
-
-.btn-icon-split .text i {
-  margin-right: 8px;
-  font-size: 14px;
-  position: relative;
-  top: 2px;
+  padding: 0.375rem 0.75rem;
 }
 
 .btn-icon-split.btn-sm .icon, .btn-group-sm > .btn-icon-split.btn .icon {
@@ -11731,139 +11602,6 @@ a:focus {
   border-color: #6C757D;
   border-radius: 3px;
   background-color: #fff;
-}
-
-.btn-primary {
-  background-color: #01579B !important;
-  border-radius: 2px;
-  border-color: #01579B !important;
-}
-
-.btn-outline-primary.btn-coordinate {
-  border-color: #01579B !important;
-  color: #01579B;
-  border-radius: 2px;
-}
-
-.btn-outline-primary.btn-coordinate i {
-  font-size: 10px;
-  margin-right: 8px;
-}
-
-.btn-outline-primary.btn-coordinate:hover {
-  color: #fff;
-  background-color: #01579B;
-  border-color: #01579B;
-}
-
-@media (min-width: 768px) {
-  .btn-icon-split {
-    padding: 0;
-    overflow: hidden;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-align: stretch;
-    -ms-flex-align: stretch;
-    align-items: stretch;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-  .btn-icon-split .icon {
-    background: #fff;
-    display: inline-block;
-    padding: 0.375rem 0 0.375rem 0.75rem;
-  }
-  .btn-icon-split .text {
-    display: inline-block;
-    padding: 6px 2px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 100%;
-    color: #6C757D;
-  }
-  .btn-icon-split .text i {
-    margin-right: 8px;
-    font-size: 14px;
-    position: relative;
-    top: 2px;
-  }
-  .btn-icon-split.btn-sm .icon, .btn-group-sm > .btn-icon-split.btn .icon {
-    padding: 0.25rem 0.5rem;
-  }
-  .btn-icon-split.btn-sm .text, .btn-group-sm > .btn-icon-split.btn .text {
-    padding: 0.25rem 0.5rem;
-  }
-  .btn-icon-split.btn-lg .icon, .btn-group-lg > .btn-icon-split.btn .icon {
-    padding: 0.5rem 1rem;
-  }
-  .btn-icon-split.btn-lg .text, .btn-group-lg > .btn-icon-split.btn .text {
-    padding: 0.5rem 1rem;
-  }
-  .btn-icon-split.btn-light {
-    color: #6C757D;
-    border-color: #6C757D;
-    border-radius: 3px;
-    background-color: #fff;
-  }
-}
-
-@media (min-width: 992px) {
-  .btn-icon-split {
-    padding: 0;
-    overflow: hidden;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-align: stretch;
-    -ms-flex-align: stretch;
-    align-items: stretch;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-  .btn-icon-split .icon {
-    background: #fff;
-    display: inline-block;
-    padding: 0.375rem 0 0.375rem 0.75rem;
-  }
-  .btn-icon-split .text {
-    display: inline-block;
-    padding: 11px 15px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    color: #6C757D;
-  }
-  .btn-icon-split .text i {
-    margin-right: 8px;
-    font-size: 14px;
-    position: relative;
-    top: 2px;
-  }
-  .btn-icon-split.btn-sm .icon, .btn-group-sm > .btn-icon-split.btn .icon {
-    padding: 0.25rem 0.5rem;
-  }
-  .btn-icon-split.btn-sm .text, .btn-group-sm > .btn-icon-split.btn .text {
-    padding: 0.25rem 0.5rem;
-  }
-  .btn-icon-split.btn-lg .icon, .btn-group-lg > .btn-icon-split.btn .icon {
-    padding: 0.5rem 1rem;
-  }
-  .btn-icon-split.btn-lg .text, .btn-group-lg > .btn-icon-split.btn .text {
-    padding: 0.5rem 1rem;
-  }
-  .btn-icon-split.btn-light {
-    color: #6C757D;
-    border-color: #6C757D;
-    border-radius: 3px;
-    background-color: #fff;
-  }
 }
 
 .card .card-header .dropdown {
@@ -11942,75 +11680,110 @@ a:focus {
   }
 }
 
-.login-body {
-  background: #01579B;
-  height: 100vh;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 30px;
+.bg-login-image {
+  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+  background-position: center;
+  background-size: cover;
 }
 
-.login-body .brand-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  color: #FAFAFA;
+.bg-register-image {
+  background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
+  background-position: center;
+  background-size: cover;
 }
 
-.login-body .brand-header .brand-icon img {
-  width: 200px;
+.bg-password-image {
+  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
+  background-position: center;
+  background-size: cover;
 }
 
-.login-body .brand-header .brand-text {
-  margin-top: 12px;
-  margin-left: 22.86px;
+form.user .custom-checkbox.small label {
+  line-height: 1.5rem;
 }
 
-.login-body .login {
-  margin: 0 auto;
-  width: 500px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.15px;
+form.user .form-control-user {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 1.5rem 1rem;
 }
 
-.login-body .login .login-screen {
-  background-color: #FFF;
-  padding: 20px;
-  border-radius: 5px;
+form.user .btn-user {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 0.75rem 1rem;
 }
 
-.login-body .login .login-screen .app-title {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 30px;
-  text-align: center;
-  color: rgba(0, 0, 0, 0.87);
-  margin-bottom: 30px;
+.btn-google {
+  color: #fff;
+  background-color: #ea4335;
+  border-color: #fff;
 }
 
-.login-body .login .login-screen .login-form .input-group-text {
-  background: transparent;
+.btn-google:hover {
+  color: #fff;
+  background-color: #e12717;
+  border-color: #e6e6e6;
+}
+
+.btn-google:focus, .btn-google.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+}
+
+.btn-google.disabled, .btn-google:disabled {
+  color: #fff;
+  background-color: #ea4335;
+  border-color: #fff;
+}
+
+.btn-google:not(:disabled):not(.disabled):active, .btn-google:not(:disabled):not(.disabled).active,
+.show > .btn-google.dropdown-toggle {
+  color: #fff;
+  background-color: #d62516;
+  border-color: #dfdfdf;
+}
+
+.btn-google:not(:disabled):not(.disabled):active:focus, .btn-google:not(:disabled):not(.disabled).active:focus,
+.show > .btn-google.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+}
+
+.btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border-color: #fff;
+}
+
+.btn-facebook:hover {
+  color: #fff;
+  background-color: #30497c;
+  border-color: #e6e6e6;
+}
+
+.btn-facebook:focus, .btn-facebook.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+}
+
+.btn-facebook.disabled, .btn-facebook:disabled {
+  color: #fff;
+  background-color: #3b5998;
+  border-color: #fff;
+}
+
+.btn-facebook:not(:disabled):not(.disabled):active, .btn-facebook:not(:disabled):not(.disabled).active,
+.show > .btn-facebook.dropdown-toggle {
+  color: #fff;
+  background-color: #2d4373;
+  border-color: #dfdfdf;
+}
+
+.btn-facebook:not(:disabled):not(.disabled):active:focus, .btn-facebook:not(:disabled):not(.disabled).active:focus,
+.show > .btn-facebook.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
 }
 
 .error {
@@ -12023,133 +11796,133 @@ a:focus {
 
 @-webkit-keyframes noise-anim {
   0% {
-    clip: rect(59px, 9999px, 68px, 0);
+    clip: rect(30px, 9999px, 96px, 0);
   }
   5% {
-    clip: rect(16px, 9999px, 98px, 0);
+    clip: rect(96px, 9999px, 9px, 0);
   }
   10% {
-    clip: rect(80px, 9999px, 24px, 0);
+    clip: rect(65px, 9999px, 38px, 0);
   }
   15% {
-    clip: rect(57px, 9999px, 17px, 0);
+    clip: rect(43px, 9999px, 75px, 0);
   }
   20% {
-    clip: rect(100px, 9999px, 51px, 0);
+    clip: rect(22px, 9999px, 20px, 0);
   }
   25% {
-    clip: rect(67px, 9999px, 54px, 0);
+    clip: rect(26px, 9999px, 9px, 0);
   }
   30% {
-    clip: rect(95px, 9999px, 58px, 0);
+    clip: rect(59px, 9999px, 62px, 0);
   }
   35% {
-    clip: rect(19px, 9999px, 30px, 0);
+    clip: rect(45px, 9999px, 45px, 0);
   }
   40% {
-    clip: rect(4px, 9999px, 6px, 0);
+    clip: rect(76px, 9999px, 40px, 0);
   }
   45% {
-    clip: rect(48px, 9999px, 72px, 0);
+    clip: rect(30px, 9999px, 96px, 0);
   }
   50% {
-    clip: rect(25px, 9999px, 7px, 0);
+    clip: rect(29px, 9999px, 30px, 0);
   }
   55% {
-    clip: rect(78px, 9999px, 36px, 0);
+    clip: rect(65px, 9999px, 26px, 0);
   }
   60% {
-    clip: rect(22px, 9999px, 77px, 0);
+    clip: rect(78px, 9999px, 63px, 0);
   }
   65% {
-    clip: rect(25px, 9999px, 48px, 0);
+    clip: rect(17px, 9999px, 27px, 0);
   }
   70% {
-    clip: rect(43px, 9999px, 19px, 0);
+    clip: rect(75px, 9999px, 41px, 0);
   }
   75% {
-    clip: rect(90px, 9999px, 41px, 0);
+    clip: rect(16px, 9999px, 83px, 0);
   }
   80% {
-    clip: rect(30px, 9999px, 91px, 0);
+    clip: rect(16px, 9999px, 78px, 0);
   }
   85% {
-    clip: rect(98px, 9999px, 86px, 0);
+    clip: rect(67px, 9999px, 54px, 0);
   }
   90% {
-    clip: rect(85px, 9999px, 3px, 0);
+    clip: rect(77px, 9999px, 77px, 0);
   }
   95% {
-    clip: rect(86px, 9999px, 91px, 0);
+    clip: rect(94px, 9999px, 36px, 0);
   }
   100% {
-    clip: rect(52px, 9999px, 50px, 0);
+    clip: rect(59px, 9999px, 3px, 0);
   }
 }
 
 @keyframes noise-anim {
   0% {
-    clip: rect(59px, 9999px, 68px, 0);
+    clip: rect(30px, 9999px, 96px, 0);
   }
   5% {
-    clip: rect(16px, 9999px, 98px, 0);
+    clip: rect(96px, 9999px, 9px, 0);
   }
   10% {
-    clip: rect(80px, 9999px, 24px, 0);
+    clip: rect(65px, 9999px, 38px, 0);
   }
   15% {
-    clip: rect(57px, 9999px, 17px, 0);
+    clip: rect(43px, 9999px, 75px, 0);
   }
   20% {
-    clip: rect(100px, 9999px, 51px, 0);
+    clip: rect(22px, 9999px, 20px, 0);
   }
   25% {
-    clip: rect(67px, 9999px, 54px, 0);
+    clip: rect(26px, 9999px, 9px, 0);
   }
   30% {
-    clip: rect(95px, 9999px, 58px, 0);
+    clip: rect(59px, 9999px, 62px, 0);
   }
   35% {
-    clip: rect(19px, 9999px, 30px, 0);
+    clip: rect(45px, 9999px, 45px, 0);
   }
   40% {
-    clip: rect(4px, 9999px, 6px, 0);
+    clip: rect(76px, 9999px, 40px, 0);
   }
   45% {
-    clip: rect(48px, 9999px, 72px, 0);
+    clip: rect(30px, 9999px, 96px, 0);
   }
   50% {
-    clip: rect(25px, 9999px, 7px, 0);
+    clip: rect(29px, 9999px, 30px, 0);
   }
   55% {
-    clip: rect(78px, 9999px, 36px, 0);
+    clip: rect(65px, 9999px, 26px, 0);
   }
   60% {
-    clip: rect(22px, 9999px, 77px, 0);
+    clip: rect(78px, 9999px, 63px, 0);
   }
   65% {
-    clip: rect(25px, 9999px, 48px, 0);
+    clip: rect(17px, 9999px, 27px, 0);
   }
   70% {
-    clip: rect(43px, 9999px, 19px, 0);
+    clip: rect(75px, 9999px, 41px, 0);
   }
   75% {
-    clip: rect(90px, 9999px, 41px, 0);
+    clip: rect(16px, 9999px, 83px, 0);
   }
   80% {
-    clip: rect(30px, 9999px, 91px, 0);
+    clip: rect(16px, 9999px, 78px, 0);
   }
   85% {
-    clip: rect(98px, 9999px, 86px, 0);
+    clip: rect(67px, 9999px, 54px, 0);
   }
   90% {
-    clip: rect(85px, 9999px, 3px, 0);
+    clip: rect(77px, 9999px, 77px, 0);
   }
   95% {
-    clip: rect(86px, 9999px, 91px, 0);
+    clip: rect(94px, 9999px, 36px, 0);
   }
   100% {
-    clip: rect(52px, 9999px, 50px, 0);
+    clip: rect(59px, 9999px, 3px, 0);
   }
 }
 
@@ -12168,133 +11941,133 @@ a:focus {
 
 @-webkit-keyframes noise-anim-2 {
   0% {
-    clip: rect(5px, 9999px, 78px, 0);
+    clip: rect(64px, 9999px, 64px, 0);
   }
   5% {
-    clip: rect(100px, 9999px, 30px, 0);
+    clip: rect(13px, 9999px, 71px, 0);
   }
   10% {
-    clip: rect(54px, 9999px, 81px, 0);
+    clip: rect(10px, 9999px, 2px, 0);
   }
   15% {
-    clip: rect(80px, 9999px, 69px, 0);
+    clip: rect(35px, 9999px, 54px, 0);
   }
   20% {
-    clip: rect(19px, 9999px, 20px, 0);
+    clip: rect(51px, 9999px, 50px, 0);
   }
   25% {
-    clip: rect(63px, 9999px, 44px, 0);
+    clip: rect(92px, 9999px, 19px, 0);
   }
   30% {
-    clip: rect(57px, 9999px, 45px, 0);
+    clip: rect(64px, 9999px, 90px, 0);
   }
   35% {
-    clip: rect(86px, 9999px, 95px, 0);
+    clip: rect(73px, 9999px, 12px, 0);
   }
   40% {
-    clip: rect(18px, 9999px, 57px, 0);
+    clip: rect(22px, 9999px, 71px, 0);
   }
   45% {
-    clip: rect(54px, 9999px, 22px, 0);
+    clip: rect(35px, 9999px, 87px, 0);
   }
   50% {
-    clip: rect(2px, 9999px, 32px, 0);
+    clip: rect(13px, 9999px, 74px, 0);
   }
   55% {
-    clip: rect(38px, 9999px, 75px, 0);
+    clip: rect(58px, 9999px, 7px, 0);
   }
   60% {
-    clip: rect(86px, 9999px, 83px, 0);
+    clip: rect(45px, 9999px, 25px, 0);
   }
   65% {
-    clip: rect(49px, 9999px, 37px, 0);
+    clip: rect(60px, 9999px, 33px, 0);
   }
   70% {
-    clip: rect(89px, 9999px, 15px, 0);
+    clip: rect(52px, 9999px, 54px, 0);
   }
   75% {
-    clip: rect(30px, 9999px, 4px, 0);
+    clip: rect(18px, 9999px, 26px, 0);
   }
   80% {
-    clip: rect(53px, 9999px, 67px, 0);
+    clip: rect(32px, 9999px, 7px, 0);
   }
   85% {
-    clip: rect(35px, 9999px, 20px, 0);
+    clip: rect(62px, 9999px, 65px, 0);
   }
   90% {
-    clip: rect(96px, 9999px, 26px, 0);
+    clip: rect(68px, 9999px, 37px, 0);
   }
   95% {
-    clip: rect(4px, 9999px, 22px, 0);
+    clip: rect(76px, 9999px, 25px, 0);
   }
   100% {
-    clip: rect(22px, 9999px, 84px, 0);
+    clip: rect(73px, 9999px, 68px, 0);
   }
 }
 
 @keyframes noise-anim-2 {
   0% {
-    clip: rect(5px, 9999px, 78px, 0);
+    clip: rect(64px, 9999px, 64px, 0);
   }
   5% {
-    clip: rect(100px, 9999px, 30px, 0);
+    clip: rect(13px, 9999px, 71px, 0);
   }
   10% {
-    clip: rect(54px, 9999px, 81px, 0);
+    clip: rect(10px, 9999px, 2px, 0);
   }
   15% {
-    clip: rect(80px, 9999px, 69px, 0);
+    clip: rect(35px, 9999px, 54px, 0);
   }
   20% {
-    clip: rect(19px, 9999px, 20px, 0);
+    clip: rect(51px, 9999px, 50px, 0);
   }
   25% {
-    clip: rect(63px, 9999px, 44px, 0);
+    clip: rect(92px, 9999px, 19px, 0);
   }
   30% {
-    clip: rect(57px, 9999px, 45px, 0);
+    clip: rect(64px, 9999px, 90px, 0);
   }
   35% {
-    clip: rect(86px, 9999px, 95px, 0);
+    clip: rect(73px, 9999px, 12px, 0);
   }
   40% {
-    clip: rect(18px, 9999px, 57px, 0);
+    clip: rect(22px, 9999px, 71px, 0);
   }
   45% {
-    clip: rect(54px, 9999px, 22px, 0);
+    clip: rect(35px, 9999px, 87px, 0);
   }
   50% {
-    clip: rect(2px, 9999px, 32px, 0);
+    clip: rect(13px, 9999px, 74px, 0);
   }
   55% {
-    clip: rect(38px, 9999px, 75px, 0);
+    clip: rect(58px, 9999px, 7px, 0);
   }
   60% {
-    clip: rect(86px, 9999px, 83px, 0);
+    clip: rect(45px, 9999px, 25px, 0);
   }
   65% {
-    clip: rect(49px, 9999px, 37px, 0);
+    clip: rect(60px, 9999px, 33px, 0);
   }
   70% {
-    clip: rect(89px, 9999px, 15px, 0);
+    clip: rect(52px, 9999px, 54px, 0);
   }
   75% {
-    clip: rect(30px, 9999px, 4px, 0);
+    clip: rect(18px, 9999px, 26px, 0);
   }
   80% {
-    clip: rect(53px, 9999px, 67px, 0);
+    clip: rect(32px, 9999px, 7px, 0);
   }
   85% {
-    clip: rect(35px, 9999px, 20px, 0);
+    clip: rect(62px, 9999px, 65px, 0);
   }
   90% {
-    clip: rect(96px, 9999px, 26px, 0);
+    clip: rect(68px, 9999px, 37px, 0);
   }
   95% {
-    clip: rect(4px, 9999px, 22px, 0);
+    clip: rect(76px, 9999px, 25px, 0);
   }
   100% {
-    clip: rect(22px, 9999px, 84px, 0);
+    clip: rect(73px, 9999px, 68px, 0);
   }
 }
 
@@ -12326,3074 +12099,11 @@ body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
 
-/*
-  ##Device = Desktops
-  ##Screen = 1281px to higher resolution desktops
-*/
-/*
-  ##Device = Laptops, Desktops
-  ##Screen = B/w 1025px to 1280px
-*/
-/*
-  ##Device = Tablets, Ipads (portrait)
-  ##Screen = B/w 768px to 1024px
-*/
-/*
-  ##Device = Tablets, Ipads (landscape)
-  ##Screen = B/w 768px to 1024px
-*/
-/*
-  ##Device = Low Resolution Tablets, Mobiles (Landscape)
-  ##Screen = B/w 481px to 767px
-*/
-/*
-  ##Device = Most of the Smartphones Mobiles (Portrait)
-  ##Screen = B/w 320px to 479px
-*/
-.pending-review-assessment {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.pending-review-assessment .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.pending-review-assessment .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.pending-review-assessment .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.pending-review-assessment .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.pending-review-assessment .patient {
-  padding: 19px 20px 18px 20px;
-}
-
-.pending-review-assessment .patient-image img {
-  width: 55px;
-}
-
-.pending-review-assessment .edit-icon {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  color: #01579B;
-  outline: none;
-}
-
-.pending-review-assessment .custom-card-body {
-  padding: 0.75rem 1.25rem !important;
-}
-
-.pending-review-assessment .generation {
-  margin: 32px 32px 10px;
-}
-
-.pending-review-assessment .generation h4 {
-  margin-left: 10px;
-  margin-bottom: 30px;
-  color: #000000;
-}
-
-.pending-review-assessment .generation .card-body {
-  min-height: 204px;
-}
-
-.pending-review-assessment .generation .card-body h4 {
-  font-style: normal;
-  font-weight: 600;
-  margin-left: 16px;
-  margin-bottom: 16px;
-  color: #000000;
-}
-
-.pending-review-assessment .generation .card-body .disease-list {
-  margin-left: 10px;
-  padding: 0;
-  font-size: 18px;
-}
-
-.pending-review-assessment .generation .card-body .disease-list li {
-  list-style: none;
-  margin-bottom: 12px;
-  color: #000000;
-}
-
-.pending-review-assessment .generation .card-body .disease-list li img {
-  margin-right: 12px;
-}
-
-.pending-review-assessment .generation .card-body .medicine-list {
-  margin-left: 17px;
-  padding: 0;
-  font-size: 18px;
-}
-
-.pending-review-assessment .generation .card-body .medicine-list li {
-  list-style: none;
-  color: #000000;
-}
-
-.pending-review-assessment .body-content {
-  margin: 3px 32px 33px;
-}
-
-.pending-review-assessment .body-content h4 {
-  margin: 28px 36px 6px;
-  font-style: normal;
-  font-weight: 600;
-}
-
-.pending-review-assessment .body-content .body-content-row {
-  margin: 0;
-}
-
-.pending-review-assessment .body-content .patient-habit {
-  background: #F9F9F9;
-  min-height: 156px;
-}
-
-.pending-review-assessment .body-content .patient-habit .edit-icon {
-  margin-top: 5px;
-  margin-right: 10px;
-}
-
-.pending-review-assessment .body-content .patient-habit .habit-type {
-  background: #F9F9F9;
-  padding: 23px 16px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.pending-review-assessment .body-content .patient-habit .habit-type .type-image {
-  margin-bottom: 14px;
-  margin-left: 2px;
-  background: #9A9A9A;
-}
-
-.pending-review-assessment .body-content .patient-habit .habit-type .type-name {
-  font-weight: bold;
-  text-transform: capitalize;
-  margin-bottom: 10px;
-  margin-left: 6px;
-}
-
-.pending-review-assessment .body-content .patient-habit .habit-type .recent-activity {
-  margin-left: 6px;
-}
-
-.pending-review-assessment .body-content .patient-habit .habit-type .type-1 {
-  color: #D43640;
-  margin-bottom: 7px;
-  margin-left: 6px;
-}
-
-.pending-review-assessment .body-content .patient-habit .habit-type .type-2 {
-  color: #3B853E;
-  margin-bottom: 7px;
-  margin-left: 6px;
-}
-
-.pending-review-assessment .body-content .patient-habit .habit-type .type-3 {
-  color: #D95331;
-  margin-bottom: 7px;
-  margin-left: 6px;
-}
-
-.pending-review-assessment .body-composition {
-  margin: 3px 29px 33px;
-}
-
-.pending-review-assessment .body-composition .body-content-row {
-  margin: 0 1px;
-}
-
-.pending-review-assessment .body-composition h4 {
-  margin: 28px 36px 16px;
-  font-style: normal;
-  font-weight: 600;
-}
-
-.pending-review-assessment .body-composition .body-condition {
-  background: #F9F9F9;
-  min-height: 156px;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition {
-  background: #F9F9F9;
-  padding: 23px 16px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-header .type-name {
-  font-style: normal;
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #CF0026;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-bottom: 14px;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details .measurement {
-  margin-right: 16px;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details .result {
-  margin-right: 13px;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details #circumference:before {
-  position: absolute;
-  content: '';
-  width: 0;
-  top: 30px;
-  left: 94px;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid #D43D30;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details .color-code {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details .color-code .color-1 {
-  position: absolute;
-  top: 7px;
-  left: 6px;
-  width: 56.94px;
-  height: 14px;
-  background: #2E7D32;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details .color-code .color-2 {
-  position: absolute;
-  top: 7px;
-  left: 76px;
-  width: 56.94px;
-  height: 14px;
-  background: #D43900;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-details .color-code .color-3 {
-  position: absolute;
-  top: 7px;
-  left: 145px;
-  width: 56.94px;
-  height: 14px;
-  background: #CF0026;
-}
-
-.pending-review-assessment .body-composition .body-condition .condition .condition-range {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.pending-review-assessment .body-composition .suggest {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-  margin-top: 20px;
-}
-
-.pending-review-assessment .disease-name {
-  font-family: Roboto;
-  margin: 3px 30px 34px;
-}
-
-.pending-review-assessment .disease-name .disease-name-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  margin: 26px 28px 1px;
-}
-
-.pending-review-assessment .disease-name .disease-name-header .type-name {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 26px;
-  text-transform: capitalize;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  font-family: Roboto;
-  margin-left: 7px;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition .type {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-  margin-bottom: 10px;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition .condition-details {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #CF0026;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-bottom: 14px;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition .condition-details .color-code {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition .condition-details .color-code .color-1 {
-  position: absolute;
-  top: 7px;
-  left: 6px;
-  width: 56.94px;
-  height: 14px;
-  background: #2E7D32;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition .condition-details .color-code .color-2 {
-  position: absolute;
-  top: 7px;
-  left: 76px;
-  width: 56.94px;
-  height: 14px;
-  background: #D43900;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition .condition-details .color-code .color-3 {
-  position: absolute;
-  top: 7px;
-  left: 145px;
-  width: 56.94px;
-  height: 14px;
-  background: #CF0026;
-}
-
-.pending-review-assessment .disease-name .body-condition .condition .condition-range {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.pending-review-assessment .disease-name .suggest {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-  margin-top: 20px;
-  margin-left: 4px;
-  margin-bottom: 22px;
-}
-
-.pending-review-assessment .comment-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 24px;
-  margin-left: 31px;
-}
-
-.pending-review-assessment .comment-section textarea {
-  resize: none;
-}
-
-#modal-circumference .circumference-input {
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  width: 105px;
-  margin-right: 21px;
-}
-
-#modal-circumference .measurement-type {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 16px;
-}
-
-#modal-circumference .measurement-type .custom-control {
-  margin-right: 35px;
-}
-
-#modal-circumference .select-device {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-circumference .select-device h5 {
-  font-size: 16px;
-}
-
-#modal-circumference .select-device .select-wrapper {
-  position: relative;
-}
-
-#modal-circumference .select-device .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-#modal-circumference .select-device .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-}
-
-#modal-circumference .select-device .select:focus {
-  color: black;
-}
-
-#modal-circumference .select-device .select::-ms-expand {
-  display: none;
-}
-
-#modal-circumference .comment-section {
-  margin-top: 27px;
-}
-
-#modal-circumference .comment-section textarea {
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-#modal-bmi .circumference-input {
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  width: 105px;
-  margin-right: 21px;
-}
-
-#modal-bmi .measurement-type {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 16px;
-}
-
-#modal-bmi .measurement-type .custom-control {
-  margin-right: 35px;
-}
-
-#modal-bmi .select-device {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-bmi .select-device h5 {
-  font-size: 16px;
-}
-
-#modal-bmi .select-device .select-wrapper {
-  position: relative;
-}
-
-#modal-bmi .select-device .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-#modal-bmi .select-device .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-}
-
-#modal-bmi .select-device .select:focus {
-  color: black;
-}
-
-#modal-bmi .select-device .select::-ms-expand {
-  display: none;
-}
-
-#modal-bmi .comment-section {
-  margin-top: 27px;
-}
-
-#modal-bmi .comment-section textarea {
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-#modal-diabetese .circumference-input {
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  width: 105px;
-  margin-right: 21px;
-}
-
-#modal-diabetese .measurement-type {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 16px;
-}
-
-#modal-diabetese .measurement-type .custom-control {
-  margin-right: 35px;
-}
-
-#modal-diabetese .select-device {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-diabetese .select-device h5 {
-  font-size: 16px;
-}
-
-#modal-diabetese .select-device .select-wrapper {
-  position: relative;
-}
-
-#modal-diabetese .select-device .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-#modal-diabetese .select-device .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-}
-
-#modal-diabetese .select-device .select:focus {
-  color: black;
-}
-
-#modal-diabetese .select-device .select::-ms-expand {
-  display: none;
-}
-
-#modal-diabetese .comment-section {
-  margin-top: 27px;
-}
-
-#modal-diabetese .comment-section textarea {
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-#modal-cholesterol .circumference-input {
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  width: 105px;
-  margin-right: 21px;
-}
-
-#modal-cholesterol .measurement-type {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 16px;
-}
-
-#modal-cholesterol .measurement-type .custom-control {
-  margin-right: 35px;
-}
-
-#modal-cholesterol .select-device {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-cholesterol .select-device h5 {
-  font-size: 16px;
-}
-
-#modal-cholesterol .select-device .select-wrapper {
-  position: relative;
-}
-
-#modal-cholesterol .select-device .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-#modal-cholesterol .select-device .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-}
-
-#modal-cholesterol .select-device .select:focus {
-  color: black;
-}
-
-#modal-cholesterol .select-device .select::-ms-expand {
-  display: none;
-}
-
-#modal-cholesterol .comment-section {
-  margin-top: 27px;
-}
-
-#modal-cholesterol .comment-section textarea {
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-#modal-cvd .circumference-input {
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  width: 105px;
-  margin-right: 21px;
-}
-
-#modal-cvd .measurement-type {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 16px;
-}
-
-#modal-cvd .measurement-type .custom-control {
-  margin-right: 35px;
-}
-
-#modal-cvd .select-device {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-cvd .select-device h5 {
-  font-size: 16px;
-}
-
-#modal-cvd .select-device .select-wrapper {
-  position: relative;
-}
-
-#modal-cvd .select-device .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-#modal-cvd .select-device .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-}
-
-#modal-cvd .select-device .select:focus {
-  color: black;
-}
-
-#modal-cvd .select-device .select::-ms-expand {
-  display: none;
-}
-
-#modal-cvd .comment-section {
-  margin-top: 27px;
-}
-
-#modal-cvd .comment-section textarea {
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.pending-review-generate {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.pending-review-generate label {
-  font-size: 14px;
-}
-
-.pending-review-generate .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.pending-review-generate .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.pending-review-generate h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.pending-review-generate .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.pending-review-generate .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.pending-review-generate .patient {
-  padding: 19px 20px 18px 20px;
-}
-
-.pending-review-generate .patient-image img {
-  width: 55px;
-}
-
-.pending-review-generate .care-plans .care-plan-item {
-  margin-top: 33px;
-}
-
-.pending-review-generate .btn-confirm {
-  margin-left: 30px;
-  margin-top: 15px;
-}
-
-.pending-review-generate .card-form .card-header {
-  background: transparent;
-  border-bottom: none;
-  font-size: 19px;
-  font-weight: 600;
-  padding: 25px 30px 20px 30px;
-}
-
-.pending-review-generate .card-form .card-body {
-  font-size: 15px;
-  padding: 0px;
-}
-
-.pending-review-generate .diagnosis-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  padding: 0px 30px 15px 30px;
-}
-
-.pending-review-generate .diagnosis-list li {
-  border-bottom: 1px solid #dee2e6;
-  padding-top: 10px;
-}
-
-.pending-review-generate .diagnosis-list li:last-child {
-  border-bottom: none;
-}
-
-.pending-review-generate .drugs {
-  padding: 0px 30px 20px 30px;
-}
-
-.pending-review-generate .actions .action-item {
-  border-bottom: 1px solid #dee2e6;
-  padding: 20px 30px 15px 30px;
-}
-
-.pending-review-generate .actions .action-item:first-child {
-  padding-top: 10px;
-}
-
-.pending-review-generate .actions .action-item:last-child {
-  border-bottom: none;
-}
-
-.pending-review-generate .actions .action-item select {
-  border-radius: 2px;
-  font-size: 14px;
-}
-
-.pending-review-generate .actions .action-item label {
-  font-size: 14px;
-}
-
-.pending-review-generate .comments label {
-  font-size: 16px;
-}
-
-.pending-review-generate .comments text-area {
-  height: 100px;
-}
-
-.pending-review-generate .card-actions {
-  padding: 30px;
-  border-top: 1px solid #dee2e6;
-}
-
-.pending-review-generate .slider.round {
-  border-radius: 34px;
-}
-
-.pending-review-generate .slider.round:before {
-  border-radius: 50%;
-}
-
-.pending-review-generate .switch {
-  position: relative;
-  display: inline-block;
-  width: 41px;
-  height: 25px;
-}
-
-.pending-review-generate .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.pending-review-generate .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.pending-review-generate .slider:before {
-  position: absolute;
-  content: "";
-  height: 19px;
-  width: 19px;
-  left: 5px;
-  bottom: 3px;
-  background-color: #fff;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.pending-review-generate input:checked + .slider {
-  background-color: #01579B;
-}
-
-.pending-review-generate input:focus + .slider {
-  -webkit-box-shadow: 0 0 1px #01579B;
-  box-shadow: 0 0 1px #01579B;
-}
-
-.pending-review-generate input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  transform: translateX(13px);
-}
-
-#modal-medications .select-medicine {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-medications .select-medicine h5 {
-  font-size: 16px;
-}
-
-#modal-medications .select-medicine .select-wrapper {
-  position: relative;
-}
-
-#modal-medications .select-medicine .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-#modal-medications .select-medicine .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 6px;
-  width: 100%;
-  font-size: 15px;
-}
-
-#modal-medications .select-medicine .select:focus {
-  color: black;
-}
-
-#modal-medications .select-medicine .select::-ms-expand {
-  display: none;
-}
-
-#modal-actions .action-input {
-  width: 100%;
-}
-
-#modal-actions .select-actions {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-  margin-bottom: 12px;
-}
-
-#modal-actions .select-actions h5 {
-  font-size: 16px;
-}
-
-#modal-actions .select-actions .select-wrapper {
-  position: relative;
-}
-
-#modal-actions .select-actions .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-#modal-actions .select-actions .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 6px;
-  width: 100%;
-  font-size: 15px;
-}
-
-#modal-actions .select-actions .select:focus {
-  color: black;
-}
-
-#modal-actions .select-actions .select::-ms-expand {
-  display: none;
-}
-
-.modal-dialog .modal-content {
-  padding: 17px 22px 12px 22px;
-}
-
-.modal-dialog .modal-body {
-  padding: 20px 0px;
-  margin-left: 6px;
-  margin-right: 6px;
-}
-
-.modal-dialog .modal-footer {
-  border-top: none;
-  font-size: 16px;
-  padding: 0px;
-  margin-bottom: 13px;
-}
-
-.modal-dialog .modal-header {
-  border-bottom: none;
-  padding: 0px;
-}
-
-.modal-dialog .modal-header .title {
-  font-size: 18px;
-  font-weight: 600;
-  padding: 0 0 10px 0;
-  border-bottom: none;
-  margin-top: 9px;
-  margin-left: 6px;
-}
-
-.form-coordinate {
-  border-radius: 2px !important;
-}
-
-.blood-pressure-add {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.blood-pressure-add label {
-  font-size: 14px;
-}
-
-.blood-pressure-add .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.blood-pressure-add .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.blood-pressure-add h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.blood-pressure-add .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.blood-pressure-add .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.blood-pressure-add .patient {
-  font-family: Roboto;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.87);
-  padding: 12px 20px 17px 20px;
-}
-
-.blood-pressure-add .patient .patient-image {
-  margin-right: 12px;
-}
-
-.blood-pressure-add .patient .patient-image img {
-  width: 25px;
-}
-
-.blood-pressure-add .patient .patient-details {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.blood-pressure-add .patient .patient-details .patient-name {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 8px;
-  margin-right: 30px;
-}
-
-.blood-pressure-add .patient .patient-details .details div {
-  margin-right: 30px;
-}
-
-.blood-pressure-add .require-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  margin: 30px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.blood-pressure-add .pressure-add {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #000000;
-  margin: 0 30px 30px;
-}
-
-.blood-pressure-add .pressure-add .arm h6 {
-  margin-bottom: 19px;
-}
-
-.blood-pressure-add .pressure-add .arm .arm-select {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.blood-pressure-add .pressure-add .arm .arm-select .custom-control {
-  margin-right: 22px;
-}
-
-.blood-pressure-add .pressure-add .custom-pressure-input {
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-}
-
-.blood-pressure-add .pressure-add .btn-outline-primary {
-  margin-top: 30px;
-  width: 227px;
-  font-style: normal;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.blood-pressure-add .measurement-number {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  color: rgba(0, 0, 0, 0.87);
-  margin: 0 32px 33px;
-}
-
-.blood-pressure-add .measurement-number th {
-  font-weight: 500;
-}
-
-.blood-pressure-add .measurement-number .no-data {
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.blood-pressure-add .warning-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  color: #000000;
-  margin: 0 30px 30px;
-}
-
-.blood-pressure-add .warning-msg .msg-section {
-  background: #FFF8E1;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.blood-pressure-add .warning-msg .msg-section span {
-  margin-right: 16px;
-}
-
-.blood-pressure-add .warning-msg .msg-section span i {
-  color: #DADADA;
-}
-
-.blood-pressure-add .comment-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 24px;
-  margin-left: 31px;
-}
-
-.blood-pressure-add .comment-section textarea {
-  resize: none;
-}
-
-.blood-pressure-add .comment-section .select-device {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-  margin-bottom: 27px;
-}
-
-.blood-pressure-add .comment-section .select-device h5 {
-  font-size: 16px;
-}
-
-.blood-pressure-add .comment-section .select-device .select-wrapper {
-  position: relative;
-}
-
-.blood-pressure-add .comment-section .select-device .select-wrapper::after {
-  color: black;
-  content: '▾';
-  margin-right: 10px;
-  pointer-events: none;
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-size: 20px;
-}
-
-.blood-pressure-add .comment-section .select-device .select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 3px;
-  cursor: pointer;
-  padding: 7px;
-  width: 100%;
-  font-size: 16px;
-}
-
-.blood-pressure-add .comment-section .select-device .select:focus {
-  color: black;
-}
-
-.blood-pressure-add .comment-section .select-device .select::-ms-expand {
-  display: none;
-}
-
-#modal-right {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-right .reason-type .custom-control {
-  margin-bottom: 20px;
-}
-
-#modal-right .comment-section {
-  margin-top: 19px;
-}
-
-#modal-right .comment-section textarea {
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-#modal-unable {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
-
-#modal-unable .reason-type .custom-control {
-  margin-bottom: 20px;
-}
-
-#modal-unable .comment-section {
-  margin-top: 19px;
-}
-
-#modal-unable .comment-section textarea {
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #CED4DA;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.tobacco-questionnaire {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.tobacco-questionnaire label {
-  font-size: 14px;
-}
-
-.tobacco-questionnaire .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.tobacco-questionnaire .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.tobacco-questionnaire h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.tobacco-questionnaire .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.tobacco-questionnaire .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.tobacco-questionnaire .patient {
-  font-family: Roboto;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.87);
-  padding: 12px 20px 17px 20px;
-}
-
-.tobacco-questionnaire .patient .patient-image {
-  margin-right: 12px;
-}
-
-.tobacco-questionnaire .patient .patient-image img {
-  width: 25px;
-}
-
-.tobacco-questionnaire .patient .patient-details {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.tobacco-questionnaire .patient .patient-details .patient-name {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 8px;
-  margin-right: 30px;
-}
-
-.tobacco-questionnaire .patient .patient-details .details div {
-  margin-right: 30px;
-}
-
-.tobacco-questionnaire .tobacco-question {
-  margin: 39px 30px 30px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-header {
-  display: none;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-navigation .wizard-progress-with-circle {
-  display: none;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-navigation .wizard-nav-pills {
-  display: none;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content {
-  border-bottom: 2px solid #F8F8F8;
-  margin-bottom: 30px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-1 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-1 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span {
-  margin-right: 16px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span i {
-  color: #DADADA;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-1 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-1 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-1 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-msg p span {
-  margin-right: 16px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-msg p span i {
-  color: #DADADA;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-2 .question-section .custom-control {
-  margin-bottom: 18px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-msg p span {
-  margin-right: 16px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-msg p span i {
-  color: #DADADA;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-tab-content .step-3 .question-section .custom-control {
-  margin-bottom: 18px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-left {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-left button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-left button:before {
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-left: 2px solid #000000;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-right {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-right button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-right button:after {
-  position: absolute;
-  top: 12px;
-  right: 34px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-right: 2px solid #000000;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-bullet {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 19px;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-bullet .bullet-btn {
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.16);
-  margin-right: 8px;
-  border-radius: 50%;
-}
-
-.tobacco-questionnaire .tobacco-question .custom-card-body .wizard-footer-bullet .bullet-btn.active {
-  background: #01579B;
-}
-
-.alcohol-questionnaire {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.alcohol-questionnaire label {
-  font-size: 14px;
-}
-
-.alcohol-questionnaire .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.alcohol-questionnaire .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.alcohol-questionnaire h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.alcohol-questionnaire .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.alcohol-questionnaire .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.alcohol-questionnaire .patient {
-  font-family: Roboto;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.87);
-  padding: 12px 20px 17px 20px;
-}
-
-.alcohol-questionnaire .patient .patient-image {
-  margin-right: 12px;
-}
-
-.alcohol-questionnaire .patient .patient-image img {
-  width: 25px;
-}
-
-.alcohol-questionnaire .patient .patient-details {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.alcohol-questionnaire .patient .patient-details .patient-name {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 8px;
-  margin-right: 30px;
-}
-
-.alcohol-questionnaire .patient .patient-details .details div {
-  margin-right: 30px;
-}
-
-.alcohol-questionnaire .alcohol-question {
-  margin: 39px 30px 30px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-header {
-  display: none;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-navigation .wizard-progress-with-circle {
-  display: none;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-navigation .wizard-nav-pills {
-  display: none;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content {
-  border-bottom: 2px solid #F8F8F8;
-  margin-bottom: 30px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content .step-1 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content .step-1 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span {
-  margin-right: 16px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span i {
-  color: #DADADA;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content .step-1 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content .step-1 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-tab-content .step-1 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-left {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-left button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-left button:before {
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-left: 2px solid #000000;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-right {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-right button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-right button:after {
-  position: absolute;
-  top: 12px;
-  right: 34px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-right: 2px solid #000000;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-bullet {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 19px;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-bullet .bullet-btn {
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.16);
-  margin-right: 8px;
-  border-radius: 50%;
-}
-
-.alcohol-questionnaire .alcohol-question .custom-card-body .wizard-footer-bullet .bullet-btn.active {
-  background: #01579B;
-}
-
-.diet-questionnaire {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.diet-questionnaire label {
-  font-size: 14px;
-}
-
-.diet-questionnaire .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.diet-questionnaire .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.diet-questionnaire h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.diet-questionnaire .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.diet-questionnaire .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.diet-questionnaire .patient {
-  font-family: Roboto;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.87);
-  padding: 12px 20px 17px 20px;
-}
-
-.diet-questionnaire .patient .patient-image {
-  margin-right: 12px;
-}
-
-.diet-questionnaire .patient .patient-image img {
-  width: 25px;
-}
-
-.diet-questionnaire .patient .patient-details {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.diet-questionnaire .patient .patient-details .patient-name {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 8px;
-  margin-right: 30px;
-}
-
-.diet-questionnaire .patient .patient-details .details div {
-  margin-right: 30px;
-}
-
-.diet-questionnaire .diet-question {
-  margin: 39px 30px 30px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-header {
-  display: none;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-navigation .wizard-progress-with-circle {
-  display: none;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-navigation .wizard-nav-pills {
-  display: none;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content {
-  border-bottom: 2px solid #F8F8F8;
-  margin-bottom: 30px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-1 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-1 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span {
-  margin-right: 16px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span i {
-  color: #DADADA;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-1 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-1 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-1 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-2 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-2 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-2 .question-section .checkbox-ans {
-  margin: 0 32px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-2 .question-section .checkbox-ans .custom-control {
-  margin-bottom: 18px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-msg p span {
-  margin-right: 16px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-msg p span i {
-  color: #DADADA;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-tab-content .step-3 .question-section .custom-control {
-  margin-bottom: 18px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-left {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-left button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-left button:before {
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-left: 2px solid #000000;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-right {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-right button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-right button:after {
-  position: absolute;
-  top: 12px;
-  right: 34px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-right: 2px solid #000000;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-bullet {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 19px;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-bullet .bullet-btn {
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.16);
-  margin-right: 8px;
-  border-radius: 50%;
-}
-
-.diet-questionnaire .diet-question .custom-card-body .wizard-footer-bullet .bullet-btn.active {
-  background: #01579B;
-}
-
-.physical-questionnaire {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.physical-questionnaire label {
-  font-size: 14px;
-}
-
-.physical-questionnaire .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.physical-questionnaire .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.physical-questionnaire h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.physical-questionnaire .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.physical-questionnaire .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.physical-questionnaire .patient {
-  font-family: Roboto;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.87);
-  padding: 12px 20px 17px 20px;
-}
-
-.physical-questionnaire .patient .patient-image {
-  margin-right: 12px;
-}
-
-.physical-questionnaire .patient .patient-image img {
-  width: 25px;
-}
-
-.physical-questionnaire .patient .patient-details {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.physical-questionnaire .patient .patient-details .patient-name {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 8px;
-  margin-right: 30px;
-}
-
-.physical-questionnaire .patient .patient-details .details div {
-  margin-right: 30px;
-}
-
-.physical-questionnaire .physical-question {
-  margin: 39px 30px 30px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-header {
-  display: none;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-navigation .wizard-progress-with-circle {
-  display: none;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-navigation .wizard-nav-pills {
-  display: none;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content {
-  border-bottom: 2px solid #F8F8F8;
-  margin-bottom: 30px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content .step-1 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content .step-1 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span {
-  margin-right: 16px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span i {
-  color: #DADADA;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content .step-1 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content .step-1 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-tab-content .step-1 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-left {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-left button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-left button:before {
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-left: 2px solid #000000;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-right {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-right button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-right button:after {
-  position: absolute;
-  top: 12px;
-  right: 34px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-right: 2px solid #000000;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-bullet {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 19px;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-bullet .bullet-btn {
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.16);
-  margin-right: 8px;
-  border-radius: 50%;
-}
-
-.physical-questionnaire .physical-question .custom-card-body .wizard-footer-bullet .bullet-btn.active {
-  background: #01579B;
-}
-
-.medical-questionnaire {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medical-questionnaire label {
-  font-size: 14px;
-}
-
-.medical-questionnaire .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.medical-questionnaire .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.medical-questionnaire h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.medical-questionnaire .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.medical-questionnaire .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.medical-questionnaire .patient {
-  font-family: Roboto;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.87);
-  padding: 12px 20px 17px 20px;
-}
-
-.medical-questionnaire .patient .patient-image {
-  margin-right: 12px;
-}
-
-.medical-questionnaire .patient .patient-image img {
-  width: 25px;
-}
-
-.medical-questionnaire .patient .patient-details {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.medical-questionnaire .patient .patient-details .patient-name {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 8px;
-  margin-right: 30px;
-}
-
-.medical-questionnaire .patient .patient-details .details div {
-  margin-right: 30px;
-}
-
-.medical-questionnaire .medical-question {
-  margin: 39px 30px 30px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-header {
-  display: none;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-navigation .wizard-progress-with-circle {
-  display: none;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-navigation .wizard-nav-pills {
-  display: none;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content {
-  border-bottom: 2px solid #F8F8F8;
-  margin-bottom: 30px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content .step-1 .question-msg {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-bottom: 19px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content .step-1 .question-msg p {
-  background: #F8F8F8;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 22px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span {
-  margin-right: 16px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content .step-1 .question-msg p span i {
-  color: #DADADA;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content .step-1 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content .step-1 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-tab-content .step-1 .question-section .btn:hover {
-  background: #E1F5FE;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-left {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-left button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-left button:before {
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-left: 2px solid #000000;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-right {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-right button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-right button:after {
-  position: absolute;
-  top: 12px;
-  right: 34px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-right: 2px solid #000000;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-bullet {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 19px;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-bullet .bullet-btn {
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.16);
-  margin-right: 8px;
-  border-radius: 50%;
-}
-
-.medical-questionnaire .medical-question .custom-card-body .wizard-footer-bullet .bullet-btn.active {
-  background: #01579B;
-}
-
-.medication-questionnaire {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medication-questionnaire label {
-  font-size: 14px;
-}
-
-.medication-questionnaire .breadcrumb-wrap {
-  padding: 23px 10px 18px 34px;
-}
-
-.medication-questionnaire .back-icon {
-  font-size: 15px;
-  margin-top: 4px;
-  margin-right: 20px;
-}
-
-.medication-questionnaire h4 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.medication-questionnaire .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  background: transparent;
-}
-
-.medication-questionnaire .breadcrumb span {
-  color: #01579B;
-  margin-right: 4.5px;
-}
-
-.medication-questionnaire .patient {
-  font-family: Roboto;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.87);
-  padding: 12px 20px 17px 20px;
-}
-
-.medication-questionnaire .patient .patient-image {
-  margin-right: 12px;
-}
-
-.medication-questionnaire .patient .patient-image img {
-  width: 25px;
-}
-
-.medication-questionnaire .patient .patient-details {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.medication-questionnaire .patient .patient-details .patient-name {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 8px;
-  margin-right: 30px;
-}
-
-.medication-questionnaire .patient .patient-details .details div {
-  margin-right: 30px;
-}
-
-.medication-questionnaire .medication-question {
-  margin: 39px 30px 30px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-header {
-  display: none;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-navigation .wizard-progress-with-circle {
-  display: none;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-navigation .wizard-nav-pills {
-  display: none;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content {
-  border-bottom: 2px solid #F8F8F8;
-  margin-bottom: 30px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content .step-1 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content .step-1 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content .step-1 .question-section .control_wrapper {
-  width: 300px;
-  margin: 0 32px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content .step-2 .question-section {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content .step-2 .question-section p {
-  margin-bottom: 27px !important;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content .step-2 .question-section .checkbox-ans {
-  margin: 0 32px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-tab-content .step-2 .question-section .checkbox-ans .custom-control {
-  margin-bottom: 18px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-left {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-left button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-left button:before {
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-left: 2px solid #000000;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-right {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-right button {
-  background: transparent !important;
-  position: relative;
-  color: rgba(0, 0, 0, 0.87) !important;
-  border: none !important;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-right button:after {
-  position: absolute;
-  top: 12px;
-  right: 34px;
-  content: '';
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #000000;
-  border-right: 2px solid #000000;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-bullet {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top: 19px;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-bullet .bullet-btn {
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.16);
-  margin-right: 8px;
-  border-radius: 50%;
-}
-
-.medication-questionnaire .medication-question .custom-card-body .wizard-footer-bullet .bullet-btn.active {
-  background: #01579B;
-}
-
 .account-info {
   padding: 1rem;
   position: absolute;
   bottom: 0;
-  width: 15rem;
+  width: 14rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 14px;
   color: #fff;
@@ -15407,607 +12117,4 @@ body.sidebar-toggled footer.sticky-footer {
   font-weight: normal;
   text-transform: none;
   font-size: .6rem;
-  margin-top: 14px;
-}
-
-.assessmentForm {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-.chartSelectBtn {
-  background-color: transparent;
-  padding: 9px;
-  width: 87px;
-}
-
-.activeBtn {
-  background: #E1F5FE;
-  border-radius: 5px;
-}
-
-.bttn1:before {
-  position: absolute;
-  top: 16px;
-  margin-left: -5%;
-  height: 10px;
-  width: 10px;
-  float: left;
-  content: " ";
-  font-weight: 500;
-  background-color: #81D4FA;
-  border-radius: 50%;
-}
-
-.bttn2:before {
-  position: absolute;
-  top: 16px;
-  margin-left: -5%;
-  height: 10px;
-  width: 10px;
-  float: left;
-  content: " ";
-  font-weight: 500;
-  background-color: #81C784;
-  border-radius: 50%;
-}
-
-.add-patient .btn-icon-split .text-white {
-  display: inline-block;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 100%;
-}
-
-.add-patient .btn-icon-split .text-white i {
-  margin-right: 8px;
-  font-size: 14px;
-  font-weight: bold;
-  position: relative;
-  top: 2px;
-}
-
-@media (min-width: 576px) {
-  .search-patient .input-group-text {
-    background: transparent;
-    color: #6C757D;
-  }
-  .search-button {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 100%;
-    color: #6C757D;
-  }
-  .search-button .custom-btn {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 100%;
-    color: #6C757D;
-  }
-  .search-button .custom-btn i {
-    border: 1px solid #6C757D;
-    border-radius: 50%;
-    color: rgba(0, 0, 0, 0.38);
-    padding: 3px;
-  }
-  .pending-patient {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000000;
-  }
-  .pending-patient .form-group input {
-    padding: 0;
-    height: initial;
-    width: initial;
-    margin-bottom: 0;
-    display: none;
-    cursor: pointer;
-  }
-  .pending-patient .form-group label {
-    position: relative;
-    cursor: pointer;
-  }
-  .pending-patient .form-group label:before {
-    content: '';
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: 1px solid #CED4DA;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    padding: 8px;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  .pending-patient .form-group input:checked + label:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
-    width: 6px;
-    height: 11px;
-    border: solid #6C757D;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  .patient-fingerprint {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    text-align: center;
-    color: #000000;
-  }
-  .patient-fingerprint .fingerprint-scan {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    margin: 5px 0;
-  }
-  .patient-fingerprint .fingerprint-scan i {
-    border: 7px solid #01579b;
-    border-radius: 50%;
-    color: #01579b;
-    padding: 13px;
-  }
-}
-
-@media (min-width: 768px) {
-  .search-patient .input-group-text {
-    background: transparent;
-    color: #6C757D;
-  }
-  .search-button {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    color: #6C757D;
-  }
-  .search-button .custom-btn {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 100%;
-    color: #6C757D;
-    padding: 7px 14px;
-  }
-  .search-button .custom-btn i {
-    border: 1px solid #6C757D;
-    border-radius: 50%;
-    color: rgba(0, 0, 0, 0.38);
-    padding: 3px;
-  }
-  .pending-patient {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000000;
-  }
-  .pending-patient .form-group input {
-    padding: 0;
-    height: initial;
-    width: initial;
-    margin-bottom: 0;
-    display: none;
-    cursor: pointer;
-  }
-  .pending-patient .form-group label {
-    position: relative;
-    cursor: pointer;
-  }
-  .pending-patient .form-group label:before {
-    content: '';
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: 1px solid #CED4DA;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    padding: 8px;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  .pending-patient .form-group input:checked + label:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
-    width: 6px;
-    height: 11px;
-    border: solid #6C757D;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  .patient-fingerprint {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    text-align: center;
-    color: #000000;
-  }
-  .patient-fingerprint .fingerprint-scan {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    margin: 5px 0;
-  }
-  .patient-fingerprint .fingerprint-scan i {
-    border: 7px solid #01579b;
-    border-radius: 50%;
-    color: #01579b;
-    padding: 13px;
-  }
-  .patient {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    font-family: Roboto;
-    width: 100%;
-    color: rgba(0, 0, 0, 0.87);
-  }
-  .patient .patient-details {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-  }
-  .patient .patient-details .patient-name {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 26px;
-  }
-  .patient .patient-details .details {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    margin-top: 9px;
-    font-size: 10px;
-  }
-  .patient-list-table .table-responsive table {
-    border-collapse: collapse;
-    border: none;
-  }
-  .patient-list-table .table-responsive table thead th {
-    border-top: none;
-  }
-  .patient-list-table .table-responsive table tr {
-    border-bottom: 2px solid #DEE2E6;
-  }
-}
-
-@media (min-width: 992px) {
-  .assessmentForm {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000000;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-  .add-patient .btn-icon-split .text-white {
-    display: inline-block;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 100%;
-  }
-  .add-patient .btn-icon-split .text-white i {
-    margin-right: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    position: relative;
-    top: 2px;
-  }
-  .patients-top-right .dropdown button {
-    background: transparent;
-    border: none;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000000;
-  }
-  .search-patient .input-group-text {
-    background: transparent;
-    color: #6C757D;
-  }
-  .search-button {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    color: #6C757D;
-  }
-  .search-button .custom-btn {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    color: #6C757D;
-  }
-  .search-button .custom-btn i {
-    border: 1px solid #6C757D;
-    border-radius: 50%;
-    color: rgba(0, 0, 0, 0.38);
-    padding: 3px;
-  }
-  .pending-patient {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000000;
-  }
-  .pending-patient .form-group input {
-    padding: 0;
-    height: initial;
-    width: initial;
-    margin-bottom: 0;
-    display: none;
-    cursor: pointer;
-  }
-  .pending-patient .form-group label {
-    position: relative;
-    cursor: pointer;
-  }
-  .pending-patient .form-group label:before {
-    content: '';
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: 1px solid #CED4DA;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    padding: 8px;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  .pending-patient .form-group input:checked + label:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
-    width: 6px;
-    height: 11px;
-    border: solid #6C757D;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  .patient-fingerprint {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    text-align: center;
-    color: #000000;
-  }
-  .patient-fingerprint .fingerprint-scan {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    margin: 5px 0;
-  }
-  .patient-fingerprint .fingerprint-scan i {
-    border: 7px solid #01579b;
-    border-radius: 50%;
-    color: #01579b;
-    padding: 13px;
-  }
-  .patient-overview {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 30px;
-    color: rgba(0, 0, 0, 0.87);
-  }
-  .patient-overview h4 {
-    font-weight: bold;
-  }
-  .patient-overview .breadcrumb {
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    padding: .75rem 0;
-    background: transparent;
-  }
-  .patient-overview .breadcrumb span {
-    color: #01579B;
-    margin-right: 4.5px;
-  }
-  .patient {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    font-family: Roboto;
-    width: 88%;
-    color: rgba(0, 0, 0, 0.87);
-  }
-  .patient .patient-details {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-  }
-  .patient .patient-details .patient-name {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 26px;
-  }
-  .patient .patient-details .details {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    margin-top: 9px;
-    font-size: 14px;
-  }
-  .patient-edit {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: start;
-    color: #01579B;
-  }
-  .patient-edit .edit {
-    margin-right: 20px;
-  }
-  .patient-edit .edit i {
-    margin-right: 5px;
-  }
-  .patient-edit .care-plane {
-    margin-right: 20px;
-  }
-  .patient-edit .care-plane i {
-    margin-right: 5px;
-  }
-  .patient-edit .action {
-    margin-right: 20px;
-  }
-  .patient-edit .action i {
-    color: #ff2e44;
-    margin-right: 5px;
-  }
-  .patient-list-table .table-responsive table {
-    border-collapse: collapse;
-    border: none;
-  }
-  .patient-list-table .table-responsive table thead th {
-    border-top: none;
-  }
-  .patient-list-table .table-responsive table tr {
-    border-bottom: 2px solid #DEE2E6;
-  }
 }
