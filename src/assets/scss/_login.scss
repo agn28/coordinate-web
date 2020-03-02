@@ -1,50 +1,65 @@
-// Pulling these images from Unsplash
-// Toshi the dog from https://unsplash.com/@charlesdeluvio - what a funny dog...
+.login-body {
+  background: $primary-color;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 30px;
 
-.bg-login-image {
-  background: url('https://source.unsplash.com/K4mSJ7kc0As/600x800');
-  background-position: center;
-  background-size: cover;
-}
+  .brand-header {
+    display: flex;
+    color: #FAFAFA;
 
-.bg-register-image {
-  background: url('https://source.unsplash.com/Mv9hjnEUHR4/600x800');
-  background-position: center;
-  background-size: cover;
-}
+    .brand-icon {
+      img {
+        width: 200px;
+      }
+    }
 
-.bg-password-image {
-  background: url('https://source.unsplash.com/oWTW-jNGl9I/600x800');
-  background-position: center;
-  background-size: cover;
-}
-
-form.user {
-
-  .custom-checkbox.small {
-    label {
-      line-height: 1.5rem;
+    .brand-text {
+      margin-top: 12px;
+      margin-left: 22.86px;
     }
   }
 
-  .form-control-user {
-    font-size: 0.8rem;
-    border-radius: 10rem;
-    padding: 1.5rem 1rem;
+  .login {
+    margin: 0 auto;
+    width: 500px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+
+    .login-screen {
+      background-color: #FFF;
+      padding: 20px;
+      border-radius: 5px;
+
+      .app-title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 30px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.87);
+        margin-bottom: 30px;
+      }
+
+      .login-form {
+
+        .input-group-text {
+          background: transparent;
+        }
+
+      }
+    }
   }
-
-  .btn-user {
-    font-size: 0.8rem;
-    border-radius: 10rem;
-    padding: 0.75rem 1rem;
-  }
-
-}
-
-.btn-google {
-  @include button-variant($brand-google, $white);
-}
-
-.btn-facebook {
-  @include button-variant($brand-facebook, $white);
 }

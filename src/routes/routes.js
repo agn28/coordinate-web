@@ -1,3 +1,4 @@
+import Login from '../components/login/Login'
 import Dashboard from '../components/Dashboard'
 import HealthList from '../components/health-records/List'
 import HealthDetail from '../components/health-records/Show'
@@ -43,6 +44,11 @@ import DiagnosticCreate from '../components/diagnostics/Create'
 import HealthEncounters from '../components/health-records/encounters/List'
 
 export const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
     {
         path: '/',
         redirect: '/dashboard'
