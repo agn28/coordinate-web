@@ -32,8 +32,14 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-primary btn-large btn-block" href="#">login</button>
-                            <a class="login-link" href="#">Lost your password?</a>
+                                        <button class="btn login-btn mb-4" href="#">login</button>
+                                        <div class="forgot-pass">
+                                            <a class="login-link" href="" @click="$router.push({ name: 'forgot-pass'})">Forgot Password?</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         </form>
                     </div>
@@ -42,6 +48,7 @@
             </div>
 
         </div>
+
     </div>
 </template>
 

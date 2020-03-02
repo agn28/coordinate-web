@@ -1,4 +1,5 @@
 import Login from '../components/login/Login'
+import ForgotPassword from '../components/login/Forgot-password'
 import Dashboard from '../components/Dashboard'
 import HealthList from '../components/health-records/List'
 import HealthDetail from '../components/health-records/Show'
@@ -59,6 +60,11 @@ const routes = [
       }
       next()
     }
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot-pass',
+    component: ForgotPassword
   },
   {
     path: '/',
