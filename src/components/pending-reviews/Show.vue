@@ -8,22 +8,21 @@
         <i class="fa fa-arrow-left text-secondary back-icon"></i>
         <div class="">
           <h4>Health Assessment</h4>
-          <div class="breadcrumb"><span>Patients</span>/ patient name / Health Assessment</div>
+          <div class="breadcrumb"><span>Patients</span>/ {{ patientInfo.first_name + " " + patientInfo.last_name }} / Health Assessment</div>
         </div>
       </div>
-
       <div class="col-lg-12 border-top border-bottom">
         <div class="patient">
           <div class="patient-image mr-4">
             <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="100" height="100" alt="">
           </div>
           <div class="patient-details">
-            <div class="patient-name">Jahanara Begum</div>
+            <div class="patient-name">{{ patientInfo.first_name + " " + patientInfo.last_name }}</div>
             <div class="details">
-              <div class="age">31y Female</div>
-              <div class="nid">NID: 1992121224343</div>
-              <div class="pid">PID: N-121233333</div>
-              <div class="register-date">Registered on Jan 5, 2019</div>
+              <div class="age">{{ patientInfo.age }}</div>
+              <div class="nid">NID: {{ patientInfo.nid }}</div>
+              <div class="pid">PID: {{ patientInfo.pid }}</div>
+              <div class="register-date">Registered on: {{ patientMeta.created_at }}</div>
             </div>
           </div>
         </div>
@@ -59,10 +58,10 @@
                   </div>
                 </div>
               </div>
-            <div class="patient-state mt-4">
+              <div class="patient-state mt-4">
 
+              </div>
             </div>
-          </div>
           </div>
         </div>
 
@@ -70,74 +69,97 @@
 
       <div class="row">
         <div class="col-lg-12">
-        <div class="body-content">
-          <div class="card">
-          <h4>Lifestyle</h4>
-          <div class="row body-content-row">
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
-              <div class="card-body lifestyle-card-body">
-                <div class="patient-habit">
+          <div class="body-content">
+            <div class="card">
+              <h4>Lifestyle</h4>
+              <div class="row body-content-row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+                  <div class="card-body lifestyle-card-body">
+                    <div class="patient-habit">
 
-                  <div class="habit-type">
-                    <span class="edit-icon" @click="$router.push({ name: 'tobacco', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
-                    <img src="../../assets/images/icon_smoker.png" class="type-image" width="50" height="50" alt="">
-                    <div class="type-name">Tobacco Use</div>
-                    <div class="type-1">Smoke</div>
-                    <div class="recent-activity">Quit Tobacco</div>
+                      <div class="habit-type">
+                        <span class="edit-icon" @click="$router.push({ name: 'tobacco', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
+                        <img src="../../assets/images/icon_smoker.png" class="type-image" width="50" height="50" alt="">
+                        <div class="type-name">Tobacco Use</div>
+                        <div  v-if="assessment.assessments && assessment.assessments.lifestyle && assessment.assessments.lifestyle.components.smoking">
+                          <div class="type" :class="assessment.assessments.lifestyle.components.smoking.tfl">{{ assessment.assessments.lifestyle.components.smoking.eval}}</div>
+                          <div class="recent-activity">
+                            {{ assessment.assessments.lifestyle.components.smoking.message }}</div>
+                        </div>
+                        <div class="ml-2" v-else>
+                          No Tobacco Usage data found!
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 mb-3">
-              <div class="card-body lifestyle-card-body">
-                <div class="patient-habit">
-                  <div class="habit-type">
-                    <span class="edit-icon" @click="$router.push({ name: 'alcohol', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
-                    <img src="../../assets/images/icon_alcohol.png" class="type-image" width="50" height="50" alt="">
-                    <div class="type-name">Alcohol Consumption</div>
-                    <div class="type-2">None</div>
-                    <div>Alcohol use prevention</div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 mb-3">
+                  <div class="card-body lifestyle-card-body">
+                    <div class="patient-habit">
+                      <div class="habit-type">
+                        <span class="edit-icon" @click="$router.push({ name: 'alcohol', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
+                        <img src="../../assets/images/icon_alcohol.png" class="type-image" width="50" height="50" alt="">
+                        <div class="type-name">Alcohol Consumption</div>
+                        <div  v-if="assessment.assessments && assessment.assessments.lifestyle && assessment.assessments.lifestyle.components.alcohol">
+                          <div class="type" :class="assessment.assessments.lifestyle.components.alcohol.tfl">{{ assessment.assessments.lifestyle.components.alcohol.eval}}</div>
+                          <div class="recent-activity">{{ assessment.assessments.lifestyle.components.alcohol.message}}</div>
+                        </div>
+                        <div class="ml-2" v-else>
+                          No Alcohol Consumption data found!
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 mb-3">
-              <div class="card-body lifestyle-card-body">
-                <div class="patient-habit">
-                  <div class="habit-type">
-                    <span class="edit-icon" @click="$router.push({ name: 'diet', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
-                    <img src="../../assets/images/icon_fruits.png" class="type-image" width="50" height="50" alt="">
-                    <div class="type-name">Fruits and vegetables intake</div>
-                    <div class="type-3">Adequate</div>
-                    <div>Maintain current Status</div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 mb-3">
+                  <div class="card-body lifestyle-card-body">
+                    <div class="patient-habit">
+                      <div class="habit-type">
+                        <span class="edit-icon" @click="$router.push({ name: 'diet', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
+                        <img src="../../assets/images/icon_fruits.png" class="type-image" width="50" height="50" alt="">
+                        <div class="type-name">Fruits and vegetables intake</div>
+                        <div v-if="assessment.assessments && assessment.assessments.lifestyle && assessment.assessments.lifestyle.components.diet && assessment.assessments.lifestyle.components.diet.components &&  assessment.assessments.lifestyle.components.diet.components.fruit_vegetable">
+                          <div class="type" :class=" assessment.assessments.lifestyle.components.diet.components.fruit_vegetable.tfl ">{{ assessment.assessments.lifestyle.components.diet.components.fruit_vegetable.eval }}</div>
+                          <div class="recent-activity">{{ assessment.assessments.lifestyle.components.diet.components.fruit_vegetable.message }}</div>
+                        </div>
+                        <div class="ml-2" v-else>
+                          No Fruits and vegetables intake data found!
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 mb-3">
-              <div class="card-body lifestyle-card-body">
-                <div class="patient-habit">
-                  <div class="habit-type">
-                    <span class="edit-icon" @click="$router.push({ name: 'physical', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
-                    <img src="../../assets/images/icon_physical-activity.png" class="type-image" width="50" height="50" alt="">
-                    <div class="type-name">Physical Activity</div>
-                    <div class="type-3">Inadequate</div>
-                    <div>Increase physical activity</div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 mb-3">
+                  <div class="card-body lifestyle-card-body">
+                    <div class="patient-habit">
+                      <div class="habit-type">
+                        <span class="edit-icon" @click="$router.push({ name: 'physical', params: { reviewId: '1234s'}})"> <i class="fas fa-pen"></i></span>
+                        <img src="../../assets/images/icon_physical-activity.png" class="type-image" width="50" height="50" alt="">
+                        <div class="type-name">Physical Activity</div>
+                        <div  v-if="assessment.assessments && assessment.assessments.lifestyle && assessment.assessments.lifestyle.components.physical_activity">
+                          <div class="type" :class=" assessment.assessments.lifestyle.components.physical_activity.tfl ">{{ assessment.assessments.lifestyle.components.physical_activity.eval }}</div>
+                          <div class="recent-activity">{{ assessment.assessments.lifestyle.components.physical_activity.message }}</div>
+                        </div>
+                        <div class="ml-2" v-else>
+                          No Physical Activity data found!
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
-      </div>
       </div>
 
-      <div class="row">
+      <div class="row"
+           v-if="assessment.assessments && assessment.assessments.body_composition"
+      >
         <div class="col-lg-12">
           <div class="body-composition">
             <div class="card">
-              <h4>Boby Composition</h4>
+              <h4>Body Composition</h4>
               <div class="row body-content-row">
                 <div class="col-xl-6 col-lg-8 col-md-12 mb-3">
                   <div class="card-body">
@@ -202,19 +224,26 @@
                             </template>
                           </b-modal>
                         </div>
-                        <div class="condition-details">
-                          <div class="measurement">99cm</div>
-                          <div class="result">High</div>
+                        <div class="condition-details"
+                             v-if="assessment.assessments && assessment.assessments.body_composition && assessment.assessments.body_composition.components && assessment.assessments.body_composition.components.hip_circ"
+                        >
+                          <div class="measurement" :class="assessment.assessments.body_composition.components.hip_circ.tfl">{{ assessment.assessments.body_composition.components.hip_circ.value }}</div>
+                          <div class="result" :class="assessment.assessments.body_composition.components.hip_circ.tfl">{{ assessment.assessments.body_composition.components.hip_circ.eval }}</div>
                           <div class="color-code" id="circumference">
                             <div class="color-1"></div>
                             <div class="color-2"></div>
                             <div class="color-3"></div>
                           </div>
+                          <div class="condition-range">18.5 to 24.9</div>
+                          <div class="suggest">Weight reduction</div>
                         </div>
-                        <div class="condition-range">18.5 to 24.9</div>
+                        <div class="condition-range">
+                          <h6>No Hip Circumference data found!
+                          </h6>
+                        </div>
+
                       </div>
                     </div>
-                    <div class="suggest">Weight reduction</div>
                   </div>
                 </div>
                 <div class="col-xl-6 col-lg-8 col-md-12 mb-3">
@@ -280,16 +309,22 @@
                             </template>
                           </b-modal>
                         </div>
-                        <div class="condition-details">
-                          <div class="measurement">31.4</div>
-                          <div class="result">Overweight</div>
+                        <div class="condition-details"
+                             v-if="assessment.assessments && assessment.assessments.body_composition && assessment.assessments.body_composition.components && assessment.assessments.body_composition.components.bmi"
+                        >
+                          <div class="measurement" :class="assessment.assessments.body_composition.components.bmi.tfl">{{ assessment.assessments.body_composition.components.bmi.value }}</div>
+                          <div class="result" :class="assessment.assessments.body_composition.components.bmi.tfl">{{ assessment.assessments.body_composition.components.bmi.eval }}</div>
                           <div class="color-code">
                             <div class="color-1"></div>
                             <div class="color-2"></div>
                             <div class="color-3"></div>
                           </div>
                         </div>
-                        <div class="condition-range">18.5 to 24.9</div>
+                        <div v-if="assessment.assessments && assessment.assessments.body_composition && assessment.assessments.body_composition.components && assessment.assessments.body_composition.components.bmi">
+                          <div class="condition-range">18.5 to 24.9</div>
+                          <div class="">{{ assessment.assessments.body_composition.components.bmi.message }}</div>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -308,12 +343,14 @@
                 <h4 class="type-name">Blood Pressure</h4>
                 <span @click="$router.push({ name: 'pendingReviewBloodPressure', params: { reviewId: '1234s'}})" class="edit-icon"> <i class="fas fa-pen"></i></span>
               </div>
-              <div class="card-body custom-card-body">
+              <div class="card-body custom-card-body"
+                   v-if="assessment.assessments && assessment.assessments.blood_pressure"
+              >
                 <div class="body-condition">
                   <div class="condition">
                     <div class="condition-details">
-                      <div class="measurement mr-3">140/95mmHg</div>
-                      <div class="result mr-3">Hypertensive</div>
+                      <div class="measurement mr-3" :class="assessment.assessments.blood_pressure.tfl">{{ assessment.assessments.blood_pressure.value }} mmHG</div>
+                      <div class="result mr-3" :class="assessment.assessments.blood_pressure.tfl">{{ assessment.assessments.blood_pressure.eval }}</div>
                       <div class="color-code">
                         <div class="color-1"></div>
                         <div class="color-2"></div>
@@ -323,7 +360,10 @@
                     <div class="condition-range">&lt; 130 / 80 mmHG</div>
                   </div>
                 </div>
-                <div class="suggest">Reduce blood pressure</div>
+                <div class="suggest">{{ assessment.assessments.blood_pressure.message }}</div>
+              </div>
+              <div class="alert alert-light" v-else>
+                <h5 class="ml-2">No Blood Pressure Data Found!</h5>
               </div>
             </div>
           </div>
@@ -393,13 +433,15 @@
                   </template>
                 </b-modal>
               </div>
-              <div class="card-body custom-card-body">
+              <div class="card-body custom-card-body"
+                   v-if="assessment.assessments && assessment.assessments.diabetes"
+              >
                 <div class="body-condition">
                   <div class="condition">
                     <div class="type">Fasting Blood Sugar</div>
                     <div class="condition-details">
-                      <div class="measurement mr-3">120 mg/dL</div>
-                      <div class="result mr-3">Pre-diabetes</div>
+                      <div class="measurement mr-3" :class="assessment.assessments.diabetes.tfl">{{ assessment.assessments.diabetes.value }}</div>
+                      <div class="result mr-3" :class="assessment.assessments.diabetes.tfl">{{ assessment.assessments.diabetes.eval }}</div>
                       <div class="color-code">
                         <div class="color-1"></div>
                         <div class="color-2"></div>
@@ -409,7 +451,10 @@
                     <div class="condition-range">&lt; 100mg/dL</div>
                   </div>
                 </div>
-                <div class="suggest">Improve glycemic Control</div>
+                <div class="suggest">{{ assessment.assessments.diabetes.message }}</div>
+              </div>
+              <div class="alert alert-light" v-else>
+                <h5 class="ml-2">No Diabetes Data Found!</h5>
               </div>
             </div>
           </div>
@@ -480,13 +525,13 @@
                   </template>
                 </b-modal>
               </div>
-              <div class="card-body custom-card-body">
+              <div class="card-body custom-card-body" v-if="assessment.assessments && assessment.assessments.cholesterol && assessment.assessments.cholesterol.components && assessment.assessments.cholesterol.components.total_cholesterol ">
                 <div class="body-condition">
                   <div class="condition">
                     <div class="type">Total Cholesterol</div>
                     <div class="condition-details">
-                      <div class="measurement mr-3">250mg/dL</div>
-                      <div class="result mr-3">High</div>
+                      <div class="measurement mr-3" :class="assessment.assessments.cholesterol.components.total_cholesterol.tfl">{{ assessment.assessments.cholesterol.components.total_cholesterol.value }}</div>
+                      <div class="result mr-3" :class="assessment.assessments.cholesterol.components.total_cholesterol.tfl">{{ assessment.assessments.cholesterol.components.total_cholesterol.eval }}</div>
                       <div class="color-code">
                         <div class="color-1"></div>
                         <div class="color-2"></div>
@@ -496,7 +541,10 @@
                     <div class="condition-range">&lt; 200mg/dL</div>
                   </div>
                 </div>
-                <div class="suggest">Look at guidelines for recommendation. Treat based on CVD risk rules</div>
+                <div class="suggest">{{ assessment.assessments.cholesterol.components.total_cholesterol.message }}</div>
+              </div>
+              <div class="alert alert-light" v-else>
+                <h5 class="ml-2">No Cholesterol Data Found!</h5>
               </div>
             </div>
           </div>
@@ -563,13 +611,13 @@
                   </template>
                 </b-modal>
               </div>
-              <div class="card-body custom-card-body">
+              <div class="card-body custom-card-body" v-if="assessment.assessments && assessment.assessments.cvd">
                 <div class="body-condition">
                   <div class="condition">
                     <div class="type">Your 10 year risk</div>
                     <div class="condition-details">
-                      <div class="measurement mr-3">30% to 40%</div>
-                      <div class="result mr-3">Medium</div>
+                      <div class="measurement mr-3" :class="assessment.assessments.cvd.tfl">{{ assessment.assessments.cvd.value }}</div>
+                      <div class="result mr-3" :class="assessment.assessments.cvd.tfl">{{ assessment.assessments.cvd.eval }}</div>
                       <div class="color-code">
                         <div class="color-1"></div>
                         <div class="color-2"></div>
@@ -579,7 +627,10 @@
                     <div class="condition-range">&lt; 5%</div>
                   </div>
                 </div>
-                <div class="suggest">Improve blood pressure control</div>
+                <div class="suggest">{{ assessment.assessments.cvd.message }}</div>
+              </div>
+              <div class="alert alert-light" v-else>
+                <h5 class="ml-2">No Cardiovascular Data Found!</h5>
               </div>
             </div>
           </div>
@@ -591,11 +642,11 @@
         <div class="col-lg-6">
           <div class="comment-section mb-4">
 
-              <div class="form-group mb-4">
-                <label for="exampleFormControlTextarea3">Comments/Notes (Optional)</label>
-                <textarea class="form-control" id="exampleFormControlTextarea3" rows="4"></textarea>
-              </div>
-              <button class="btn btn-primary" @click="$router.push({ name: 'pendingReviewGenerate', params: { reviewId: '1234s'}})">Proceed to generating Care Plan</button>
+            <div class="form-group mb-4">
+              <label for="exampleFormControlTextarea3">Comments/Notes (Optional)</label>
+              <textarea class="form-control" id="exampleFormControlTextarea3" rows="4"></textarea>
+            </div>
+            <button class="btn btn-primary" @click="$router.push({ name: 'pendingReviewGenerate', params: { reviewId: '1234s'}})">Proceed to generating Care Plan</button>
           </div>
 
         </div>
@@ -606,35 +657,62 @@
 </template>
 <script>
 
-import {RotateSquare2} from 'vue-loading-spinner'
+  import {RotateSquare2} from 'vue-loading-spinner'
 
-export default {
-  name: "health-records",
-  components: { RotateSquare2 },
-  data() {
-    return {
-      isLoading: false,
-      participants: [],
-      participant_info: {},
-      allergies: [],
-      participantId: '',
-      lifestyle: '',
-      body_composition: '',
-      blood_pressure: '',
-      diabetes: '',
-      cholesterol: '',
-      cvd: '',
-      goals: [],
-      referrals: [],
-      assessment_date: ''
-    };
-  },
-  methods: {
+  export default {
+    name: "health-records",
+    components: { RotateSquare2 },
+    data() {
+      return {
+        isLoading: true,
+        participants: [],
+        participant_info: {},
+        allergies: [],
+        participantId: '',
+        lifestyle: '',
+        body_composition: '',
+        blood_pressure: '',
+        diabetes: '',
+        cholesterol: '',
+        cvd: '',
+        goals: [],
+        referrals: [],
+        assessment_date: '',
+        patientId: '',
+        patientInfo: '',
+        patientMeta: '',
+        assessment: ''
+      };
+    },
+    mounted() {
 
-  },
-  mounted() {
+    },
+    created() {
+      if (this.$route.params.patientId) {
+        this.patientId = this.$route.params.patientId
+        this.getPatientInfo()
+        this.patientHealthRecord()
+      }
 
-  }
-};
+    },
+    methods: {
+      patientHealthRecord() {
+        this.$http.post("/health-reports/generate/"+ this.patientId).then(response => {
+          if (response.status == 200) {
+            this.assessment = response.data
+          }
+        });
+      },
+      getPatientInfo() {
+        this.$http.get('/patients/' + this.patientId).then(response => {
+          if (response.status == 200) {
+            this.patientMeta = response.data.data.meta
+            this.patientInfo = response.data.data.body
+            this.isLoading = false
+          }
+        })
+      }
+    },
+  };
 </script>
 

@@ -10,8 +10,8 @@ store.subscribe((mutation => {
         localStorage.setItem('user', JSON.stringify(mutation.payload))
       } else {
         axios.defaults.headers.common['Authorization'] = null
-        localStorage.removeItem('token ')
-        localStorage.removeItem('user ')
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
       }
       break
   }

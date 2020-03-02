@@ -2,8 +2,8 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    token: '',
-    user: ''
+    token: null,
+    user: null
   },
   getters: {
     authenticated(state) {
@@ -23,10 +23,7 @@ export default {
   },
   actions: {
     async signIn({ dispatch },data) {
-      let response = await axios.post('http://a753d198.ngrok.io/api/v1/users/login', {
-        email: 'feroj+admin@augnitive.com',
-        password: 'testtest'
-      })
+      let response = await axios.post('http://cc466cb6.ngrok.io/api/v1/users/login', data)
       return dispatch('commit',response.data)
 
     },

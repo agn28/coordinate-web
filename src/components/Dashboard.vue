@@ -6,8 +6,8 @@
       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 mt-4 static-top">
         <div class="flex-column login_user mt-3">
           <div class="welcomeMsg">Welcome</div>
-          <h2 class="title">User Name</h2>
-          <div class="roleUser">Role User</div>
+          <h2 class="title">{{ user.name }}</h2>
+          <div class="roleUser text-capitalize">{{ user.role }}</div>
         </div>
 
 
@@ -105,6 +105,7 @@
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex'
     import BarChart from './utils/BarChart.vue'
     import DateRangePicker from 'vue2-daterange-picker'
     import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
@@ -114,6 +115,12 @@
             DateRangePicker
 
         },
+      computed: {
+        ...mapGetters({
+          authenticated: 'auth/authenticated',
+          user: 'auth/userInfo'
+        })
+      },
       data () {
         return {
           dateRange: {

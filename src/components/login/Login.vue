@@ -13,20 +13,20 @@
                         <div class="app-title">
                             Login to Continue
                         </div>
-
+                        <form @submit.prevent="login">
                         <div class="login-form">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Email Address">
+                                <input type="text" required v-model="form.email" class="form-control" placeholder="Email Address">
                             </div>
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" placeholder="Password" class="form-control">
+                                <input type="password" required v-model="form.password" placeholder="Password" class="form-control">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-eye"></i></span>
                                 </div>
@@ -35,6 +35,7 @@
                             <button class="btn btn-primary btn-large btn-block" href="#">login</button>
                             <a class="login-link" href="#">Lost your password?</a>
                         </div>
+                        </form>
                     </div>
                 </div>
 
@@ -45,9 +46,31 @@
 </template>
 
 <script>
-    export default {
-        name: "login"
+  import {mapActions} from 'vuex'
+  export default {
+    name: "Login",
+    data() {
+      return {
+        form: {
+          email: "",
+          password: "",
+          remember: ""
+        }
+      };
+    },
+    methods: {
+      ...mapActions({
+        signIn: 'auth/signIn'
+      }),
+      login() {
+        this.signIn(this.form).then( (res) => {
+          this.$router.push('/dashboard')
+        }).catch((exception) => {
+          console.log(exception)
+        })
+      }
     }
+  }
 </script>
 
 <style scoped>

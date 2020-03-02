@@ -43,18 +43,10 @@ import DiagnosticCreate from '../components/diagnostics/Create'
 
 import HealthEncounters from '../components/health-records/encounters/List'
 
-import Login from "../components/auth/Login";
+
 import store from "../store/store";
-export const routes = [
-  {
-    path: '/login',
-    name: 'login',
-    component: Login
-  },
-    {
-        path: '/',
-        redirect: '/dashboard'
-    },
+import VueRouter from "vue-router";
+const routes = [
   {
     path: '/login',
     name: 'login',
@@ -62,11 +54,15 @@ export const routes = [
     beforeEnter: (to, from, next) => {
       if (store.getters['auth/authenticated']) {
         return next({
-          name: 'dashboard',
-          path: '/dashboard'
+          name: 'dashboard'
         })
       }
+      next()
     }
+  },
+  {
+    path: '/',
+    redirect: '/dashboard'
   },
   {
     path: '/dashboard',
@@ -368,7 +364,7 @@ export const routes = [
     component: PendingReviews
   },
   {
-    path: '/pending-reviews/:reviewId',
+    path: '/pending-reviews/:patientId',
     name: 'pendingReviewDetail',
     component: PendingReviewDetail
   },
@@ -420,5 +416,29 @@ export const routes = [
   },
 
 
-
 ]
+const router = new VueRouter({
+  routes,
+  mode: 'history'
+});
+
+router.beforeEach((to, from, next) => {
+  if (store.getters['auth/userInfo']) {
+    let expiration = new Date(store.getters['auth/userInfo'].expirationTime)
+    expiration = expiration.addHours(12)
+    expiration = expiration.getTime()
+    let currentTime = new Date()
+    currentTime = currentTime.getTime()
+
+    if (currentTime > expiration) {
+      store.commit('auth/SET_TOKEN', null)
+      store.commit('auth/SET_USER', null)
+      next({
+        name: 'login'
+      })
+    }
+    next()
+  }
+  next()
+})
+export default router;
