@@ -95,7 +95,6 @@
       getPatients() {
         this.$http.get("/reviews").then(response => {
           if (response.status == 200) {
-            console.log(response.data)
             this.patients = response.data.data;
             this.isLoading = false;
           }

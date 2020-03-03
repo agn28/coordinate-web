@@ -706,12 +706,6 @@
 
         })
       },
-      manipulateData() {
-        console.log(this.allData)
-        if (this.cvd) {
-
-        }
-      },
       patientHealthRecord() {
         this.$http.get("/health-reports/"+ this.review_id).then(response => {
           if (response.status == 200) {
@@ -719,7 +713,6 @@
             this.assessment = response.data.data.body.result
             this.patientId = response.data.data.body.patient_id
             this.getPatientInfo()
-            this.manipulateData()
           }
         });
       },

@@ -46,6 +46,10 @@ Date.prototype.addHours = function(h) {
   this.setTime(this.getTime() + (h*60*60*1000));
   return this;
 }
+Date.prototype.addDays = function(days) {
+  this.setDate(this.getDate() + parseInt(days));
+  return this;
+}
 
 if (localStorage.getItem('user')) {
   store.dispatch('auth/commit', JSON.parse(localStorage.getItem('user')))
