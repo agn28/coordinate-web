@@ -370,12 +370,12 @@ const routes = [
     component: PendingReviews
   },
   {
-    path: '/pending-reviews/:patientId',
+    path: '/pending-reviews/:reviewId',
     name: 'pendingReviewDetail',
     component: PendingReviewDetail
   },
   {
-    path: '/pending-reviews/:patientId/generate',
+    path: '/pending-reviews/:reviewId/generate',
     name: 'pendingReviewGenerate',
     component: PendingReviewGenerate
   },
