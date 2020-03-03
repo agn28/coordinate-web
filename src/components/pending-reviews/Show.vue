@@ -175,7 +175,7 @@
                             <div class="d-flex align-items-center">
                               <div class="form-group">
                                 <label for="">Hip</label>
-                                <input type="text" class="form-control form-coordinate circumference-input">
+                                <input type="text" v-model="hip" class="form-control form-coordinate circumference-input">
                               </div>
                               <div class="measurement-type">
                                 <div class="custom-control custom-radio">
@@ -260,7 +260,7 @@
                             <div class="d-flex align-items-center">
                               <div class="form-group">
                                 <label for="">BMI</label>
-                                <input type="text" class="form-control form-coordinate circumference-input">
+                                <input type="text" v-model="bmi" class="form-control form-coordinate circumference-input">
                               </div>
                               <div class="measurement-type">
                                 <div class="custom-control custom-radio">
@@ -476,7 +476,7 @@
                   <div class="d-flex align-items-center">
                     <div class="form-group">
                       <label for="">Total Cholesterol</label>
-                      <input type="text" class="form-control form-coordinate circumference-input">
+                      <input type="text" v-model="cholesterol" class="form-control form-coordinate circumference-input">
                     </div>
                     <div class="measurement-type">
                       <div class="custom-control custom-radio">
@@ -566,7 +566,7 @@
                   <div class="d-flex align-items-center">
                     <div class="form-group">
                       <label for="">CVD</label>
-                      <input type="text" class="form-control form-coordinate circumference-input">
+                      <input type="text" v-model="cvd" class="form-control form-coordinate circumference-input">
                     </div>
                     <div class="measurement-type">
                       <div class="custom-control custom-radio">
@@ -590,7 +590,7 @@
 
                     <div class="form-group">
                       <label for="comment">Comments/Notes (Optional)</label>
-                      <textarea class="form-control" id="commentCvd" rows="4"></textarea>
+                      <textarea class="form-control" v-model="commentCvd" id="commentCvd" rows="4"></textarea>
                     </div>
                   </div>
 
@@ -646,7 +646,7 @@
               <label for="exampleFormControlTextarea3">Comments/Notes (Optional)</label>
               <textarea class="form-control" v-model="comments" id="exampleFormControlTextarea3" rows="4"></textarea>
             </div>
-            <button class="btn btn-primary" @click="$router.push({ name: 'pendingReviewGenerate', params: { patientId: '1234s'}})">Proceed to generating Care Plan</button>
+            <button class="btn btn-primary" @click="$router.push({ name: 'pendingReviewGenerate', params: { reviewId: review_id }})">Proceed to generating Care Plan</button>
           </div>
 
         </div>
@@ -675,32 +675,51 @@
         diabetes: '',
         cholesterol: '',
         cvd: '',
+        commentCvd: '',
         goals: [],
         referrals: [],
         assessment_date: '',
-        patientId: '',
+        review_id: '',
         patientInfo: '',
         patientMeta: '',
         assessment: '',
         comments: '',
+        allData: '',
+        bmi: '',
+        hip: '',
       };
     },
     mounted() {
 
     },
     created() {
-      if (this.$route.params.patientId) {
-        this.patientId = this.$route.params.patientId
-        this.getPatientInfo()
+      if (this.$route.params.reviewId) {
+        this.review_id = this.$route.params.reviewId
         this.patientHealthRecord()
       }
 
     },
     methods: {
+      updatePatientHealthRecord() {
+        this.isLoading = true
+        this.$http.put("/health-reports"+ this.review_id, this.allData ).then(response => {
+
+        })
+      },
+      manipulateData() {
+        console.log(this.allData)
+        if (this.cvd) {
+
+        }
+      },
       patientHealthRecord() {
-        this.$http.post("/health-reports/generate/"+ this.patientId).then(response => {
+        this.$http.get("/health-reports/"+ this.review_id).then(response => {
           if (response.status == 200) {
-            this.assessment = response.data
+            this.allData = response.data
+            this.assessment = response.data.data.body.result
+            this.patientId = response.data.data.body.patient_id
+            this.getPatientInfo()
+            this.manipulateData()
           }
         });
       },

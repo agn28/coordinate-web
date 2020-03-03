@@ -44,7 +44,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(patient, index) in patients" :key="index" @click="$router.push({ name: 'pendingReviewDetail', params: { patientId: patient.id}})">
+              <tr v-for="(patient, index) in patients" :key="index" @click="$router.push({ name: 'pendingReviewDetail', params: { reviewId: patient.review_id}})">
                 <template v-if="patient.body && patient.body.first_name">
                   <th scope="row">
                     <div class="custom-control custom-checkbox">
@@ -93,8 +93,9 @@
     },
     methods: {
       getPatients() {
-        this.$http.get("/patients").then(response => {
+        this.$http.get("/reviews").then(response => {
           if (response.status == 200) {
+            console.log(response.data)
             this.patients = response.data.data;
             this.isLoading = false;
           }

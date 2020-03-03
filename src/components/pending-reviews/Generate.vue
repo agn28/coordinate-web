@@ -8,7 +8,7 @@
         <i class="fa fa-arrow-left text-secondary back-icon"></i>
         <div class="">
           <h4>Health Assessment</h4>
-          <div class="breadcrumb"><span>Patients</span>/ patient name / Health Assessment</div>
+          <div class="breadcrumb"><span>Patients</span>/ {{ patientInfo.first_name + " " + patientInfo.last_name }} / Health Assessment</div>
         </div>
       </div>
 
@@ -18,12 +18,12 @@
             <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="100" height="100" alt="">
           </div>
           <div class="patient-details">
-            <div class="patient-name">Jahanara Begum</div>
+            <div class="patient-name">{{ patientInfo.first_name + " " + patientInfo.last_name }}</div>
             <div class="details">
-              <div class="age">31y Female</div>
-              <div class="nid">NID: 1992121224343</div>
-              <div class="pid">PID: N-121233333</div>
-              <div class="register-date">Registered on Jan 5, 2019</div>
+              <div class="age">{{ patientInfo.age }} {{ patientInfo.gender }}</div>
+              <div class="nid">NID: {{ patientInfo.nid}}</div>
+              <div class="pid">PID: {{ patientInfo.pid }}</div>
+              <div class="register-date">Registered on {{ patientMeta.created_at }}</div>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
                         <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1" @click="addDiagnosis()">
                           Add
                         </b-button>
-                        
+
                         <b-button @click="$bvModal.hide('modal-diagnosis')" variant="link" size="md" class="float-right font-weight-bold p-0">
                           Cancel
                         </b-button>
@@ -346,7 +346,7 @@
               <div class="comments">
                 <div class="form-group">
                   <label for="">Comments/Notes (Optional)</label>
-                  <text-area class="form-control"></text-area>
+                  <textarea v-model="comments" class="form-control" rows="4"></textarea>
                 </div>
               </div>
             </div>
@@ -354,7 +354,7 @@
         </div>
 
       </div>
-      
+
       <button class="btn btn-primary btn-confirm">Confirm Care Plan</button>
 
 
@@ -370,7 +370,7 @@ export default {
   components: { RotateSquare2 },
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       participants: [],
       participant_info: {},
       allergies: [],
@@ -384,12 +384,41 @@ export default {
       goals: [],
       referrals: [],
       assessment_date: '',
-      newDiagnosis: ''
+      newDiagnosis: '',
+      patientId: '',
+      patientMeta: '',
+      patientInfo: '',
+      comments: '',
+      reviewId: ''
     };
   },
   methods: {
     addDiagnosis() {
       // this.$bvModal.hide('modal-diagnosis');
+    },
+    getHealthReport() {
+      this.$http.get('/health-reports/'+ this.reviewId).then( response => {
+        if (response.status == 200) {
+          console.log(response.data.data)
+          this.patientId = response.data.data.body.patient_id
+          this.getPatientInfo()
+        }
+      })
+    },
+    getPatientInfo() {
+      this.$http.get('/patients/' + this.patientId).then(response => {
+        if (response.status == 200) {
+          this.patientMeta = response.data.data.meta
+          this.patientInfo = response.data.data.body
+          this.isLoading = false
+        }
+      })
+    }
+  },
+  created() {
+    if (this.$route.params.reviewId) {
+      this.reviewId = this.$route.params.reviewId
+      this.getHealthReport()
     }
   },
   mounted() {
