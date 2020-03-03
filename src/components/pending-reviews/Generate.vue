@@ -176,9 +176,9 @@
 
                   <div class="actions">
 
-                    <div class="action-item">
+                    <div class="action-item" v-for="action in newActions">
                       <div class="d-flex justify-content-between mb-2">
-                        <span>Counselling about reduced salt intake</span>
+                        <span>{{ action.title }}</span>
                         <label class="switch">
                           <input type="checkbox" checked>
                           <span class="slider round"></span>
@@ -186,40 +186,9 @@
                       </div>
                       <div class="form-group">
                         <label for="">Duration</label>
-                        <select name="" id="" class="form-control">
-                          <option value="">Within 1 month</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="action-item">
-                      <div class="d-flex justify-content-between mb-2">
-                        <span>Counselling on diet for weight reduction</span>
-                        <label class="switch">
-                          <input type="checkbox" checked>
-                          <span class="slider round"></span>
-                        </label>
-                      </div>
-                      <div class="form-group">
-                        <label for="">Duration</label>
-                        <select name="" id="" class="form-control">
-                          <option value="">Within 1 month</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="action-item">
-                      <div class="d-flex justify-content-between mb-2">
-                        <span>Counselling on increasing physical activity</span>
-                        <label class="switch">
-                          <input type="checkbox" checked>
-                          <span class="slider round"></span>
-                        </label>
-                      </div>
-                      <div class="form-group">
-                        <label for="">Duration</label>
-                        <select name="" id="" class="form-control">
-                          <option value="">Within 1 month</option>
+                        <select class="form-control" v-model="action.duration">
+                          <option disabled value="">Please select one</option>
+                          <option v-for="type in types" v-bind:value="type.id" :selected="type.id == action.duration">{{type.value}}</option>
                         </select>
                       </div>
                     </div>
@@ -238,56 +207,21 @@
                         <span class="title">Add Actions</span>
                       </template>
                       <div class="form-group">
-                        <label for="">input box 1</label>
-                        <input type="text" class="form-control form-coordinate action-input">
+                        <label for="">Title</label>
+                        <input type="text" class="form-control form-coordinate action-input" v-model="actionTitle">
                       </div>
 
-                      <div class="form-group">
-                        <label for="">input box 2</label>
-                        <input type="text" class="form-control form-coordinate action-input">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="">input box 3</label>
-                        <input type="text" class="form-control form-coordinate action-input">
-                      </div>
-
-                      <div class="select-actions">
-                        <h5>Select box 1</h5>
-                        <div class="select-wrapper">
-                          <select class="select">
-                            <option value=""></option>
-                            <option value="value1">add option</option>
-                            <option value="value1">add option</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="select-actions">
-                        <h5>Select box 2</h5>
-                        <div class="select-wrapper">
-                          <select class="select">
-                            <option value=""></option>
-                            <option value="value1">add option</option>
-                            <option value="value1">add option</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="select-actions">
-                        <h5>Select box 2</h5>
-                        <div class="select-wrapper">
-                          <select class="select">
-                            <option value=""></option>
-                            <option value="value1">add option</option>
-                            <option value="value1">add option</option>
-                          </select>
-                        </div>
+                      <div class="form-group mt-3">
+                        <label for="">Duration</label>
+                        <select class="form-control" v-model="selectedOption">
+                          <option disabled value="">Please select one</option>
+                          <option v-for="type in types" v-bind:value="type.id">{{type.value}}</option>
+                        </select>
                       </div>
 
                       <template v-slot:modal-footer>
                         <div class="w-100">
-                          <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                          <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1" @click="addActionItem">
                             Add
                           </b-button>
 
@@ -389,12 +323,51 @@ export default {
       patientMeta: '',
       patientInfo: '',
       comments: '',
-      reviewId: ''
+      reviewId: '',
+      newActions: [],
+      actionTitle: '',
+      selectedOption: undefined,
+      types: [
+        {
+          "id": "1",
+          "value": "Within 1 month"
+        },
+        {
+          "id": "2",
+          "value": "Within 2 month"
+        },
+        {
+          "id": "3",
+          "value": "Within 3 month"
+        },
+        {
+          "id": "4",
+          "value": "Within 4 month"
+        },
+        {
+          "id": "5",
+          "value": "Within 5 month"
+        },
+        {
+          "id": "6",
+          "value": "Within 6 month"
+        },
+      ]
     };
   },
   methods: {
     addDiagnosis() {
       // this.$bvModal.hide('modal-diagnosis');
+    },
+
+    addActionItem() {
+      this.newActions.push({
+        title: this.actionTitle,
+        duration: this.selectedOption,
+      });
+      this.actionTitle = '';
+      this.$bvModal.hide('modal-actions');
+
     },
     getHealthReport() {
       this.$http.get('/health-reports/'+ this.reviewId).then( response => {
