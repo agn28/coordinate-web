@@ -23,7 +23,7 @@ export default {
   },
   actions: {
     async signIn({ dispatch },data) {
-      let response = await axios.post('http://cc466cb6.ngrok.io/api/v1/users/login', data)
+      let response = await axios.post('http://00572739.ngrok.io/api/v1/users/login', data)
       return dispatch('commit',response.data)
 
     },
