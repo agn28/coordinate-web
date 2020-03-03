@@ -31,7 +31,7 @@ Vue.use(MultiSelectPlugin);
 
 // axios.defaults.baseURL = 'https://fhirapi.monarko.com';
 // axios.defaults.baseURL = 'http://127.0.0.1:3000';
-axios.defaults.baseURL = 'http://cc466cb6.ngrok.io/api/v1';
+axios.defaults.baseURL = 'http://00572739.ngrok.io/api/v1';
 
 Vue.prototype.$http = axios;
 Vue.prototype.moment = moment;

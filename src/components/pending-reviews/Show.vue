@@ -644,9 +644,9 @@
 
             <div class="form-group mb-4">
               <label for="exampleFormControlTextarea3">Comments/Notes (Optional)</label>
-              <textarea class="form-control" id="exampleFormControlTextarea3" rows="4"></textarea>
+              <textarea class="form-control" v-model="comments" id="exampleFormControlTextarea3" rows="4"></textarea>
             </div>
-            <button class="btn btn-primary" @click="$router.push({ name: 'pendingReviewGenerate', params: { reviewId: '1234s'}})">Proceed to generating Care Plan</button>
+            <button class="btn btn-primary" @click="$router.push({ name: 'pendingReviewGenerate', params: { patientId: '1234s'}})">Proceed to generating Care Plan</button>
           </div>
 
         </div>
@@ -681,7 +681,8 @@
         patientId: '',
         patientInfo: '',
         patientMeta: '',
-        assessment: ''
+        assessment: '',
+        comments: '',
       };
     },
     mounted() {

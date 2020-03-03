@@ -1,4 +1,4 @@
-.login-body {
+.forgot-body {
   background: $primary-color;
   height: 100vh;
   width: 100%;
@@ -28,7 +28,7 @@
     }
   }
 
-  .login {
+  .forgot {
     margin: 0 auto;
     font-family: Roboto;
     font-style: normal;
@@ -37,12 +37,13 @@
     line-height: 24px;
     letter-spacing: 0.15px;
 
-    .login-screen {
+    .forgot-screen {
       background-color: #FFF;
       padding: 40px;
       border-radius: 5px;
+      width: 450px;
 
-      .login-title {
+      .forgot-title {
         font-style: normal;
         font-weight: 500;
         font-size: 22px;
@@ -52,19 +53,16 @@
         margin-bottom: 30px;
       }
 
-      .login-title-msg {
+      .forgot-title-msg {
         font-weight: normal;
         font-size: 16px;
         line-height: 24px;
         text-align: center;
         color: #000000;
         margin-bottom: 30px;
-        display: flex;
-        justify-content: center;
-        width: 50%;
       }
 
-      .login-form {
+      .forgot-form {
 
         .input-group {
 
@@ -95,8 +93,9 @@
 
         }
 
-        .login-btn {
+        .forgot-btn {
           width: 100%;
+          font-weight: 500;
           background: #0276BD;
           border-radius: 4px;
           font-size: 14px;
