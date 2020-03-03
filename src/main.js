@@ -9,6 +9,7 @@ import { VuejsDatatableFactory } from 'vuejs-datatable';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueFormWizard from 'vue-form-wizard'
 import { MultiSelectPlugin } from '@syncfusion/ej2-vue-dropdowns';
+import datePicker from 'vue-bootstrap-datetimepicker';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -17,6 +18,8 @@ import "../node_modules/@syncfusion/ej2-base/styles/material.css";
 import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
 import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
 import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
 import store from "./store/store";
 require ('@/store/subscriber')
 
@@ -28,6 +31,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueFormWizard)
 Vue.use(MultiSelectPlugin);
+Vue.use(datePicker);
 
 // axios.defaults.baseURL = 'https://fhirapi.monarko.com';
 // axios.defaults.baseURL = 'http://127.0.0.1:3000';
