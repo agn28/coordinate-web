@@ -1,5 +1,8 @@
 <template>
     <div class="row">
+        <div class="loader" v-if="isLoading">
+            <rotate-square2></rotate-square2>
+        </div>
         <div class="container-fluid">
             <div class="login-body">
                 <div class="brand-header mb-5">
@@ -50,11 +53,14 @@
 </template>
 
 <script>
+  import {RotateSquare2} from 'vue-loading-spinner'
   import {mapActions} from 'vuex'
   export default {
+    components: { RotateSquare2 },
     name: "Login",
     data() {
       return {
+        isLoading: false,
         form: {
           email: "",
           password: "",
@@ -67,6 +73,7 @@
         signIn: 'auth/signIn'
       }),
       login() {
+        this.isLoading = true
         this.signIn(this.form).then( (res) => {
           this.$router.push('/dashboard')
         }).catch((exception) => {

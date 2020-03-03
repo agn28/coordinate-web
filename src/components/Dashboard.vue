@@ -1,10 +1,12 @@
 <template>
   <!-- Main Content -->
   <div id="content">
-
+    <div class="loader" v-if="isLoading">
+      <rotate-square2></rotate-square2>
+    </div>
     <div class="col-md-12">
       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 mt-4 static-top">
-        <div class="flex-column login_user mt-3">
+        <div class="flex-column login_user mt-3" v-if="!isLoading">
           <div class="welcomeMsg">Welcome</div>
           <h2 class="title">{{ user.name }}</h2>
           <div class="roleUser text-capitalize">{{ user.role }}</div>
@@ -105,6 +107,7 @@
 </template>
 
 <script>
+    import {RotateSquare2} from 'vue-loading-spinner'
     import { mapGetters, mapActions } from 'vuex'
     import BarChart from './utils/BarChart.vue'
     import DateRangePicker from 'vue2-daterange-picker'
@@ -112,7 +115,8 @@
     export default {
         components: {
             BarChart,
-            DateRangePicker
+            DateRangePicker,
+            RotateSquare2
 
         },
       computed: {
@@ -123,6 +127,7 @@
       },
       data () {
         return {
+          isLoading: false,
           dateRange: {
             startDate: '2020-01-01',
             endDate: '2020-01-10',

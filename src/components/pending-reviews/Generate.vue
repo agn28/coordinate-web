@@ -28,10 +28,18 @@
           </div>
         </div>
       </div>
-
+      <b-alert v-if="alert == 'success'"
+               :show="dismissCountDown"
+               dismissible
+               variant="success"
+               @dismissed="dismissCountDown=0"
+               @dismiss-count-down="countDownChanged"
+      >
+        {{ message }}
+      </b-alert>
       <div class="care-plans">
 
-        <div class="care-plan-item">
+        <div class="care-plan-item d-none">
           <div class="row ml-3">
             <div class="col-lg-6 col-md-8 col-sm-9 col-11">
               <div class="card card-form">
@@ -100,65 +108,63 @@
                 <div class="card-body">
                   <ul class="diagnosis-list">
                     <li class="d-flex justify-content-between">
-                      <span>Start antihypertensive</span>
+                      <div v-if="dataReady">
+                        <div v-if="allData.data && allData.data.body && allData.data.body.result && allData.data.body.result.careplan && allData.data.body.result.careplan.activities">
+                          <div v-for="item in allData.data.body.result.careplan.activities">
+                            <div v-if="item.category == 'medication'">
+                              <span> {{ item.title }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <label class="switch">
-                        <input type="checkbox" checked>
+                        <input type="checkbox" checked >
                         <span class="slider round"></span>
                       </label>
                     </li>
                   </ul>
-
-                  <div class="drugs">
-                    <div class="row">
-                      <div class="col">
-                        <div class="form-group">
-                          <label for="">Drug Name</label>
-                          <input type="text" class="form-control">
+                  <form @submit.prevent="addMedication">
+                    <div class="drugs">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="">Drug Name</label>
+                            <input type="text" v-model="medication.title" required  class="form-control">
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="">Dosage</label>
+                            <input type="text" v-model="medication.dosage" required  class="form-control">
+                          </div>
                         </div>
                       </div>
-                      <div class="col">
-                        <div class="form-group">
-                          <label for="">Dosage</label>
-                          <input type="text" class="form-control">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label>Duration</label>
+                            <select class="form-control" required  v-model="medication.period">
+                              <option  selected value="">Please select one</option>
+                              <option v-for="duration in durations" v-bind:value="duration.value" >{{duration.title}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label>Comment</label>
+                            <textarea class="form-control"  rows="1" v-model="medication.comment"></textarea>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="card-actions">
-                    <div class="btn btn-outline-primary btn-coordinate w-100" v-b-modal.modal-medications>
-                      <i class="fas fa-plus"></i>
-                      Add a Drug Category
+                    <div class="card-actions">
+                      <button class="btn btn-outline-primary btn-coordinate  w-100" type="submit">
+                        <i class="fas fa-plus"></i>
+                        Add a Drug Category
+                      </button>
                     </div>
-
-                    <b-modal id="modal-medications" class="modal-coordinate">
-                      <template v-slot:modal-header>
-                        <span class="title">Add Medicine</span>
-                      </template>
-                      <div class="select-medicine">
-                        <h5>Select Medicine</h5>
-                        <div class="select-wrapper">
-                          <select class="select">
-                            <option value="" selected>Select medicine</option>
-                            <option value="napa">Napa</option>
-                            <option value="adderall">Adderall</option>
-                            <option value="alprazolam">Alprazolam</option>
-                          </select>
-                        </div>
-                      </div>
-                      <template v-slot:modal-footer>
-                        <div class="w-100">
-                          <b-button variant="link" size="sm" class="float-right font-weight-bold p-0 pl-4 pr-1">
-                            Add
-                          </b-button>
-
-                          <b-button variant="link" size="sm" class="float-right font-weight-bold p-0" @click="$bvModal.hide('modal-medications')">
-                            Cancel
-                          </b-button>
-                        </div>
-                      </template>
-                    </b-modal>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -176,20 +182,21 @@
 
                   <div class="actions">
 
-                    <div class="action-item" v-for="action in newActions">
-                      <div class="d-flex justify-content-between mb-2">
-                        <span>{{ action.title }}</span>
-                        <label class="switch">
-                          <input type="checkbox" checked>
-                          <span class="slider round"></span>
-                        </label>
-                      </div>
-                      <div class="form-group">
-                        <label for="">Duration</label>
-                        <select class="form-control" v-model="action.duration">
-                          <option disabled value="">Please select one</option>
-                          <option v-for="type in types" v-bind:value="type.id" :selected="type.id == action.duration">{{type.value}}</option>
-                        </select>
+                    <div v-for="action in newActions">
+                      <div class="action-item"  v-if="action.category != 'medication'">
+                        <div class="d-flex justify-content-between mb-2">
+                          <span>{{ action.title }}</span>
+                          <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                          </label>
+                        </div>
+                        <div class="form-group">
+                          <label for="">Duration</label>
+                          <select class="form-control">
+                            <option v-for="type in types" :selected="selectActionItem(type, action) ">{{type.text}}</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
 
@@ -201,27 +208,25 @@
                       <i class="fas fa-plus"></i>
                       Add an Action
                     </div>
-
                     <b-modal id="modal-actions" class="modal-coordinate">
                       <template v-slot:modal-header>
                         <span class="title">Add Actions</span>
                       </template>
                       <div class="form-group">
                         <label for="">Title</label>
-                        <input type="text" class="form-control form-coordinate action-input" v-model="actionTitle">
+                        <input type="text" class="form-control form-coordinate action-input" required v-model="actionTitle">
                       </div>
 
                       <div class="form-group mt-3">
                         <label for="">Duration</label>
-                        <select class="form-control" v-model="selectedOption">
-                          <option disabled value="">Please select one</option>
-                          <option v-for="type in types" v-bind:value="type.id">{{type.value}}</option>
+                        <select class="form-control" required v-model="selectedOption">
+                          <option v-for="type in types" v-bind:value="type.id">{{type.text}}</option>
                         </select>
                       </div>
 
                       <template v-slot:modal-footer>
                         <div class="w-100">
-                          <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1" @click="addActionItem">
+                          <b-button variant="link" size="md" :disabled="!selectedOption || !actionTitle" class="float-right font-weight-bold p-0 pl-4 pr-1" @click="addActionItem">
                             Add
                           </b-button>
 
@@ -289,7 +294,7 @@
 
       </div>
 
-      <button class="btn btn-primary btn-confirm">Confirm Care Plan</button>
+      <button class="btn btn-primary btn-confirm" @click="updateReviewData">Confirm Care Plan</button>
 
 
     </div>
@@ -304,6 +309,8 @@ export default {
   components: { RotateSquare2 },
   data() {
     return {
+      medicationEnabled: false,
+      medication: {},
       isLoading: true,
       participants: [],
       participant_info: {},
@@ -326,53 +333,206 @@ export default {
       reviewId: '',
       newActions: [],
       actionTitle: '',
+      activity: {},
       selectedOption: undefined,
-      types: [
+      durations: [
         {
           "id": "1",
-          "value": "Within 1 month"
+          "title": "One Day",
+          "value": "1d",
         },
         {
           "id": "2",
-          "value": "Within 2 month"
+          "title": "3 Days",
+          "value": "3d",
         },
         {
           "id": "3",
-          "value": "Within 3 month"
+          "title": "5 Days",
+          "value": "5d",
         },
         {
           "id": "4",
-          "value": "Within 4 month"
+          "title": "1 Week",
+          "value": "1w",
         },
         {
           "id": "5",
-          "value": "Within 5 month"
+          "title": "2 Weeks",
+          "value": "2w",
         },
         {
           "id": "6",
-          "value": "Within 6 month"
+          "title": "15 Days",
+          "value": "15d",
         },
-      ]
+        {
+          "id": "7",
+          "title": "1 Month",
+          "value": "1m",
+        },
+        {
+          "id": "7",
+          "title": "3 Month",
+          "value": "3m",
+        },
+      ],
+      types: [
+        {
+          "id": "1",
+          "text": "Within 1 month"
+        },
+        {
+          "id": "2",
+          "text": "Within 2 month"
+        },
+        {
+          "id": "3",
+          "text": "Within 3 month"
+        },
+        {
+          "id": "4",
+          "text": "Within 4 month"
+        },
+        {
+          "id": "5",
+          "text": "Within 5 month"
+        },
+        {
+          "id": "6",
+          "text": "Within 6 month"
+        },
+      ],
+      allData: '',
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      message: '',
+      alert: '',
+      dataReady: false
     };
   },
   methods: {
     addDiagnosis() {
       // this.$bvModal.hide('modal-diagnosis');
     },
+    addMedication() {
+      let startDate = new Date()
+      let endDate =  new Date()
+      let period = this.medication.period.split(/(\d+)/).filter(Boolean)
+      if (period[1] == 'w') {
+        endDate = endDate.addDays(period[0] * 7)
+      } else if(period[1] == 'm') {
+        endDate = endDate.addDays(period[0] * 30)
+      } else {
+        endDate = endDate.addDays(period[0])
+      }
+      let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth()+1) + '-' + startDate.getDate()
+      let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth()+1) + '-' + endDate.getDate()
+      this.activity = {
+        category: "medication",
+        title: this.medication.title,
+        description: this.medication.title,
+        id: '',
+        roles : ['doctor'],
+        component : {},
+        outcomeConcept: {
 
-    addActionItem() {
-      this.newActions.push({
-        title: this.actionTitle,
-        duration: this.selectedOption,
-      });
-      this.actionTitle = '';
-      this.$bvModal.hide('modal-actions');
+        },
+        activityDuration: {
+          start: startPeriod,
+          end: endPeriod,
+          repeat: {
+            period: period[0],
+            periodUnit: period[1],
+            frequency: this.medication.dosage
+
+          }
+        },
+        comments: {
+          comment: this.medication.comment
+        }
+      }
+      this.allData.data.body.result.careplan.activities.push(this.activity)
 
     },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    selectActionItem(item, action) {
+
+      let itemValue = item.id
+      let start = ''
+      let end = ''
+      if (action.activityDuration && action.activityDuration.start && action.activityDuration.end) {
+        start = action.activityDuration.start
+        end = action.activityDuration.end
+        let start_date = new Date(start)
+        let end_date = new Date(end)
+        let total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth())
+        if (total_months == itemValue) {
+          return true
+        } else {
+          return  false
+        }
+      } else {
+        return false
+      }
+    },
+    updateReviewData() {
+      this.isLoading = true;
+      this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
+        if (response.status == 200 ) {
+          this.alert = 'success'
+        } else {
+          this.alert = 'error'
+        }
+        this.message = response.data.message
+        this.dismissCountDown = this.dismissSecs
+        this.isLoading = false
+
+      })
+    },
+    addActionItem() {
+      this.activity = {}
+      this.$bvModal.hide('modal-actions');
+      let startDate = new Date()
+      let endDate =  new Date()
+      endDate = endDate.addDays(this.selectedOption * 30)
+      let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth()+1) + '-' + startDate.getDate()
+      let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth()+1) + '-' + endDate.getDate()
+      this.activity = {
+        category: "survey",
+        title: this.actionTitle,
+        description: this.actionTitle,
+        id: '',
+        roles : ['doctor'],
+        component : {},
+        outcomeConcept: {
+
+        },
+        activityDuration: {
+          start: startPeriod,
+          end: endPeriod,
+          repeat: {
+            period: this.selectedOption,
+            periodUnit: 'm',
+            frequency: ''
+
+          }
+        },
+        comments: {
+          comment: ''
+        }
+      }
+      this.allData.data.body.result.careplan.activities.push(this.activity)
+    },
     getHealthReport() {
-      this.$http.get('/health-reports/'+ this.reviewId).then( response => {
+      this.$http.get('/health-reports/' + this.reviewId).then( response => {
         if (response.status == 200) {
-          console.log(response.data.data)
+          this.allData = response.data
+          if (response.data.data && response.data.data.body && response.data.data.body.result && response.data.data.body.result.careplan && response.data.data.body.result.careplan.activities ) {
+            this.newActions = response.data.data.body.result.careplan.activities
+          }
           this.patientId = response.data.data.body.patient_id
           this.getPatientInfo()
         }
@@ -384,6 +544,7 @@ export default {
           this.patientMeta = response.data.data.meta
           this.patientInfo = response.data.data.body
           this.isLoading = false
+          this.dataReady = true
         }
       })
     }
