@@ -40,8 +40,8 @@ Vue.use(Loading, {
 },);
 
 // axios.defaults.baseURL = 'https://fhirapi.monarko.com';
-// axios.defaults.baseURL = 'http://127.0.0.1:3000';
-axios.defaults.baseURL = 'http://a7f73587.ngrok.io/api/v1';
+axios.defaults.baseURL = process.env.VUE_APP_API;
+// axios.defaults.baseURL = 'http://7d787b36.ngrok.io/api/v1';
 
 Vue.prototype.$http = axios;
 Vue.prototype.moment = moment;
