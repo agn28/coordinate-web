@@ -10,6 +10,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueFormWizard from 'vue-form-wizard'
 import { MultiSelectPlugin } from '@syncfusion/ej2-vue-dropdowns';
 import datePicker from 'vue-bootstrap-datetimepicker';
+import Loading from 'vue-loading-overlay';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -19,6 +20,7 @@ import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
 import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
 import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 import store from "./store/store";
 require ('@/store/subscriber')
@@ -32,10 +34,14 @@ Vue.use(IconsPlugin)
 Vue.use(VueFormWizard)
 Vue.use(MultiSelectPlugin);
 Vue.use(datePicker);
+Vue.use(Loading, {
+  // props
+  color: '#00569B'
+},);
 
 // axios.defaults.baseURL = 'https://fhirapi.monarko.com';
 // axios.defaults.baseURL = 'http://127.0.0.1:3000';
-axios.defaults.baseURL = 'http://7d787b36.ngrok.io/api/v1';
+axios.defaults.baseURL = 'http://a7f73587.ngrok.io/api/v1';
 
 Vue.prototype.$http = axios;
 Vue.prototype.moment = moment;

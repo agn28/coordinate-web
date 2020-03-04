@@ -1,8 +1,5 @@
 <template>
   <div class="content pending-review-assessment">
-    <div class="loader" v-if="isLoading">
-      <rotate-square2></rotate-square2>
-    </div>
     <div class="animated fadeIn">
       <div class="col-lg-12 d-flex breadcrumb-wrap">
         <i class="fa fa-arrow-left text-secondary back-icon"></i>
@@ -277,6 +274,7 @@
                             <div class="select-device">
                               <h5>Select Device</h5>
                               <div class="select-wrapper">
+                                <label for=""></label>
                                 <select class="select">
                                   <option value=""></option>
                                   <option value="value1">Device 1</option>
@@ -657,14 +655,12 @@
 </template>
 <script>
 
-  import {RotateSquare2} from 'vue-loading-spinner'
-
   export default {
     name: "health-records",
-    components: { RotateSquare2 },
+    components: {  },
     data() {
       return {
-        isLoading: true,
+        fullPage: true,
         participants: [],
         participant_info: {},
         allergies: [],
@@ -701,19 +697,23 @@
     },
     methods: {
       updatePatientHealthRecord() {
-        this.isLoading = true
+        let loader = this.$loading.show();
         this.$http.put("/health-reports"+ this.review_id, this.allData ).then(response => {
+          loader.hide()
 
         })
       },
       patientHealthRecord() {
+        let loader = this.$loading.show();
         this.$http.get("/health-reports/"+ this.review_id).then(response => {
+
           if (response.status == 200) {
             this.allData = response.data
             this.assessment = response.data.data.body.result
             this.patientId = response.data.data.body.patient_id
             this.getPatientInfo()
           }
+          loader.hide()
         });
       },
       getPatientInfo() {
