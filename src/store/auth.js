@@ -23,7 +23,6 @@ export default {
   },
   actions: {
     async signIn({ dispatch },data) {
-      console.log(process.env);
       let response = await axios.post(process.env.VUE_APP_API + '/users/login', data);
       return dispatch('commit',response.data)
 

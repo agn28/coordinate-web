@@ -78,7 +78,7 @@
                     loader.hide()
                     this.$router.push('/dashboard')
                 }).catch((exception) => {
-                    console.log(exception)
+                    loader.hide()
                 })
             }
         }
