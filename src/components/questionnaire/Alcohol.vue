@@ -1,8 +1,5 @@
 <template>
   <div class="content alcohol-questionnaire">
-    <div class="loader" v-if="isLoading">
-      <rotate-square2></rotate-square2>
-    </div>
     <div class="animated fadeIn">
       <div class="col-lg-12 d-flex breadcrumb-wrap">
         <i class="fa fa-arrow-left text-secondary back-icon"></i>
@@ -91,14 +88,11 @@
 </template>
 <script>
 
-import {RotateSquare2} from 'vue-loading-spinner'
-
 export default {
   name: "health-records",
-  components: { RotateSquare2 },
+  components: {  },
   data() {
     return {
-      isLoading: false,
       participants: [],
       participant_info: {},
       allergies: [],

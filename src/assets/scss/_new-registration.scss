@@ -1,0 +1,147 @@
+.new-patient-registration {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  label {
+    font-size: 14px;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 30px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 22px;;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .wizard-header {
+    display: none;
+  }
+
+  .wizard-progress-with-circle {
+    top: 37px !important;
+
+    .wizard-progress-bar {
+      background-color: rgba(0, 0, 0, 0.08) !important;
+      color: rgb(231, 76, 60);
+      width: 16.6667%;
+    }
+  }
+
+  .wizard-nav-pills {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 18px 0px;
+
+    li {
+
+      .wizard-icon-circle {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        border: 1px solid rgba(0, 0, 0, 0.38) !important;
+        background: rgba(0, 0, 0, 0.38);
+        color: #FFFFFF;
+
+        .wizard-icon-container {
+          background-color: $primary-color !important;
+
+          .wizard-icon {
+            font-size: 14px !important;
+          }
+        }
+      }
+    }
+  }
+
+
+  .patient-details-content {
+    margin: 0 11px;
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 26px;
+    display: flex;
+    flex-direction: column;
+    color: rgba(0, 0, 0, 0.87);
+
+    .title {
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .gender {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: normal;
+      margin-bottom: 20px;
+
+      .gender-title {
+        margin-bottom: 10px;
+      }
+
+      .gender-checkbox {
+        .custom-control {
+          margin-right: 30px;
+        }
+      }
+
+    }
+
+    .birthday {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: normal;
+      margin-bottom: 20px;
+
+      .birthday-title {
+        margin-bottom: 10px;
+      }
+
+      .birthday-input-box {
+
+      }
+
+    }
+
+    .address {
+      font-style: normal;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: normal;
+      margin-bottom: 20px;
+      color: rgba(0, 0, 0, 0.87);
+
+      .address-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
