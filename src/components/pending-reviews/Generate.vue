@@ -1,8 +1,5 @@
 <template>
   <div class="content pending-review-generate">
-    <div class="loader" v-if="isLoading">
-      <rotate-square2></rotate-square2>
-    </div>
     <div class="animated fadeIn">
       <div class="col-lg-12 d-flex breadcrumb-wrap">
         <i class="fa fa-arrow-left text-secondary back-icon"></i>
@@ -182,7 +179,7 @@
 
                   <div class="actions">
 
-                    <div v-for="action in newActions">
+                    <div v-for="(action, index) in newActions">
                       <div class="action-item"  v-if="action.category != 'medication'">
                         <div class="d-flex justify-content-between mb-2">
                           <span>{{ action.title }}</span>
@@ -193,8 +190,8 @@
                         </div>
                         <div class="form-group">
                           <label for="">Duration</label>
-                          <select class="form-control">
-                            <option v-for="type in types" :selected="selectActionItem(type, action) ">{{type.text}}</option>
+                          <select @change="onSelected(action, index)" v-model="selectedDurations[index]"  class="form-control" required>
+                            <option v-for="type in types" :selected="selectActionItem(type, action) " >{{type.text}}</option>
                           </select>
                         </div>
                       </div>
@@ -302,16 +299,15 @@
 </template>
 <script>
 
-import {RotateSquare2} from 'vue-loading-spinner'
 
 export default {
   name: "health-records",
-  components: { RotateSquare2 },
+  components: {  },
   data() {
     return {
       medicationEnabled: false,
       medication: {},
-      isLoading: true,
+      fullPage: true,
       participants: [],
       participant_info: {},
       allergies: [],
@@ -335,6 +331,7 @@ export default {
       actionTitle: '',
       activity: {},
       selectedOption: undefined,
+      selectedDurations: [],
       durations: [
         {
           "id": "1",
@@ -380,27 +377,33 @@ export default {
       types: [
         {
           "id": "1",
-          "text": "Within 1 month"
+          "text": "Within 1 month",
+          "value": 30
         },
         {
           "id": "2",
-          "text": "Within 2 month"
+          "text": "Within 2 month",
+          "value": 60
         },
         {
           "id": "3",
-          "text": "Within 3 month"
+          "text": "Within 3 month",
+          "value": 90
         },
         {
           "id": "4",
-          "text": "Within 4 month"
+          "text": "Within 4 month",
+          "value": 120
         },
         {
           "id": "5",
-          "text": "Within 5 month"
+          "text": "Within 5 month",
+          "value": 150
         },
         {
           "id": "6",
-          "text": "Within 6 month"
+          "text": "Within 6 month",
+          "value": 180
         },
       ],
       allData: '',
@@ -452,6 +455,7 @@ export default {
           comment: this.medication.comment
         }
       }
+      console.log(this.activity)
       this.allData.data.body.result.careplan.activities.push(this.activity)
 
     },
@@ -478,9 +482,48 @@ export default {
         return false
       }
     },
+    onSelected(event) {
+      // let selectedMonth = event.target.options.selectedIndex+1;
+      console.log(this.selectedDurations);
+      let startDate = new Date()
+      let endDate =  new Date()
+      // endDate = endDate.addDays(selectedMonth * 30)
+      // let total_months = (endDate.getFullYear() - startDate.getFullYear())*12 + (endDate.getMonth() - startDate.getMonth())
+
+      // let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth()+1) + '-' + startDate.getDate()
+      // let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth()+1) + '-' + endDate.getDate()
+      // console.log(`Start Date ${startPeriod}`)
+      // console.log(`End Date ${endPeriod}`)
+      // this.activity = {
+      //   category: "survey",
+      //   title: this.event.title,
+      //   id: '',
+      //   roles : ['nurse'],
+      //   component : {},
+      //   outcomeConcept: {
+      //
+      //   },
+      //   activityDuration: {
+      //     start: startPeriod,
+      //     end: endPeriod,
+      //     repeat: {
+      //       period: period[0],
+      //       periodUnit: period[1],
+      //       frequency: this.event.dosage
+      //
+      //     }
+      //   },
+      //   comments: {
+      //     comment: this.medication.comment
+      //   }
+      // }
+      // console.log(this.activity)
+    },
     updateReviewData() {
       this.isLoading = true;
-      this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
+      console.log(this.allData)
+      var data = this.calculateDuration(this.allData.data);
+      this.$http.put('/health-reports/' + this.reviewId, data).then( response => {
         if (response.status == 200 ) {
           this.alert = 'success'
         } else {
@@ -492,6 +535,38 @@ export default {
 
       })
     },
+    calculateDuration(data) {
+      // console.log(data.body.result.careplan.activities);
+
+      console.log(this.selectedDurations);
+      for(var item of data.body.result.careplan.activities) {
+
+        var index = data.body.result.careplan.activities.indexOf(item);
+        // console.log(this.selectedDurations[index]);
+        var type = this.types.find(item => item.text == this.selectedDurations[index])
+        // console.log(type);
+
+        let startDate = new Date()
+        let endDate =  new Date()
+        endDate.addDays(type.value);
+
+        item.activityDuration.start = startDate;
+        item.activityDuration.end = endDate;
+
+        console.log(item);
+
+        // console.log(startDate)
+        // console.log(endDate)
+
+
+      }
+
+      console.log(data);
+
+      return data;
+
+    },
+
     addActionItem() {
       this.activity = {}
       this.$bvModal.hide('modal-actions');
@@ -524,12 +599,30 @@ export default {
           comment: ''
         }
       }
+      console.log(this.activity)
       this.allData.data.body.result.careplan.activities.push(this.activity)
     },
     getHealthReport() {
       this.$http.get('/health-reports/' + this.reviewId).then( response => {
         if (response.status == 200) {
           this.allData = response.data
+          console.log(this.selectedDurations);
+          for(var item of this.allData.data.body.result.careplan.activities) {
+            var index = this.allData.data.body.result.careplan.activities.indexOf(item)
+            this.selectedDurations[index] = 'Within 1 month'
+
+            var type = this.types.find(item => item.text == this.selectedDurations[index])
+            // console.log(type);
+
+            let startDate = new Date()
+            let endDate =  new Date()
+            endDate.addDays(type.value);
+
+            item.activityDuration.start = startDate;
+            item.activityDuration.end = endDate;
+          }
+          console.log(this.selectedDurations);
+          console.log(this.allData);
           if (response.data.data && response.data.data.body && response.data.data.body.result && response.data.data.body.result.careplan && response.data.data.body.result.careplan.activities ) {
             this.newActions = response.data.data.body.result.careplan.activities
           }
@@ -556,6 +649,7 @@ export default {
     }
   },
   mounted() {
+
 
   }
 };

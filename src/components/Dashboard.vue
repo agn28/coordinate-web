@@ -10,11 +10,9 @@
         </div>
 
         <div class="navbar-nav ml-auto">
-          <a href="#" class="btn btn-light btn-icon-split">
-            <span class="text">
-              <i class="large material-icons">add</i>Register a New Patient
-            </span>
-          </a>
+          <button class="btn btn-light btn-icon-split" @click="$router.push({ name: 'PatientRegistration'})">
+            <span class="text"><i class="large material-icons">add</i>Register a New Patient</span>
+          </button>
         </div>
       </nav>
     </div>
