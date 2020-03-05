@@ -11,6 +11,7 @@ import VueFormWizard from 'vue-form-wizard'
 import { MultiSelectPlugin } from '@syncfusion/ej2-vue-dropdowns';
 import datePicker from 'vue-bootstrap-datetimepicker';
 import Loading from 'vue-loading-overlay';
+import VeeValidate from "vee-validate";
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -23,8 +24,6 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 import store from "./store/store";
-require ('@/store/subscriber')
-
 
 Vue.use( VuejsDatatableFactory );
 Vue.use(Vuex)
@@ -34,15 +33,15 @@ Vue.use(IconsPlugin)
 Vue.use(VueFormWizard)
 Vue.use(MultiSelectPlugin);
 Vue.use(datePicker);
+Vue.use(VeeValidate);
 Vue.use(Loading, {
   // props
   color: '#00569B'
 },);
-
-// axios.defaults.baseURL = 'https://fhirapi.monarko.com';
 axios.defaults.baseURL = process.env.VUE_APP_API;
-// axios.defaults.baseURL = 'http://7d787b36.ngrok.io/api/v1';
-
+if (store.state && store.state.auth && store.state.auth.user ) {
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.auth.user.accessToken
+}
 Vue.prototype.$http = axios;
 Vue.prototype.moment = moment;
 
@@ -57,9 +56,6 @@ Date.prototype.addDays = function(days) {
   return this;
 }
 
-if (localStorage.getItem('user')) {
-  store.dispatch('auth/commit', JSON.parse(localStorage.getItem('user')))
-}
 new Vue({
   router,
   store,

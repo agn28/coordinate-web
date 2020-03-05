@@ -12,7 +12,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <sidebar v-if="authenticated"></sidebar>
+    <sidebar v-if="loggedIn"></sidebar>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
 
@@ -48,10 +47,9 @@ export default {
     Topbar
   },
   computed : {
-    ...mapGetters({
-      authenticated: 'auth/authenticated',
-      user: 'auth/userInfo'
-    })
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
   }
 }
 </script>

@@ -74,79 +74,31 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/health-records/list',
     name: 'healthList',
     component: HealthList,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/health-records/view/:participantId',
     name: 'healthDetail',
     component: HealthDetail,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/health-records/patients/:participantId/encounters/:encounterId/assessments',
     name: 'assessments',
     component: Assessments,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/health-records/patients/:participantId/encounters',
     name: 'healthEncounters',
     component: HealthEncounters,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/list',
     name: 'patients',
     component: Patients,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/overview',
@@ -157,211 +109,83 @@ const routes = [
     path: '/patients/create',
     name: 'patientCreate',
     component: PatientCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId',
     name: 'patientEdit',
     component: PatientEdit,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
 
   {
     path: '/patients/:patientId/encounters',
     name: 'encounters',
     component: Encounters,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/encounters/create',
     name: 'encounterCreate',
     component: EncounterCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/allergy',
     name: 'allergy',
     component: Allergy,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/allergy/create',
     name: 'allergyCreate',
     component: AllergyCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/family-members',
     name: 'familyMembers',
     component: FamilyMembers,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/family-members/create',
     name: 'familyMemberCreate',
     component: FamilyMemberCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/specimen',
     name: 'specimen',
     component: Specimen,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/specimen/create',
     name: 'specimenCreate',
     component: SpecimenCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
 
   {
     path: '/patients/:patientId/encounters/:encounterId/observations',
     name: 'observations',
     component: Observations,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/encounters/:encounterId/observations/create',
     name: 'observationCreate',
     component: ObservationCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/encounters/:encounterId/conditions',
     name: 'conditions',
     component: Conditions,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/encounters/:encounterId/conditions/create',
     name: 'conditionCreate',
     component: ConditionCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/encounters/:encounterId/diagnostics',
     name: 'diagnostics',
     component: Diagnostics,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/patients/:patientId/encounters/:encounterId/diagnostics/create',
     name: 'diagnosticCreate',
     component: DiagnosticCreate,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'login'
-        })
-      }
-      next()
-    }
   },
 
   {
@@ -429,22 +253,13 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (store.getters['auth/userInfo']) {
-    let expiration = new Date(store.getters['auth/userInfo'].expirationTime)
-    expiration = expiration.addHours(12)
-    expiration = expiration.getTime()
-    let currentTime = new Date()
-    currentTime = currentTime.getTime()
-
-    if (currentTime > expiration) {
-      store.commit('auth/SET_TOKEN', null)
-      store.commit('auth/SET_USER', null)
-      next({
-        name: 'login'
-      })
-    }
-    next()
+  const publicPages = ['/login', '/register', '/'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
+  if (authRequired && !loggedIn) {
+    next('/login');
+  } else {
+    next();
   }
-  next()
 })
 export default router;

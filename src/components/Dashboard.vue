@@ -105,7 +105,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 import BarChart from "./utils/BarChart.vue";
 import DateRangePicker from "vue2-daterange-picker";
 import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
@@ -115,10 +114,9 @@ export default {
     DateRangePicker
   },
   computed: {
-    ...mapGetters({
-      authenticated: "auth/authenticated",
-      user: "auth/userInfo"
-    })
+    user() {
+      return this.$store.state.auth.user;
+    }
   },
   data() {
     return {
