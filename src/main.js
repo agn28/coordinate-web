@@ -39,7 +39,9 @@ Vue.use(Loading, {
   color: '#00569B'
 },);
 axios.defaults.baseURL = process.env.VUE_APP_API;
-
+if (store.state && store.state.auth && store.state.auth.user ) {
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.auth.user.accessToken
+}
 Vue.prototype.$http = axios;
 Vue.prototype.moment = moment;
 

@@ -68,11 +68,18 @@
 
 <script>
   export default {
+    computed: {
+      user() {
+        return this.$store.state.auth.user;
+      },
+    },
     mounted() {},
     methods: {
       signOut() {
         this.$store.dispatch('auth/logout');
-        this.$router.push('/');
+        this.$router.replace({
+          name: 'login'
+        })
       }
     },
   };

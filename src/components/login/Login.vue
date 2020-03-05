@@ -21,27 +21,24 @@
                                     </div>
                                     <input type="text" v-validate="'required'" name="email" v-model="user.email" class="form-control border-left-0"
                                            placeholder="Email Address">
-                                    <div
-                                            v-if="errors.has('email')"
-                                            class="alert alert-danger"
-                                            role="alert"
-                                    >Email is required!</div>
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text  border-right-0"><i class="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" v-validate="'required'" name="password" v-model="user.password" placeholder="Password"
+                                    <input type="password" v-validate="'required'" v-bind:class="[isInvalid ? 'is-invalid' : '']" name="password" v-model="user.password" placeholder="Password"
                                            class="form-control border-right-0 border-left-0">
-                                    <div v-if="errors.has('password')"
-                                            class="alert alert-danger"
-                                            role="alert"
-                                    >Password is required!</div>
                                     <div class="input-group-append">
                                         <span class="input-group-text border-left-0"><i class="fas fa-eye"></i></span>
                                     </div>
                                 </div>
+                                <div class="text-danger"
+                                        v-if="errors.has('email')"
+                                >Email is required!</div>
+                                <div v-if="errors.has('password')"
+                                     class="text-danger"
+                                >Password is required!</div>
 
                                 <button :disabled="loading" class="btn login-btn mb-4">
                                     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -71,6 +68,7 @@
         name: "Login",
         data() {
             return {
+                isInvalid: false,
                 fullPage: true,
                 user: new User('', ''),
                 loading: false,
@@ -95,16 +93,12 @@
             }
 
             if (this.user.email && this.user.password) {
-              this.$store.dispatch('auth/login', this.user).then(
-                () => {
+             this.$store.dispatch('auth/login', this.user).then( res => {
                   this.$router.push('/dashboard');
                 },
                 error => {
+                   this.isInvalid = true
                   this.loading = false;
-                  this.message =
-                    (error.response && error.response.data) ||
-                    error.message ||
-                    error.toString();
                 }
               );
             }
