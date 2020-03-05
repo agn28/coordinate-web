@@ -67,25 +67,12 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
   export default {
-    computed : {
-      ...mapGetters({
-        authenticated: 'auth/authenticated',
-        user: 'auth/userInfo'
-      })
-    },
     mounted() {},
     methods: {
-      ...mapActions({
-        signOutAction: 'auth/signOut'
-      }),
       signOut() {
-        this.signOutAction().then(() => {
-          this.$router.replace({
-            name: 'login'
-          })
-        })
+        this.$store.dispatch('auth/logout');
+        this.$router.push('/');
       }
     },
   };
