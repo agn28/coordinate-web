@@ -1,0 +1,155 @@
+.patient-care-plane {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  label {
+    font-size: 14px;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 22px;;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 12px 20px 17px 20px;
+
+    .patient-image {
+      margin-right: 12px;
+
+      img {
+        width: 60px;
+      }
+
+    }
+
+    .patient-details {
+      flex-direction: column;
+
+      .patient-name {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 20px;
+        margin-top: 8px;
+        margin-right: 30px;
+      }
+
+      .details {
+        font-size: 14px;
+        div {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  .care-plane-date {
+    padding: 17px 20px 17px 33px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+
+    .generate-date {
+      margin-top: 10px;
+    }
+    .modified-date {
+      margin-top: 10px;
+    }
+    .generate-card {
+      background: #0377BD;
+      color: #FFFFFF;
+    }
+  }
+
+  .care-plane-list {
+    margin: 20px;
+    .table-responsive {
+      font-family: Roboto;
+      font-style: normal;
+
+      table {
+        border-collapse: collapse;
+        border: none;
+
+        thead {
+          th {
+            border-top: none;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
+
+        tr {
+          font-size: 14px;
+          line-height: 20px;
+          border-bottom: 2px solid #DEE2E6;
+          position: relative;
+          .complete {
+            color: #2E7D32;
+          }
+          .pending {
+            color: #CF0026;
+          }
+
+          span {
+            display: none;
+          }
+
+          &:hover {
+            span {
+              position: absolute;
+              right: 53px;
+              font-size: 17px;
+              display: inline;
+            }
+          }
+
+
+        }
+
+        .care-data {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
