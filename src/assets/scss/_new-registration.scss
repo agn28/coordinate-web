@@ -17,6 +17,10 @@
     font-size: 15px;
     margin-top: 4px;
     margin-right: 20px;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   h4 {
@@ -78,9 +82,28 @@
     }
   }
 
+  .wizard-footer-left {
+    button {
+      background: transparent !important;
+      border-color: #0277BD !important;
+      color: rgba(0, 0, 0, 0.87) !important;
+      &:hover {
+        background: #0277BD !important;
+        color: #FFFFFF !important;
+      }
+    }
+  }
+
+  .wizard-footer-right {
+    button {
+      background: #0277BD !important;
+      border-color: #0277BD !important;
+    }
+  }
+
 
   .patient-details-content {
-    margin: 0 11px;
+    margin: 0 11px 50px;
     font-family: Roboto;
     font-style: normal;
     font-size: 20px;
@@ -223,5 +246,136 @@
         }
       }
     }
+
+    .patient-thumbprint-image {
+      width: 240px;
+      height: 240px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      border-radius: 4px;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+
+      .thumbprint {
+        cursor: pointer;
+        i {
+          border: 2px solid #01579B;
+          border-radius: 50%;
+          padding: 12px;
+          color: #01579B;
+        }
+      }
+      p {
+        font-size: 16px;
+        line-height: 24px;
+        color: #01579B;
+        margin-top: 7px;
+        text-align: center;
+      }
+    }
+
+    .patient-thumbprint-preview {
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 30px 0;
+
+      .image-preview {
+        position: relative;
+        .preview {
+          width: 100%;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          padding: 5px;
+          height: 220px;
+          object-fit: cover;
+        }
+
+        .imageDelete {
+          position: absolute;
+          left: 51px;
+          top: 197px;
+          border: 1px solid #01579B;
+          background: #01579B;
+          border-radius: 50%;
+          font-size: 16px;
+          color: #FFFFFF;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .imageAdd {
+          position: absolute;
+          left: 131px;
+          top: 197px;
+          border: 1px solid #01579B;
+          background: #01579B;
+          border-radius: 50%;
+          font-size: 16px;
+          color: #FFFFFF;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      .thumbprint-receive {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 28px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #000000;
+        margin-top: 27px;
+
+        span {
+          margin-right: 8px;
+          width: 26px;
+          height: 26px;
+          background: #66BB6A;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+           i {
+             color: #ffffff;
+             border-radius: 50%;
+             font-size: 14px;
+           }
+        }
+      }
+    }
+  }
+}
+
+
+#modal-discard {
+  .discard-msg {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.87);
+    mix-blend-mode: normal;
   }
 }

@@ -2,7 +2,31 @@
     <div class="content new-patient-registration">
         <div class="animated fadeIn">
             <div class="col-lg-12 d-flex breadcrumb-wrap">
-                <i class="fa fa-arrow-left text-secondary back-icon"></i>
+                <i class="fa fa-arrow-left text-secondary back-icon" v-b-modal.modal-discard></i>
+                <b-modal id="modal-discard" class="modal-coordinate">
+                    <template v-slot:modal-header>
+                        <span class="title">Confirm Discard</span>
+                    </template>
+
+                    <div class="discard-msg">
+                        Are you sure you want to leave without completing the registration?
+                    </div>
+
+                    <template v-slot:modal-footer>
+                        <div class="w-100">
+                            <b-button variant="link" size="md"
+                                      class="float-right font-weight-bold p-0 pl-4 pr-1"
+                                      @click="$router.push({ name: 'dashboard'})">
+                               Leave without saving
+                            </b-button>
+                            <b-button variant="link" size="md"
+                                      class="float-right font-weight-bold p-0"
+                                      @click="$bvModal.hide('modal-discard')">
+                                Go Back
+                            </b-button>
+                        </div>
+                    </template>
+                </b-modal>
                 <div class="">
                     <h4>Register a New Patient</h4>
                     <div class="breadcrumb"><span>Patients</span>/ Register a New Patient</div>
@@ -302,13 +326,49 @@
                             </div>
                         </tab-content>
 
+                        <tab-content>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="patient-details-content">
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="title">Thumbprint</div>
+                                                <div class="patient-thumbprint-image" v-if="!(thumbData.length > 0)">
+                                                    <label for="thumbprintImage">
+                                                        <input type="file" name="image" id="thumbprintImage" style="display:none;" @change="previewThumb" accept="image/*"/>
+                                                        <span class="thumbprint"><i class="fas fa-fingerprint fa-6x"></i></span>
+                                                    </label>
+
+                                                    <p>Ask patient to touch the fingerprint sensor</p>
+
+                                                </div>
+
+                                                <div class="patient-thumbprint-preview" v-if="thumbData.length > 0">
+                                                    <div class="image-preview" v-if="thumbData.length > 0">
+                                                        <img class="preview" :src="thumbData" alt="Responsive Image" >
+                                                        <span class="imageDelete" @click="uploadThumbDelete"><i class="fas fa-trash"></i></span>
+                                                        <span class="imageAdd" @click="newThumb"><i class="fas fa-sync"></i></span>
+                                                    </div>
+                                                    <div class="thumbprint-receive">
+                                                        <span><i class="fas fa-check"></i></span>Fingerprint Received
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </tab-content>
+
                         <template slot="footer" slot-scope="props">
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="wizard-footer-left">
                                         <wizard-button v-if="props.activeTabIndex > 0 && !props.isLastStep"
-                                                       @click.native="props.custom-buttons()"
-                                                       :style="props.fillButtonStyle">Previous
+                                                       @click.native="props.prevTab()"
+                                                       :style="props.fillButtonStyle">Back
                                         </wizard-button>
                                     </div>
                                     <div class="wizard-footer-right">
@@ -318,7 +378,7 @@
 
                                         <wizard-button v-else @click.native="alert('Done')"
                                                        class="wizard-footer-right finish-button"
-                                                       :style="props.fillButtonStyle">{{props.isLastStep ? 'Complete Registration' :
+                                                       :style="props.fillButtonStyle">{{props.isLastStep ? 'Complete registration' :
                                             'Next'}}
                                         </wizard-button>
                                     </div>
@@ -364,6 +424,7 @@
                 ],
                 contactDistrict: '',
                 imageData: '',
+                thumbData: '',
 
             }
         },
@@ -386,11 +447,35 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             },
+            previewThumb: function(event) {
+                // Reference to the DOM input element
+                var input = event.target;
+                // Ensure that you have a file before attempting to read it
+                if (input.files && input.files[0]) {
+                    // create a new FileReader to read this image and convert to base64 format
+                    var reader = new FileReader();
+                    // Define a callback function to run, when FileReader finishes its job
+                    reader.onload = (e) => {
+                        // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+                        // Read image as base64 and set to imageData
+                        this.thumbData = e.target.result;
+                    }
+                    // Start the reader job - read file as a data url (base64 format)
+                    reader.readAsDataURL(input.files[0]);
+                }
+            },
             uploadDelete: function (event) {
                 this.imageData = '';
             },
             newImage: function (event) {
                 this.imageData = '';
+            },
+
+            uploadThumbDelete: function (event) {
+                this.thumbData = '';
+            },
+            newThumb: function (event) {
+                this.thumbData = '';
             }
         }
     }
