@@ -39,6 +39,7 @@ Vue.use(Loading, {
   color: '#00569B'
 },);
 axios.defaults.baseURL = process.env.VUE_APP_API;
+// console.log(store.state);
 if (store.state && store.state.auth && store.state.auth.user ) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.auth.user.accessToken
 }

@@ -172,7 +172,7 @@
                             <div class="d-flex align-items-center">
                               <div class="form-group">
                                 <label for="">Hip</label>
-                                <input type="text" v-model="hip" class="form-control form-coordinate circumference-input">
+                                <input type="number" v-model.number="hip" class="form-control form-coordinate circumference-input">
                               </div>
                               <div class="measurement-type">
                                 <div class="custom-control custom-radio">
@@ -189,7 +189,7 @@
                             <div class="select-device">
                               <h5>Select Device</h5>
                               <div class="select-wrapper">
-                                <select class="select">
+                                <select class="select" v-model="hipMeasurementDevice">
                                   <option value=""></option>
                                   <option value="value1">Device 1</option>
                                   <option value="value1">Device 2</option>
@@ -210,7 +210,7 @@
                                   Unable to Perform
                                 </b-button>
 
-                                <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                <b-button variant="link" :disabled="!hip || !hipMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                                   Add
                                 </b-button>
 
@@ -257,7 +257,7 @@
                             <div class="d-flex align-items-center">
                               <div class="form-group">
                                 <label for="">BMI</label>
-                                <input type="text" v-model="bmi" class="form-control form-coordinate circumference-input">
+                                <input type="number" v-model.number="bmi" class="form-control form-coordinate circumference-input">
                               </div>
                               <div class="measurement-type">
                                 <div class="custom-control custom-radio">
@@ -275,7 +275,7 @@
                               <h5>Select Device</h5>
                               <div class="select-wrapper">
                                 <label for=""></label>
-                                <select class="select">
+                                <select class="select" v-model="bmiMeasurementDevice">
                                   <option value=""></option>
                                   <option value="value1">Device 1</option>
                                   <option value="value1">Device 2</option>
@@ -296,7 +296,7 @@
                                   Unable to Perform
                                 </b-button>
 
-                                <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                <b-button variant="link" :disabled="!bmi || !bmiMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                                   Add
                                 </b-button>
 
@@ -382,7 +382,7 @@
                   <div class="d-flex align-items-center">
                     <div class="form-group">
                       <label for="">Fasting Blood Sugar</label>
-                      <input type="text" class="form-control form-coordinate circumference-input">
+                      <input type="number" v-model.number="diabetes" class="form-control form-coordinate circumference-input">
                     </div>
                     <div class="measurement-type">
                       <div class="custom-control custom-radio">
@@ -399,7 +399,7 @@
                   <div class="select-device">
                     <h5>Select Device</h5>
                     <div class="select-wrapper">
-                      <select class="select">
+                      <select class="select" v-model="diabetesMeasurementDevice">
                         <option value=""></option>
                         <option value="value1">Device 1</option>
                         <option value="value1">Device 2</option>
@@ -420,7 +420,7 @@
                         Unable to Perform
                       </b-button>
 
-                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                      <b-button variant="link" :disabled="!diabetes || !diabetesMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                         Add
                       </b-button>
 
@@ -474,7 +474,7 @@
                   <div class="d-flex align-items-center">
                     <div class="form-group">
                       <label for="">Total Cholesterol</label>
-                      <input type="text" v-model="cholesterol" class="form-control form-coordinate circumference-input">
+                      <input type="number" v-model.number="cholesterol" class="form-control form-coordinate circumference-input">
                     </div>
                     <div class="measurement-type">
                       <div class="custom-control custom-radio">
@@ -491,7 +491,7 @@
                   <div class="select-device">
                     <h5>Select Device</h5>
                     <div class="select-wrapper">
-                      <select class="select">
+                      <select class="select" v-model="cholesterolMeasurementDevice">
                         <option value=""></option>
                         <option value="value1">Device 1</option>
                         <option value="value1">Device 2</option>
@@ -512,7 +512,7 @@
                         Unable to Perform
                       </b-button>
 
-                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4">
+                      <b-button variant="link" :disabled="!cholesterol || !cholesterolMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4">
                         Add
                       </b-button>
 
@@ -564,7 +564,7 @@
                   <div class="d-flex align-items-center">
                     <div class="form-group">
                       <label for="">CVD</label>
-                      <input type="text" v-model="cvd" class="form-control form-coordinate circumference-input">
+                      <input type="number" v-model.number="cvd" class="form-control form-coordinate circumference-input">
                     </div>
                     <div class="measurement-type">
                       <div class="custom-control custom-radio">
@@ -577,7 +577,7 @@
                   <div class="select-device">
                     <h5>Select Device</h5>
                     <div class="select-wrapper">
-                      <select class="select">
+                      <select class="select" v-model="cvdMeasurementDevice">
                         <option value=""></option>
                         <option value="value1">Device 1</option>
                         <option value="value1">Device 2</option>
@@ -598,7 +598,7 @@
                         Unable to Perform
                       </b-button>
 
-                      <b-button variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                      <b-button variant="link" :disabled="!cvd || !cvdMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                         Add
                       </b-button>
 
@@ -683,6 +683,11 @@
         allData: '',
         bmi: '',
         hip: '',
+        hipMeasurementDevice: '',
+        bmiMeasurementDevice: '',
+        diabetesMeasurementDevice: '',
+        cholesterolMeasurementDevice:'',
+        cvdMeasurementDevice: ''
       };
     },
     mounted() {
