@@ -154,25 +154,163 @@
                         </tab-content>
 
                         <tab-content>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="patient-details-content">
 
+                                        <div class="row">
+                                            <div class="col-lg-12 border-bottom">
+                                                <div class="title">Contact Details</div>
+                                                <div class="contact-details">
+                                                    <div class="row">
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="contactFirstName">Contact’s First Name</label>
+                                                                <input type="text" class="form-control" id="contactFirstName">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="contactLastName">Contact’s Last Name</label>
+                                                                <input type="text" class="form-control" id="contactLastName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label>Relationship with contact</label>
+                                                                <select class="form-control" required v-model="relationContacts">
+                                                                    <option>Please select one</option>
+                                                                    <option v-for="relationship in relationshipWithContact" :value="relationship.id">{{ relationship.text}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12 border-bottom">
+                                                <div class="address">
+                                                    <div class="address-title">
+                                                        Address
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label>District</label>
+                                                                <select class="form-control" required v-model="contactDistrict">
+                                                                    <option>Please select one</option>
+                                                                    <option></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="contactPostalCode">Postal Code</label>
+                                                                <input type="text" class="form-control" id="contactPostalCode">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="contactTown">Town</label>
+                                                                <input type="text" class="form-control" id="contactTown">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="contactVillage">Village</label>
+                                                                <input type="text" class="form-control" id="contactVillage">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="contactStreetName">Street Name</label>
+                                                                <input type="text" class="form-control" id="contactStreetName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <label for="contactMobilePhone">Contact’s Mobile Phone</label>
+                                                    <input type="text" class="form-control" id="contactMobilePhone">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <label for="contactHomePhone">Contact’s Home Phone (Optional)</label>
+                                                    <input type="text" class="form-control" id="contactHomePhone">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-2 mb-4">
+                                                <div class="form-group">
+                                                    <label for="contactEmail">Contact’s Email Address</label>
+                                                    <input type="text" class="form-control" id="contactEmail">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </tab-content>
+
+                        <tab-content>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="patient-details-content">
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="title">Take a Photo of the Patient</div>
+                                                <div class="patient-image" v-if="!(imageData.length > 0)">
+                                                    <label for="image">
+                                                        <input type="file" name="image" id="image" style="display:none;" @change="previewImage" accept="image/*"/>
+                                                        <img src="../../assets/images/photo_camera_24px.png" width="80" height="72" alt="">
+                                                    </label>
+
+                                                    <p>Add a Photo</p>
+
+                                                </div>
+
+                                                <div class="patient-image-preview" v-if="imageData.length > 0">
+                                                    <div class="image-preview" v-if="imageData.length > 0">
+                                                        <img class="preview" :src="imageData" alt="Responsive Image" >
+                                                        <span class="imageDelete" @click="uploadDelete"><i class="fas fa-trash"></i></span>
+                                                        <span class="imageAdd" @click="newImage"><i class="fas fa-pen"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </tab-content>
 
                         <template slot="footer" slot-scope="props">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="wizard-footer-left">
                                         <wizard-button v-if="props.activeTabIndex > 0 && !props.isLastStep"
                                                        @click.native="props.custom-buttons()"
                                                        :style="props.fillButtonStyle">Previous
                                         </wizard-button>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="wizard-footer-bullet">
-                                        <div class="bullet-btn active"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
                                     <div class="wizard-footer-right">
                                         <wizard-button v-if="!props.isLastStep" @click.native="props.nextTab()"
                                                        class="wizard-footer-right" :style="props.fillButtonStyle">Next
@@ -180,7 +318,7 @@
 
                                         <wizard-button v-else @click.native="alert('Done')"
                                                        class="wizard-footer-right finish-button"
-                                                       :style="props.fillButtonStyle">{{props.isLastStep ? 'Done' :
+                                                       :style="props.fillButtonStyle">{{props.isLastStep ? 'Complete Registration' :
                                             'Next'}}
                                         </wizard-button>
                                     </div>
@@ -196,7 +334,65 @@
 
 <script>
     export default {
-        name: "NewRegistration"
+        name: "NewRegistration",
+        data() {
+            return {
+                relationContacts: '',
+                relationshipWithContact: [
+                    {
+                        "id": 1,
+                        "text": "Father",
+                    },
+                    {
+                        "id": 2,
+                        "text": "Mother",
+                    },
+                    {
+                        "id": 3,
+                        "text": "Brother",
+                    },
+                    {
+                        "id": 4,
+                        "text": "Sister",
+                    },
+                    {
+                        "id": 5,
+                        "text": "Spouse",
+                    },
+
+
+                ],
+                contactDistrict: '',
+                imageData: '',
+
+            }
+        },
+
+        methods: {
+            previewImage: function(event) {
+                // Reference to the DOM input element
+                var input = event.target;
+                // Ensure that you have a file before attempting to read it
+                if (input.files && input.files[0]) {
+                    // create a new FileReader to read this image and convert to base64 format
+                    var reader = new FileReader();
+                    // Define a callback function to run, when FileReader finishes its job
+                    reader.onload = (e) => {
+                        // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+                        // Read image as base64 and set to imageData
+                        this.imageData = e.target.result;
+                    }
+                    // Start the reader job - read file as a data url (base64 format)
+                    reader.readAsDataURL(input.files[0]);
+                }
+            },
+            uploadDelete: function (event) {
+                this.imageData = '';
+            },
+            newImage: function (event) {
+                this.imageData = '';
+            }
+        }
     }
 </script>
 

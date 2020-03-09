@@ -143,5 +143,85 @@
         margin-bottom: 30px;
       }
     }
+
+    .patient-image {
+      width: 240px;
+      height: 240px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      border-radius: 4px;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+
+      img {
+        cursor: pointer;
+      }
+      p {
+        font-size: 16px;
+        line-height: 24px;
+        color: #01579B;
+        margin-top: 26px;
+      }
+    }
+
+    .patient-image-preview {
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 30px 0;
+
+      .image-preview {
+        position: relative;
+        .preview {
+          width: 100%;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          padding: 5px;
+          height: 220px;
+          object-fit: cover;
+        }
+
+        .imageDelete {
+          position: absolute;
+          left: 51px;
+          top: 197px;
+          border: 1px solid #01579B;
+          background: #01579B;
+          border-radius: 50%;
+          font-size: 16px;
+          color: #FFFFFF;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .imageAdd {
+          position: absolute;
+          left: 131px;
+          top: 197px;
+          border: 1px solid #01579B;
+          background: #01579B;
+          border-radius: 50%;
+          font-size: 16px;
+          color: #FFFFFF;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
   }
 }

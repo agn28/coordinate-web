@@ -15,30 +15,47 @@
                         </div>
                         <form @submit.prevent="handleLogin">
                             <div class="login-form">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text border-right-0"><i class="fas fa-envelope"></i></span>
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-right-0"><i
+                                                    class="fas fa-envelope"></i></span>
+                                        </div>
+                                        <input type="text" v-validate="'required'"
+                                               v-bind:class="[isInvalid ? 'is-invalid' : '']"
+                                               name="email"
+                                               v-model="user.email"
+                                               class="form-control border-left-0"
+                                               placeholder="Email Address">
                                     </div>
-                                    <input type="text" v-validate="'required'" name="email" v-model="user.email" class="form-control border-left-0"
-                                           placeholder="Email Address">
+                                    <div class="error"
+                                         v-if="errors.has('email')">
+                                        Email is required!
+                                    </div>
                                 </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text  border-right-0"><i class="fas fa-key"></i></span>
+
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text  border-right-0"><i
+                                                    class="fas fa-key"></i></span>
+                                        </div>
+                                        <input type="password" v-validate="'required'"
+                                               v-bind:class="[isInvalid ? 'is-invalid' : '']" name="password"
+                                               v-model="user.password" placeholder="Password"
+                                               class="form-control border-right-0 border-left-0">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text border-left-0"><i
+                                                    class="fas fa-eye"></i></span>
+                                        </div>
                                     </div>
-                                    <input type="password" v-validate="'required'" v-bind:class="[isInvalid ? 'is-invalid' : '']" name="password" v-model="user.password" placeholder="Password"
-                                           class="form-control border-right-0 border-left-0">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text border-left-0"><i class="fas fa-eye"></i></span>
+                                    <div v-if="errors.has('password')"
+                                         class="error"
+                                    >Password is required!
                                     </div>
                                 </div>
-                                <div class="text-danger"
-                                        v-if="errors.has('email')"
-                                >Email is required!</div>
-                                <div v-if="errors.has('password')"
-                                     class="text-danger"
-                                >Password is required!</div>
+
 
                                 <button :disabled="loading" class="btn login-btn mb-4">
                                     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -62,7 +79,8 @@
 </template>
 
 <script>
-   import User from "../../models/user";
+    import User from "../../models/user";
+
     export default {
         components: {},
         name: "Login",
@@ -75,36 +93,36 @@
                 message: ''
             };
         },
-      loggedIn() {
-        return this.$store.state.auth.status.loggedIn;
-      },
-      created() {
-        if (this.loggedIn) {
-          this.$router.push('/dashboard');
-        }
-      },
-      methods: {
-        handleLogin() {
-          this.loading = true;
-          this.$validator.validateAll().then(isValid => {
-            if (!isValid) {
-              this.loading = false;
-              return;
+        loggedIn() {
+            return this.$store.state.auth.status.loggedIn;
+        },
+        created() {
+            if (this.loggedIn) {
+                this.$router.push('/dashboard');
             }
+        },
+        methods: {
+            handleLogin() {
+                this.loading = true;
+                this.$validator.validateAll().then(isValid => {
+                    if (!isValid) {
+                        this.loading = false;
+                        return;
+                    }
 
-            if (this.user.email && this.user.password) {
-             this.$store.dispatch('auth/login', this.user).then( res => {
-                  this.$router.push('/dashboard');
-                },
-                error => {
-                   this.isInvalid = true
-                  this.loading = false;
-                }
-              );
+                    if (this.user.email && this.user.password) {
+                        this.$store.dispatch('auth/login', this.user).then(res => {
+                                this.$router.push('/dashboard');
+                            },
+                            error => {
+                                this.isInvalid = true
+                                this.loading = false;
+                            }
+                        );
+                    }
+                });
             }
-          });
         }
-      }
     }
 
 </script>

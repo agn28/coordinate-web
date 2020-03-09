@@ -2,7 +2,7 @@
 
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" v-if="['login']">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-end justify-content-center" href="/dashboard">

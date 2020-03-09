@@ -66,8 +66,16 @@
 
       .login-form {
 
-        .input-group {
+        .error {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          color: #CF0026;
+        }
 
+        .input-group {
           .input-group-text {
             background: transparent;
 
