@@ -1,0 +1,105 @@
+.patient-care-plane-action {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  label {
+    font-size: 14px;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 22px;;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 12px 20px 17px 20px;
+
+    .patient-image {
+      margin-right: 12px;
+
+      img {
+        width: 60px;
+      }
+
+    }
+
+    .patient-details {
+      flex-direction: column;
+
+      .patient-name {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 20px;
+        margin-top: 8px;
+        margin-right: 30px;
+      }
+
+      .details {
+        font-size: 14px;
+
+        div {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  .care-plane-action {
+    margin: 0 30px;
+
+    .comment-section {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 24px;
+      margin-top: 18px;
+      margin-bottom: 30px;
+      width: 432px;
+
+      textarea {
+        resize: none;
+      }
+    }
+
+    button {
+      background: #0277BD;
+      color: #ffffff;
+
+    }
+  }
+}

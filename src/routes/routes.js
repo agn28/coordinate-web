@@ -25,6 +25,9 @@ import Medical from '../components/questionnaire/Medical'
 import Encounters from '../components/encounters/List'
 import EncounterCreate from '../components/encounters/Create'
 
+import CarePlane from "../components/care-plane/CarePlane";
+import CarePlaneAction from "../components/care-plane/CarePlaneAction";
+
 import Allergy from '../components/allergy/List'
 import AllergyCreate from '../components/allergy/Create'
 
@@ -113,7 +116,7 @@ const routes = [
   },
   {
     path: '/patients/new-registration',
-    name: 'PatientRegistration',
+    name: 'patientRegistration',
     component: PatientRegistration
   },
   {
@@ -192,6 +195,17 @@ const routes = [
     path: '/patients/:patientId/encounters/:encounterId/diagnostics/create',
     name: 'diagnosticCreate',
     component: DiagnosticCreate,
+  },
+
+  {
+    path: '/care-plane',
+    name: 'carePlane',
+    component: CarePlane
+  },
+  {
+    path: '/care-plane/action',
+    name: 'carePlaneAction',
+    component: CarePlaneAction
   },
 
   {

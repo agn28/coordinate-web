@@ -10,7 +10,7 @@
         </div>
 
         <div class="navbar-nav ml-auto">
-          <button class="btn btn-light btn-icon-split" @click="$router.push({ name: 'PatientRegistration'})">
+          <button class="btn btn-light btn-icon-split" @click="$router.push({ name: 'patientRegistration'})">
             <span class="text"><i class="large material-icons">add</i>Register a New Patient</span>
           </button>
         </div>
@@ -53,7 +53,7 @@
 
               <p class="text-black text-bold mt-3">{{ total_careplan}}</p>
 
-              <a class="text-link custom-text-link" href="#">View</a>
+              <a class="text-link custom-text-link" href="" @click="$router.push({ name: 'carePlane'})">View</a>
             </div>
           </div>
         </div>
