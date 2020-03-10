@@ -45,7 +45,7 @@
         img {
             width: 55px;
         }
-        
+
     }
 
     .care-plans {
@@ -58,9 +58,9 @@
         margin-left: 30px;
         margin-top: 15px;
     }
-    
+
     .card-form {
-        
+
         .card-header {
             background: transparent;
             border-bottom: none;
@@ -84,7 +84,6 @@
         li {
             border-bottom: 1px solid #dee2e6;
             padding-top: 10px;
-
             &:last-child {
                 border-bottom: none ;
             }
@@ -93,7 +92,7 @@
 
     .drugs {
         padding: 0px 30px 20px 30px;
-        
+
     }
     .actions {
 
@@ -117,7 +116,7 @@
             }
         }
     }
-    
+
     .comments {
         label {
             font-size: 16px;
@@ -135,7 +134,7 @@
     .slider.round {
         border-radius: 34px;
       }
-      
+
       .slider.round:before {
         border-radius: 50%;
       }
@@ -147,13 +146,13 @@
         width: 41px;
         height: 25px;
       }
-      
-      .switch input { 
+
+      .switch input {
         opacity: 0;
         width: 0;
         height: 0;
       }
-      
+
       .slider {
         position: absolute;
         cursor: pointer;
@@ -165,7 +164,7 @@
         -webkit-transition: .4s;
         transition: .4s;
       }
-      
+
       .slider:before {
         position: absolute;
         content: "";
@@ -177,21 +176,21 @@
         -webkit-transition: .4s;
         transition: .4s;
       }
-      
+
       input:checked + .slider {
         background-color: $primary-color;
       }
-      
+
       input:focus + .slider {
         box-shadow: 0 0 1px $primary-color;
       }
-      
+
       input:checked + .slider:before {
         -webkit-transform: translateX(13px);
         -ms-transform: translateX(13px);
         transform: translateX(13px);
       }
-      
+
   }
 
 

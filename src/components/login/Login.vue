@@ -58,7 +58,7 @@
 
 
                                 <button :disabled="loading" class="btn login-btn mb-4">
-                                    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                                    <span v-show="loading" class="spinner-border mr-2 spinner-border-sm"></span>
                                     <span>Login</span>
                                 </button>
                                 <div class="forgot-pass">
@@ -102,7 +102,7 @@
             }
         },
         methods: {
-            handleLogin() {
+          async handleLogin() {
                 this.loading = true;
                 this.$validator.validateAll().then(isValid => {
                     if (!isValid) {
@@ -112,7 +112,9 @@
 
                     if (this.user.email && this.user.password) {
                         this.$store.dispatch('auth/login', this.user).then(res => {
-                                this.$router.push('/dashboard');
+                                if (res.accessToken) {
+                                  this.$router.push('/dashboard');
+                                }
                             },
                             error => {
                                 this.isInvalid = true

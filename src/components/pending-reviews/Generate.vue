@@ -110,20 +110,14 @@
                                 <div class="card-header">
                                     Medications
                                 </div>
-                                <div class="card-body">
-                                    <ul class="diagnosis-list">
-                                        <li class="d-flex justify-content-between">
-                                            <div v-if="dataReady">
-                                                <div v-if="allData.data && allData.data.body && allData.data.body.result && allData.data.body.result.careplan && allData.data.body.result.careplan.activities">
-                                                    <div v-for="item in allData.data.body.result.careplan.activities">
-                                                        <div v-if="item.category == 'medication'">
-                                                            <span> {{ item.title }}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                <div class="card-body" v-if="dataReady">
+                                    <ul class="diagnosis-list" v-if="allData.data && allData.data.body && allData.data.body.result && allData.data.body.result.careplan && allData.data.body.result.careplan.activities">
+                                        <li class="d-flex justify-content-between" v-for="(item, index) in allData.data.body.result.careplan.activities" v-if="item.category == 'medication'">
+                                            <div>
+                                                <span> {{ item.title }}</span>
                                             </div>
                                             <label class="switch">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox"  checked :value="index" v-model="checkedItems[index]"  @change="removeActionItem(index)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </li>
@@ -210,7 +204,7 @@
                                                 <div class="d-flex justify-content-between mb-2">
                                                     <span>{{ action.title }}</span>
                                                     <label class="switch">
-                                                        <input type="checkbox" checked>
+                                                        <input type="checkbox" checked :value="index" v-model="checkedItems[index]"  @change="removeActionItem(index)">
                                                         <span class="slider round"></span>
                                                     </label>
                                                 </div>
@@ -246,15 +240,15 @@
                                                        required v-model="actionTitle">
                                             </div>
 
-<!--                                            <div class="form-group mt-3">-->
-<!--                                                <label for="">Duration</label>-->
-<!--                                                <select class="form-control" required v-model="selectedOption">-->
-<!--                                                    <option v-for="type in types"-->
-<!--                                                            v-bind:value="{ id: type.id, text: type.text }">-->
-<!--                                                        {{type.text}}-->
-<!--                                                    </option>-->
-<!--                                                </select>-->
-<!--                                            </div>-->
+                                            <!--                                            <div class="form-group mt-3">-->
+                                            <!--                                                <label for="">Duration</label>-->
+                                            <!--                                                <select class="form-control" required v-model="selectedOption">-->
+                                            <!--                                                    <option v-for="type in types"-->
+                                            <!--                                                            v-bind:value="{ id: type.id, text: type.text }">-->
+                                            <!--                                                        {{type.text}}-->
+                                            <!--                                                    </option>-->
+                                            <!--                                                </select>-->
+                                            <!--                                            </div>-->
 
                                             <template v-slot:modal-footer>
                                                 <div class="w-100">
@@ -338,339 +332,338 @@
     </div>
 </template>
 <script>
-
-
-    export default {
-        name: "health-records",
-        components: {},
-        data() {
-            return {
-                medicationEnabled: false,
-                medication: {},
-                fullPage: true,
-                participants: [],
-                participant_info: {},
-                allergies: [],
-                participantId: '',
-                lifestyle: '',
-                body_composition: '',
-                blood_pressure: '',
-                diabetes: '',
-                cholesterol: '',
-                cvd: '',
-                goals: [],
-                referrals: [],
-                assessment_date: '',
-                newDiagnosis: '',
-                patientId: '',
-                patientMeta: '',
-                patientInfo: '',
-                comments: '',
-                reviewId: '',
-                newActions: [],
-                actionTitle: '',
-                activity: {},
-                selectedOption: [],
-                selectedDurations: [],
-                frequency: '',
-                frequencyType: [
-                    {
-                        "id": '1',
-                        "title": "Day",
-                        "value": "d"
-                    },
-                    {
-                        "id": '2',
-                        "title": "Week",
-                        "value": "w"
-                    },
-                    {
-                        "id": '3',
-                        "title": "Month",
-                        "value": "m"
-                    }
-                ],
-                durations: [
-                    {
-                        "id": "1",
-                        "title": "One Day",
-                        "value": "1d",
-                    },
-                    {
-                        "id": "2",
-                        "title": "3 Days",
-                        "value": "3d",
-                    },
-                    {
-                        "id": "3",
-                        "title": "5 Days",
-                        "value": "5d",
-                    },
-                    {
-                        "id": "4",
-                        "title": "1 Week",
-                        "value": "1w",
-                    },
-                    {
-                        "id": "5",
-                        "title": "2 Weeks",
-                        "value": "2w",
-                    },
-                    {
-                        "id": "6",
-                        "title": "15 Days",
-                        "value": "15d",
-                    },
-                    {
-                        "id": "7",
-                        "title": "1 Month",
-                        "value": "1m",
-                    },
-                    {
-                        "id": "7",
-                        "title": "3 Month",
-                        "value": "3m",
-                    },
-                ],
-                types: [
-                    {
-                        "id": "1",
-                        "text": "Within 1 month",
-                        "value": 30
-                    },
-                    {
-                        "id": "2",
-                        "text": "Within 2 month",
-                        "value": 60
-                    },
-                    {
-                        "id": "3",
-                        "text": "Within 3 month",
-                        "value": 90
-                    },
-                    {
-                        "id": "4",
-                        "text": "Within 4 month",
-                        "value": 120
-                    },
-                    {
-                        "id": "5",
-                        "text": "Within 5 month",
-                        "value": 150
-                    },
-                    {
-                        "id": "6",
-                        "text": "Within 6 month",
-                        "value": 180
-                    },
-                ],
-                allData: '',
-                dismissSecs: 5,
-                dismissCountDown: 0,
-                message: '',
-                alert: '',
-                dataReady: false,
-                "checked": true,
-                durationFrequency: '',
-                followDuration: ''
-            };
-        },
-        methods: {
-            addDiagnosis() {
-                // this.$bvModal.hide('modal-diagnosis');
-            },
-            addMedication() {
-                let startDate = new Date()
-                let endDate = new Date()
-                let period = this.medication.period.split(/(\d+)/).filter(Boolean)
-                if (period[1] == 'w') {
-                    endDate = endDate.addDays(period[0] * 7)
-                } else if (period[1] == 'm') {
-                    endDate = endDate.addDays(period[0] * 30)
-                } else {
-                    endDate = endDate.addDays(period[0])
-                }
-                let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
-                let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
-                this.activity = {
-                    category: "medication",
-                    title: this.medication.title,
-                    description: this.medication.title,
-                    id: '',
-                    roles: ['doctor'],
-                    component: {},
-                    outcomeConcept: {},
-                    activityDuration: {
-                        start: startPeriod,
-                        end: endPeriod,
-                        repeat: {
-                            period: period[0],
-                            periodUnit: this.medication.durationFrequency,
-                            frequency: this.medication.frequency
-
-                        }
-                    },
-                    comments: {
-                        comment: this.medication.comment
-                    }
-                }
-                console.log(this.activity)
-                this.allData.data.body.result.careplan.activities.push(this.activity)
-
-            },
-            countDownChanged(dismissCountDown) {
-                this.dismissCountDown = dismissCountDown
-            },
-            selectActionItem(item, action) {
-
-                let itemValue = item.id
-                let start = ''
-                let end = ''
-                if (action.activityDuration && action.activityDuration.start && action.activityDuration.end) {
-                    start = action.activityDuration.start
-                    end = action.activityDuration.end
-                    let start_date = new Date(start)
-                    let end_date = new Date(end)
-                    let total_months = (end_date.getFullYear() - start_date.getFullYear()) * 12 + (end_date.getMonth() - start_date.getMonth())
-                    if (total_months == itemValue) {
-                        return true
-                    } else {
-                        return false
-                    }
-                } else {
-                    return false
-                }
-            },
-
-            updateReviewData() {
-                this.isLoading = true;
-                var data = this.calculateDuration(this.allData.data);
-                this.$http.put('/health-reports/' + this.reviewId, data).then( response => {
-                  if (response.status == 200 ) {
-                    this.alert = 'success'
-                  } else {
-                    this.alert = 'error'
-                  }
-                  this.message = response.data.message
-                  this.dismissCountDown = this.dismissSecs
-                  this.isLoading = false
-
-                })
-            },
-            calculateDuration(data) {
-                // console.log(data.body.result.careplan.activities);
-                for (var item of data.body.result.careplan.activities) {
-
-                    var index = data.body.result.careplan.activities.indexOf(item);
-                    // console.log(this.selectedDurations[index]);
-                    var type = this.types.find(item => item.text == this.selectedDurations[index])
-                    // console.log(type);
-
-                    let startDate = new Date()
-                    let endDate = new Date()
-                    endDate.addDays(type.value);
-
-                    item.activityDuration.start = startDate;
-                    item.activityDuration.end = endDate;
-
-                    console.log(item);
-
-                    // console.log(startDate)
-                    // console.log(endDate)
-
-
-                }
-
-                console.log(data);
-
-                return data;
-
-            },
-
-            addActionItem() {
-                this.activity = {}
-                this.$bvModal.hide('modal-actions');
-
-                let startDate = new Date()
-                let endDate = new Date()
-                endDate = endDate.addDays(this.selectedOption * 30)
-                let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
-                let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
-                this.activity = {
-                    category: "survey",
-                    title: this.actionTitle,
-                    description: this.actionTitle,
-                    id: '',
-                    roles: ['doctor'],
-                    component: {},
-                    outcomeConcept: {},
-                    activityDuration: {
-                        start: startPeriod,
-                        end: endPeriod,
-                        repeat: {
-                            period: this.selectedOption,
-                            periodUnit: 'm',
-                            frequency: ''
-
-                        }
-                    },
-                    comments: {
-                        comment: ''
-                    }
-                }
-              this.actionTitle = ''
-                this.allData.data.body.result.careplan.activities.push(this.activity)
-            },
-            getHealthReport() {
-                this.$http.get('/health-reports/' + this.reviewId).then(response => {
-                    if (response.status == 200) {
-                        this.allData = response.data
-                        // console.log(this.selectedDurations);
-                        for (var item of this.allData.data.body.result.careplan.activities) {
-                            var index = this.allData.data.body.result.careplan.activities.indexOf(item)
-                            this.selectedDurations[index] = 'Within 1 month'
-
-                            var type = this.types.find(item => item.text == this.selectedDurations[index])
-                            // console.log(type);
-
-                            let startDate = new Date()
-                            let endDate = new Date()
-                            endDate.addDays(type.value);
-
-                            item.activityDuration.start = startDate;
-                            item.activityDuration.end = endDate;
-                        }
-                        // console.log(this.selectedDurations);
-                        // console.log(this.allData);
-                        if (response.data.data && response.data.data.body && response.data.data.body.result && response.data.data.body.result.careplan && response.data.data.body.result.careplan.activities) {
-                            this.newActions = response.data.data.body.result.careplan.activities
-                        }
-                        this.patientId = response.data.data.body.patient_id
-                        this.getPatientInfo()
-                    }
-                })
-            },
-            getPatientInfo() {
-                this.$http.get('/patients/' + this.patientId).then(response => {
-                    if (response.status == 200) {
-                        this.patientMeta = response.data.data.meta
-                        this.patientInfo = response.data.data.body
-                        this.isLoading = false
-                        this.dataReady = true
-                    }
-                })
-            }
-        },
-        created() {
-            if (this.$route.params.reviewId) {
-                this.reviewId = this.$route.params.reviewId
-                this.getHealthReport()
-            }
-        },
-        mounted() {
-
-
+  export default {
+    name: "health-records",
+    components: {},
+    data() {
+      return {
+        medicationEnabled: false,
+        medication: {},
+        fullPage: true,
+        participants: [],
+        participant_info: {},
+        allergies: [],
+        participantId: '',
+        lifestyle: '',
+        body_composition: '',
+        blood_pressure: '',
+        diabetes: '',
+        cholesterol: '',
+        cvd: '',
+        goals: [],
+        referrals: [],
+        assessment_date: '',
+        newDiagnosis: '',
+        patientId: '',
+        patientMeta: '',
+        patientInfo: '',
+        comments: '',
+        reviewId: '',
+        newActions: [],
+        actionTitle: '',
+        activity: {},
+        selectedOption: [],
+        selectedDurations: [],
+        frequency: '',
+        frequencyType: [
+          {
+            "id": '1',
+            "title": "Day",
+            "value": "d"
+          },
+          {
+            "id": '2',
+            "title": "Week",
+            "value": "w"
+          },
+          {
+            "id": '3',
+            "title": "Month",
+            "value": "m"
+          }
+        ],
+        durations: [
+          {
+            "id": "1",
+            "title": "One Day",
+            "value": "1d",
+          },
+          {
+            "id": "2",
+            "title": "3 Days",
+            "value": "3d",
+          },
+          {
+            "id": "3",
+            "title": "5 Days",
+            "value": "5d",
+          },
+          {
+            "id": "4",
+            "title": "1 Week",
+            "value": "1w",
+          },
+          {
+            "id": "5",
+            "title": "2 Weeks",
+            "value": "2w",
+          },
+          {
+            "id": "6",
+            "title": "15 Days",
+            "value": "15d",
+          },
+          {
+            "id": "7",
+            "title": "1 Month",
+            "value": "1m",
+          },
+          {
+            "id": "7",
+            "title": "3 Month",
+            "value": "3m",
+          },
+        ],
+        types: [
+          {
+            "id": "1",
+            "text": "Within 1 month",
+            "value": 30
+          },
+          {
+            "id": "2",
+            "text": "Within 2 month",
+            "value": 60
+          },
+          {
+            "id": "3",
+            "text": "Within 3 month",
+            "value": 90
+          },
+          {
+            "id": "4",
+            "text": "Within 4 month",
+            "value": 120
+          },
+          {
+            "id": "5",
+            "text": "Within 5 month",
+            "value": 150
+          },
+          {
+            "id": "6",
+            "text": "Within 6 month",
+            "value": 180
+          },
+        ],
+        allData: '',
+        dismissSecs: 5,
+        dismissCountDown: 0,
+        message: '',
+        alert: '',
+        dataReady: false,
+        "checked": true,
+        durationFrequency: '',
+        followDuration: '',
+        checkedItems: [],
+        removableActivities: [],
+      };
+    },
+    methods: {
+      addDiagnosis() {
+        // this.$bvModal.hide('modal-diagnosis');
+      },
+      addMedication() {
+        let startDate = new Date()
+        let endDate = new Date()
+        let period = this.medication.period.split(/(\d+)/).filter(Boolean)
+        if (period[1] == 'w') {
+          endDate = endDate.addDays(period[0] * 7)
+        } else if (period[1] == 'm') {
+          endDate = endDate.addDays(period[0] * 30)
+        } else {
+          endDate = endDate.addDays(period[0])
         }
-    };
+        let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
+        let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+        this.activity = {
+          category: "medication",
+          title: this.medication.title,
+          description: this.medication.title,
+          id: '',
+          roles: ['doctor'],
+          component: {},
+          outcomeConcept: {},
+          activityDuration: {
+            start: startPeriod,
+            end: endPeriod,
+            repeat: {
+              period: period[0],
+              periodUnit: this.medication.durationFrequency,
+              frequency: this.medication.frequency
+
+            }
+          },
+          comments: {
+            comment: this.medication.comment
+          }
+        }
+        console.log(this.activity)
+        this.allData.data.body.result.careplan.activities.push(this.activity)
+
+      },
+      countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+      selectActionItem(item, action) {
+        let itemValue = item.id
+        let start = ''
+        let end = ''
+        if (action.activityDuration && action.activityDuration.start && action.activityDuration.end) {
+          start = action.activityDuration.start
+          end = action.activityDuration.end
+          let start_date = new Date(start)
+          let end_date = new Date(end)
+          let total_months = (end_date.getFullYear() - start_date.getFullYear()) * 12 + (end_date.getMonth() - start_date.getMonth())
+          if (total_months == itemValue) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      },
+
+      calculateDuration(data) {
+        for (var item of data.body.result.careplan.activities) {
+          var index = data.body.result.careplan.activities.indexOf(item);
+          var type = this.types.find(item => item.text == this.selectedDurations[index])
+          let startDate = new Date()
+          let endDate = new Date()
+          endDate.addDays(type.value);
+          item.activityDuration.start = startDate;
+          item.activityDuration.end = endDate;
+        }
+
+        return data;
+
+      },
+
+      removeActionItem(id) {
+        if (!this.checkedItems[id]) {
+          this.removableActivities.indexOf(id) ? this.removableActivities.push(id) : ''
+          console.log(this.removableActivities)
+        } else {
+          let index = this.removableActivities.indexOf(id)
+          if (index > -1) {
+            this.removableActivities.splice(index, 1)
+          }
+        }
+      },
+      addActionItem() {
+        this.activity = {}
+        this.$bvModal.hide('modal-actions');
+        let startDate = new Date()
+        let endDate = new Date()
+        endDate = endDate.addDays(this.selectedOption * 30)
+        let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
+        let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+        this.activity = {
+          category: "survey",
+          title: this.actionTitle,
+          description: this.actionTitle,
+          id: '',
+          roles: ['doctor'],
+          component: {},
+          outcomeConcept: {},
+          activityDuration: {
+            start: startPeriod,
+            end: endPeriod,
+            repeat: {
+              period: this.selectedOption,
+              periodUnit: 'm',
+              frequency: ''
+
+            }
+          },
+          comments: {
+            comment: ''
+          }
+        }
+        this.actionTitle = ''
+        this.allData.data.body.result.careplan.activities.push(this.activity)
+      },
+
+      updateReviewData() {
+        this.isLoading = true;
+        if (this.removableActivities.length > 0) {
+          this.removableActivities.forEach(item => {
+            this.allData.data.body.result.careplan.activities.splice(item)
+          })
+        }
+        if (this.comments) {
+          console.log(this.comments)
+          this.allData.data.body.comment = this.comments
+        }
+        var data = this.calculateDuration(this.allData.data);
+        this.$http.put('/health-reports/' + this.reviewId, data).then( response => {
+          if (response.status == 200 ) {
+            this.alert = 'success'
+          } else {
+            this.alert = 'error'
+          }
+          this.message = response.data.message
+          this.dismissCountDown = this.dismissSecs
+          this.isLoading = false
+
+        })
+      },
+      getHealthReport() {
+        this.$http.get('/health-reports/' + this.reviewId).then(response => {
+          if (response.status == 200) {
+            this.allData = response.data
+            for (var item of this.allData.data.body.result.careplan.activities) {
+              var index = this.allData.data.body.result.careplan.activities.indexOf(item)
+              this.selectedDurations[index] = 'Within 1 month'
+
+              var type = this.types.find(item => item.text == this.selectedDurations[index])
+              let startDate = new Date()
+              let endDate = new Date()
+              endDate.addDays(type.value);
+
+              item.activityDuration.start = startDate;
+              item.activityDuration.end = endDate;
+            }
+            if (response.data.data && response.data.data.body && response.data.data.body.result && response.data.data.body.result.careplan && response.data.data.body.result.careplan.activities) {
+              this.newActions = response.data.data.body.result.careplan.activities
+            }
+            this.patientId = response.data.data.body.patient_id
+            this.getPatientInfo()
+          }
+        })
+      },
+      getPatientInfo() {
+        this.$http.get('/patients/' + this.patientId).then(response => {
+          if (response.status == 200) {
+            this.patientMeta = response.data.data.meta
+            this.patientInfo = response.data.data.body
+            this.isLoading = false
+            this.dataReady = true
+          }
+        })
+      }
+    },
+    created() {
+      if (this.$route.params.reviewId) {
+        this.reviewId = this.$route.params.reviewId
+        this.getHealthReport()
+      }
+    },
+    mounted() {
+
+
+    }
+  };
 </script>
 
