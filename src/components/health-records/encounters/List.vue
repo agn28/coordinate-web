@@ -1,8 +1,5 @@
 <template>
   <div class="content">
-    <div class="loader" v-if="isLoading">
-      <rotate-square2></rotate-square2>
-    </div>
     <div class="animated fadeIn">
       <div class="card mt-4">
         <div class="card-header py-2">
@@ -48,14 +45,13 @@
 
 <script>
 // @ is an alias to /src
-import {RotateSquare2} from 'vue-loading-spinner'
+
 
 export default {
   name: "patients",
-  components: { RotateSquare2 },
+  components: {  },
   data() {
     return {
-      isLoading: true,
       encounters: [],
       participantId: ''
     };

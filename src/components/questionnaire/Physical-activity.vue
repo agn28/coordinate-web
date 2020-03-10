@@ -5,7 +5,7 @@
     </div>
     <div class="animated fadeIn">
       <div class="col-lg-12 d-flex breadcrumb-wrap">
-        <i class="fa fa-arrow-left text-secondary back-icon"></i>
+        <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
         <div class="">
           <h4>Physical Activity Questionnaire</h4>
           <div class="breadcrumb"><span>Patients</span>/ <span>Jahanara Begum</span> / <span>Create a New Encounter</span> / <span>Questionnaire</span> / Physical Activity</div>
