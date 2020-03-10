@@ -24,6 +24,10 @@ import Medical from '../components/questionnaire/Medical'
 
 import Encounters from '../components/encounters/List'
 import EncounterCreate from '../components/encounters/Create'
+import BloodPressure from "../components/encounters/BloodPressure";
+import BodyMeasurement from "../components/encounters/BodyMeasurement";
+import BloodTests from "../components/encounters/BloodTests";
+import Questionnaire from "../components/encounters/Questionnaire";
 
 import CarePlane from "../components/care-plane/CarePlane";
 import CarePlaneAction from "../components/care-plane/CarePlaneAction";
@@ -134,6 +138,26 @@ const routes = [
     path: '/patients/:patientId/encounters/create',
     name: 'encounterCreate',
     component: EncounterCreate,
+  },
+  {
+    path: '/patients/:patientId/encounters/blood-pressure',
+    name: 'bloodPressure',
+    component: BloodPressure,
+  },
+  {
+    path: '/patients/:patientId/encounters/body-measurement',
+    name: 'bodyMeasurement',
+    component: BodyMeasurement,
+  },
+  {
+    path: '/patients/:patientId/encounters/blood-tests',
+    name: 'bloodTests',
+    component: BloodTests,
+  },
+  {
+    path: '/patients/:patientId/encounters/questionnaire',
+    name: 'questionnaire',
+    component: Questionnaire,
   },
   {
     path: '/patients/:patientId/allergy',

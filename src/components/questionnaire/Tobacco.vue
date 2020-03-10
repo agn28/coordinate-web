@@ -1,11 +1,8 @@
 <template>
   <div class="content tobacco-questionnaire">
-    <div class="loader" v-if="isLoading">
-      <rotate-square2></rotate-square2>
-    </div>
     <div class="animated fadeIn">
       <div class="col-lg-12 d-flex breadcrumb-wrap">
-        <i class="fa fa-arrow-left text-secondary back-icon"></i>
+        <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
         <div class="">
           <h4>Tobbaco Questionnaire</h4>
           <div class="breadcrumb"><span>Patients</span>/ <span>Jahanara Begum</span> / <span>Create a New Encounter</span> / <span>Questionnaire</span> / Tobacco</div>

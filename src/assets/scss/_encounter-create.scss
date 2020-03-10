@@ -1,0 +1,210 @@
+.encounter-create {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  label {
+    font-size: 14px;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 22px;;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 12px 20px 17px 20px;
+
+    .patient-image {
+      margin-right: 12px;
+
+      img {
+        width: 25px;
+      }
+
+    }
+
+    .patient-details {
+      flex-direction: row;
+
+      .patient-name {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 8px;
+        margin-right: 30px;
+      }
+
+      .details {
+        div {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  .encounter-header {
+    margin: 29px 30px 20px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .encounter-body {
+    margin: 0 30px;
+
+    .complete-color {
+      color: #2E7D32;
+    }
+    .incomplete-color {
+      color: #CF0026;
+    }
+    .skipped-color {
+      color: #D43900;
+    }
+
+    .encounter-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .content {
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        img {
+          width: 56px;
+          height: 56px;
+          margin-right: 20px;
+        }
+
+        .content-details {
+          display: flex;
+          flex-direction: column;
+          font-family: Roboto;
+          font-style: normal;
+          color: rgba(0, 0, 0, 0.87);
+
+          .content-title {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 26px;
+            margin-bottom: 8px;
+
+          }
+          .content-status {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
+      }
+
+      .content-link {
+        color: #01579B;
+      }
+    }
+
+    .comment-section {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 20px;
+
+      textarea {
+        resize: none;
+      }
+    }
+
+    .encounter-type {
+      font-family: Roboto;
+      font-style: normal;
+      color: rgba(0, 0, 0, 0.87);
+      margin-bottom: 30px;
+      .type-title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 20px;
+      }
+      .type-checkbox {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+    .btn-save {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 100%;
+      color: #FFFFFF;
+      background: #0377BD;
+      border-color: #0377BD;
+
+      &:hover {
+
+      }
+    }
+
+    .btn-cancel {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 100%;
+      background: #FFFFFF;
+      border: 1px solid #6C757D;
+      box-sizing: border-box;
+      border-radius: 3px;
+      color: #6C757D;
+
+      &:hover {
+        background: #0377BD;
+        color: #FFFFFF;
+        border-color: #0377BD;
+      }
+    }
+
+  }
+
+
+}

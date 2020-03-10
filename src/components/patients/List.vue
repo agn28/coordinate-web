@@ -1,8 +1,5 @@
 <template>
-  <div class="content">
-    <div class="loader" v-if="isLoading">
-      <rotate-square2></rotate-square2>
-    </div>
+  <div class="content patient-list">
     <div class="animated fadeIn">
       <div class="col-md-12 d-flex justify-content-between mt-3">
         <div class="header">
@@ -142,7 +139,6 @@
 
 <script>
 // @ is an alias to /src
-import {RotateSquare2} from 'vue-loading-spinner';
 import Vue from 'vue';
 import { VuejsDatatableFactory } from 'vuejs-datatable';
 
@@ -150,20 +146,23 @@ Vue.use( VuejsDatatableFactory );
 
 export default {
   name: "patients",
-  components: { RotateSquare2 },
+  components: { },
   data() {
     return {
-      isLoading: true,
       patients: []
     };
   },
   methods: {
     getPatients() {
+      let loader = this.$loading.show();
       this.$http.get("/patients").then(response => {
         if (response.status == 200) {
           this.patients = response.data.entry;
-          this.isLoading = false;
+          loader.hide()
         }
+      },
+      error => {
+        loader.hide();
       });
     },
 
