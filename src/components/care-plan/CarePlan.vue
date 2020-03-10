@@ -60,14 +60,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="care-data" @click="$router.push({ name: 'carePlaneAction'})">
-                                        <td>Provide diet advise</td>
-                                        <td class="complete">Completed on Jan 10 2019 <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
-                                    </tr>
-                                    <tr class="care-data" @click="$router.push({ name: 'carePlaneAction'})">
+                                    <template  v-for="(carePlan, index) in carePlans" >
+                                        <tr :key="index" v-if="carePlan.body.status != 'completed'" class="care-data" @click="$router.push({ name: 'carePlanAction', params: { carePlanId: carePlan.id }})">
+                                            <td>{{ carePlan.body.title }}</td>
+                                            <td class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
+                                        </tr>
+                                    </template>
+                                    
+                                    <!-- <tr class="care-data" @click="$router.push({ name: 'carePlaneAction'})">
                                         <td>Provide Smoking cessation advise</td>
                                         <td class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -83,7 +86,33 @@
 
 <script>
     export default {
-        name: "CarePlane"
+        name: "CarePlane",
+        data() {
+            return {
+                carePlans: []
+            }
+        },
+
+        created() {
+            this.getCarePlans();
+        },
+        methods: {
+            getCarePlans() {
+                let loader = this.$loading.show();
+                this.$http.get("/care-plans/patient/3f90c48b-9c8e-433e-b361-e7fa90786a29", ).then(
+                    response => {
+                    if (response.status == 200) {
+                        console.log(response.data);
+                        this.carePlans = response.data.data;
+                    }
+                    loader.hide();
+                    },
+                    error => {
+                    loader.hide();
+                    }
+                );
+            }
+        }
     }
 </script>
 

@@ -25,8 +25,8 @@ import Medical from '../components/questionnaire/Medical'
 import Encounters from '../components/encounters/List'
 import EncounterCreate from '../components/encounters/Create'
 
-import CarePlane from "../components/care-plane/CarePlane";
-import CarePlaneAction from "../components/care-plane/CarePlaneAction";
+import CarePlan from "../components/care-plan/CarePlan";
+import CarePlanAction from "../components/care-plan/CarePlanAction";
 
 import Allergy from '../components/allergy/List'
 import AllergyCreate from '../components/allergy/Create'
@@ -190,14 +190,14 @@ const routes = [
   },
 
   {
-    path: '/care-plane',
-    name: 'carePlane',
-    component: CarePlane
+    path: '/care-plan',
+    name: 'carePlan',
+    component: CarePlan
   },
   {
-    path: '/care-plane/action',
-    name: 'carePlaneAction',
-    component: CarePlaneAction
+    path: '/care-plan/:carePlanId/action',
+    name: 'carePlanAction',
+    component: CarePlanAction
   },
 
   {

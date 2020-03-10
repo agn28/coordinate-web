@@ -53,7 +53,7 @@
 
               <p class="text-black text-bold mt-3">{{ total_careplan}}</p>
 
-              <a class="text-link custom-text-link" href="" @click="$router.push({ name: 'carePlane'})">View</a>
+              <router-link class="text-link custom-text-link" :to="{ name: 'carePlan'}">View</router-link>
             </div>
           </div>
         </div>
