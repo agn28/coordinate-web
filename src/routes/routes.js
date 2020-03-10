@@ -56,14 +56,6 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
-    beforeEnter: (to, from, next) => {
-      if (store.getters['auth/authenticated']) {
-        return next({
-          name: 'dashboard'
-        })
-      }
-      next()
-    }
   },
   {
     path: '/forgot-password',
@@ -278,6 +270,8 @@ router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
   if (authRequired && !loggedIn) {
     next('/login');
+  } else if(loggedIn && !authRequired){
+      next('/dashboard')
   } else {
     next();
   }

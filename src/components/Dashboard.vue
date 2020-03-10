@@ -134,7 +134,7 @@ export default {
   methods: {
     getSatistics() {
       let loader = this.$loading.show();
-      this.$http.get("/stats").then(
+      this.$http.get("/stats", ).then(
         response => {
           if (response.status == 200) {
             this.total_patient = response.data.data.total_patient;

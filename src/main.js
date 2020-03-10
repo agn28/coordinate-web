@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
 import router  from './routes/routes';
-import axios from 'axios'
 import Vuex from 'vuex'
 import moment from 'moment'
 import { VuejsDatatableFactory } from 'vuejs-datatable';
@@ -24,7 +23,7 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 import store from "./store/store";
-
+import interceptor from "./interceptor"
 Vue.use( VuejsDatatableFactory );
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -38,16 +37,11 @@ Vue.use(Loading, {
   // props
   color: '#00569B'
 },);
-axios.defaults.baseURL = process.env.VUE_APP_API;
-// console.log(store.state);
-if (store.state && store.state.auth && store.state.auth.user ) {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.auth.user.accessToken
-}
-Vue.prototype.$http = axios;
+
+
+Vue.prototype.$http = interceptor;
 Vue.prototype.moment = moment;
-
 Vue.config.productionTip = false
-
 Date.prototype.addHours = function(h) {
   this.setTime(this.getTime() + (h*60*60*1000));
   return this;
@@ -56,7 +50,6 @@ Date.prototype.addDays = function(days) {
   this.setDate(this.getDate() + parseInt(days));
   return this;
 }
-
 new Vue({
   router,
   store,
