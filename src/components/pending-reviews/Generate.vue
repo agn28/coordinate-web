@@ -596,6 +596,7 @@
       },
 
       updateReviewData() {
+        let loader = this.$loading.show();
         this.isLoading = true;
         if (this.removableActivities.length > 0) {
           this.removableActivities.forEach(item => {
@@ -608,8 +609,10 @@
         }
         var data = this.calculateDuration(this.allData.data);
         this.$http.put('/health-reports/' + this.reviewId, data).then( response => {
+          loader.hide();
           if (response.status == 200 ) {
-            this.alert = 'success'
+            this.alert = 'success';
+            this.$router.push({ name: 'pendingReviews' })
           } else {
             this.alert = 'error'
           }
