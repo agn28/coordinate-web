@@ -1,0 +1,180 @@
+.patient-overview {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    padding: 19px 20px 18px 20px;
+  }
+
+  .patient-image {
+
+    img {
+      width: 55px;
+    }
+
+  }
+
+  .patient-edit {
+    margin: 22px 30px;
+
+    div {
+      margin-right: 47px;
+      i{
+        margin-right: 9px;
+      }
+    }
+  }
+
+  .card {
+    min-height: 257px;
+  }
+
+  .patient-overview-content {
+    margin: 30px 30px 10px;
+    .content-header {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: right;
+      color: rgba(0, 0, 0, 0.6);
+      margin: 30px;
+      .title {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+      }
+    }
+
+    .content-body {
+      display: flex;
+      flex-direction: column;
+      margin: 0 30px 19px;
+
+      .create {
+        display: flex;
+        color: #01579B;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        span {
+          margin-right: 25px;
+        }
+        p {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+          padding-bottom: 16px;
+          width: 100%;
+        }
+      }
+      .view {
+        display: flex;
+        color: #01579B;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        span {
+          margin-right: 25px;
+        }
+      }
+
+      .subtitle {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 14px;
+        margin-left: 41px;
+        i {
+          color: #FF0C3E;
+          margin-right: 14px;
+          font-size: 9px;
+        }
+      }
+
+    }
+  }
+
+  .patient-condition {
+    margin: 0 30px;
+
+    .content-header {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: right;
+      color: rgba(0, 0, 0, 0.6);
+      margin: 30px;
+      .title {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+      }
+    }
+
+    .content-body {
+      display: flex;
+      flex-direction: column;
+      margin: 0 30px 19px;
+
+      .create {
+        display: flex;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        color: rgba(0, 0, 0, 0.87);
+        p {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+          padding-bottom: 16px;
+          width: 100%;
+        }
+      }
+      .view {
+        display: flex;
+        color: rgba(0, 0, 0, 0.87);
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+
+      }
+
+    }
+  }
+}
