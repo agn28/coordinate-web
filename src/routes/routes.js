@@ -28,6 +28,11 @@ import BloodPressure from "../components/encounters/BloodPressure";
 import BodyMeasurement from "../components/encounters/BodyMeasurement";
 import BloodTests from "../components/encounters/BloodTests";
 import Questionnaire from "../components/encounters/Questionnaire";
+import EncounterTobacco from "../components/encounters/encounter-questionnaires/Tobacco"
+import EncounterAlcohol from "../components/encounters/encounter-questionnaires/Alcohol"
+import EncounterDiet from "../components/encounters/encounter-questionnaires/Diet"
+import EncounterMedical from "../components/encounters/encounter-questionnaires/Medical"
+import EncounterMedication from "../components/encounters/encounter-questionnaires/Medication"
 
 import CarePlan from "../components/care-plan/CarePlan";
 import CarePlanAction from "../components/care-plan/CarePlanAction";
@@ -150,6 +155,31 @@ const routes = [
     path: '/patients/:patientId/encounters/questionnaire',
     name: 'questionnaire',
     component: Questionnaire,
+  },
+  {
+    path: '/patients/:patientId/encounters/questionnaire/tobacco',
+    name: 'encounterTobacco',
+    component: EncounterTobacco,
+  },
+  {
+    path: '/patients/:patientId/encounters/questionnaire/alcohol',
+    name: 'encounterAlcohol',
+    component: EncounterAlcohol,
+  },
+  {
+    path: '/patients/:patientId/encounters/questionnaire/diet',
+    name: 'encounterDiet',
+    component: EncounterDiet,
+  },
+  {
+    path: '/patients/:patientId/encounters/questionnaire/medical',
+    name: 'encounterMedical',
+    component: EncounterMedical,
+  },
+  {
+    path: '/patients/:patientId/encounters/questionnaire/medication',
+    name: 'encounterMedication',
+    component: EncounterMedication,
   },
   {
     path: '/patients/:patientId/allergy',
