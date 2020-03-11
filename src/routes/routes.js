@@ -10,6 +10,7 @@ import PatientCarePlans from '../components/patients/CarePlans'
 import PatientCreate from '../components/patients/Create'
 import PatientEdit from '../components/patients/Edit'
 import PatientRegistration from '../components/patients/NewRegistration'
+import PastAssessments from "../components/past-assessments/PastAssessments";
 
 import PendingReviews from '../components/pending-reviews/List'
 import PendingReviewDetail from '../components/pending-reviews/Show'
@@ -126,10 +127,16 @@ const routes = [
     name: 'patientRegistration',
     component: PatientRegistration
   },
+
   {
     path: '/patients/:patientId',
     name: 'patientEdit',
     component: PatientEdit,
+  },
+  {
+    path: '/patients/:patientId/past-assessment',
+    name:'pastAssessment',
+    component: PastAssessments
   },
 
   {
