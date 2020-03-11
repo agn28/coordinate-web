@@ -10,19 +10,19 @@
             </div>
 
 
-            <div class="col-lg-12 border-top border-bottom">
+            <div v-if="carePlan.patient" class="col-lg-12 border-top border-bottom">
                 <div class="patient mt-2 mb-3">
                     <div class="patient-image mr-3">
                         <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid"
                              width="100" height="100" alt="">
                     </div>
                     <div class="patient-details">
-                        <div class="patient-name">Jahanara Begum</div>
+                        <div class="patient-name">{{ carePlan.patient.first_name + ' ' + carePlan.patient.last_name }}</div>
                         <div class="details">
-                            <div class="age">31y Female</div>
-                            <div class="nid">NID: 1992121224343</div>
+                            <div class="age">{{ carePlan.patient.age }}  {{ carePlan.patient.gender.toUpperCase() }}</div>
+                            <div class="nid">NID: {{ carePlan.patient.nid }}</div>
                             <div class="pid">PID: N-121233333</div>
-                            <div class="register-date">Registered on Jan 5, 2019</div>
+                            <!-- <div class="register-date">Registered on Jan 5, 2019</div> -->
                         </div>
                     </div>
                 </div>
@@ -102,8 +102,8 @@
             }
         },
         mounted() {
-            this.$route.params.carePlanId = this.carePlanId;
-            this.carePlanId = '96cbc640-6289-11ea-9b18-ef033de922f5';
+            this.carePlanId = this.$route.params.carePlanId;
+            // this.carePlanId = '96cbc640-6289-11ea-9b18-ef033de922f5';
             console.log(this.$route)
             this.getCarePlan();
         },
@@ -146,7 +146,7 @@
 
             openVideo(component) {
                 // this.videoUrl = component.uri;
-                this.videoUrl = 'https://www.youtube.com/embed/prE6Ty2qDq8';
+                this.videoUrl = component.uri;
                 this.$bvModal.show('modal-video')
             }
         },
