@@ -114,45 +114,46 @@
         </div>
     </div>
 
-          <div class="col-md-6">
-            <div class="card mb-4">
-              <div class="card-body">
-                <div class="card-title d-flex justify-content-between">
-                  <div class="title">Health Reports</div>
-                  <div class="card-date">Last report on Jan 5, 2020</div>
-                </div>
+<!--          <div class="col-md-6">-->
+<!--            <div class="card mb-4">-->
+<!--              <div class="card-body">-->
+<!--                <div class="card-title d-flex justify-content-between">-->
+<!--                  <div class="title">Health Reports</div>-->
+<!--                  <div class="card-date">Last report on Jan 5, 2020</div>-->
+<!--                </div>-->
 
-                <router-link
-                  :to="{name: 'pendingReviews'}"
-                  class="text-link custom-text-link"
-                >View Patients Pending Review</router-link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--                <router-link-->
+<!--                  :to="{name: 'pendingReviews'}"-->
+<!--                  class="text-link custom-text-link"-->
+<!--                >View Patients Pending Review</router-link>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
-      <div class="col-lg-12 mt-5">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card mb-4">
-              <div class="card-body">
-                <div class="card-title d-flex justify-content-between">
-                  <div class="title">Existing conditions</div>
-                  <div class="card-date">Last assessment on</div>
-                </div>
+<!--      </div>-->
 
-                <router-link
-                  :to="{name: 'pendingReviews'}"
-                  class="text-link custom-text-link"
-                >View Patients Pending Review</router-link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-  </div>
+<!--      <div class="col-lg-12 mt-5">-->
+<!--        <div class="row">-->
+<!--          <div class="col-md-12">-->
+<!--            <div class="card mb-4">-->
+<!--              <div class="card-body">-->
+<!--                <div class="card-title d-flex justify-content-between">-->
+<!--                  <div class="title">Existing conditions</div>-->
+<!--                  <div class="card-date">Last assessment on</div>-->
+<!--                </div>-->
+
+<!--                <router-link-->
+<!--                  :to="{name: 'pendingReviews'}"-->
+<!--                  class="text-link custom-text-link"-->
+<!--                >View Patients Pending Review</router-link>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div> &ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script>
