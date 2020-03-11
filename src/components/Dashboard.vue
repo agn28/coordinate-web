@@ -27,7 +27,7 @@
 
               <p class="text-black text-bold mt-3">{{ total_patient}}</p>
 
-              <a class="text-link custom-text-link" href="#">Manage an Existing Patient</a>
+              <router-link tag="a" class="text-link custom-text-link" :to="{name: 'patients'}">Manage an Existing Patient</router-link>
             </div>
           </div>
         </div>
@@ -41,7 +41,6 @@
               <router-link
                 :to="{name: 'pendingReviews'}"
                 class="text-link custom-text-link"
-                href="#"
               >View Patients Pending Review</router-link>
             </div>
           </div>

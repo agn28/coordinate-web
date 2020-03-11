@@ -93,14 +93,14 @@
                                         </div>
                                     </th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">PID</th>
+                                    <!-- <th scope="col">PID</th> -->
                                     <th scope="col">NID</th>
                                     <th scope="col">Age</th>
                                     <th scope="col">Gender</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr v-for="(patient, index) in patients" :key="index" @click="$router.push({ name: 'patientOverview', params: { patientId: patient.id } })" >
                                     <template>
                                         <th scope="row">
                                             <div class="custom-control custom-checkbox">
@@ -108,67 +108,17 @@
                                                 <label class="custom-control-label" for=""></label>
                                             </div>
                                         </th>
-                                        <td>Aklima Khatun</td>
+                                        <td>{{ patient.body.first_name + ' ' + patient.body.last_name}}</td>
 
 
-                                        <td>P2342343</td>
-                                        <td>1992121224343</td>
-                                        <td>32</td>
-                                        <td>Female<span class="pull-right"><i class="fas fa-arrow-right"></i></span>
+                                        <!-- <td>P2342343</td> -->
+                                        <td>{{ patient.body.nid }}</td>
+                                        <td>{{ patient.body.age }} </td>
+                                        <td>{{ patient.body.gender.toUpperCase() }}<span class="pull-right"><i class="fas fa-arrow-right"></i></span>
                                         </td>
                                     </template>
                                 </tr>
-                                <tr>
-                                    <template>
-                                        <th scope="row">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="" name="example1">
-                                                <label class="custom-control-label" for=""></label>
-                                            </div>
-                                        </th>
-                                        <td>Aklima Khatun</td>
 
-
-                                        <td>P2342343</td>
-                                        <td>1992121224343</td>
-                                        <td>32</td>
-                                        <td>Female<span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
-                                    </template>
-                                </tr>
-                                <tr>
-                                    <template>
-                                        <th scope="row">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="" name="example1">
-                                                <label class="custom-control-label" for=""></label>
-                                            </div>
-                                        </th>
-                                        <td>Aklima Khatun</td>
-
-
-                                        <td>P2342343</td>
-                                        <td>1992121224343</td>
-                                        <td>32</td>
-                                        <td>Female<span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
-                                    </template>
-                                </tr>
-                                <tr>
-                                    <template>
-                                        <th scope="row">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input">
-                                                <label class="custom-control-label"></label>
-                                            </div>
-                                        </th>
-                                        <td>Aklima Khatun</td>
-
-
-                                        <td>P2342343</td>
-                                        <td>1992121224343</td>
-                                        <td>32</td>
-                                        <td>Female<span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
-                                    </template>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -201,7 +151,7 @@
                 let loader = this.$loading.show();
                 this.$http.get("/patients").then(response => {
                         if (response.status == 200) {
-                            this.patients = response.data.entry;
+                            this.patients = response.data.data;
                             loader.hide()
                         }
                     },
