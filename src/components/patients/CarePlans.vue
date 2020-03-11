@@ -71,17 +71,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <template  v-for="(carePlan, index) in carePlans" >
-                                        <tr :key="index" v-if="carePlan.body.status != 'completed'" class="care-data" @click="$router.push({ name: 'carePlanAction', params: { carePlanId: carePlan.id }})">
+                                    <template  v-for="(carePlan, index) in carePlans">
+                                        <tr :key="index" v-if="carePlan.meta.status == 'completed'" class="care-data">
+                                            <td>{{ carePlan.body.title }}</td><td class="text-success">Completed <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
+                                        </tr>
+
+                                        <tr :key="index" v-else class="care-data" @click="$router.push({ name: 'carePlanAction', params: { carePlanId: carePlan.id }})">
                                             <td>{{ carePlan.body.title }}</td>
-                                            <td class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
+                                            <td v-if="carePlan.meta.status === 'pending'" class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
                                         </tr>
                                     </template>
-                                    
-                                    <!-- <tr class="care-data" @click="$router.push({ name: 'carePlaneAction'})">
-                                        <td>Provide Smoking cessation advise</td>
-                                        <td class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
-                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
