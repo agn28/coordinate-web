@@ -4,8 +4,8 @@
             <div class="col-lg-12 d-flex breadcrumb-wrap">
                 <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.push({ name: 'encounterCreate', params: { reviewId: '1234s'}})"></i>
                 <div class="">
-                    <h4>Blood Tests</h4>
-                    <div class="breadcrumb"><span>Patients / Jahanara Begum / Create a New Encounter </span>/ Blood Tests</div>
+                    <h4>Questionnaire</h4>
+                    <div class="breadcrumb"><span>Patients / Jahanara Begum / Create a New Encounter </span>/ Questionnaire</div>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                     <div class="encounter-body">
                         <div class="row">
                             <div class="col-lg-6 mb-4">
-                                <div class="card" @click="$router.push({ name: 'tobacco'})">
+                                <div class="card" @click="$router.push({ name: 'encounterTobacco'})">
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-4">
-                                <div class="card" @click="$router.push({ name: 'alcohol'})">
+                                <div class="card" @click="$router.push({ name: 'encounterAlcohol'})">
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
@@ -77,7 +77,7 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="card" @click="$router.push({ name: 'diet'})">
+                                <div class="card" @click="$router.push({ name: 'encounterDiet'})">
                                     <div class="card-body">
                                         <div class="encounter-content" >
                                             <div class="content">
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="card" @click="$router.push({ name: 'medication'})">
+                                <div class="card" @click="$router.push({ name: 'encounterMedication'})">
                                     <div class="card-body">
                                         <div class="encounter-content" >
                                             <div class="content">
@@ -115,7 +115,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-4">
-                                <div class="card" @click="$router.push({ name: 'medical'})">
+                                <div class="card" @click="$router.push({ name: 'encounterMedical'})">
                                     <div class="card-body">
                                         <div class="encounter-content" >
                                             <div class="content">
