@@ -10,6 +10,7 @@ import PatientCarePlans from '../components/patients/CarePlans'
 import PatientCreate from '../components/patients/Create'
 import PatientEdit from '../components/patients/Edit'
 import PatientRegistration from '../components/patients/NewRegistration'
+import PatientCreatedComplete from "../components/patients/PatientCreatedComplete";
 import PastAssessments from "../components/past-assessments/PastAssessments";
 
 import PendingReviews from '../components/pending-reviews/List'
@@ -59,6 +60,11 @@ import Diagnostics from '../components/diagnostics/List'
 import DiagnosticCreate from '../components/diagnostics/Create'
 
 import HealthEncounters from '../components/health-records/encounters/List'
+
+import NewHealthAssessment from "../components/health-assessment/NewHealthAssessment";
+import CreatedHealthAssessment from "../components/health-assessment/CreatedHealthAssessment";
+import PastHealthAssessment from "../components/health-assessment/PastHealthAssessment";
+import HealthAssessment from "../components/health-assessment/HealthAssessment";
 
 
 import store from "../store/store";
@@ -127,6 +133,11 @@ const routes = [
     path: '/patients/new-registration',
     name: 'patientRegistration',
     component: PatientRegistration
+  },
+  {
+    path: '/patients/complete-registration',
+    name: 'patientCreatedComplete',
+    component: PatientCreatedComplete
   },
 
   {
@@ -329,6 +340,26 @@ const routes = [
     name: 'medical',
     component: Medical
   },
+  {
+    path: '/health-assessment',
+    name: 'healthAssessment',
+    component: HealthAssessment
+  },
+  {
+    path: '/health-assessment/new-health-assessment',
+    name: 'newHealthAssessment',
+    component: NewHealthAssessment
+  },
+  {
+    path: '/health-assessment/health-assessment-created',
+    name: 'healthAssessmentCreated',
+    component: CreatedHealthAssessment
+  },
+  {
+    path: '/health-assessment/past-health-assessment',
+    name: 'pastHealthAssessment',
+    component: PastHealthAssessment
+  }
 
 
 ]

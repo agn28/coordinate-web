@@ -1,0 +1,404 @@
+.health-assessment {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  .danger-color {
+    color: #CF0026;
+  }
+
+  .medium-color {
+    color: #D43900;
+  }
+
+  .safe-color {
+    color: #2E7D32;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    padding: 19px 20px 18px 20px;
+  }
+
+  .patient-image {
+
+    img {
+      width: 55px;
+    }
+
+  }
+
+  .patient-condition-content {
+    margin: 32px 30px 30px;
+
+    .assessment-date {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 30px;
+    }
+
+    .existing-conditions {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+      min-height: 156px;
+      color: rgba(0, 0, 0, 0.87);
+
+      .title {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+        margin-bottom: 20px;
+      }
+
+      .list {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 10px;
+
+      }
+    }
+
+    .patient-lifestyle {
+      font-style: normal;
+      color: rgba(0, 0, 0, 0.87);
+      margin: 30px;
+
+      .lifestyle-title {
+        margin: 0 15px 30px;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+      }
+
+      .category-type {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.87);
+        font-style: normal;
+        font-weight: normal;
+        margin-bottom: 30px;
+
+        img {
+          border-radius: 50%;
+          padding: 10px;
+          width: 50px;
+          height: 50px;
+
+          &.danger {
+            background: #CF0026;
+          }
+
+          &.safe {
+            background: #2E7D32;
+          }
+        }
+
+        .title {
+          font-size: 18px;
+          line-height: 28px;
+          text-align: center;
+          letter-spacing: 0.5px;
+          margin-top: 10px;
+        }
+
+        .status {
+          font-size: 18px;
+          line-height: 28px;
+          text-align: center;
+          letter-spacing: 0.5px;
+          margin-top: 5px;
+
+          &.danger-color {
+            color: #CF0026;
+          }
+
+          &.medium-color {
+            color: #D43900;
+          }
+
+          &.high-color {
+            color: #2E7D32;
+          }
+        }
+      }
+
+      .lifestyle-result {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 20px;
+        background: #F8F8F8;
+        border-radius: 5px;
+      }
+    }
+
+    .patient-body-checkup {
+      color: rgba(0, 0, 0, 0.87);
+      margin: 15px 30px 30px;
+
+      .composition-title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+        margin-bottom: 30px;
+      }
+
+      .composition-type {
+        margin-bottom: 30px;
+        .title {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 24px;
+          margin-bottom: 10px;
+        }
+
+        .measurement {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          margin-bottom: 10px;
+
+          .result {
+            margin-right: 10px;
+          }
+
+          .status {
+            margin-right: 30px;
+          }
+
+          .color-code {
+            position: relative;
+            display: flex;
+
+            .color-1 {
+              width: 56.94px;
+              height: 14px;
+              background: #2E7D32;
+              margin-right: 10.09px;
+            }
+
+            .color-2 {
+              width: 56.94px;
+              height: 14px;
+              background: #D43900;
+              margin-right: 10.09px;
+            }
+
+            .color-3 {
+              width: 56.94px;
+              height: 14px;
+              background: #CF0026;
+            }
+          }
+
+          #assessmentBmi {
+            &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              top: 30px;
+              left: 94px;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 12px solid #D43D30;
+            }
+          }
+          #assessmentWaist {
+            &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              top: 30px;
+              left: 94px;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 12px solid #D43D30;
+            }
+          }
+          #assessmentFat {
+            &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              top: 30px;
+              left: 94px;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 12px solid #D43D30;
+            }
+          }
+          #assessmentPressure {
+            &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              top: 30px;
+              left: 94px;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 12px solid #D43D30;
+            }
+          }
+          #assessmentSugar {
+            &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              top: 30px;
+              left: 94px;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 12px solid #D43D30;
+            }
+          }
+
+          #assessmentCholesterol {
+            &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              top: 30px;
+              left: 94px;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 12px solid #D43D30;
+            }
+          }
+          #assessmentCardiovascular {
+            &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              top: 30px;
+              left: 94px;
+              height: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 12px solid #D43D30;
+            }
+          }
+        }
+        .condition-range {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 20px;
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+      .advise {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        background: #F8F8F8;
+        border-radius: 5px;
+        width: 100%;
+        padding: 20px;
+      }
+    }
+
+    .referral-required {
+      display: flex;
+      flex-direction: column;
+      margin: 30px;
+
+      .referral-title {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+        color: #CF0026;
+        margin-bottom: 30px;
+      }
+
+      .referral-msg {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 30px;
+      }
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #01579B;
+        box-sizing: border-box;
+        border-radius: 3px;
+        color: #01579B;
+        width: 183px;
+        height: 38px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        text-align: center;
+
+        span {
+          margin-right: 12px;
+          font-size: 11px;
+        }
+      }
+    }
+
+    .submit-row {
+      margin-top: 14px;
+      button {
+        border: 1px solid #01579B;
+        box-sizing: border-box;
+        border-radius: 3px;
+        padding: 9px 15px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        text-align: center;
+
+        &.btn-primary {
+          margin-right: 30px;
+        }
+      }
+    }
+
+
+  }
+}
