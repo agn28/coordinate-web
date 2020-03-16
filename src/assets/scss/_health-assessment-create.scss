@@ -1,0 +1,149 @@
+.health-assessment-create {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.87);
+
+  .danger-color {
+    color: #CF0026;
+  }
+
+  .medium-color {
+    color: #D43900;
+  }
+
+  .safe-color {
+    color: #2E7D32;
+  }
+
+  .breadcrumb-wrap {
+    padding: 23px 10px 18px 34px;
+  }
+
+  .back-icon {
+    font-size: 15px;
+    margin-top: 4px;
+    margin-right: 20px;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background: transparent;
+
+    span {
+      color: #01579B;
+      margin-right: 4.5px;
+    }
+  }
+
+  .patient {
+    padding: 19px 20px 18px 20px;
+  }
+
+  .patient-image {
+
+    img {
+      width: 55px;
+    }
+
+  }
+
+  .check-register {
+    display: flex;
+    justify-content: center;
+    margin: 31px 0 30px;
+
+    span {
+      background: #66bb6a;
+      border-radius: 50%;
+      padding: -3px;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      color: #fff;
+    }
+
+  }
+  .assessment-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+
+  }
+
+  .created-patient {
+    text-align: center;
+
+    .patient-name {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 10px;
+    }
+
+    .patient-details {
+      display: flex;
+      justify-content: center;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 20px;
+
+      .age {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .overview {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: 35px;
+
+    span {
+      margin-left: 6px;
+    }
+  }
+
+  .details-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left-side {
+      display: flex;
+      align-items: center;
+
+      .title {
+        ont-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+        color: $primary-color;
+        margin-left: 14px;
+      }
+    }
+    .right-side {
+
+      span {
+        color: $primary-color;
+      }
+    }
+  }
+
+
+}
