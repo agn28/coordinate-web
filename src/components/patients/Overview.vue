@@ -3,7 +3,7 @@
         <div class="animated fadeIn">
             <div class="col-lg-12 d-flex breadcrumb-wrap">
                 <i class="fa fa-arrow-left text-secondary back-icon"></i>
-                <div class="">
+                <div v-if="patient" >
                     <h4>Patient Overview</h4>
                     <div class="breadcrumb"><span>Patients </span>/ {{ patient.body.first_name + " " + patient.body.last_name }}</div>
                 </div>
@@ -12,8 +12,8 @@
             <div v-if="patient" class="col-lg-12 border-top border-bottom">
                 <div class="patient">
                     <div class="patient-image mr-4">
-                        <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid"
-                             width="100" height="100" alt="">
+                        <img v-if="patient.body.avatar" :src="'https://coordinate-api.monarko.com/api/v1'+ patient.body.avatar" class="rounded-circle img-fluid" width="100" height="100" :alt="patient.body.first_name" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAGxElEQVRoge2ZbXBU5RXHf8/NvmcJySYhuwkBmdYkhRkpIaOtCjQ4bUeHKdYiKljGmTJtKbHlg/3UdqbtqB86/SCFIGqHmXYwYEnHlypaowF1VCZtFHwZTHDECXkjsBuTbHazd19OPyRI2Ht3996E6Rf5f9vznOd//ufufZ5znufCNVzDVxvqapCISFFkJH6jiGpWIqtBGkCFAP+MSxTUIEiPKNWtkM5AlbdLKZWZb+x5JRAeiNWKxk6luB+hxub0fhEOqgyt5Yt9/XPVMKcEJoYmKnXleBiRBwDXXIPPQBfUAZckf1dSXXLR7mTbCUSG41tEZA8QsDu3AMJK0RII+g7bmWQ5ARFxRoam9qFku31tNqDUE4Eqz4NKqaQldytOg4Pic6updpDb56fOKtTRhHjurq5WsUKeWiEHEXH+f8UDyB1uYs/Lx1JwfRX8B8KD8afsvDb9A328fuxVTn34HhfDF4nHpx/imlu+wy9/8ZBVGgAEtb8i5N2RzydvApHB+FZRctBKsEwmQ9szf+PFl58jnU4bxjVN41c7f01T4424XG4rlJcU3lse9D2TezgHxvvHy5NFjk+AikIxRITH9v6Jd068VVCPv9jPtq0/oXnddwv6ziDilFR9ri025xpIOpyPYkE8wHMvHLEkHiA6GWXfk7v5d8dLlvyBgK4cf8g1aJpAuD+2eKZIFcToaIQjz9raugH4e9sBIqNhS74KtkcG40vMxkwTkCJasFhhOzpfIZnUc45XlSg2NTn4yxYPv9ng/vKd1fUEx998zUoIAFcGMV3MjmyDiGiR4fhWq8zvn/qvwVZTprHm+iLW1juoq9JQM6pX1EBMh8c6EojAhx9/wF0b77EUR2n8WER+q5S6YocwJBAZid8ELLaawNDQAAChhYpvf93BunoHK6ovi87GhpUO9JTQ2qlz4cJ5q2FAqAkPx1cDXXkTEFHNCrHMOxmbBODgT32W59y12klrp874xLjlOQCaUuvJSsCwBhTSZIt1HrhU5KxCRFZn24yLWFSdHdIHvt9wxe/WQ6fZd/gTg5+Zfct6W6EAVZ9tMbxCICE7lPcve5fMzYsuh1Dm1THbvu1mJ9vquxi1E8xEmyFWeCiWwMYhxXv2cbxjx8yoCmgR4mXriV/3c+tTIFER8nlm2wp2o4UQX7aDtKfW9ry0b4kt8blglkDULkmypNF24GSJYT0WhIKJbJtJAmrILvFU5R2I5insOAPRPExVzOV4YdRmTEBJr13ajLOMySU7sLYOFJO128k4S+2GAaQn22JIQFDG3sAC9NJvEV3aAplUnvgpoksfRC9bM5cQKDBoMytknXNiB/SyW2GwE8bOQHJ8OplMCvSxadtAJ3rZLXOlJ2OizfCfzzRznwP2txYg8Hz+liKy0V71nYW+QNC7LPs2z/gPKJUR4Wk7zJMTCR556DibmtuIJf05/WK6n823HWLPH0+gTxmPnfmgRJ42u4o0rQMqQyuQu8mfhfeODbN7Vzdvv/U5X0zEONW3Mqdvd98NRMYmOfbqZ/y5pYv3jw9bEi+QyKRVq9mYaQLli339gjqQjzSVytC+p4f2vT1Ev0hS6V8IwP431pFMGwt5Mu3iyTfWTvMX+4mO6hzZ08M/9/WSSuW/49XgqYpa34DZWM59b+zcWCDlcPaQ41z87OM9/Oe1y08wI8JHQ31MJXW+WXuOXbe9wteqzgLw6fnr2P367Zw8V4vP5WZFqBY1K3Rjc5BNLYY+7RLCTkk15DrU579WGY7dK8KhbPuJlwd54a9nDP56KknvyBCxZMKUz+dyU7eoGleRsYfc+LM6bvqeaR+5uTzkO5JLY95eKBD0HUapJ64QOZWm49BZU3+Xw8nyUC1LApUUuz1oSkNTGn63h6WBSpYHa03FA3S0fWZY2Apa84kH03Y6K4kqz87R8/EqEe4E+ODtEeKTuYuVphTBBaUEF9irtLGJFB+9e4HG5uCMRb1UFvTsKjSvYDeqlEpPZbxbQR0FOHPSXgdvB70z3AIvJsSzWSmVp6xPw1I7XV2tYoGg505B7R85NzlPmblxvi86/doEvT+0cjMNNs4DSqlkRci7Y9Xa4O8DIa+9KmQBpZWe9DeaKh8OhHwtVp78l7rmEuydf/TUdHdN/Ku3O7xKT8zvO53Lo9HQVNG9clXxD269r2HQ7vx5feQ7euDM8v6z0b2fnhxdMxZOFNwQZmNhhTt1/Q2lb4bq/C0bttWdnquGq/WZVWtvPb15/ELyvotDscZYNBWIT+ieWDSlAfgWODNev3PKV+yIBEK+7rJF7rYf7axvvxqfWa/hGr7q+B+q3HbQUfJBgwAAAABJRU5ErkJggg=='">
+                        <img v-else src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="100" height="100" alt="">
                     </div>
                     <div class="patient-details">
                         <div class="patient-name">{{ patient.body.first_name + " " + patient.body.last_name }}</div>
@@ -35,7 +35,7 @@
                                 class="fas fa-user-check"></i>Care Plan
                         </router-link>
                     </div>
-                    <div class="action"><i class="fas fa-circle"></i>3 Actions Pending</div>
+                    <div class="action"><i class="fas fa-circle"></i>{{ carePlans ? carePlans.length : 0 }} Actions Pending</div>
                 </div>
             </div>
 
@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="view">
                                                 <span><i class="fas fa-eye"></i></span>
-                                                <p>View Past Assessments</p>
+                                                <a href="#" @click="$router.push({ name: 'pastAssessmentList', params: { patientId: patientId }})">View Past Assessments</a>
                                             </div>
                                         </div>
                                     </div>
@@ -114,92 +114,106 @@
         </div>
     </div>
 
-<!--          <div class="col-md-6">-->
-<!--            <div class="card mb-4">-->
-<!--              <div class="card-body">-->
-<!--                <div class="card-title d-flex justify-content-between">-->
-<!--                  <div class="title">Health Reports</div>-->
-<!--                  <div class="card-date">Last report on Jan 5, 2020</div>-->
-<!--                </div>-->
+    <!--          <div class="col-md-6">-->
+    <!--            <div class="card mb-4">-->
+    <!--              <div class="card-body">-->
+    <!--                <div class="card-title d-flex justify-content-between">-->
+    <!--                  <div class="title">Health Reports</div>-->
+    <!--                  <div class="card-date">Last report on Jan 5, 2020</div>-->
+    <!--                </div>-->
 
-<!--                <router-link-->
-<!--                  :to="{name: 'pendingReviews'}"-->
-<!--                  class="text-link custom-text-link"-->
-<!--                >View Patients Pending Review</router-link>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
+    <!--                <router-link-->
+    <!--                  :to="{name: 'pendingReviews'}"-->
+    <!--                  class="text-link custom-text-link"-->
+    <!--                >View Patients Pending Review</router-link>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
 
-<!--      </div>-->
+    <!--      </div>-->
 
-<!--      <div class="col-lg-12 mt-5">-->
-<!--        <div class="row">-->
-<!--          <div class="col-md-12">-->
-<!--            <div class="card mb-4">-->
-<!--              <div class="card-body">-->
-<!--                <div class="card-title d-flex justify-content-between">-->
-<!--                  <div class="title">Existing conditions</div>-->
-<!--                  <div class="card-date">Last assessment on</div>-->
-<!--                </div>-->
+    <!--      <div class="col-lg-12 mt-5">-->
+    <!--        <div class="row">-->
+    <!--          <div class="col-md-12">-->
+    <!--            <div class="card mb-4">-->
+    <!--              <div class="card-body">-->
+    <!--                <div class="card-title d-flex justify-content-between">-->
+    <!--                  <div class="title">Existing conditions</div>-->
+    <!--                  <div class="card-date">Last assessment on</div>-->
+    <!--                </div>-->
 
-<!--                <router-link-->
-<!--                  :to="{name: 'pendingReviews'}"-->
-<!--                  class="text-link custom-text-link"-->
-<!--                >View Patients Pending Review</router-link>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div> &ndash;&gt;-->
-<!--    </div>-->
-<!--  </div>-->
+    <!--                <router-link-->
+    <!--                  :to="{name: 'pendingReviews'}"-->
+    <!--                  class="text-link custom-text-link"-->
+    <!--                >View Patients Pending Review</router-link>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div> &ndash;&gt;-->
+    <!--    </div>-->
+    <!--  </div>-->
 </template>
 
 <script>
-    // @ is an alias to /src
+  // @ is an alias to /src
 
 
-    export default {
-        name: "patients",
-        data() {
-            return {
-                fullPage: true,
-                patient: null,
-                patientId: '',
-            };
-        },
-        methods: {
-            getPatients() {
-                let loader = this.$loading.show();
-                this.$http.get("/patients/" + this.patientId).then(response => {
-                        loader.hide();
-                        if (response.status == 200) {
-                            this.patient = response.data.data;
-                        }
-                    },
-                    error => {
-                        this.loading = false;
-                    });
-            },
+  export default {
+    name: "patients",
+    data() {
+      return {
+        fullPage: true,
+        patient: null,
+        patientId: '',
+        carePlans: ''
+      };
+    },
+    methods: {
+      getPatients() {
+        let loader = this.$loading.show();
+        this.$http.get("/patients/" + this.patientId).then(response => {
+            loader.hide();
+            if (response.status == 200) {
+              this.patient = response.data.data;
+            }
+          },
+          error => {
+            this.loading = false;
+          });
 
-    getId(identifier, type) {
-      if (!identifier) {
-        return '';
+      },
+      getCarePlans() {
+        this.$http.get("/care-plans/patient/" + this.patientId, ).then(
+          response => {
+            if (response.status == 200) {
+              this.carePlans = response.data.data;
+            }
+          },
+          error => {
+          }
+        );
+      },
+
+      getId(identifier, type) {
+        if (!identifier) {
+          return '';
+        }
+        let id = identifier.find(x => x.use === type);
+
+        if (id) {
+          return id.value;
+        }
+        return "";
       }
-      let id = identifier.find(x => x.use === type);
-
-      if (id) {
-        return id.value;
-      }
-      return "";
+    },
+    mounted() {
+      this.patientId = this.$route.params.patientId;
+      this.getPatients();
+      this.getCarePlans();
     }
-  },
-  mounted() {
-    this.patientId = this.$route.params.patientId;
-    this.getPatients();
-  }
-};
+  };
 </script>
 
 <style lang="">
