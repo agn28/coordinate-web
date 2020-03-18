@@ -4,7 +4,7 @@
             <div class="col-lg-12 d-flex breadcrumb-wrap">
                 <i class="fa fa-arrow-left text-secondary back-icon" @click.prevent="$router.go(-1)"></i>
                 <div class="">
-                    <h4>Past Assessments</h4>
+                    <h4>Past Encounter</h4>
                     <div class="breadcrumb" v-if="patient"><span>Patients / {{ patient.body.first_name + " " + patient.body.last_name }} / Past Encounters </span>/ Encounter Details</div>
                 </div>
             </div>
