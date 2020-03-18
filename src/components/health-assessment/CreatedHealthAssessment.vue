@@ -2,7 +2,7 @@
     <div class="content health-assessment-create">
         <div class="animated fadeIn">
             <div class="col-lg-12 d-flex breadcrumb-wrap border-bottom">
-                <i class="fa fa-arrow-left text-secondary back-icon"></i>
+                <i class="fa fa-arrow-left text-secondary back-icon" @click.prevent="$router.go(-1)"></i>
                 <div class="">
                     <h4>Health Assessment Created</h4>
                     <div class="breadcrumb"><span>Patients / Jahanara Begum </span>/ Health Assessment Created
@@ -41,7 +41,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="overview">Patient Overview <span><i class="fas fa-angle-right"></i></span></div>
+                                    <div  @click="$router.push({ name: 'patientOverview', params: { patientId: patientId }})" class="overview">Patient Overview <span><i class="fas fa-angle-right"></i></span></div>
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
                                     <div class="details-view">
                                         <div class="left-side">
                                             <img src="../../assets/images/illustration_patients.png" alt="">
-                                            <div class="title">Patients</div>
+                                            <div @click="$router.push({name: 'patients'})" class="title">Patients</div>
                                         </div>
                                         <div class="right-side">
                                             <span><i class="fas fa-angle-right"></i></span>
@@ -85,9 +85,17 @@
 </template>
 
 <script>
-    export default {
-        name: "CreatedHealthAssessment"
+  export default {
+    name: "CreatedHealthAssessment",
+    data() {
+      return {
+        patientId: '',
+      };
+    },
+    created() {
+      this.patientId = this.$route.params.patientId;
     }
+  }
 </script>
 
 <style scoped>

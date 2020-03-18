@@ -347,17 +347,17 @@ const routes = [
     component: HealthAssessment
   },
   {
-    path: '/health-assessment/new-health-assessment',
+    path: '/patients/:patientId/health-assessment/new-health-assessment',
     name: 'newHealthAssessment',
     component: NewHealthAssessment
   },
   {
-    path: '/health-assessment/health-assessment-created',
+    path: '/patients/:patientId/health-assessment/health-assessment-created',
     name: 'healthAssessmentCreated',
     component: CreatedHealthAssessment
   },
   {
-    path: '/health-assessment/past-health-assessment',
+    path: '/patients/:patientId/health-assessment/past-health-assessment',
     name: 'pastHealthAssessment',
     component: PastHealthAssessment
   }
