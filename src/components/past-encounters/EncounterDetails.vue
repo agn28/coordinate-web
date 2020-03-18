@@ -152,6 +152,7 @@
                   }
                 }
                 this.observations.push(data)
+                console.log(this.observations)
               }
             }
 

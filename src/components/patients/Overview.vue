@@ -53,11 +53,11 @@
                                         <div class="content-body">
                                             <div class="create">
                                                 <span><i class="fas fa-plus"></i></span>
-                                                <a href="" @click="$router.push({ name: 'encounterCreate'})">Create a New Encounter</a>
+                                                <router-link :to="{ name: 'encounterCreate', params: { patientId: patientId }}">Create Encounters</router-link>
                                             </div>
                                             <div class="view">
                                                 <span><i class="fas fa-eye"></i></span>
-                                                <a href="" @click="$router.push({ name: 'pastEncounterList', params: { patientId: patientId }})">View Past Encounters</a>
+                                                <router-link :to="{ name: 'pastEncounterList', params: { patientId: patientId }}">View Past Encounters</router-link>
                                             </div>
                                         </div>
                                     </div>
