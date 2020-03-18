@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     count: 0,
-    patients: []
+    patients: [],
+    bloodTests: [],
   },
   mutations: {
     increment (state) {
@@ -14,6 +15,11 @@ export default new Vuex.Store({
     },
     addPatients (state, patients) {
       state.patients = patients;
+    },
+    addBloodTests(state, bloodTest) {
+      console.log(state.bloodTests)
+      state.bloodTests.push(bloodTest)
+      console.log(state.bloodTests)
     }
   },
   getters: {
