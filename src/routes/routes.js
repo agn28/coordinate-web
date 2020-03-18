@@ -163,11 +163,6 @@ const routes = [
     component: Encounters,
   },
   {
-    path: '/patients/:patientId/past-encounter',
-    name: 'pastEncounter',
-    component: PastEncounters,
-  },
-  {
     path: '/patients/:patientId/encounters/create',
     name: 'encounterCreate',
     component: EncounterCreate,
