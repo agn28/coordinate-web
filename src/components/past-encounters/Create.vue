@@ -2,7 +2,7 @@
   <div class="content encounter-create">
     <div class="animated fadeIn">
       <div class="col-lg-12 d-flex breadcrumb-wrap">
-        <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.push({ name: 'dashboard'})"></i>
+        <i class="fa fa-arrow-left text-secondary back-icon" @click.prevent="$router.go(-1)"></i>
         <div class="">
           <h4>Create a New Encounter</h4>
           <div class="breadcrumb"><span>Patients / Jahanara Begum </span>/ Create a New Encounter</div>
@@ -148,7 +148,7 @@
 
             <div class="row">
               <div class="col-lg-12">
-                <button class="btn btn-save mr-5" v-b-modal.modal-save>Save Assessment</button>
+                <button class="btn btn-save mr-5" v-b-modal.modal-save>Save Encounter</button>
                 <b-modal id="modal-save" class="modal-coordinate">
                   <template v-slot:modal-header>
                     <span class="title">Confirm Save</span>

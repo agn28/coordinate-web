@@ -28,16 +28,16 @@ import Medical from '../components/questionnaire/Medical'
 
 import Encounters from '../components/encounters/List'
 import PastEncounters from "../components/encounters/PastEncounters";
-import EncounterCreate from '../components/encounters/Create'
-import BloodPressure from "../components/encounters/BloodPressure";
-import BodyMeasurement from "../components/encounters/BodyMeasurement";
-import BloodTests from "../components/encounters/BloodTests";
-import Questionnaire from "../components/encounters/Questionnaire";
-import EncounterTobacco from "../components/encounters/encounter-questionnaires/Tobacco"
-import EncounterAlcohol from "../components/encounters/encounter-questionnaires/Alcohol"
-import EncounterDiet from "../components/encounters/encounter-questionnaires/Diet"
-import EncounterMedical from "../components/encounters/encounter-questionnaires/Medical"
-import EncounterMedication from "../components/encounters/encounter-questionnaires/Medication"
+import EncounterCreate from '../components/past-encounters/Create'
+import BloodPressure from "../components/past-encounters/BloodPressure";
+import BodyMeasurement from "../components/past-encounters/BodyMeasurement";
+import BloodTests from "../components/past-encounters/BloodTests";
+import Questionnaire from "../components/past-encounters/Questionnaire";
+import EncounterTobacco from "../components/past-encounters/encounter-questionnaires/Tobacco"
+import EncounterAlcohol from "../components/past-encounters/encounter-questionnaires/Alcohol"
+import EncounterDiet from "../components/past-encounters/encounter-questionnaires/Diet"
+import EncounterMedical from "../components/past-encounters/encounter-questionnaires/Medical"
+import EncounterMedication from "../components/past-encounters/encounter-questionnaires/Medication"
 
 import CarePlan from "../components/care-plan/CarePlan";
 import CarePlanAction from "../components/care-plan/CarePlanAction";
