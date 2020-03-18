@@ -139,7 +139,7 @@
             }
           },
           error => {
-            this.loading = false;
+            loader.hide()
           });
 
       },
