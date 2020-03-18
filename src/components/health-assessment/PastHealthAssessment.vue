@@ -2,7 +2,7 @@
     <div class="content past-encounter">
         <div class="animated fadeIn">
             <div class="col-lg-12 d-flex breadcrumb-wrap">
-                <i class="fa fa-arrow-left text-secondary back-icon"></i>
+                <i class="fa fa-arrow-left text-secondary back-icon" @click.prevent="$router.go(-1)"></i>
                 <div class="">
                     <h4>Past Health Assessments</h4>
                     <div class="breadcrumb"><span>Patients / Jahanara Begum </span>/ Past Health Assessments</div>

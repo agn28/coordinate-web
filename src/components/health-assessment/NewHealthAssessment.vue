@@ -2,7 +2,7 @@
     <div class="content new-health-assessment">
         <div class="animated fadeIn">
             <div class="col-lg-12 d-flex breadcrumb-wrap">
-                <i class="fa fa-arrow-left text-secondary back-icon"></i>
+                <i class="fa fa-arrow-left text-secondary back-icon" @click.prevent="$router.go(-1)"></i>
                 <div class="">
                     <h4>Create a New Health Assessment</h4>
                     <div class="breadcrumb"><span>Patients / Jahanara Begum </span>/ Create a New Health Assessment
@@ -363,7 +363,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="submit-row">
-                                    <button class="btn btn-primary" @click="$router.push({ name: 'healthAssessmentCreated'})">Submit for Confirmation</button>
+                                    <button class="btn btn-primary" @click="$router.push({ name: 'healthAssessmentCreated', params: { patientId: patientId }})">Submit for Confirmation</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </div>
                             </div>
@@ -379,7 +379,15 @@
 
 <script>
     export default {
-        name: "NewHealthAssessment"
+        name: "NewHealthAssessment",
+        data() {
+          return {
+            patientId: '',
+          };
+        },
+      created() {
+        this.patientId = this.$route.params.patientId;
+      }
     }
 </script>
 

@@ -1,6 +1,14 @@
 <template>
     <div class="content patient-list-page">
         <div class="animated fadeIn">
+           <div class="row">
+               <div class="col-lg-12 d-flex breadcrumb-wrap">
+                   <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
+                   <div class="">
+                       <h4>Patients</h4>
+                   </div>
+               </div>
+           </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="patient-content">
@@ -18,7 +26,7 @@
                                     <a class="dropdown-item" href="#">Download CSV Template</a>
                                 </div>
                             </div>
-                            <div class="register-patient">
+                            <div class="register-patient" @click="$router.push({ name: 'patientRegistration'})">
                                 <button class="btn"><i class="fas fa-plus"></i>Register a New Patient</button>
                             </div>
                         </div>
