@@ -47,17 +47,17 @@
                                 <div class="card mb-4">
                                     <div class="card-body">
                                         <div class="content-header">
-                                            <div class="title">Assessments</div>
-                                            <div class="content-date">Last assessment on Jan 5, 2019</div>
+                                            <div class="title">Encounter</div>
+                                            <div class="content-date">Last encounter on Jan 5, 2019</div>
                                         </div>
                                         <div class="content-body">
                                             <div class="create">
                                                 <span><i class="fas fa-plus"></i></span>
-                                                <p>Create a New Assessment</p>
+                                                <p>Create a New Encounter</p>
                                             </div>
                                             <div class="view">
                                                 <span><i class="fas fa-eye"></i></span>
-                                                <a href="#" @click="$router.push({ name: 'pastAssessmentList', params: { patientId: patientId }})">View Past Assessments</a>
+                                                <a href="#" @click="$router.push({ name: 'pastEncounterList', params: { patientId: patientId }})">View Past Encounters</a>
                                             </div>
                                         </div>
                                     </div>

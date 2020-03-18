@@ -4,7 +4,7 @@
             <div class="col-md-12 d-flex justify-content-between mt-3">
                 <div class="header ml-3">
                     <h4 class="font-weight-bold">
-                        Past Assessments
+                        Past Encounters
                     </h4>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-if="assessments.length > 0" v-for="(assessment, index) in assessments" :key="index"  @click="$router.push({ name: 'pastAssessment', params: { assessmentId: assessment.id }})"
+                            <tr v-if="assessments.length > 0" v-for="(assessment, index) in assessments" :key="index"  @click="$router.push({ name: 'pastEncounter', params: { assessmentId: assessment.id }})"
                                 >
                                 <th scope="row">{{ index + 1 }}</th>
                                <td class="text-capitalize">{{ assessment.body.type }}</td>
@@ -35,7 +35,7 @@
                             <tr v-else>
                                 <td colspan="3">
                                     <div class="alert-light mt-5 alert text-center">
-                                        <h4>No Assessment data found for this patient!</h4>
+                                        <h4>No Encounter data found for this patient!</h4>
                                     </div>
                                 </td>
                             </tr>
@@ -51,7 +51,7 @@
 
 <script>
   export default {
-    name: "PastAssessmentList",
+    name: "PastEncounterList",
     data() {
       return {
         patient: null,

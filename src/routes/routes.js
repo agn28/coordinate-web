@@ -11,8 +11,8 @@ import PatientCreate from '../components/patients/Create'
 import PatientEdit from '../components/patients/Edit'
 import PatientRegistration from '../components/patients/NewRegistration'
 import PatientCreatedComplete from "../components/patients/PatientCreatedComplete";
-import PastAssessments from "../components/past-assessments/PastAssessments";
-import PastAssessmentList from "../components/past-assessments/PastAssessmentList";
+import PastEncounterDetails from "../components/past-encounters/EncounterDetails";
+import PastEncountersList from "../components/past-encounters/List";
 
 import PendingReviews from '../components/pending-reviews/List'
 import PendingReviewDetail from '../components/pending-reviews/Show'
@@ -147,14 +147,14 @@ const routes = [
     component: PatientEdit,
   },
   {
-    path: '/patients/:patientId/past-assessments',
-    name:'pastAssessmentList',
-    component: PastAssessmentList
+    path: '/patients/:patientId/past-encounters',
+    name:'pastEncounterList',
+    component: PastEncountersList
   },
   {
     path: '/patients/:assessmentId/past-assessment-details',
-    name:'pastAssessment',
-    component: PastAssessments
+    name:'pastEncounter',
+    component: PastEncounterDetails
   },
 
   {
