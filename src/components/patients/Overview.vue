@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="view">
                                                 <span><i class="fas fa-eye"></i></span>
-                                                <a href="#" @click="$router.push({ name: 'pastEncounterList', params: { patientId: patientId }})">View Past Encounters</a>
+                                                <a href="" @click="$router.push({ name: 'pastEncounterList', params: { patientId: patientId }})">View Past Encounters</a>
                                             </div>
                                         </div>
                                     </div>
