@@ -108,7 +108,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(patient, index) in patients" :key="index" @click="$router.push({ name: 'patientOverview', params: { patientId: patient.id } })" >
+                                <tr class="pointer" v-for="(patient, index) in patients" :key="index" @click="$router.push({ name: 'patientOverview', params: { patientId: patient.id } })" >
                                     <template>
                                         <th scope="row">
                                             <div class="custom-control custom-checkbox">
