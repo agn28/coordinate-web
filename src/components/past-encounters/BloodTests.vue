@@ -638,6 +638,7 @@
     name: "BloodTests",
     data() {
       return {
+        userId: null,
         patientId: null,
         patient: null,
 
@@ -688,40 +689,61 @@
             loader.hide()
           });
       },
-
+      prepareData(data) {
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+        let finalData = {
+          id: this.$uuid.v4(),
+          meta: {
+            collected_by: this.userId,
+            created_at: dateTime,
+            device_id: data.device
+          },
+          body: {
+            type: 'bloodTestData',
+            patient_id: this.patientId,
+            assessment_id: '',
+            data
+          }
+        }
+        this.$store.dispatch('addBloodTest', finalData)
+      } ,
       saveCholesterolMeasurement() {
         this.$bvModal.hide('modal-cholesterol')
-        this.$store.dispatch('addBloodTest', this.cholesterolData)
+        this.prepareData(this.cholesterolData)
+
       },
 
       saveHDLMeasurement() {
         this.$bvModal.hide('modal-hdl')
-        this.$store.dispatch('addBloodTest', this.hdlData)
+        this.prepareData(this.hdlData)
       },
 
       saveTriglyceridesMeasurement() {
         this.$bvModal.hide('modal-triglycerides')
-        this.$store.dispatch('addBloodTest', this.triglyceridesData)
+        this.prepareData(this.triglyceridesData)
       },
 
       saveGlucoseMeasurement() {
         this.$bvModal.hide('modal-glucose')
-        this.$store.dispatch('addBloodTest', this.glucoseData)
+        this.prepareData(this.glucoseData)
       },
 
       saveSugarMeasurement() {
         this.$bvModal.hide('modal-sugar')
-        this.$store.dispatch('addBloodTest', this.sugarData)
+        this.prepareData(this.sugarData)
       },
 
       saveHBAMeasurement() {
         this.$bvModal.hide('modal-hba')
-        this.$store.dispatch('addBloodTest', this.hbaData)
+        this.prepareData(this.hbaData)
       },
 
       saveOGTMeasurement() {
         this.$bvModal.hide('modal-ogt')
-        this.$store.dispatch('addBloodTest', this.ogtData)
+        this.prepareData(this.ogtData)
       },
 
       saveAndContinue() {
@@ -730,31 +752,31 @@
     },
     created() {
       this.patientId = this.$route.params.patientId;
-      console.log(this.patientId)
+      this.userId = this.$store.state.auth.user.uid
       this.getPatient()
       let blood_tests =  this.$store.getters.getBloodTests
       if (blood_tests) {
         blood_tests.forEach(item => {
-          if (item.name == 'cholesterol') {
-            this.cholesterolData = item
+          if (item.body.data.name == 'cholesterol') {
+            this.cholesterolData = item.body.data
 
-          } else if(item.name == 'hdl') {
-            this.hdlData = item
+          } else if(item.body.data.name == 'hdl') {
+            this.hdlData = item.body.data
 
-          } else if(item.name == 'Hba1c') {
-            this.hbaData = item
+          } else if(item.body.data.name == 'Hba1c') {
+            this.hbaData = item.body.data
 
-          } else if (item.name == 'triglycerides') {
-            this.triglyceridesData = item
+          } else if (item.body.data.name == 'triglycerides') {
+            this.triglyceridesData = item.body.data
 
-          } else if(item.name == 'fasting_blood_glucose') {
-            this.glucoseData = item
+          } else if(item.body.data.name == 'fasting_blood_glucose') {
+            this.glucoseData = item.body.data
 
-          } else if(item.name == 'random_blood_sugar') {
-            this.sugarData = item
+          } else if(item.body.data.name == 'random_blood_sugar') {
+            this.sugarData = item.body.data
 
-          } else if (item.name == '2H_OGTT') {
-            this.ogtData = item
+          } else if (item.body.data.name == '2H_OGTT') {
+            this.ogtData = item.body.data
           }
         });
       }

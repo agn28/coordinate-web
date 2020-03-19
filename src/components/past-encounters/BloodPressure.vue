@@ -249,6 +249,7 @@
     name: "BloodPressure",
     data () {
       return {
+        userId: null,
         patientId: null,
         patient: '',
         rightArmReason: {},
@@ -257,6 +258,7 @@
         pressure: {
           arm: 'left',
           right_arm_reason: {},
+          codings: {}
         },
         pressure_meta: {},
       }
@@ -282,21 +284,45 @@
       saveMetaData () {
         this.$bvModal.hide('modal-right')
         this.$bvModal.hide('modal-unable')
-        this.bpData = {
-          meta: this.pressure_meta,
-          data: this.bloodPressures
-        }
+
         console.log(this.bpData)
       },
       saveData () {
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+        this.bpData = {
+         id: this.$uuid.v4(),
+         meta: {
+           collected_by: this.userId,
+           created_at: dateTime,
+           device_id: this.pressure_meta.device
+         },
+         body: {
+           comment: this.pressure_meta.comment,
+           type: 'blood_pressure',
+           patient_id: this.patientId,
+           assessment_id: '',
+           data: this.bloodPressures
+         }
+        }
+        console.log(this.bpData)
         this.$store.dispatch('addBloodPressure', this.bpData)
         this.$router.push({ name: 'encounterCreate', params: { patientId: this.patientId }})
       }
     },
     created() {
       this.patientId = this.$route.params.patientId;
-      console.log(this.patientId)
+      this.userId = this.$store.state.auth.user.uid
       this.getPatient()
+      let blood_data = this.$store.getters.getBloodPressure
+      if (blood_data.data) {
+        this.bloodPressures = blood_data.body.data
+      }
+      if (blood_data.meta) {
+        this.pressure_meta = blood_data.meta
+      }
     }
   }
 </script>

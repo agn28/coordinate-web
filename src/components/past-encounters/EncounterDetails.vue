@@ -110,7 +110,6 @@
             if (response.status == 200) {
               this.observations = response.data.data.filter(observation => observation.body.assessment_id == this.assessmentId && observation.body.type != 'survey' && observation.body.type != 'blood_pressure');
               this.bloodPressures = response.data.data.filter(observation => observation.body.assessment_id == this.assessmentId && observation.body.type == 'blood_pressure');
-              console.log(this.bloodPressures)
               let systolicSum = 0
               let diastolicSum = 0
               let device = ''

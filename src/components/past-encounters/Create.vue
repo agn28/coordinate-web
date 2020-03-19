@@ -45,7 +45,8 @@
                           <img src="../../assets/images/illustration_questionnaire.png" alt="">
                           <div class="content-details">
                             <div class="content-title">Questionnaire</div>
-                            <div class="content-status incomplete-color">Incomplete</div>
+                            <div v-if="questionnaire.length == 5" class="content-status complete-color">Complete</div>
+                            <div v-else class="content-status incomplete-color">Incomplete</div>
                           </div>
                         </div>
                         <div class="content-link">
@@ -63,7 +64,8 @@
                           <img src="../../assets/images/illustration_body-measurements.png" alt="">
                           <div class="content-details">
                             <div class="content-title">Body Measurements</div>
-                            <div class="content-status skipped-color">Skipped</div>
+                            <div v-if="bodyMeasurements.length === 3" class="content-status complete-color">Complete</div>
+                            <div v-else class="content-status skipped-color">Skipped</div>
                           </div>
                         </div>
                         <div class="content-link">
@@ -84,7 +86,7 @@
                           <img src="../../assets/images/illustration_blood-pressure.png" alt="">
                           <div class="content-details">
                             <div class="content-title">Blood Pressure</div>
-                            <div v-if="blood_pressure" class="content-status complete-color">Complete</div>
+                            <div v-if="Object.keys(blood_pressure).length > 0" class="content-status complete-color">Complete</div>
                             <div v-else class="content-status incomplete-color">Incomplete</div>
                           </div>
                         </div>
@@ -222,7 +224,9 @@
         comments: '',
         encounterType: null,
         blood_pressure: '',
-        blood_tests: '',
+        blood_tests: [],
+        bodyMeasurements: [],
+        questionnaire: [],
       };
     },
     methods: {
@@ -232,7 +236,6 @@
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
-            console.log(this.patient)
           }
         },
         error => {
@@ -247,7 +250,9 @@
       this.patientId = this.$route.params.patientId;
       this.blood_pressure = this.$store.getters.getBloodPressure
       this.blood_tests = this.$store.getters.getBloodTests
-      console.log(this.blood_tests)
+      this.bodyMeasurements = this.$store.getters.getBodyMeasurement
+      this.questionnaire = this.$store.getters.getQuestionnaire
+      console.log(this.blood_pressure)
       this.getPatient()
     }
   };
