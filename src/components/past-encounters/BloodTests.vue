@@ -45,7 +45,7 @@
                     <div class="encounter-body">
                         <div class="row">
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-cholesterol>
+                                <div class="card pointer" v-b-modal.modal-cholesterol>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-hdl>
+                                <div class="card pointer" v-b-modal.modal-hdl>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
@@ -200,7 +200,7 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="card" v-b-modal.modal-triglycerides>
+                                <div class="card pointer" v-b-modal.modal-triglycerides>
                                     <div class="card-body">
                                         <div class="encounter-content" >
                                             <div class="content">
@@ -261,7 +261,7 @@
                                                     Unable to Perform
                                                 </b-button>
 
-                                                <b-button variant="link" :disabled="!triglyceridesData.value || !triglyceridesData.unit || triglyceridesData.device" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1"
+                                                <b-button variant="link" :disabled="!triglyceridesData.value || !triglyceridesData.unit || !triglyceridesData.device" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1"
                                                     @click="saveTriglyceridesMeasurement"
                                                 >
                                                     Set
@@ -294,7 +294,7 @@
                     <div class="encounter-body">
                         <div class="row">
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-glucose>
+                                <div class="card pointer" v-b-modal.modal-glucose>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
@@ -370,7 +370,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="card" v-b-modal.modal-sugar>
+                                <div class="card pointer" v-b-modal.modal-sugar>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
@@ -464,7 +464,7 @@
                     <div class="encounter-body">
                         <div class="row">
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-hba>
+                                <div class="card pointer" v-b-modal.modal-hba>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
@@ -540,7 +540,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-ogt>
+                                <div class="card pointer" v-b-modal.modal-ogt>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">

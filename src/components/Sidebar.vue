@@ -27,7 +27,7 @@
             </router-link>
         </li>
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item d-none" :class="this.$route.path.includes('patients') ? 'active' : ''">
+        <li class="nav-item" :class="this.$route.path.includes('patients') ? 'active' : ''">
             <router-link to="/patients/list" class="nav-link">
                 <i class="fas fa-fw fa-h-square"></i><span>Patients</span>
             </router-link>

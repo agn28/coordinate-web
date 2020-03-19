@@ -8,6 +8,7 @@ export default new Vuex.Store({
     count: 0,
     patients: [],
     bloodTests: [],
+    blood_pressure: {}
   },
   mutations: {
     increment (state) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     addPatients (state, patients) {
       state.patients = patients;
+    },
+    addBP (state, bloodPressure) {
+      state.blood_pressure = bloodPressure
     },
     addBloodTests(state, bloodTest) {
       let index = state.bloodTests.findIndex(function(item, i) {
@@ -38,10 +42,16 @@ export default new Vuex.Store({
     getBloodTests: state => {
       return state.bloodTests
     },
+    getBloodPressure: state => {
+      return state.blood_pressure
+    }
   },
   actions: {
     addBloodTest({ commit },bloodTest) {
       commit('addBloodTests', bloodTest)
+    },
+    addBloodPressure({ commit }, bloodPressure) {
+      commit('addBP', bloodPressure)
     }
   },
   modules: {

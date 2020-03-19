@@ -2,7 +2,7 @@
   <div class="content encounter-create">
     <div class="animated fadeIn">
       <div class="col-lg-12 d-flex breadcrumb-wrap">
-        <i class="fa fa-arrow-left text-secondary back-icon" @click.prevent="$router.go(-1)"></i>
+        <i class="fa fa-arrow-left text-secondary back-icon pointer" @click.prevent="$router.go(-1)"></i>
         <div v-if="patient">
           <h4>Create a New Encounter</h4>
           <div class="breadcrumb"><span>Patients / {{ patient.body.first_name + " " + patient.body.last_name }} </span>/ Create a New Encounter</div>
@@ -38,7 +38,7 @@
             <div class="encounter-body">
               <div class="row">
                 <div class="col-lg-6 mb-4">
-                  <div class="card" @click="$router.push({ name: 'questionnaire', params: { patientId: patientId }})">
+                  <div class="card pointer" @click="$router.push({ name: 'questionnaire', params: { patientId: patientId }})">
                     <div class="card-body">
                       <div class="encounter-content">
                         <div class="content">
@@ -56,7 +56,7 @@
                   </div>
                 </div>
                 <div class="col-lg-6 mb-4">
-                  <div class="card" @click="$router.push({ name: 'bodyMeasurement', params: { patientId: patientId }})">
+                  <div class="card pointer" @click="$router.push({ name: 'bodyMeasurement', params: { patientId: patientId }})">
                     <div class="card-body">
                       <div class="encounter-content">
                         <div class="content">
@@ -77,14 +77,15 @@
 
               <div class="row">
                 <div class="col-lg-6 mb-4">
-                  <div class="card" @click="$router.push({ name: 'bloodPressure', params: { patientId: patientId }})">
+                  <div class="card pointer" @click="$router.push({ name: 'bloodPressure', params: { patientId: patientId }})">
                     <div class="card-body">
                       <div class="encounter-content" >
                         <div class="content">
                           <img src="../../assets/images/illustration_blood-pressure.png" alt="">
                           <div class="content-details">
                             <div class="content-title">Blood Pressure</div>
-                            <div class="content-status incomplete-color">Incomplete</div>
+                            <div v-if="blood_pressure" class="content-status complete-color">Complete</div>
+                            <div v-else class="content-status incomplete-color">Incomplete</div>
                           </div>
                         </div>
                         <div class="content-link">
@@ -94,15 +95,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card" @click="$router.push({ name: 'bloodTests', params: { patientId: patientId }})">
+                <div class="col-lg-6 card-link mb-4">
+                  <div class="card pointer" @click="$router.push({ name: 'bloodTests', params: { patientId: patientId }})">
                     <div class="card-body">
                       <div class="encounter-content">
                         <div class="content">
                           <img src="../../assets/images/illustration_blood-tests.png" alt="">
                           <div class="content-details">
                             <div class="content-title">Blood Tests</div>
-                            <div class="content-status skipped-color">Completed</div>
+                            <div v-if="blood_tests.length >= 7" class="content-status complete-color">Completed</div>
+                            <div v-else class="content-status skipped-color">Incomplete</div>
                           </div>
                         </div>
                         <div class="content-link">
@@ -219,6 +221,8 @@
         patient: null,
         comments: '',
         encounterType: null,
+        blood_pressure: '',
+        blood_tests: '',
       };
     },
     methods: {
@@ -241,7 +245,9 @@
     },
     created() {
       this.patientId = this.$route.params.patientId;
-      console.log(this.patientId)
+      this.blood_pressure = this.$store.getters.getBloodPressure
+      this.blood_tests = this.$store.getters.getBloodTests
+      console.log(this.blood_tests)
       this.getPatient()
     }
   };
