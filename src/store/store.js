@@ -8,7 +8,10 @@ export default new Vuex.Store({
     count: 0,
     patients: [],
     bloodTests: [],
-    blood_pressure: {}
+    blood_pressure: {},
+    bodyMeasurements: [],
+    questionnaires: [],
+
   },
   mutations: {
     increment (state) {
@@ -22,9 +25,9 @@ export default new Vuex.Store({
     },
     addBloodTests(state, bloodTest) {
       let index = state.bloodTests.findIndex(function(item, i) {
-        return item.name === bloodTest.name;
+        return item.body.data.name === bloodTest.body.data.name;
       });
-      if (index === -1) {
+      if (index != -1) {
         state.bloodTests = [
           ...state.bloodTests.slice(0, index),
           bloodTest,
@@ -32,6 +35,37 @@ export default new Vuex.Store({
         ]
       } else {
         state.bloodTests.push(bloodTest)
+      }
+    },
+    addBodyMeasurement(state, measurement) {
+
+      let index = state.bodyMeasurements.findIndex(function(item, i) {
+        return item.name === measurement.name;
+      });
+      if (index != -1) {
+        state.bodyMeasurements = [
+          ...state.bodyMeasurements.slice(0, index),
+          measurement,
+          ...state.bodyMeasurements.slice(index + 1)
+        ]
+      } else {
+        state.bodyMeasurements.push(measurement)
+      }
+    },
+
+    addQuestionnaire(state, questionnaire) {
+      let index = state.questionnaires.findIndex(function(item, i) {
+        console.log(item)
+        return item.name === questionnaire.name;
+      });
+      if (index !== -1) {
+        state.questionnaires = [
+          ...state.questionnaires.slice(0, index),
+          questionnaire,
+          ...state.questionnaires.slice(index + 1)
+        ]
+      } else {
+        state.questionnaires.push(questionnaire)
       }
     }
   },
@@ -44,6 +78,12 @@ export default new Vuex.Store({
     },
     getBloodPressure: state => {
       return state.blood_pressure
+    },
+    getBodyMeasurement: state => {
+      return state.bodyMeasurements
+    },
+    getQuestionnaire: state => {
+      return state.questionnaires
     }
   },
   actions: {
@@ -51,7 +91,14 @@ export default new Vuex.Store({
       commit('addBloodTests', bloodTest)
     },
     addBloodPressure({ commit }, bloodPressure) {
+      console.log(bloodPressure,'ob')
       commit('addBP', bloodPressure)
+    },
+    addBodyMeasurements({ commit }, measurement) {
+      commit('addBodyMeasurement', measurement)
+    },
+    addQuestionnaire({ commit }, questionnaire) {
+      commit('addQuestionnaire', questionnaire)
     }
   },
   modules: {

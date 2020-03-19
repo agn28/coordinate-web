@@ -38,14 +38,15 @@
                     <div class="encounter-body">
                         <div class="row">
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-height>
+                                <div class="card pointer" v-b-modal.modal-height>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
                                                 <img src="../../assets/images/illustration_height.png" alt="">
                                                 <div class="content-details">
                                                     <div class="content-title">Height</div>
-                                                    <div class="content-status incomplete-color">Incomplete</div>
+                                                    <div v-if="height.value && height.unit && height.device" class="content-status complete-color">Complete</div>
+                                                    <div v-else class="content-status incomplete-color">Incomplete</div>
                                                 </div>
                                             </div>
                                             <div class="content-link">
@@ -60,15 +61,15 @@
                                         <div class="d-flex align-items-center">
                                             <div class="form-group">
                                                 <label for="patientHeight">Height</label>
-                                                <input type="number" id="patientHeight" v-model.number="patientHeight" class="form-control form-coordinate height-input">
+                                                <input type="number" id="patientHeight" v-model.number="height.value" class="form-control form-coordinate height-input">
                                             </div>
                                             <div class="measurement-type">
                                                 <div class="custom-control custom-radio">
-                                                    <input type="radio" id="heightCm" name="height" class="custom-control-input" checked>
+                                                    <input type="radio" id="heightCm" name="height" v-model="height.unit" value="cm" class="custom-control-input" checked>
                                                     <label class="custom-control-label" for="heightCm">cm</label>
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    <input type="radio" id="heightInch" name="customRadio" class="custom-control-input">
+                                                    <input type="radio" id="heightInch" value="inch" v-model="height.unit" name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="heightInch">inch</label>
                                                 </div>
                                             </div>
@@ -77,7 +78,7 @@
                                         <div class="select-device">
                                             <h5>Select Device</h5>
                                             <div class="select-wrapper">
-                                                <select class="select" v-model="heightMeasurementDevice">
+                                                <select class="select" v-model="height.device">
                                                     <option value=""></option>
                                                     <option value="value1">Device 1</option>
                                                     <option value="value1">Device 2</option>
@@ -88,7 +89,7 @@
 
                                             <div class="form-group">
                                                 <label for="heightComment">Comments/Notes (Optional)</label>
-                                                <textarea class="form-control" id="heightComment" rows="4"></textarea>
+                                                <textarea class="form-control" v-model="height.comment" id="heightComment" rows="4"></textarea>
                                             </div>
                                         </div>
 
@@ -98,7 +99,7 @@
                                                     Unable to Perform
                                                 </b-button>
 
-                                                <b-button variant="link" :disabled="!patientHeight || !heightMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                                <b-button @click="saveHeight" variant="link" :disabled="!height.value || !height.device || !height.unit" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                                                     Set
                                                 </b-button>
 
@@ -111,14 +112,15 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-weight>
+                                <div class="card pointer" v-b-modal.modal-weight>
                                     <div class="card-body">
                                         <div class="encounter-content">
                                             <div class="content">
                                                 <img src="../../assets/images/illustration_weight.png" alt="">
                                                 <div class="content-details">
                                                     <div class="content-title">Weight</div>
-                                                    <div class="content-status skipped-color">Skipped</div>
+                                                    <div v-if="weight.value && weight.unit && weight.device" class="content-status complete-color">Complete</div>
+                                                    <div v-else class="content-status skipped-color">Skipped</div>
                                                 </div>
                                             </div>
                                             <div class="content-link">
@@ -133,15 +135,15 @@
                                         <div class="d-flex align-items-center">
                                             <div class="form-group">
                                                 <label for="">Weight</label>
-                                                <input type="number" v-model.number="patientWeight" class="form-control form-coordinate height-input">
+                                                <input type="number" v-model.number="weight.value" class="form-control form-coordinate height-input">
                                             </div>
                                             <div class="measurement-type">
                                                 <div class="custom-control custom-radio">
-                                                    <input type="radio" id="weightPound" name="customRadio" class="custom-control-input" checked>
+                                                    <input type="radio" id="weightPound" v-model="weight.unit" value="pound" name="customRadio" class="custom-control-input" checked>
                                                     <label class="custom-control-label" for="weightPound">pound</label>
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    <input type="radio" id="weightKg" name="customRadio" class="custom-control-input">
+                                                    <input type="radio" id="weightKg" v-model="weight.unit" value="kg" name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="weightKg">kg</label>
                                                 </div>
                                             </div>
@@ -150,7 +152,7 @@
                                         <div class="select-device">
                                             <h5>Select Device</h5>
                                             <div class="select-wrapper">
-                                                <select class="select" v-model="weightMeasurementDevice">
+                                                <select class="select" v-model="weight.device">
                                                     <option value=""></option>
                                                     <option value="value1">Device 1</option>
                                                     <option value="value1">Device 2</option>
@@ -161,7 +163,7 @@
 
                                             <div class="form-group">
                                                 <label for="weightComment">Comments/Notes (Optional)</label>
-                                                <textarea class="form-control" id="weightComment" rows="4"></textarea>
+                                                <textarea class="form-control" v-model="weight.comment" id="weightComment" rows="4"></textarea>
                                             </div>
                                         </div>
 
@@ -171,7 +173,7 @@
                                                     Unable to Perform
                                                 </b-button>
 
-                                                <b-button variant="link" :disabled="!patientWeight || !weightMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                                <b-button @click="saveWeight" variant="link" :disabled="!weight.value || !weight.device" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                                                     Set
                                                 </b-button>
 
@@ -187,14 +189,15 @@
 
                         <div class="row">
                             <div class="col-lg-6 mb-4">
-                                <div class="card" v-b-modal.modal-waist>
+                                <div class="card pointer" v-b-modal.modal-waist>
                                     <div class="card-body">
                                         <div class="encounter-content" >
                                             <div class="content">
                                                 <img src="../../assets/images/hip.png" alt="">
                                                 <div class="content-details">
                                                     <div class="content-title">Waist/Hip</div>
-                                                    <div class="content-status complete-color">Complete</div>
+                                                    <div v-if="hip.value && hip.unit && hip.device" class="content-status complete-color">Complete</div>
+                                                    <div v-else class="content-status incomplete-color">Incomplete</div>
                                                 </div>
                                             </div>
                                             <div class="content-link">
@@ -209,15 +212,15 @@
                                         <div class="d-flex align-items-center">
                                             <div class="form-group">
                                                 <label for="">Waist</label>
-                                                <input type="number" v-model.number="patientWaist" class="form-control form-coordinate height-input">
+                                                <input type="number" v-model.number="hip.value" class="form-control form-coordinate height-input">
                                             </div>
                                             <div class="measurement-type">
                                                 <div class="custom-control custom-radio">
-                                                    <input type="radio" id="waistCm" name="customRadio" class="custom-control-input" checked>
+                                                    <input type="radio" id="waistCm" v-model="hip.unit" value="cm" name="customRadio" class="custom-control-input" checked>
                                                     <label class="custom-control-label" for="waistCm">cm</label>
                                                 </div>
                                                 <div class="custom-control custom-radio">
-                                                    <input type="radio" id="waistInch" name="customRadio" class="custom-control-input">
+                                                    <input type="radio" id="waistInch" v-model="hip.unit" value="inch" name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="waistInch">inch</label>
                                                 </div>
                                             </div>
@@ -226,7 +229,7 @@
                                         <div class="select-device">
                                             <h5>Select Device</h5>
                                             <div class="select-wrapper">
-                                                <select class="select" v-model="waistMeasurementDevice">
+                                                <select class="select" v-model="hip.device">
                                                     <option value=""></option>
                                                     <option value="value1">Device 1</option>
                                                     <option value="value1">Device 2</option>
@@ -237,7 +240,7 @@
 
                                             <div class="form-group">
                                                 <label for="waistComment">Comments/Notes (Optional)</label>
-                                                <textarea class="form-control" id="waistComment" rows="4"></textarea>
+                                                <textarea class="form-control" v-model="hip.comment" id="waistComment" rows="4"></textarea>
                                             </div>
                                         </div>
 
@@ -247,7 +250,7 @@
                                                     Unable to Perform
                                                 </b-button>
 
-                                                <b-button variant="link" :disabled="!patientWaist || !waistMeasurementDevice" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                                <b-button @click="saveWaist" variant="link" :disabled="!hip.value || !hip.device" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                                                     Set
                                                 </b-button>
 
@@ -263,7 +266,7 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <button class="btn btn-save mr-5">Save</button>
+                                <button @click="saveAndContinue" class="btn btn-save mr-5">Save</button>
 
                                 <button class="btn btn-cancel">Unable to Perform</button>
                             </div>
@@ -282,12 +285,31 @@
     name: "BodyMeasurement",
     data() {
       return {
-        patientHeight: '',
-        heightMeasurementDevice: '',
-        patientWeight: '',
-        weightMeasurementDevice: '',
-        patientWaist: '',
-        waistMeasurementDevice: '',
+        height: {
+          unit: 'cm',
+          device: '',
+          name: "height",
+          comment: '',
+          value: '',
+          codings: {},
+        },
+        weight: {
+          unit: 'pound',
+          device: '',
+          name: "weight",
+          comment: '',
+          value: '',
+          codings: {},
+        },
+        hip: {
+          unit: 'cm',
+          device: '',
+          name: "waist",
+          comment: '',
+          value: '',
+          codings: {},
+        },
+
         patientId: null,
         patient: '',
       }
@@ -296,8 +318,38 @@
       this.patientId = this.$route.params.patientId;
       console.log(this.patientId)
       this.getPatient()
+      let measurements = this.$store.getters.getBodyMeasurement
+      if (measurements) {
+        measurements.forEach(item => {
+          if (item.name == 'height') {
+            this.height = item
+
+          } else if (item.name == 'waist') {
+            this.hip = item
+
+          } else if (item.name == 'weight') {
+            this.weight = item
+
+          }
+        });
+      }
     },
     methods: {
+      saveHeight() {
+        this.$bvModal.hide('modal-height')
+        this.$store.dispatch('addBodyMeasurements', this.height)
+      },
+      saveWeight() {
+        this.$bvModal.hide('modal-weight')
+        this.$store.dispatch('addBodyMeasurements', this.weight)
+      },
+      saveWaist() {
+        this.$bvModal.hide('modal-waist')
+        this.$store.dispatch('addBodyMeasurements', this.hip)
+      },
+      saveAndContinue() {
+        this.$router.push({ name: 'encounterCreate', params: { patientId: this.patientId }})
+      },
       getPatient() {
         let loader = this.$loading.show();
         this.$http.get("/patients/" + this.patientId).then(response => {

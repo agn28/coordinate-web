@@ -24,6 +24,8 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 import store from "./store/store";
 import interceptor from "./interceptor"
+import UUID from 'vue-uuid';
+Vue.use(UUID);
 Vue.use( VuejsDatatableFactory );
 Vue.use(Vuex)
 Vue.use(VueRouter)
