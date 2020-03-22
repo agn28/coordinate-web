@@ -205,6 +205,11 @@
             position: relative;
             display: flex;
 
+            .color-bar {
+              width: 56.94px;
+              height: 14px;
+            }
+
             .color-1 {
               width: 56.94px;
               height: 14px;
@@ -224,72 +229,73 @@
               height: 14px;
               background: #CF0026;
             }
+            
           }
 
           #assessmentBmi {
-            &:before {
-              position: absolute;
-              content: '';
-              width: 0;
-              top: 30px;
-              left: 94px;
-              height: 0;
-              border-left: 8px solid transparent;
-              border-right: 8px solid transparent;
-              border-bottom: 12px solid #D43D30;
-            }
+            // &:before {
+            //   position: absolute;
+            //   content: '';
+            //   width: 0;
+            //   top: 30px;
+            //   left: 94px;
+            //   height: 0;
+            //   border-left: 8px solid transparent;
+            //   border-right: 8px solid transparent;
+            //   border-bottom: 12px solid #D43D30;
+            // }
           }
           #assessmentWaist {
-            &:before {
-              position: absolute;
-              content: '';
-              width: 0;
-              top: 30px;
-              left: 94px;
-              height: 0;
-              border-left: 8px solid transparent;
-              border-right: 8px solid transparent;
-              border-bottom: 12px solid #D43D30;
-            }
+            // &:before {
+            //   position: absolute;
+            //   content: '';
+            //   width: 0;
+            //   top: 30px;
+            //   left: 94px;
+            //   height: 0;
+            //   border-left: 8px solid transparent;
+            //   border-right: 8px solid transparent;
+            //   border-bottom: 12px solid #D43D30;
+            // }
           }
           #assessmentFat {
-            &:before {
-              position: absolute;
-              content: '';
-              width: 0;
-              top: 30px;
-              left: 94px;
-              height: 0;
-              border-left: 8px solid transparent;
-              border-right: 8px solid transparent;
-              border-bottom: 12px solid #D43D30;
-            }
+            // &:before {
+            //   position: absolute;
+            //   content: '';
+            //   width: 0;
+            //   top: 30px;
+            //   left: 94px;
+            //   height: 0;
+            //   border-left: 8px solid transparent;
+            //   border-right: 8px solid transparent;
+            //   border-bottom: 12px solid #D43D30;
+            // }
           }
           #assessmentPressure {
-            &:before {
-              position: absolute;
-              content: '';
-              width: 0;
-              top: 30px;
-              left: 94px;
-              height: 0;
-              border-left: 8px solid transparent;
-              border-right: 8px solid transparent;
-              border-bottom: 12px solid #D43D30;
-            }
+            // &:before {
+            //   position: absolute;
+            //   content: '';
+            //   width: 0;
+            //   top: 30px;
+            //   left: 94px;
+            //   height: 0;
+            //   border-left: 8px solid transparent;
+            //   border-right: 8px solid transparent;
+            //   border-bottom: 12px solid #D43D30;
+            // }
           }
           #assessmentSugar {
-            &:before {
-              position: absolute;
-              content: '';
-              width: 0;
-              top: 30px;
-              left: 94px;
-              height: 0;
-              border-left: 8px solid transparent;
-              border-right: 8px solid transparent;
-              border-bottom: 12px solid #D43D30;
-            }
+            // &:before {
+            //   position: absolute;
+            //   content: '';
+            //   width: 0;
+            //   top: 30px;
+            //   left: 94px;
+            //   height: 0;
+            //   border-left: 8px solid transparent;
+            //   border-right: 8px solid transparent;
+            //   border-bottom: 12px solid #D43D30;
+            // }
           }
 
           #assessmentCholesterol {

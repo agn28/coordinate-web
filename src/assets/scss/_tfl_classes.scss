@@ -12,18 +12,114 @@
 // const kPrimaryDeepRedColor = Color(0xFF8b0000);
 
 .AMBER {
-  color: 'FFbf00' !important;
+  color: #FFbf00 !important;
 }
 
 .GREEN {
-  color: '007000' !important;
+  color: #007000 !important;
 }
 .BLUE {
-  color: 'a5be40' !important;
+  color: #a5be40 !important;
 }
 .RED {
-  color: 'FF0000' !important;
+  color: #FF0000 !important;
 }
 .DEEP-RED {
-  color: '8b0000' !important;
+  color: #8b0000 !important;
+}
+.DARK-RED {
+  color: #8b0000 !important;
+}
+
+.back-AMBER {
+  background-color: #FFbf00 !important;
+}
+
+.back-GREEN {
+  background-color: #007000 !important;
+}
+.back-BLUE {
+  background-color: #a5be40 !important;
+}
+.back-RED {
+  background-color: #FF0000 !important;
+}
+.back-DEEP-RED {
+  background-color: #8b0000 !important;
+}
+.back-DARK-RED {
+  background-color: #8b0000 !important;
+}
+
+.color-bar {
+  position: relative;
+  width: 56.94px;
+  height: 14px;
+}
+
+.AMBER-before {
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    top: 30px;
+    left: 35%;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #FFbf00;
+  }
+}
+.GREEN-before {
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    top: 30px;
+    left: 35%;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #007000;
+  }
+}
+
+.BLUE-before {
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    top: 30px;
+    left: 35%;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #a5be40;
+  }
+}
+.RED-before {
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    top: 30px;
+    left: 35%;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #FF0000;
+  }
+}
+.DEEP-RED-before, .DARK-RED-before {
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    top: 30px;
+    left: 35%;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #8b0000;
+  }
 }

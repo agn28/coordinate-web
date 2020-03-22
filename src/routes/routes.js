@@ -153,7 +153,7 @@ const routes = [
     component: PastEncountersList
   },
   {
-    path: '/patients/:assessmentId/past-assessment-details',
+    path: '/patients/:assessmentId/past-encounter-details',
     name:'pastEncounter',
     component: PastEncounterDetails
   },
