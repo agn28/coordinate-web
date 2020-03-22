@@ -171,6 +171,7 @@
       this.patientId = this.$route.params.patientId;
       this.getPatients();
       this.getCarePlans();
+      console.log('hello');
     }
   };
 </script>

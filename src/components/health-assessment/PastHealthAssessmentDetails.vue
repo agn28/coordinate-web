@@ -4,7 +4,7 @@
             <div class="col-lg-12 d-flex breadcrumb-wrap">
                 <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
                 <div v-if="patient" >
-                    <h4>Create Health Assessment</h4>
+                    <h4>Patient Overview</h4>
                     <div class="breadcrumb"><span>Patients </span>/ {{ patient.body.first_name + " " + patient.body.last_name }}</div>
                 </div>
             </div>
@@ -27,6 +27,10 @@
                 </div>
             </div>
 
+            <div v-if=noDataFound class="nodata">
+                No data found
+            </div>
+
             <div v-if="assessment" class="row">
                 <div class="col-lg-12">
                     <div class="patient-condition-content">
@@ -47,7 +51,7 @@
                                     <div class="card-body">
                                         <div class="existing-conditions">
                                             <div class="title">Current Medications</div>
-                                            <div class="list" v-for="(medication, index) in medications" :key="index">{{ medication }}</div>
+                                            <div class="list text-capitalize" v-for="(medication, index) in medications" :key="index" >{{ medication }}</div>
                                         </div>
 
                                     </div>
@@ -69,8 +73,8 @@
                                                         <img src="../../assets/images/lifestyle/icon_smoker.png"
                                                              class="danger" alt="">
                                                         <div class="title">Smoker</div>
-                                                        <div class="status" :class="assessment.assessments.lifestyle.components.smoking.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.smoking.eval == 'Smoker' ? 'Yes' : 'No' }}
+                                                        <div class="status" :class="assessment.body.result.assessments.lifestyle.components.smoking.tfl">
+                                                            {{ this.assessment.body.result.assessments.lifestyle.components.smoking.eval == 'Smoker' ? 'Yes' : 'No' }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -79,8 +83,8 @@
                                                         <img src="../../assets/images/lifestyle/icon_alcohol.png"
                                                              class="danger" alt="">
                                                         <div class="title">Alcohol consumption</div>
-                                                        <div class="status" :class="assessment.assessments.lifestyle.components.alcohol.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.alcohol.eval }}
+                                                        <div class="status" :class="assessment.body.result.assessments.lifestyle.components.alcohol.tfl">
+                                                            {{ this.assessment.body.result.assessments.lifestyle.components.alcohol.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -89,8 +93,8 @@
                                                         <img src="../../assets/images/lifestyle/icon_fruits.png"
                                                              class="safe" alt="">
                                                         <div class="title">Fruit consumption</div>
-                                                        <div class="status" :class="assessment.assessments.lifestyle.components.diet.components.fruit.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.diet.components.fruit.eval }}
+                                                        <div class="status" :class="assessment.body.result.assessments.lifestyle.components.diet.components.fruit.tfl">
+                                                            {{ this.assessment.body.result.assessments.lifestyle.components.diet.components.fruit.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -99,8 +103,8 @@
                                                         <img src="../../assets/images/lifestyle/icon_vegetables.png"
                                                              class="safe" alt="">
                                                         <div class="title">Vegetable consumption</div>
-                                                        <div class="status" :class="assessment.assessments.lifestyle.components.diet.components.vegetable.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.diet.components.vegetable.eval }}
+                                                        <div class="status" :class="assessment.body.result.assessments.lifestyle.components.diet.components.vegetable.tfl">
+                                                            {{ this.assessment.body.result.assessments.lifestyle.components.diet.components.vegetable.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -109,8 +113,8 @@
                                                         <img src="../../assets/images/lifestyle/icon_physical-activity.png"
                                                              class="danger" alt="">
                                                         <div class="title">Physical activity</div>
-                                                        <div class="status" :class="assessment.assessments.lifestyle.components.physical_activity.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.physical_activity.eval }}
+                                                        <div class="status" :class="assessment.body.result.assessments.lifestyle.components.physical_activity.tfl">
+                                                            {{ this.assessment.body.result.assessments.lifestyle.components.physical_activity.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,10 +123,10 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="lifestyle-result">
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.smoking.message }}</div>
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.alcohol.message }}</div>
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.diet.components.fruit_vegetable.message }}</div>
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.physical_activity.message }}
+                                                        <div class="list">{{ assessment.body.result.assessments.lifestyle.components.smoking.message }}</div>
+                                                        <div class="list">{{ assessment.body.result.assessments.lifestyle.components.alcohol.message }}</div>
+                                                        <div class="list">{{ assessment.body.result.assessments.lifestyle.components.diet.components.fruit_vegetable.message }}</div>
+                                                        <div class="list">{{ assessment.body.result.assessments.lifestyle.components.physical_activity.message }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -146,13 +150,13 @@
                                                     <div class="composition-type">
                                                         <div class="title">BMI</div>
                                                         <div class="measurement">
-                                                            <div class="result" :class="assessment.assessments.body_composition.components.bmi.tfl">{{ assessment.assessments.body_composition.components.bmi.value }}</div>
-                                                            <div class="status" :class="assessment.assessments.body_composition.components.bmi.tfl">{{ assessment.assessments.body_composition.components.bmi.eval }}</div>
+                                                            <div class="result" :class="assessment.body.result.assessments.body_composition.components.bmi.tfl">{{ assessment.body.result.assessments.body_composition.components.bmi.value }}</div>
+                                                            <div class="status" :class="assessment.body.result.assessments.body_composition.components.bmi.tfl">{{ assessment.body.result.assessments.body_composition.components.bmi.eval }}</div>
                                                             <div class="color-code" id="">
-                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.assessments.body_composition.components.bmi.tfl)"></div>
+                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.body.result.assessments.body_composition.components.bmi.tfl)"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="condition-range">{{ assessment.assessments.body_composition.components.bmi.target }}</div>
+                                                        <div class="condition-range">{{ assessment.body.result.assessments.body_composition.components.bmi.target }}</div>
                                                     </div>
 
                                                 </div>
@@ -160,13 +164,13 @@
                                                     <div class="composition-type">
                                                         <div class="title">Hip/Waist Ratio</div>
                                                         <div class="measurement">
-                                                            <div class="result" :class="assessment.assessments.body_composition.components.whr.tfl">{{ assessment.assessments.body_composition.components.whr.value }}</div>
-                                                            <div class="status" :class="assessment.assessments.body_composition.components.whr.tfl">{{ assessment.assessments.body_composition.components.whr.eval }}</div>
+                                                            <div class="result" :class="assessment.body.result.assessments.body_composition.components.whr.tfl">{{ assessment.body.result.assessments.body_composition.components.whr.value }}</div>
+                                                            <div class="status" :class="assessment.body.result.assessments.body_composition.components.whr.tfl">{{ assessment.body.result.assessments.body_composition.components.whr.eval }}</div>
                                                             <div class="color-code">
-                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.assessments.body_composition.components.whr.tfl)"></div>
+                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.body.result.assessments.body_composition.components.whr.tfl)"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="condition-range">{{ assessment.assessments.body_composition.components.whr.target }}</div>
+                                                        <div class="condition-range">{{ assessment.body.result.assessments.body_composition.components.whr.target }}</div>
                                                     </div>
 
                                                 </div>
@@ -174,20 +178,20 @@
                                                     <div class="composition-type">
                                                         <div class="title">Fat</div>
                                                         <div class="measurement">
-                                                            <div class="result" :class="assessment.assessments.body_composition.components.body_fat.tfl">{{ assessment.assessments.body_composition.components.body_fat.value }}</div>
-                                                            <div class="status" :class="assessment.assessments.body_composition.components.body_fat.tfl">{{ assessment.assessments.body_composition.components.body_fat.eval }}</div>
+                                                            <div class="result" :class="assessment.body.result.assessments.body_composition.components.body_fat.tfl">{{ assessment.body.result.assessments.body_composition.components.body_fat.value }}</div>
+                                                            <div class="status" :class="assessment.body.result.assessments.body_composition.components.body_fat.tfl">{{ assessment.body.result.assessments.body_composition.components.body_fat.eval }}</div>
                                                             <div class="color-code">
-                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.assessments.body_composition.components.body_fat.tfl)"></div>
+                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.body.result.assessments.body_composition.components.body_fat.tfl)"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="condition-range">{{ assessment.assessments.body_composition.components.body_fat.target }}</div>
+                                                        <div class="condition-range">{{ assessment.body.result.assessments.body_composition.components.body_fat.target }}</div>
                                                     </div>
 
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="advise">{{ assessment.assessments.body_composition.message }}</div>
+                                                <div class="advise">{{ assessment.body.result.assessments.body_composition.message }}</div>
                                             </div>
                                         </div>
 
@@ -206,13 +210,13 @@
                                                 <div class="col-lg-6">
                                                     <div class="composition-type">
                                                         <div class="measurement">
-                                                            <div class="result" :class="assessment.assessments.blood_pressure.tfl">{{ assessment.assessments.blood_pressure.value }}</div>
-                                                            <div class="status" :class="assessment.assessments.blood_pressure.tfl">{{ assessment.assessments.blood_pressure.eval }}</div>
+                                                            <div class="result" :class="assessment.body.result.assessments.blood_pressure.tfl">{{ assessment.body.result.assessments.blood_pressure.value }}</div>
+                                                            <div class="status" :class="assessment.body.result.assessments.blood_pressure.tfl">{{ assessment.body.result.assessments.blood_pressure.eval }}</div>
                                                             <div class="color-code">
-                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.assessments.blood_pressure.tfl)"></div>
+                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.body.result.assessments.blood_pressure.tfl)"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="condition-range">{{ assessment.assessments.blood_pressure.target }}</div>
+                                                        <div class="condition-range">{{ assessment.body.result.assessments.blood_pressure.target }}</div>
                                                     </div>
 
                                                 </div>
@@ -220,7 +224,7 @@
 
                                             <div class="row">
                                                 <div class="advise">
-                                                    {{ assessment.assessments.blood_pressure.message }}
+                                                    {{ assessment.body.result.assessments.blood_pressure.message }}
                                                 </div>
                                             </div>
                                         </div>
@@ -241,13 +245,13 @@
                                                     <div class="composition-type">
                                                         <div class="title">Blood Sugar</div>
                                                         <div class="measurement">
-                                                            <div class="result" :class="assessment.assessments.diabetes.tfl">{{ assessment.assessments.diabetes.value }}</div>
-                                                            <div class="status" :class="assessment.assessments.diabetes.tfl">{{ assessment.assessments.diabetes.eval }}</div>
+                                                            <div class="result" :class="assessment.body.result.assessments.diabetes.tfl">{{ assessment.body.result.assessments.diabetes.value }}</div>
+                                                            <div class="status" :class="assessment.body.result.assessments.diabetes.tfl">{{ assessment.body.result.assessments.diabetes.eval }}</div>
                                                             <div class="color-code">
-                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.assessments.diabetes.tfl)"></div>
+                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.body.result.assessments.diabetes.tfl)"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="condition-range">{{ assessment.assessments.diabetes.target }}</div>
+                                                        <div class="condition-range">{{ assessment.body.result.assessments.diabetes.target }}</div>
                                                     </div>
 
                                                 </div>
@@ -255,7 +259,7 @@
 
                                             <div class="row">
                                                 <div class="advise">
-                                                    {{ assessment.assessments.diabetes.message }}
+                                                    {{ assessment.body.result.assessments.diabetes.message }}
                                                 </div>
                                             </div>
                                         </div>
@@ -277,13 +281,13 @@
                                                     <div class="composition-type">
                                                         <div class="title">Total Cholesterol</div>
                                                         <div class="measurement">
-                                                            <div class="result" :class="assessment.assessments.cholesterol.components.total_cholesterol.tfl" >{{ assessment.assessments.cholesterol.components.total_cholesterol.value }}</div>
-                                                            <div class="status" :class="assessment.assessments.cholesterol.components.total_cholesterol.tfl" >{{ assessment.assessments.cholesterol.components.total_cholesterol.eval }}</div>
+                                                            <div class="result" :class="assessment.body.result.assessments.cholesterol.components.total_cholesterol.tfl" >{{ assessment.body.result.assessments.cholesterol.components.total_cholesterol.value }}</div>
+                                                            <div class="status" :class="assessment.body.result.assessments.cholesterol.components.total_cholesterol.tfl" >{{ assessment.body.result.assessments.cholesterol.components.total_cholesterol.eval }}</div>
                                                             <div class="color-code">
-                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.assessments.cholesterol.components.total_cholesterol.tfl)"></div>
+                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.body.result.assessments.cholesterol.components.total_cholesterol.tfl)"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="condition-range">{{ assessment.assessments.cholesterol.components.total_cholesterol.target }}</div>
+                                                        <div class="condition-range">{{ assessment.body.result.assessments.cholesterol.components.total_cholesterol.target }}</div>
                                                     </div>
 
                                                 </div>
@@ -291,7 +295,7 @@
 
                                             <div class="row">
                                                 <div class="advise">
-                                                    {{ assessment.assessments.cholesterol.components.total_cholesterol.message }}
+                                                    {{ assessment.body.result.assessments.cholesterol.components.total_cholesterol.message }}
                                                 </div>
                                             </div>
                                         </div>
@@ -312,10 +316,10 @@
                                                     <div class="composition-type">
                                                         <div class="title">Your 10 year risk</div>
                                                         <div class="measurement">
-                                                            <div class="result" :class="assessment.assessments.cvd.tfl" >{{ assessment.assessments.cvd.value }}</div>
-                                                            <div class="status" :class="assessment.assessments.cvd.tfl">{{ assessment.assessments.cvd.eval }}</div>
+                                                            <div class="result" :class="assessment.body.result.assessments.cvd.tfl" >{{ assessment.body.result.assessments.cvd.value }}</div>
+                                                            <div class="status" :class="assessment.body.result.assessments.cvd.tfl">{{ assessment.body.result.assessments.cvd.eval }}</div>
                                                             <div class="color-code">
-                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.assessments.cvd.tfl)"></div>
+                                                                <div v-for="(bar, index) in bars" :key="index"  class="color-bar mr-2" :class="getClass(bar, assessment.body.result.assessments.cvd.tfl)"></div>
                                                             </div>
                                                         </div>
                                                         <div class="condition-range">20-30%</div>
@@ -326,7 +330,7 @@
 
                                             <div class="row">
                                                 <div class="advise">
-                                                    {{ assessment.assessments.cvd.message }}
+                                                    {{ assessment.body.result.assessments.cvd.message }}
                                                 </div>
                                             </div>
                                         </div>
@@ -337,31 +341,6 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card mb-4 mt-2">
-                                    <div class="card-body">
-                                        <div class="referral-required">
-                                            <div class="referral-title">Referral Required</div>
-                                            <div class="referral-msg">Generate a referral before submitting</div>
-                                            <button class="btn btn-light"><span><i class="fas fa-plus"></i></span>Generate
-                                                Referral
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="submit-row">
-                                    <button class="btn btn-primary" @click="confirmAssessment()">Submit for Confirmation</button>
-                                    <button class="btn btn-light">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -378,12 +357,13 @@
             return {
                 encounters: [],
                 patientId: '',
+                patient: null,
                 assessment: null,
                 assessmentId: '',
-                patient: null,
                 observations: null,
                 medicalHistory: [],
                 medications: [],
+                noDataFound: false,
                 bars: [
                     'BLUE',
                     'GREEN',
@@ -394,7 +374,6 @@
             };
         },
         methods: {
-
             getPatient() {
                 let loader = this.$loading.show();
                 this.$http.get("/patients/" + this.patientId).then(response => {
@@ -412,54 +391,20 @@
                 return moment(assessment.report_date._seconds*1000).format('MMMM DD YYYY');
             },
 
-            confirmAssessment() {
-                let loader = this.$loading.show();
-                let today = new Date();
-                let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-                let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                let dateTime = date + ' ' + time;
-                var data = {
-                    "id": this.$uuid.v4(),
-                    "meta": {
-                        "collected_by": this.$store.state.auth.user.uid,
-                        "created_at": dateTime,
-                    },
-                    "body": {
-                        "patient_id": this.patientId,
-                        "comment": '',
-                        "result": this.assessment
-                    }
-                };
-                console.log(data);
-
-                this.$http
-                .post("/health-reports/", data)
-                .then(response => {
-                    loader.hide();
-                    if (response.status == 201) {
-                        this.$router.push({
-                            name: "healthAssessmentCreated",
-                            params: { patientId: this.patientId }
-                        });
-                    }
-                }, 
-                error => {
-                    loader.hide()
-                }
-                );
-            },
-
             getAssessments() {
                 let loader = this.$loading.show();
 
                 this.$http
-                .post("/health-reports/generate/" + this.patientId)
+                .get("/health-reports/" + this.assessmentId)
                 .then(response => {
                     loader.hide();
+                    if (response.data.error) {
+                        this.noDataFound = true;
+                    }
                     if (!response.data.error) {
-                        this.assessment = response.data;
-                    } else {
-                        console.log(response.data);
+                       
+                        this.assessment = response.data.data;
+                         console.log(this.assessment.body.result.assessments.lifestyle.components.smoking);
                     }
                 }, 
                 error => {
@@ -476,10 +421,11 @@
             },
 
             getObservation() {
+                let loader = this.$loading.show();
                 this.$http.get("/observations/" )
                 .then(response => {
                     if (!response.data.error) {
-                        console.log(response.data)
+                        loader.hide();
                         this.observations = response.data.data;
                         this.prepareSurveyData();
                     }
@@ -513,6 +459,7 @@
 
         mounted() {
             this.patientId = this.$route.params.patientId;
+            this.assessmentId = this.$route.params.assessmentId;
             this.getPatient();
             this.getAssessments();
             this.getObservation();
