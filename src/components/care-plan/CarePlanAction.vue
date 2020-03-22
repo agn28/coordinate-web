@@ -103,8 +103,6 @@
         },
         mounted() {
             this.carePlanId = this.$route.params.carePlanId;
-            // this.carePlanId = '96cbc640-6289-11ea-9b18-ef033de922f5';
-            console.log(this.$route)
             this.getCarePlan();
         },
         methods: {
@@ -113,7 +111,6 @@
                 this.$http.get("/care-plans/" + this.carePlanId, ).then(
                     response => {
                     if (response.status == 200) {
-                        console.log(response.data);
                         this.carePlan = response.data.data;
                     }
                     loader.hide();

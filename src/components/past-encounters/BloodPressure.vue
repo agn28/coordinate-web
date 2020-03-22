@@ -54,15 +54,15 @@
                                                     <div class="reason-type">
                                                         <div class="form-group">
                                                             <div class="custom-control custom-radio">
-                                                                <input type="radio" v-model="pressure.right_arm_reason.condition" value="left-arm-missing" id="left-missing" name="left-missing" class="custom-control-input" >
+                                                                <input type="radio" v-model="pressure.reason_right_arm" value="left-arm-is-missing" id="left-missing" name="left-missing" class="custom-control-input" >
                                                                 <label class="custom-control-label" for="left-missing">Left arm is missing</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                                <input type="radio" id="arm-broken" v-model="pressure.right_arm_reason.condition" value="arm-broken" name="arm-broken" class="custom-control-input">
+                                                                <input type="radio" id="arm-broken" v-model="pressure.reason_right_arm" value="arm-broken" name="arm-broken" class="custom-control-input">
                                                                 <label class="custom-control-label" for="arm-broken">Participant’s hand is broken into pieces</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                                <input type="radio" id="other" v-model="pressure.right_arm_reason.condition" value="other" name="other" class="custom-control-input">
+                                                                <input type="radio" id="other" v-model="pressure.reason_right_arm" value="other" name="other" class="custom-control-input">
                                                                 <label class="custom-control-label" for="other">Other</label>
                                                             </div>
                                                         </div>
@@ -73,7 +73,7 @@
 
                                                     <div class="form-group">
                                                         <label for="comment">State Reason</label>
-                                                        <textarea class="form-control" v-model="pressure.right_arm_reason.reason" id="comment" rows="4"></textarea>
+                                                        <textarea class="form-control" v-model="pressure.reason_right_arm" id="comment" rows="4"></textarea>
                                                     </div>
                                                 </div>
 
@@ -96,19 +96,19 @@
                             <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
                                 <div class="form-group">
                                     <label for="">Systolic</label>
-                                    <input type="text" v-model="pressure.systolic" class="form-control form-coordinate custom-pressure-input">
+                                    <input type="text" v-model.number="pressure.systolic" class="form-control form-coordinate custom-pressure-input">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
                                 <div class="form-group">
                                     <label for="">Diastolic</label>
-                                    <input type="text" v-model="pressure.diastolic" class="form-control form-coordinate custom-pressure-input">
+                                    <input type="text" v-model.number="pressure.diastolic" class="form-control form-coordinate custom-pressure-input">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
                                 <div class="form-group">
                                     <label for="">Pulse Rate</label>
-                                    <input type="text" v-model="pressure.pulse_rate" class="form-control form-coordinate custom-pressure-input">
+                                    <input type="text" v-model.number="pressure.pulse_rate" class="form-control form-coordinate custom-pressure-input">
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
@@ -257,7 +257,7 @@
         bpData: {},
         pressure: {
           arm: 'left',
-          right_arm_reason: {},
+          reason_right_arm: '',
           codings: {}
         },
         pressure_meta: {},
@@ -279,36 +279,38 @@
       addBpMeasurement () {
         this.bloodPressures.push(this.pressure)
 
-        console.log(this.bloodPressures)
+        this.pressure =  {
+          arm: "left"
+        }
       },
       saveMetaData () {
         this.$bvModal.hide('modal-right')
         this.$bvModal.hide('modal-unable')
-
-        console.log(this.bpData)
       },
       saveData () {
         let today = new Date();
         let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         let dateTime = date+' '+time;
-        this.bpData = {
-         id: this.$uuid.v4(),
-         meta: {
-           collected_by: this.userId,
-           created_at: dateTime,
-           device_id: this.pressure_meta.device
-         },
-         body: {
-           comment: this.pressure_meta.comment,
-           type: 'blood_pressure',
-           patient_id: this.patientId,
-           assessment_id: '',
-           data: this.bloodPressures
-         }
-        }
-        console.log(this.bpData)
-        this.$store.dispatch('addBloodPressure', this.bpData)
+
+        this.bloodPressures.forEach(item => {
+          this.bpData = {
+            id: this.$uuid.v4(),
+            meta: {
+              collected_by: this.userId,
+              created_at: dateTime,
+              device_id: this.pressure_meta.device
+            },
+            body: {
+              comment: this.pressure_meta.comment,
+              type: 'blood_pressure',
+              patient_id: this.patientId,
+              assessment_id: '',
+              data: item
+            }
+          }
+          this.$store.dispatch('addBloodPressure', this.bpData)
+        })
         this.$router.push({ name: 'encounterCreate', params: { patientId: this.patientId }})
       }
     },
@@ -317,12 +319,9 @@
       this.userId = this.$store.state.auth.user.uid
       this.getPatient()
       let blood_data = this.$store.getters.getBloodPressure
-      if (blood_data.data) {
-        this.bloodPressures = blood_data.body.data
-      }
-      if (blood_data.meta) {
-        this.pressure_meta = blood_data.meta
-      }
+      blood_data.forEach( item => {
+        this.bloodPressures.push(item.body.data)
+      })
     }
   }
 </script>

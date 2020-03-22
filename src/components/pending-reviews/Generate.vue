@@ -508,7 +508,6 @@
             comment: this.medication.comment
           }
         }
-        console.log(this.activity)
         this.allData.data.body.result.careplan.activities.push(this.activity)
 
       },
@@ -553,7 +552,6 @@
       removeActionItem(id) {
         if (!this.checkedItems[id]) {
           this.removableActivities.indexOf(id) ? this.removableActivities.push(id) : ''
-          console.log(this.removableActivities)
         } else {
           let index = this.removableActivities.indexOf(id)
           if (index > -1) {
@@ -604,7 +602,6 @@
           })
         }
         if (this.comments) {
-          console.log(this.comments)
           this.allData.data.body.comment = this.comments
         }
         var data = this.calculateDuration(this.allData.data);

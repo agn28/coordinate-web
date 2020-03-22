@@ -65,7 +65,6 @@ export default {
       this.$http
         .get("/patients/" + this.patientId + "/family_member_histories")
         .then(response => {
-          console.log(response.data);
           this.prepareFamilyMembers(response.data);
         });
     },
@@ -85,7 +84,6 @@ export default {
           });
         }
       });
-      console.log(this.family_members);
     }
   },
   mounted() {

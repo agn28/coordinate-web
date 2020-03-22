@@ -312,23 +312,24 @@
 
         patientId: null,
         patient: '',
+        userId: null,
       }
     },
     created() {
       this.patientId = this.$route.params.patientId;
-      console.log(this.patientId)
+      this.userId = this.$store.state.auth.user.uid
       this.getPatient()
       let measurements = this.$store.getters.getBodyMeasurement
       if (measurements) {
         measurements.forEach(item => {
-          if (item.name == 'height') {
-            this.height = item
+          if (item.body.data.name == 'height') {
+            this.height = item.body.data
 
-          } else if (item.name == 'waist') {
-            this.hip = item
+          } else if (item.body.data.name == 'waist') {
+            this.hip = item.body.data
 
-          } else if (item.name == 'weight') {
-            this.weight = item
+          } else if (item.body.data.name == 'weight') {
+            this.weight = item.body.data
 
           }
         });
@@ -337,15 +338,45 @@
     methods: {
       saveHeight() {
         this.$bvModal.hide('modal-height')
-        this.$store.dispatch('addBodyMeasurements', this.height)
+        this.prepareData(this.height)
       },
       saveWeight() {
         this.$bvModal.hide('modal-weight')
-        this.$store.dispatch('addBodyMeasurements', this.weight)
+        this.prepareData(this.weight)
       },
       saveWaist() {
         this.$bvModal.hide('modal-waist')
-        this.$store.dispatch('addBodyMeasurements', this.hip)
+        this.prepareData(this.hip)
+      },
+
+      prepareData(body) {
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+        let finalData = {
+          id: this.$uuid.v4(),
+          meta: {
+            collected_by: this.userId,
+            created_at: dateTime,
+            device_id: body.device
+          },
+          body: {
+            type: 'body_measurement',
+            patient_id: this.patientId,
+            assessment_id: '',
+            data: {
+              device: body.device,
+              unit: body.unit,
+              name: body.name,
+              value: body.value,
+              comment: body.comment,
+              codings: body.codings
+            }
+          }
+        }
+
+        this.$store.dispatch('addBodyMeasurements', finalData)
       },
       saveAndContinue() {
         this.$router.push({ name: 'encounterCreate', params: { patientId: this.patientId }})

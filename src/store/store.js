@@ -8,7 +8,7 @@ export default new Vuex.Store({
     count: 0,
     patients: [],
     bloodTests: [],
-    blood_pressure: {},
+    blood_pressure: [],
     bodyMeasurements: [],
     questionnaires: [],
 
@@ -21,7 +21,7 @@ export default new Vuex.Store({
       state.patients = patients;
     },
     addBP (state, bloodPressure) {
-      state.blood_pressure = bloodPressure
+      state.blood_pressure.push(bloodPressure)
     },
     addBloodTests(state, bloodTest) {
       let index = state.bloodTests.findIndex(function(item, i) {
@@ -40,7 +40,7 @@ export default new Vuex.Store({
     addBodyMeasurement(state, measurement) {
 
       let index = state.bodyMeasurements.findIndex(function(item, i) {
-        return item.name === measurement.name;
+        return item.body.data.name === measurement.body.data.name;
       });
       if (index != -1) {
         state.bodyMeasurements = [
@@ -55,8 +55,7 @@ export default new Vuex.Store({
 
     addQuestionnaire(state, questionnaire) {
       let index = state.questionnaires.findIndex(function(item, i) {
-        console.log(item)
-        return item.name === questionnaire.name;
+        return item.body.data.name === questionnaire.body.data.name;
       });
       if (index !== -1) {
         state.questionnaires = [

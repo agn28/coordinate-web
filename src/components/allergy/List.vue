@@ -67,7 +67,6 @@ export default {
       this.$http
         .get("/patients/" + this.patientId + "/allergy_intolerances")
         .then(response => {
-          console.log(response.data);
           this.prepareAllergies(response.data);
         });
     },
@@ -86,7 +85,6 @@ export default {
           });
         }
       });
-      console.log(this.allergies);
     }
   },
   mounted() {

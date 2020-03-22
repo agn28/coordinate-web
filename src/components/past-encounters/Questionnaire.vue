@@ -194,16 +194,16 @@
       let quistionaires = this.$store.getters.getQuestionnaire
       if (quistionaires.length > 0) {
         quistionaires.forEach(item => {
-          if (item.name == 'tobacco') {
-            this.tobaccoData = item
-          } else if(item.name == 'alcohol') {
-            this.alcoholData = item
-          } else if(item.name == 'medical_history') {
-            this.medicalHistory = item
-          } else if(item.name == 'current_medication') {
-            this.medications = item
-          } else if(item.name == 'diet') {
-            this.dietData = item
+          if (item.body.data.name == 'tobacco') {
+            this.tobaccoData = item.body.data
+          } else if(item.body.data.name == 'alcohol') {
+            this.alcoholData = item.body.data
+          } else if(item.body.data.name == 'medical_history') {
+            this.medicalHistory = item.body.data
+          } else if(item.body.data.name == 'current_medication') {
+            this.medications = item.body.data
+          } else if(item.body.data.name == 'diet') {
+            this.dietData = item.body.data
           }
         })
       }

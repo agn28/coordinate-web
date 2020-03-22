@@ -141,6 +141,7 @@
       return {
         patientId: '',
         patient: '',
+        userId: '',
         surveyMedication: {
           medications: [],
           as_prescribed: 'yes',
@@ -161,7 +162,24 @@
     },
     methods: {
       saveData() {
-        this.$store.dispatch('addQuestionnaire', this.surveyMedication)
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+        let finalData = {
+          id: this.$uuid.v4(),
+          meta: {
+            collected_by: this.userId,
+            created_at: dateTime,
+          },
+          body: {
+            type: 'survey',
+            patient_id: this.patientId,
+            assessment_id: '',
+            data: this.surveyMedication
+          }
+        }
+        this.$store.dispatch('addQuestionnaire', finalData)
         this.$router.push({ name: 'questionnaire', params: { patientId: this.patientId }})
       },
       getPatient() {
@@ -179,6 +197,7 @@
     },
     created() {
       this.patientId = this.$route.params.patientId;
+      this.userId = this.$store.state.auth.user.uid;
       this.getPatient()
     },
   };
