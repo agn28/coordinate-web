@@ -185,6 +185,7 @@ export default {
     return {
       patientId: '',
       patient: '',
+      userId: '',
       medicalHistory: {
         diabetes: "no",
         high_blood_cholesterol: "no",
@@ -200,7 +201,24 @@ export default {
   },
   methods: {
     saveData() {
-      this.$store.dispatch('addQuestionnaire', this.medicalHistory)
+      let today = new Date();
+      let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      let dateTime = date+' '+time;
+      let finalData = {
+        id: this.$uuid.v4(),
+        meta: {
+          collected_by: this.userId,
+          created_at: dateTime,
+        },
+        body: {
+          type: 'survey',
+          patient_id: this.patientId,
+          assessment_id: '',
+          data: this.medicalHistory
+        }
+      }
+      this.$store.dispatch('addQuestionnaire', finalData)
       this.$router.push({ name: 'questionnaire', params: { patientId: this.patientId }})
     },
     getPatient() {
@@ -218,6 +236,7 @@ export default {
   },
   created() {
     this.patientId = this.$route.params.patientId;
+    this.userId = this.$store.state.auth.user.uid;
     this.getPatient()
   },
 };

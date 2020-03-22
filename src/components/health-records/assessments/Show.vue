@@ -360,7 +360,6 @@ export default {
           this.referrals = response.data.hearts.referrals;
           this.isLoading = false;
         }).catch(error => {
-          console.log(error)
         });
     },
 

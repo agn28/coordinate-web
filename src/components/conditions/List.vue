@@ -79,7 +79,6 @@ export default {
             "/conditions"
         )
         .then(response => {
-          console.log(response.data);
           this.prepareConditions(response.data);
         });
     },
@@ -102,7 +101,6 @@ export default {
           });
         }
       });
-      console.log(this.conditions);
     }
   },
   mounted() {

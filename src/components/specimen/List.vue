@@ -66,7 +66,6 @@ export default {
       this.$http
         .get("/patients/" + this.patientId + "/specimen")
         .then(response => {
-          console.log(response.data);
           // this.prepareSpecimen(response.data)
         });
     },

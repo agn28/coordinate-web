@@ -77,8 +77,8 @@
                     <div class="row">
                       <div class="col-lg-4">
                         <div class="wizard-footer-left">
-                        <wizard-button v-if="props.activeTabIndex > 0 && !props.isLastStep" @click.native="props.prevTab()" :style="props.fillButtonStyle">Previous</wizard-button>
-                      </div>
+                          <wizard-button v-if="props.activeTabIndex > 0 && !props.isLastStep" @click.native="props.prevTab()" :style="props.fillButtonStyle">Previous</wizard-button>
+                        </div>
                       </div>
                       <div class="col-lg-4">
                         <div class="wizard-footer-bullet">
@@ -111,41 +111,60 @@
 <script>
 
 
-export default {
-  name: "health-records",
-  data() {
-    return {
-     patientId: '',
-      patient: '',
-      tobaccoData: {
-        last_12_months: "no",
-        name: "tobacco",
-        secondhand_smoke: "no"
-      }
-    };
-  },
-  methods: {
-    getPatient() {
-      let loader = this.$loading.show();
-      this.$http.get("/patients/" + this.patientId).then(response => {
-                loader.hide();
-                if (response.status == 200) {
-                  this.patient = response.data.data;
-                }
-              },
-              error => {
-                loader.hide()
-              });
+  export default {
+    name: "health-records",
+    data() {
+      return {
+        patientId: '',
+        userId: '',
+        patient: '',
+        tobaccoData: {
+          last_12_months: "no",
+          name: "tobacco",
+          secondhand_smoke: "no"
+        }
+      };
     },
-    saveData() {
-      this.$store.dispatch('addQuestionnaire', this.tobaccoData)
-      this.$router.push({ name: 'questionnaire', params: { patientId: this.patientId }})
+    methods: {
+      getPatient() {
+        let loader = this.$loading.show();
+        this.$http.get("/patients/" + this.patientId).then(response => {
+            loader.hide();
+            if (response.status == 200) {
+              this.patient = response.data.data;
+            }
+          },
+          error => {
+            loader.hide()
+          });
+      },
+      saveData() {
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+        let finalData = {
+          id: this.$uuid.v4(),
+          meta: {
+            collected_by: this.userId,
+            created_at: dateTime,
+          },
+          body: {
+            type: 'survey',
+            patient_id: this.patientId,
+            assessment_id: '',
+            data: this.tobaccoData
+          }
+        }
+        this.$store.dispatch('addQuestionnaire', finalData)
+        this.$router.push({ name: 'questionnaire', params: { patientId: this.patientId }})
+      },
     },
-  },
-  created() {
-    this.patientId = this.$route.params.patientId;
-    this.getPatient()
-  },
-};
+    created() {
+      this.patientId = this.$route.params.patientId;
+      this.userId = this.$store.state.auth.user.uid;
+      this.getPatient()
+    },
+  };
 </script>
 

@@ -77,7 +77,7 @@
                                             <td class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
                                         </tr>
                                     </template>
-                                    
+
                                     <!-- <tr class="care-data" @click="$router.push({ name: 'carePlaneAction'})">
                                         <td>Provide Smoking cessation advise</td>
                                         <td class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
@@ -113,7 +113,6 @@
                 this.$http.get("/care-plans", ).then(
                     response => {
                     if (response.status == 200) {
-                        console.log(response.data);
                         this.carePlans = response.data.data;
                     }
                     loader.hide();

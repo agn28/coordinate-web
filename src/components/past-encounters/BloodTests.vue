@@ -682,7 +682,6 @@
             loader.hide();
             if (response.status == 200) {
               this.patient = response.data.data;
-              console.log(this.patient)
             }
           },
           error => {

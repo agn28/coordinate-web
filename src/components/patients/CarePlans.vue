@@ -116,7 +116,6 @@
                 this.$http.get("/care-plans/patient/" + this.patientId, ).then(
                     response => {
                     if (response.status == 200) {
-                        console.log(response.data);
                         this.carePlans = response.data.data;
                     }
                     loader.hide();
