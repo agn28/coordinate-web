@@ -1,0 +1,29 @@
+// 'AMBER': kPrimaryAmberColor,
+// 'GREEN': kGreenColor,
+// 'BLUE': kPrimaryBlueColor,
+// 'RED': kRedColor,
+// 'DEEP-RED': kPrimaryDeepRedColor,
+// 'DARK-RED': kPrimaryDeepRedColor
+
+// const kPrimaryAmberColor = Color(0xFFFFbf00);
+// const kRedColor = Color(0xFFFF0000);
+// const kGreenColor = Color(0xFF007000);
+// const kPrimaryBlueColor = Color(0xFFa5be40);
+// const kPrimaryDeepRedColor = Color(0xFF8b0000);
+
+.AMBER {
+  color: 'FFbf00' !important;
+}
+
+.GREEN {
+  color: '007000' !important;
+}
+.BLUE {
+  color: 'a5be40' !important;
+}
+.RED {
+  color: 'FF0000' !important;
+}
+.DEEP-RED {
+  color: '8b0000' !important;
+}

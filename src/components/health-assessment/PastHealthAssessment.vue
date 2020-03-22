@@ -36,18 +36,12 @@
                                     <th scope="col" width="90%"></th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
+                                <tbody v-if=assessments>
+                                <tr v-for="(assessment, index) in assessments" :key="index" @click="$router.push({ name: 'pastHealthAssessmentDetails', params: { patientId: patientId, assessmentId: assessment.id } })">
                                     <template>
-                                        <td width="10%">Jan 25, 2019</td>
-                                        <td align="left" width="90%" class="text-danger">Pending Recommendation<span><i class="fas fa-arrow-right"></i></span></td>
-
-                                    </template>
-                                </tr>
-                                <tr>
-                                    <template>
-                                        <td>Jan 25, 2019</td>
-                                        <td><span><i class="fas fa-arrow-right"></i></span></td>
+                                        <td width="10%">{{ convertTime(assessment) }}</td>
+                                        <td align="left" width="90%" class="text-danger"><span><i class="fas fa-arrow-right"></i></span></td>
+                                        <!-- <td align="left" width="90%" class="text-danger">Pending Recommendation<span><i class="fas fa-arrow-right"></i></span></td> -->
 
                                     </template>
                                 </tr>
@@ -62,9 +56,46 @@
 </template>
 
 <script>
+    import moment from 'moment'
     export default {
-        name: "PastHealthAssessment"
+        name: "PastHealthAssessment",
+        data() {
+        return {
+            encounters: [],
+            patientId: '',
+            assessments: null,
+        };
+  },
+    methods: {
+        convertTime(assessment) {
+            return moment(assessment.report_date._seconds*1000).format('MMMM DD YYYY');
+        },
+
+        getAssessments() {
+            let loader = this.$loading.show();
+
+            this.$http
+            .get("/health-reports/patient/" + this.patientId)
+            .then(response => {
+                loader.hide();
+                if (!response.error) {
+                    console.log(response.data);
+                    this.assessments = response.data.data;
+                }
+            }, 
+            error => {
+                loader.hide()
+            }
+            );
+        },
+    },
+
+    mounted() {
+        console.log('heelllo');
+        this.patientId = this.$route.params.patientId;
+        this.getAssessments();
     }
+}
 </script>
 
 <style scoped>

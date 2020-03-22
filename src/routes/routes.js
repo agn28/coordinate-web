@@ -65,6 +65,7 @@ import HealthEncounters from '../components/health-records/encounters/List'
 import NewHealthAssessment from "../components/health-assessment/NewHealthAssessment";
 import CreatedHealthAssessment from "../components/health-assessment/CreatedHealthAssessment";
 import PastHealthAssessment from "../components/health-assessment/PastHealthAssessment";
+import PastHealthAssessmentDetails from "../components/health-assessment/PastHealthAssessmentDetails";
 import HealthAssessment from "../components/health-assessment/HealthAssessment";
 
 
@@ -360,6 +361,11 @@ const routes = [
     path: '/patients/:patientId/health-assessment/past-health-assessment',
     name: 'pastHealthAssessment',
     component: PastHealthAssessment
+  },
+  {
+    path: '/patients/:patientId/health-assessment/past-health-assessment/:assessmentId',
+    name: 'pastHealthAssessmentDetails',
+    component: PastHealthAssessmentDetails
   }
 
 
