@@ -246,7 +246,7 @@
             loader.hide();
           });
       },
-      createAssessment() {
+    async createAssessment() {
         this.$bvModal.hide('modal-save')
         let loader = this.$loading.show();
 
@@ -271,54 +271,52 @@
 
           }
         }
-        this.$http.post("/assessments/", data).then(response => {
-                  if (response.status == 201) {
-                    this.assessmentId = response.data.id
+       await this.$http.post("/assessments/", data).then(response => {
+          if (response.status == 201) {
+            this.assessmentId = response.data.id
+             try {
+               // Storing blood tests
+               if (this.questionnaire.length > 0) {
+                 this.questionnaire.forEach(item => {
+                   item.body.assessment_id = this.assessmentId
+                  this.storeEncounters(item)
+                 });
+               }
 
-                   try {
-                     // Storing blood tests
-                     if (this.questionnaire.length > 0) {
-                       this.questionnaire.forEach(item => {
-                         item.body.assessment_id = this.assessmentId
-                         this.storeEncounters(item)
-                       });
-                     }
+               // Storing blood tests
+               if (this.blood_tests.length > 0) {
+                 this.blood_tests.forEach(item => {
+                   item.body.assessment_id = this.assessmentId
+                   this.storeEncounters(item)
+                 });
 
-                     // Storing blood tests
-                     if (this.blood_tests.length > 0) {
-                       this.blood_tests.forEach(item => {
-                         item.body.assessment_id = this.assessmentId
-                         this.storeEncounters(item)
-                       });
-
-                     }
-                     // Storing Body Measurement items
-                     if (this.bodyMeasurements.length > 0) {
-                       this.bodyMeasurements.forEach(item => {
-                         item.body.assessment_id = this.assessmentId
-                         this.storeEncounters(item)
-                       });
-                     }
+               }
+               // Storing Body Measurement items
+               if (this.bodyMeasurements.length > 0) {
+                 this.bodyMeasurements.forEach(item => {
+                   item.body.assessment_id = this.assessmentId
+                   this.storeEncounters(item)
+                 });
+               }
 
 
-                     // Storing blood pressure items
+               // Storing blood pressure items
+               this.blood_pressure.forEach(item => {
+                 item.body.assessment_id = this.assessmentId
+                 this.storeEncounters(item)
+               })
+               this.$store.dispatch('removeEncounterItems');
+             } catch (e) {
+               console.log(e)
+             } finally {
+               loader.hide()
+             }
 
-                     this.blood_pressure.forEach(item => {
-                       item.body.assessment_id = this.assessmentId
-                       this.storeEncounters(item)
-                     })
-                   } catch (e) {
-                     console.log(e)
-                   } finally {
-                     loader.hide()
-                   }
-
-                  }
-                },
-
-                error => {
-                  loader.hide()
-                });
+          }
+        },
+        error => {
+          loader.hide()
+        });
 
       },
 

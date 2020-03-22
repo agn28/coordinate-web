@@ -53,6 +53,13 @@ export default new Vuex.Store({
       }
     },
 
+    removeEncounterItems( state ) {
+      state.bloodTests = []
+      state.blood_pressure = []
+      state.bodyMeasurements = []
+      state.questionnaires = []
+    },
+
     addQuestionnaire(state, questionnaire) {
       let index = state.questionnaires.findIndex(function(item, i) {
         return item.body.data.name === questionnaire.body.data.name;
@@ -98,6 +105,10 @@ export default new Vuex.Store({
     },
     addQuestionnaire({ commit }, questionnaire) {
       commit('addQuestionnaire', questionnaire)
+    },
+
+    removeEncounterItems({ commit }) {
+      commit('removeEncounterItems')
     }
   },
   modules: {
