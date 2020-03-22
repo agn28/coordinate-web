@@ -35,6 +35,11 @@
 
       <div class="row">
         <div class="col-lg-12">
+          <div v-if="message" class="alert alert-success mx-3">
+            <h5>{{ message }}</h5>
+          </div>
+        </div>
+        <div class="col-lg-12">
           <div class="encounter-body">
             <div class="row">
               <div class="col-lg-6 mb-4">
@@ -229,7 +234,7 @@
         bodyMeasurements: [],
         questionnaire: [],
         loader: '',
-
+        message: '',
         assessmentId : null,
       };
     },
@@ -306,6 +311,7 @@
                  this.storeEncounters(item)
                })
                this.$store.dispatch('removeEncounterItems');
+               this.message = "Encounter Created  Successfully!"
              } catch (e) {
                console.log(e)
              } finally {
