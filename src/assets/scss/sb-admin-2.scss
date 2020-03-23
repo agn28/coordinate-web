@@ -92,7 +92,11 @@
   display: flex;
   justify-content: space-between;
 }
-
+.error-message {
+  p {
+    font-size: 13px;
+  }
+}
 .chartSelectBtn {
   background-color: transparent;
   padding: 9px;

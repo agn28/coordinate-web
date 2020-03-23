@@ -30,6 +30,7 @@ import Medical from '../components/questionnaire/Medical'
 import Encounters from '../components/encounters/List'
 import PastEncounters from "../components/encounters/PastEncounters";
 import EncounterCreate from '../components/past-encounters/Create'
+import EncounterEdit from '../components/past-encounters/edit-encounters/Edit'
 import BloodPressure from "../components/past-encounters/BloodPressure";
 import BodyMeasurement from "../components/past-encounters/BodyMeasurement";
 import BloodTests from "../components/past-encounters/BloodTests";
@@ -218,6 +219,11 @@ const routes = [
     path: '/patients/:patientId/encounters/questionnaire/medication',
     name: 'encounterMedication',
     component: EncounterMedication,
+  },
+  {
+    path: '/encounters/edit-encounter/:assessmentId',
+    name: 'encounterEdit',
+    component: EncounterEdit
   },
   {
     path: '/patients/:patientId/allergy',

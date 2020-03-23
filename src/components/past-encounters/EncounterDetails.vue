@@ -31,7 +31,8 @@
                     <div class="edit-past-assessment">
                         <div class="assessment-date">{{ assessment.body.assessment_date }}</div>
                         <div class="in-clinic text-capitalize">{{ assessment.body.type }}</div>
-                        <div class="edit-encounter"><span><i class="fas fa-pen"></i></span>Edit Encounter</div>
+                        <div class="edit-encounter"><span><i class="fas fa-pen"></i></span><router-link  :to="{name: 'encounterEdit', params: { assessmentId: assessmentId }}"
+                                                                                                         tag="a">Edit Encounter</router-link></div>
                     </div>
                 </div>
             </div>
