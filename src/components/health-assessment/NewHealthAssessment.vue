@@ -64,53 +64,53 @@
                                                 <div class="lifestyle-title">Lifestyle</div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-xl-2 col-lg-2 col-md-4">
+                                                <div v-if="assessment.assessments.lifestyle.components.smoking" class="col-xl-2 col-lg-2 col-md-4">
                                                     <div class="category-type">
                                                         <img src="../../assets/images/lifestyle/icon_smoker.png"
                                                              class="danger" alt="">
                                                         <div class="title">Smoker</div>
                                                         <div class="status" :class="assessment.assessments.lifestyle.components.smoking.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.smoking.eval == 'Smoker' ? 'Yes' : 'No' }}
+                                                            {{ assessment.assessments.lifestyle.components.smoking.eval == 'Smoker' ? 'Yes' : 'No' }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-2 col-lg-2 col-md-4">
+                                                <div v-if="assessment.assessments.lifestyle.components.alcohol" class="col-xl-2 col-lg-2 col-md-4">
                                                     <div class="category-type">
                                                         <img src="../../assets/images/lifestyle/icon_alcohol.png"
                                                              class="danger" alt="">
                                                         <div class="title">Alcohol consumption</div>
                                                         <div class="status" :class="assessment.assessments.lifestyle.components.alcohol.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.alcohol.eval }}
+                                                            {{ assessment.assessments.lifestyle.components.alcohol.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-2 col-lg-2 col-md-4">
+                                                <div v-if="assessment.assessments.lifestyle.components.diet.components.fruit" class="col-xl-2 col-lg-2 col-md-4">
                                                     <div class="category-type">
                                                         <img src="../../assets/images/lifestyle/icon_fruits.png"
                                                              class="safe" alt="">
                                                         <div class="title">Fruit consumption</div>
                                                         <div class="status" :class="assessment.assessments.lifestyle.components.diet.components.fruit.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.diet.components.fruit.eval }}
+                                                            {{ assessment.assessments.lifestyle.components.diet.components.fruit.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-2 col-lg-2 col-md-4">
+                                                <div v-if="assessment.assessments.lifestyle.components.diet.components.vegetable" class="col-xl-2 col-lg-2 col-md-4">
                                                     <div class="category-type">
                                                         <img src="../../assets/images/lifestyle/icon_vegetables.png"
                                                              class="safe" alt="">
                                                         <div class="title">Vegetable consumption</div>
                                                         <div class="status" :class="assessment.assessments.lifestyle.components.diet.components.vegetable.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.diet.components.vegetable.eval }}
+                                                            {{ assessment.assessments.lifestyle.components.diet.components.vegetable.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-2 col-lg-2 col-md-4">
+                                                <div v-if="assessment.assessments.lifestyle.components.physical_activity" class="col-xl-2 col-lg-2 col-md-4">
                                                     <div class="category-type">
                                                         <img src="../../assets/images/lifestyle/icon_physical-activity.png"
                                                              class="danger" alt="">
                                                         <div class="title">Physical activity</div>
                                                         <div class="status" :class="assessment.assessments.lifestyle.components.physical_activity.tfl">
-                                                            {{ this.assessment.assessments.lifestyle.components.physical_activity.eval }}
+                                                            {{ assessment.assessments.lifestyle.components.physical_activity.eval }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,16 +119,15 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="lifestyle-result">
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.smoking.message }}</div>
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.alcohol.message }}</div>
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.diet.components.fruit_vegetable.message }}</div>
-                                                        <div class="list">{{ assessment.assessments.lifestyle.components.physical_activity.message }}
+                                                        <div v-if="assessment.assessments.lifestyle.components.smoking" class="list">{{ assessment.assessments.lifestyle.components.smoking.message }}</div>
+                                                        <div v-if="assessment.assessments.lifestyle.components.alcohol" class="list">{{ assessment.assessments.lifestyle.components.alcohol.message }}</div>
+                                                        <div v-if="assessment.assessments.lifestyle.components.diet.components.fruit_vegetable" class="list">{{ assessment.assessments.lifestyle.components.diet.components.fruit_vegetable.message }}</div>
+                                                        <div v-if="assessment.assessments.lifestyle.components.physical_activity" class="list">{{ assessment.assessments.lifestyle.components.physical_activity.message }}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
 
                                     </div>
                                 </div>
@@ -142,7 +141,7 @@
                                         <div class="patient-body-checkup">
                                             <div class="composition-title">Body Composition</div>
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div v-if="assessment.assessments.body_composition.components.bmi" class="col-lg-6">
                                                     <div class="composition-type">
                                                         <div class="title">BMI</div>
                                                         <div class="measurement">
@@ -156,7 +155,7 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div v-if="assessment.assessments.body_composition.components.whr" class="col-lg-6">
                                                     <div class="composition-type">
                                                         <div class="title">Hip/Waist Ratio</div>
                                                         <div class="measurement">
@@ -170,7 +169,7 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div v-if="assessment.assessments.body_composition.components.body_fat" class="col-lg-6">
                                                     <div class="composition-type">
                                                         <div class="title">Fat</div>
                                                         <div class="measurement">
@@ -200,7 +199,7 @@
                             <div class="col-lg-12">
                                 <div class="card mb-4 mt-2">
                                     <div class="card-body">
-                                        <div class="patient-body-checkup">
+                                        <div v-if="assessment.assessments.blood_pressure" class="patient-body-checkup">
                                             <div class="composition-title">Blood Pressure</div>
                                             <div class="row">
                                                 <div class="col-lg-6">
@@ -234,7 +233,7 @@
                             <div class="col-lg-12">
                                 <div class="card mb-4 mt-2">
                                     <div class="card-body">
-                                        <div class="patient-body-checkup">
+                                        <div v-if="assessment.assessments.diabetes" class="patient-body-checkup">
                                             <div class="composition-title">Diabetese</div>
                                             <div class="row">
                                                 <div class="col-lg-6">
@@ -270,7 +269,7 @@
                             <div class="col-lg-12">
                                 <div class="card mb-4 mt-2">
                                     <div class="card-body">
-                                        <div class="patient-body-checkup">
+                                        <div v-if="assessment.assessments.cholesterol.components.total_cholesterol" class="patient-body-checkup">
                                             <div class="composition-title">Cholesterol</div>
                                             <div class="row">
                                                 <div class="col-lg-6">
@@ -305,7 +304,7 @@
                             <div class="col-lg-12">
                                 <div class="card mb-4 mt-2">
                                     <div class="card-body">
-                                        <div class="patient-body-checkup">
+                                        <div v-if="assessment.assessments.cvd" class="patient-body-checkup">
                                             <div class="composition-title">Cardiovascular Risk</div>
                                             <div class="row">
                                                 <div class="col-lg-6">
