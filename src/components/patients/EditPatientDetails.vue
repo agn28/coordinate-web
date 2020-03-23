@@ -49,8 +49,8 @@
                     </template>
                 </b-modal>
                 <div class="">
-                    <h4>Register a New Patient</h4>
-                    <div class="breadcrumb"><span>Patients</span>/ Register a New Patient</div>
+                    <h4>Edit Patient</h4>
+                    <div class="breadcrumb"><span>Patients</span>/ Edit Patient / <span> </span></div>
                 </div>
             </div>
 
@@ -422,7 +422,7 @@
                                                        class="wizard-footer-right" :style="props.fillButtonStyle">Next
                                         </wizard-button>
 
-                                        <wizard-button v-else @click.native="completeRegistration"
+                                        <wizard-button v-else @click.native="updatePatient"
                                                        class="wizard-footer-right finish-button"
                                                        :style="props.fillButtonStyle">{{props.isLastStep ? 'Complete registration' :
                                             'Next'}}
@@ -440,7 +440,7 @@
 
 <script>
   export default {
-    name: "NewRegistration",
+    name: "editPatient",
     data() {
       return {
         relationContacts: '',
@@ -494,12 +494,15 @@
         message: '',
         contact: {
           address: {}
-        }
-
+        },
+        patientId: null,
+        patient: null,
       }
     },
     created() {
       this.userId = this.$store.state.auth.user.uid
+      this.patientId = this.$route.params.patientId;
+      this.getPatient()
     },
     methods: {
       previewImage: function(event) {
@@ -550,15 +553,15 @@
         this.thumbData = '';
       },
 
-      completeRegistration() {
+      updatePatient() {
         let loader = this.$loading.show()
         let today = new Date();
         let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         let dateTime = date+' '+time;
         let age = today.getFullYear() - this.year
-        let finaldata = {
-          id: this.$uuid.v4(),
+        this.patient = {
+          id: this.patientId,
           meta: {
             collected_by: this.userId,
             created_at: dateTime
@@ -588,10 +591,29 @@
             }
           },
           error => {
-          this.errorMessages = error.response.data.errors
+            this.errorMessages = error.response.data.errors
             this.$bvModal.show('modal-error')
             loader.hide()
           });
+      },
+
+      prepareData() {
+        this.firstName = this.patient.body.first_name
+      },
+
+      getPatient() {
+        let loader = this.$loading.show()
+        this.$http.get("/patients/" + this.patientId).then(response => {
+            loader.hide();
+            if (response.status == 200) {
+              this.patient = response.data.data;
+
+            }
+          },
+          error => {
+            loader.hide()
+          });
+
       }
     }
   }

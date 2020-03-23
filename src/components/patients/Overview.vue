@@ -29,7 +29,7 @@
 
             <div class="col-lg-12 border-bottom">
                 <div class="patient-edit">
-                    <router-link class="edit" :to="{ name: 'patientRegistration'}"><i class="fas fa-pen"></i>View/Edit Patient Details</router-link>
+                    <router-link class="edit" :to="{ name: 'editPatient', params: { patientId: patientId} }"><i class="fas fa-pen"></i>View/Edit Patient Details</router-link>
                     <div class="care-plane">
                         <router-link tag="a" :to="{ name: 'patientCarePlans', params: { patientId: patientId } }"><i
                                 class="fas fa-user-check"></i>Care Plan
