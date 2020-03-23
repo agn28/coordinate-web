@@ -372,152 +372,152 @@
 </template>
 
 <script>
-    export default {
-        name: "PastHealthAssessment",
-        data() {
-            return {
-                encounters: [],
-                patientId: '',
-                assessment: null,
-                assessmentId: '',
-                patient: null,
-                observations: null,
-                medicalHistory: [],
-                medications: [],
-                bars: [
-                    'BLUE',
-                    'GREEN',
-                    'AMBER',
-                    'RED',
-                    'DEEP-RED',
-                ]
-            };
-        },
-        methods: {
+  export default {
+    name: "PastHealthAssessment",
+    data() {
+      return {
+        encounters: [],
+        patientId: '',
+        assessment: null,
+        assessmentId: '',
+        patient: null,
+        observations: null,
+        medicalHistory: [],
+        medications: [],
+        bars: [
+          'BLUE',
+          'GREEN',
+          'AMBER',
+          'RED',
+          'DEEP-RED',
+        ]
+      };
+    },
+    methods: {
 
-            getPatient() {
-                let loader = this.$loading.show();
-                this.$http.get("/patients/" + this.patientId).then(response => {
-                    loader.hide();
-                    if (response.status == 200) {
-                    this.patient = response.data.data;
-                    }
-                },
-                error => {
-                    loader.hide()
-                });
-
-            },
-            convertTime(assessment) {
-                return moment(assessment.report_date._seconds*1000).format('MMMM DD YYYY');
-            },
-
-            confirmAssessment() {
-                let loader = this.$loading.show();
-                let today = new Date();
-                let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-                let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                let dateTime = date + ' ' + time;
-                var data = {
-                    "id": this.$uuid.v4(),
-                    "meta": {
-                        "collected_by": this.$store.state.auth.user.uid,
-                        "created_at": dateTime,
-                    },
-                    "body": {
-                        "patient_id": this.patientId,
-                        "comment": '',
-                        "result": this.assessment
-                    }
-                };
-                console.log(data);
-
-                this.$http
-                .post("/health-reports/", data)
-                .then(response => {
-                    loader.hide();
-                    if (response.status == 201) {
-                        this.$router.push({
-                            name: "healthAssessmentCreated",
-                            params: { patientId: this.patientId }
-                        });
-                    }
-                }, 
-                error => {
-                    loader.hide()
-                }
-                );
-            },
-
-            getAssessments() {
-                let loader = this.$loading.show();
-
-                this.$http
-                .post("/health-reports/generate/" + this.patientId)
-                .then(response => {
-                    loader.hide();
-                    if (!response.data.error) {
-                        this.assessment = response.data;
-                    } else {
-                        console.log(response.data);
-                    }
-                }, 
-                error => {
-                    loader.hide()
-                }
-                );
-            },
-
-            getClass(bar, tfl) {
-                if (bar == tfl) {
-                    return 'back-' + bar + ' ' + bar+'-before';
-                }
-                return 'back-' + bar;
-            },
-
-            getObservation() {
-                this.$http.get("/observations/" )
-                .then(response => {
-                    if (!response.data.error) {
-                        console.log(response.data)
-                        this.observations = response.data.data;
-                        this.prepareSurveyData();
-                    }
-                });
-                
-            },
-
-            prepareSurveyData() {
-                this.observations.forEach((obs) => {
-                    if (obs.body.patient_id == this.patientId && obs.body.type == 'survey') {
-                        // console.log(obs.body);
-                        if (obs.body.data.name == 'medical_history') {
-                            Object.keys(obs.body.data).forEach((key) => {
-                                if (obs.body.data[key] == 'yes') {
-                                    if (!this.medicalHistory.includes(key.replace(/_/g, ' '))) {
-                                        this.medicalHistory.push(key.replace(/_/g, ' '));
-                                    }
-                                }
-                            })
-                        }
-
-                        if (obs.body.data.name == 'current_medication') {
-                            this.medications = obs.body.data.medications;
-                        }   
-
-                        
-                    }
-                });
+      getPatient() {
+        let loader = this.$loading.show();
+        this.$http.get("/patients/" + this.patientId).then(response => {
+            loader.hide();
+            if (response.status == 200) {
+              this.patient = response.data.data;
             }
-        },
+          },
+          error => {
+            loader.hide()
+          });
 
-        mounted() {
-            this.patientId = this.$route.params.patientId;
-            this.getPatient();
-            this.getAssessments();
-            this.getObservation();
+      },
+      convertTime(assessment) {
+        return moment(assessment.report_date._seconds*1000).format('MMMM DD YYYY');
+      },
+
+      confirmAssessment() {
+        let loader = this.$loading.show();
+        let today = new Date();
+        let date = today.getFullYear()+ '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +('0'+today.getDate()).slice(-2);
+        let time = ('0' + today.getHours()).slice(-2) + ":" + ('0' + today.getMinutes()).slice(-2) + ":" + ('0' + today.getSeconds()).slice(-2);
+        let dateTime = date+' '+time;
+        var data = {
+          "id": this.$uuid.v4(),
+          "meta": {
+            "collected_by": this.$store.state.auth.user.uid,
+            "created_at": dateTime,
+          },
+          "body": {
+            "patient_id": this.patientId,
+            "comment": '',
+            "result": this.assessment
+          }
+        };
+        console.log(data);
+
+        this.$http
+          .post("/health-reports/", data)
+          .then(response => {
+              loader.hide();
+              if (response.status == 201) {
+                this.$router.push({
+                  name: "healthAssessmentCreated",
+                  params: { patientId: this.patientId }
+                });
+              }
+            },
+            error => {
+              loader.hide()
+            }
+          );
+      },
+
+      getAssessments() {
+        let loader = this.$loading.show();
+
+        this.$http
+          .post("/health-reports/generate/" + this.patientId)
+          .then(response => {
+              loader.hide();
+              if (!response.data.error) {
+                this.assessment = response.data;
+              } else {
+                console.log(response.data);
+              }
+            },
+            error => {
+              loader.hide()
+            }
+          );
+      },
+
+      getClass(bar, tfl) {
+        if (bar == tfl) {
+          return 'back-' + bar + ' ' + bar+'-before';
         }
+        return 'back-' + bar;
+      },
+
+      getObservation() {
+        this.$http.get("/observations/" )
+          .then(response => {
+            if (!response.data.error) {
+              console.log(response.data)
+              this.observations = response.data.data;
+              this.prepareSurveyData();
+            }
+          });
+
+      },
+
+      prepareSurveyData() {
+        this.observations.forEach((obs) => {
+          if (obs.body.patient_id == this.patientId && obs.body.type == 'survey') {
+            // console.log(obs.body);
+            if (obs.body.data.name == 'medical_history') {
+              Object.keys(obs.body.data).forEach((key) => {
+                if (obs.body.data[key] == 'yes') {
+                  if (!this.medicalHistory.includes(key.replace(/_/g, ' '))) {
+                    this.medicalHistory.push(key.replace(/_/g, ' '));
+                  }
+                }
+              })
+            }
+
+            if (obs.body.data.name == 'current_medication') {
+              this.medications = obs.body.data.medications;
+            }
+
+
+          }
+        });
+      }
+    },
+
+    mounted() {
+      this.patientId = this.$route.params.patientId;
+      this.getPatient();
+      this.getAssessments();
+      this.getObservation();
     }
+  }
 </script>
 
 <style scoped>

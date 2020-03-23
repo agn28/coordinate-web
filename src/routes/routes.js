@@ -13,6 +13,7 @@ import PatientRegistration from '../components/patients/NewRegistration'
 import PatientCreatedComplete from "../components/patients/PatientCreatedComplete";
 import PastEncounterDetails from "../components/past-encounters/EncounterDetails";
 import PastEncountersList from "../components/past-encounters/List";
+import EditPatientDetails from "../components/patients/EditPatientDetails";
 
 import PendingReviews from '../components/pending-reviews/List'
 import PendingReviewDetail from '../components/pending-reviews/Show'
@@ -135,6 +136,11 @@ const routes = [
     path: '/patients/new-registration',
     name: 'patientRegistration',
     component: PatientRegistration
+  },
+  {
+    path: '/patients/edit-patient/:patientId',
+    name: 'editPatient',
+    component: EditPatientDetails
   },
   {
     path: '/patients/complete-registration',
