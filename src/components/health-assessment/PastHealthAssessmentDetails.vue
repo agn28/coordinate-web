@@ -239,7 +239,7 @@
                                 <div class="card mb-4 mt-2">
                                     <div class="card-body">
                                         <div class="patient-body-checkup">
-                                            <div class="composition-title">Diabetese</div>
+                                            <div class="composition-title">Diabetes status</div>
                                             <div class="row">
                                                 <div v-if="assessment.body.result.assessments.diabetes" class="col-lg-6">
                                                     <div class="composition-type">

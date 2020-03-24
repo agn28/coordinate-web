@@ -373,11 +373,11 @@
           <div class="disease-name">
             <div class="card">
               <div class="disease-name-header">
-                <h4 class="type-name">Diabetese</h4>
+                <h4 class="type-name">Diabetes</h4>
                 <span class="edit-icon" v-b-modal.modal-diabetese> <i class="fas fa-pen"></i></span>
                 <b-modal id="modal-diabetese" class="modal-coordinate">
                   <template v-slot:modal-header>
-                    <span class="title">Set Diabetese</span>
+                    <span class="title">Set Diabetes</span>
                   </template>
                   <div class="d-flex align-items-center">
                     <div class="form-group">
