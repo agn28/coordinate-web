@@ -78,7 +78,7 @@
                   <input type="button" class="border-0 chartSelectBtn" value="Month" />
                 </div>
               </div>
-              <div class="col-md-12 col-lg-4">
+              <!-- <div class="col-md-12 col-lg-4">
                 <div class="d-flex justify-content-center mb-2">
                   <button class="border-0 chartSelectBtn w-100">
                     <span class="bttn1"></span>Participant Registered
@@ -87,7 +87,7 @@
                     <span class="bttn2"></span>Screenings completed
                   </button>
                 </div>
-              </div>
+              </div> -->
             </div>
           </form>
         </div>
