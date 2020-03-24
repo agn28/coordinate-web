@@ -92,7 +92,7 @@
           </form>
         </div>
         <div class="col-md-12">
-          <bar-chart></bar-chart>
+          <bar-chart v-if="data" :stats="data"></bar-chart>
         </div>
       </div>
     </div>
@@ -124,7 +124,8 @@ export default {
       },
       total_patient: 0,
       total_careplan: 0,
-      total_pending: 0
+      total_pending: 0,
+      data: null
     };
   },
   created() {
@@ -139,6 +140,7 @@ export default {
             this.total_patient = response.data.data.total_patient;
             this.total_careplan = response.data.data.total_careplan;
             this.total_pending = response.data.data.total_pending;
+            this.data = response.data.data.data;
           }
           loader.hide();
         },
