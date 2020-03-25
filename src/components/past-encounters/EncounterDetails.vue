@@ -49,8 +49,16 @@
                                             <div class="title text-capitalize">{{ observation.body.data.name.replace(/_/g, ' ') }}</div>
                                             <div class="reading">Average reading: {{ observation.body.data.value }} {{ observation.body.data.unit }}
                                             </div>
+                                            
                                             <div class="record">Recorded by: </div>
                                             <div class="measured">Measured using: {{ observation.body.data.device }}</div>
+                                            <div class="record">
+                                              <template v-for="(code, index) in observation.body.data.codings">
+                                                <span class="badge badge-secondary text-capitalize" :key="index">{{ index }} - {{ code.id }}</span>
+                                                
+                                              </template>
+                                              
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

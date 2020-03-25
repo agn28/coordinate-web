@@ -129,6 +129,11 @@
                                                         <div class="row">
                                                             <div class="col-lg-2">
                                                                 <div class="form-group">
+                                                                    <date-picker v-validate="'required'"
+                                                                           v-bind:class="[errors.has('date') ? 'is-invalid' : '']"
+                                                                           name="date" v-model="birthDate" :config="options"></date-picker>
+                                                                </div>
+                                                                <!-- <div class="form-group">
                                                                     <label for="date">DD <span class="text-danger">*</span></label>
                                                                     <input type="text" v-model.number="date"
                                                                            v-validate="'required|digits:2|max_value:31'"
@@ -139,9 +144,9 @@
                                                                          v-if="errors.has('date')">
                                                                         <p>Date is invalid!</p>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
-                                                            <div class="col-lg-2">
+                                                            <!-- <div class="col-lg-2">
                                                                 <div class="form-group">
                                                                     <label for="month">MM <span class="text-danger">*</span></label>
                                                                     <input type="text" v-model.number="month"
@@ -168,7 +173,7 @@
                                                                         <p>Year is invalid!</p>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
 
@@ -320,10 +325,8 @@
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <label for="nationalId">PID <span class="text-danger">*</span></label>
+                                                    <label for="nationalId">PID</label>
                                                     <input type="text" v-model="pid"
-                                                           v-validate="'required'"
-                                                           v-bind:class="[errors.has('pid') ? 'is-invalid' : '']"
                                                            name="pid"
                                                            class="form-control" id="pId">
                                                     <label for="nationalId" style="font-size: 14px">13 digit PID number</label>
@@ -604,12 +607,12 @@
                                 <div class="col-lg-4">
                                     <div class="wizard-footer-left">
                                         <wizard-button v-if="props.activeTabIndex > 0"
-                                                       @click.native="props.prevTab()"
+                                                       @click.native="prevTab(props)"
                                                        :style="props.fillButtonStyle">Back
                                         </wizard-button>
                                     </div>
                                     <div class="wizard-footer-right">
-                                        <wizard-button v-if="!props.isLastStep" @click.native="props.nextTab()"
+                                        <wizard-button v-if="!props.isLastStep" :disabled='!isComplete' @click.native="nextTab(props)"
                                                        class="wizard-footer-right" :style="props.fillButtonStyle">Next
                                         </wizard-button>
 
@@ -634,6 +637,12 @@
     name: "NewRegistration",
     data() {
       return {
+        activeTab: 0,
+        birthDate: '',
+        options: {
+            format: 'YYYY-MM-DD',
+            useCurrent: false,
+        },
         relationContacts: '',
         relationshipWithContact: [
           {
@@ -698,7 +707,28 @@
     created() {
       this.userId = this.$store.state.auth.user.uid
     },
+    computed: {
+        isComplete () {
+            if (this.activeTab == 0) {
+                return this.firstName && this.lastName && this.birthDate && this.address.district && this.address.postal_code && this.address.town && this.address.village && this.address.street_name && this.mobile && this.nid;
+            }
+            if (this.activeTab == 1) {
+                return this.contact.first_name && this.contact.last_name && this.contact.address.district && this.contact.address.postal_code && this.contact.address.town && this.contact.address.village && this.contact.address.street_name && this.contact.mobile;
+            }
+            return true;
+        }
+    },
     methods: {
+    nextTab(props){
+        console.log(props);
+        this.activeTab = props.activeTabIndex + 1;
+        props.nextTab();
+    },
+    prevTab(props){
+        console.log(props);
+        this.activeTab = props.activeTabIndex - 1;
+        props.prevTab();
+    },
       previewImage: function(event) {
         // Reference to the DOM input element
         var input = event.target;
@@ -784,7 +814,7 @@
               phone: this.phone,
               gender: this.gender,
               address: this.address,
-              birth_date: this.year + "-" + this.month + "-" + this.date,
+              birth_date: this.birthDate,
               email: this.email,
             }
           }
