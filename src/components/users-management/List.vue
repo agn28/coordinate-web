@@ -92,27 +92,21 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
-                                        <!-- <th scope="col">PID</th> -->
-                                        <th scope="col">Birth Date</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr  v-for="(user, index) in users" :key="index">
-                                            
+                                    <tr  v-for="(user, index) in users" :key="index">    
                                         <td>{{ user.name }}</td>
-                                        <td>{{ user.birth_date }}</td>
-
                                         <td>
                                             <span class="badge badge-secondary text-capitalize mr-2" >{{ user.role }}</span>
                                         </td>
-                                        
                                         <td>
                                             <a class="btn btn-sm btn-primary mr-2" href=""><i class="fas fa-pencil-alt"></i></a>
                                             <a class="btn btn-sm btn-info mr-2" href=""><i class="fas fa-eye"></i></a>
                                             <a class="btn btn-sm btn-danger mr-2" href=""><i class="fas fa-trash"></i></a>
-                                            <button v-b-modal.modal-assign-role class="btn btn-sm btn-secondary mr-2" >Assign Role</button>
+                                            <button v-b-modal.modal-assign-role class="btn btn-sm btn-secondary mr-2">Assign Role</button>
                                         </td>
                                     </tr>
 
@@ -123,20 +117,16 @@
                                     <span class="title">Role for Feroj Bepari</span>
                                 </template>
                                 <div class="form-group">
-                                    <label for="patientHeight">Select a Role</label>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Super Admin</option>
-                                        <option value="">Admin</option>
-                                        <option value="">Doctor</option>
+                                    <label for="roles">Select a Role</label>
+                                    <select name="roles" id="roles" class="form-control">
+                                        <option v-for="(role, index) in roles" :key="index" value="">{{ role.name }}</option>
                                     </select>
                                 </div>
                                     
 
                                 <template v-slot:modal-footer>
                                     <div class="w-100">
-
-
-                                        <b-button @click="creatole()" variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
+                                        <b-button @click="assignRole()" variant="link" size="md" class="float-right font-weight-bold p-0 pl-4 pr-1">
                                             Save
                                         </b-button>
 
@@ -158,33 +148,13 @@
 
 <script>
     export default {
-        name: "roles",
+        name: "users",
         components: {},
         data() {
             return {
                 newUser: null,
-                users: [
-                    {
-                        name: 'Feroj Bepari',
-                        role: 'Super Admin',
-                        birth_date: 'July 22, 1965'
-                    },
-                    {
-                        name: 'Ian Goon',
-                        role: 'Super Admin',
-                        birth_date: 'Jan 25, 1946'
-                    },
-                    {
-                        name: 'Rasel Ahmed',
-                        role: 'Admin',
-                        birth_date: 'March 21, 1976'
-                    },
-                    {
-                        name: 'Test User',
-                        role: 'Doctor',
-                        birth_date: 'July 12, 1987'
-                    },
-                ]
+                users: [],
+                roles: []
             };
         },
         methods: {
@@ -192,7 +162,7 @@
                 let loader = this.$loading.show();
                 this.$http.get("/users").then(response => {
                     if (response.status == 200) {
-                        this.users = response.data.data;
+                        this.users = response.data;
                         loader.hide()
                     }
                 },
@@ -201,12 +171,27 @@
                 });
             },
 
+            getRoles() {
+                let loader = this.$loading.show();
+                this.$http.get("/roles").then(response => {
+                    if (response.status == 200) {
+                        this.roles = response.data.data;
+                        loader.hide()
+                    }
+                },
+                error => {
+                    loader.hide();
+                });
+            },
+
+            assignRole() {
+
+            }
+
         },
         mounted() {
-            // this.getRoles();
+            this.getUsers();
+            this.getRoles();
         }
     };
 </script>
-
-<style lang="">
-</style>
