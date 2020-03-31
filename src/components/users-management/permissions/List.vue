@@ -41,12 +41,12 @@
           <div class="patient-content float-right">
             <div class="right-side">
               <div class="register-patient">
-                <button class="btn" v-b-modal.modal-role>
+                <button class="btn" v-b-modal.modal-permission>
                   <i class="fas fa-plus"></i>Create Permisison
                 </button>
               </div>
 
-              <b-modal id="modal-role" class="modal-role">
+              <b-modal id="modal-permission" class="modal-role">
                 <template v-slot:modal-header>
                   <span class="title">Create Permission</span>
                 </template>
@@ -69,6 +69,7 @@
                 <template v-slot:modal-footer>
                   <div class="w-100">
                     <b-button
+                      type="button"
                       @click="createPermission()"
                       variant="link"
                       :disabled="!newPermission"
@@ -76,12 +77,10 @@
                       class="float-right font-weight-bold p-0 pl-4 pr-1"
                     >Save</b-button>
 
-                    <b-button
-                      variant="link"
-                      size="md"
-                      class="float-right font-weight-bold p-0"
-                      @click="$bvModal.hide('modal-role')"
-                    >Cancel</b-button>
+                    <button
+                      class="btn btn-link float-right font-weight-bold p-0"
+                      @click="$bvModal.hide('modal-permission')"
+                    >Cancel</button>
                   </div>
                 </template>
               </b-modal>
@@ -154,11 +153,17 @@ export default {
       if (!this.newPermission) {
         return;
       }
+      console.log(this.newPermission);
 
       let loader = this.$loading.show();
-      this.$http.post("/permissions", this.newPermission).then(
+      this.$http.post("/permissions", { name: this.newPermission }).then(
         response => {
           loader.hide();
+          if (response.status == 201) {
+            this.permissions.push(this.newPermission);
+            this.$bvModal.hide('modal-permission')
+            this.newPermission = '';
+          }
         },
         error => {
           loader.hide();
