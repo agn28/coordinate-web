@@ -1,7 +1,6 @@
 .new-patient-registration {
   font-family: Roboto;
   font-style: normal;
-  font-weight: 500;
   font-size: 22px;
   color: rgba(0, 0, 0, 0.87);
 
@@ -42,6 +41,61 @@
     }
   }
 
+  .custom-form-wizard-header {
+    height: 70px;
+    border: 1px solid #e3e9ef;
+    padding-top: 21px;
+    padding-left: 25px;
+
+    .step {
+      cursor: pointer;
+    }
+
+    .icon {
+      height: 24px;
+      width: 24px;
+      background-color: #a0a0a0;
+      border-radius: 50%;
+      color: #fff;
+      
+      span {
+        font-size: 15px;
+        /* padding-left: 8px; */
+        font-weight: 400;
+        /* padding-top: 1px; */
+        position: relative;
+        top: -7px;
+        left: 7px;
+      } 
+      i {
+        font-size: 12px;
+        position: relative;
+        top: -7px;
+        left: 6px;
+      }
+
+      &.active {
+        background-color: #0a579b;
+      }
+    }
+    .title {
+      font-size: 15px;
+      font-weight: normal;
+      margin-left: 10px;
+      &.active {
+        font-weight: bold;;
+      }
+    }
+
+    .line {
+      border-top: 1px solid #eaeaea;
+      width: 54%;
+      margin-left: 20px;
+      height: 1px;
+      margin-top: 11px;
+    }
+  }
+
   .wizard-header {
     display: none;
   }
@@ -54,6 +108,13 @@
       color: rgb(231, 76, 60);
       width: 16.6667%;
     }
+  }
+  
+  .wizard-nav {
+    display: none !important;
+  }
+  .wizard-progress-with-circle {
+    display: none !important;
   }
 
   .wizard-nav-pills {
@@ -85,7 +146,7 @@
   .wizard-footer-left {
     button {
       background: transparent !important;
-      border-color: #0277BD !important;
+      border: 1px solid  #ccc !important;
       color: rgba(0, 0, 0, 0.87) !important;
       &:hover {
         background: #0277BD !important;

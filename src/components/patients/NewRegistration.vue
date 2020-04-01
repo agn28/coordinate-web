@@ -34,7 +34,7 @@
 
                     <div class="discard-msg">
                         <ul class="list-group list-group-flush text-danger">
-                            <li v-for="error in errorMessages" class="list-group-item">{{ error.msg }}</li>
+                            <li v-for="(error, index) in errorMessages" :key="index" class="list-group-item">{{ error.msg }}</li>
                         </ul>
                     </div>
 
@@ -54,291 +54,337 @@
                 </div>
             </div>
 
+            <div class="custom-form-wizard-header">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="step d-flex">
+                            <div class="icon active">
+                                <span v-if="activeTab == 0" class="">1</span>
+                                <i v-else class="fas fa-pencil-alt"></i>
+                            </div>
+                            <div class="title active">
+                                <span class="">Patient Details</span>
+                            </div>
+                            <div class="line"></div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-3">
+                        <div class="step d-flex">
+                            <div class="icon" :class="[1, 2, 3].indexOf(activeTab) != -1 ? 'active': ''">
+                                <i v-if="activeTab == 2 || activeTab == 3" class="fas fa-pencil-alt"></i>
+                                <span v-else class="">2</span>
+                            </div>
+                            <div class="title" :class="[1, 2, 3].indexOf(activeTab) != -1 ? 'active': ''">
+                                <span class="">Contact Details</span>
+                            </div>
+                            <div class="line"></div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-3">
+                        <div class="step d-flex">
+                            <div class="icon" :class="[2, 3].indexOf(activeTab) != -1 ? 'active': ''">
+                                <i v-if="activeTab == 3" class="fas fa-pencil-alt"></i>
+                                <span v-else class="">3</span>
+                            </div>
+                            <div class="title" :class="[2, 3].indexOf(activeTab) != -1 ? 'active': ''">
+                                <span class="">Photo</span>
+                            </div>
+                            <!-- <div class="line"></div> -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="alert-success my-5 alert" v-if="message">
                         <h5>{{ message }}</h5>
                     </div>
+                    
                     <form-wizard>
                         <div v-if="isInvalid" class="alert text-center alert-danger" role="alert">
                             Please Fill in the required Form Fields
                         </div>
 
                         <tab-content>
-                            <div class="row">
+                            
+                            <div class="row" scope="patient">
                                 <div class="col-12">
-                                    <div class="patient-details-content">
+                                    <form data-vv-scope="patientDetails">
+                                        <div class="patient-details-content">
 
-                                        <div class="row">
-                                            <div class="col-lg-12 border-bottom">
-                                                <div class="title">Patient Details</div>
-                                                <div class="row">
-                                                    <div class="col-lg-2">
-                                                        <div class="form-group">
-                                                            <label for="date">First Name <span class="text-danger">*</span></label>
-                                                            <input type="text"
-                                                                   v-model="firstName"
-                                                                   v-validate="'required'"
-                                                                   v-bind:class="[errors.has('firstName') ? 'is-invalid' : '']"
-                                                                   name="firstName"
-                                                                   class="form-control" id="firstName">
-                                                            <div class="text-danger error-message"
-                                                                 v-if="errors.has('firstName')">
-                                                               <p>First Name is required!</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2">
-                                                        <div class="form-group">
-                                                            <label for="month">Last Name <span class="text-danger">*</span></label>
-                                                            <input type="text" v-model="lastName"
-                                                                   v-validate="'required'"
-                                                                   v-bind:class="[errors.has('lastName') ? 'is-invalid' : '']"
-                                                                   name="lastName"
-                                                                   class="form-control" id="lastName">
-                                                            <div class="text-danger error-message"
-                                                                 v-if="errors.has('lastName')">
-                                                                <p>Last Name is required!</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="gender">
-                                                    <div class="gender-title">Gender <span class="text-danger">*</span></div>
-                                                    <div class="gender-checkbox d-flex">
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" v-model="gender"
-                                                                   class="custom-control-input" id="male" value="male">
-                                                            <label class="custom-control-label" for="male">Male</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" v-model="gender"
-                                                                   class="custom-control-input" id="female"
-                                                                   name="example1" value="female">
-                                                            <label class="custom-control-label"
-                                                                   for="female">Female</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="birthday">
-                                                    <div class="birthday-title">
-                                                        Date of Birth
-                                                    </div>
-
-                                                    <div class="birthday-input-box">
-                                                        <div class="row">
-                                                            <div class="col-lg-2">
-                                                                <div class="form-group">
-                                                                    <date-picker v-validate="'required'"
-                                                                           v-bind:class="[errors.has('date') ? 'is-invalid' : '']"
-                                                                           name="date" v-model="birthDate" :config="options"></date-picker>
+                                            <div class="row">
+                                                <div class="col-lg-12 border-bottom">
+                                                    <div class="title">Patient Details</div>
+                                                    <div class="row">
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="date">First Name <span class="text-danger">*</span></label>
+                                                                <input type="text"
+                                                                    v-model="firstName"
+                                                                    v-validate="'required'"
+                                                                    v-bind:class="[errors.has('patientDetails.firstName') ? 'is-invalid' : '']"
+                                                                    name="firstName"
+                                                                    class="form-control" id="firstName">
+                                                                <div class="text-danger error-message"
+                                                                    v-if="errors.has('patientDetails.firstName')">
+                                                                <p>First Name is required!</p>
                                                                 </div>
-                                                                <!-- <div class="form-group">
-                                                                    <label for="date">DD <span class="text-danger">*</span></label>
-                                                                    <input type="text" v-model.number="date"
-                                                                           v-validate="'required|digits:2|max_value:31'"
-                                                                           v-bind:class="[errors.has('date') ? 'is-invalid' : '']"
-                                                                           name="date"
-                                                                           class="form-control" id="date">
-                                                                    <div class="text-danger error-message"
-                                                                         v-if="errors.has('date')">
-                                                                        <p>Date is invalid!</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="month">Last Name <span class="text-danger">*</span></label>
+                                                                <input type="text" v-model="lastName"
+                                                                    v-validate="'required'"
+                                                                    v-bind:class="[errors.has('patientDetails.lastName') ? 'is-invalid' : '']"
+                                                                    name="lastName"
+                                                                    class="form-control" id="lastName">
+                                                                <div class="text-danger error-message"
+                                                                    v-if="errors.has('patientDetails.lastName')">
+                                                                    <p>Last Name is required!</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="gender">
+                                                        <div class="gender-title">Gender <span class="text-danger">*</span></div>
+                                                        <div class="gender-checkbox d-flex">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" v-model="gender"
+                                                                    class="custom-control-input" id="male" value="male">
+                                                                <label class="custom-control-label" for="male">Male</label>
+                                                            </div>
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" v-model="gender"
+                                                                    class="custom-control-input" id="female"
+                                                                    name="example1" value="female">
+                                                                <label class="custom-control-label"
+                                                                    for="female">Female</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="birthday">
+                                                        <div class="birthday-title">
+                                                            Date of Birth
+                                                        </div>
+
+                                                        <div class="birthday-input-box">
+                                                            <div class="row">
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <date-picker v-validate="'required'"
+                                                                            v-bind:class="[errors.has('patientDetails.date') ? 'is-invalid' : '']"
+                                                                            name="date" v-model="birthDate" :config="options"></date-picker>
+                                                                    </div>
+                                                                    <!-- <div class="form-group">
+                                                                        <label for="date">DD <span class="text-danger">*</span></label>
+                                                                        <input type="text" v-model.number="date"
+                                                                            v-validate="'required|digits:2|max_value:31'"
+                                                                            v-bind:class="[errors.has('date') ? 'is-invalid' : '']"
+                                                                            name="date"
+                                                                            class="form-control" id="date">
+                                                                        <div class="text-danger error-message"
+                                                                            v-if="errors.has('date')">
+                                                                            <p>Date is invalid!</p>
+                                                                        </div>
+                                                                    </div> -->
+                                                                </div>
+                                                                <!-- <div class="col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label for="month">MM <span class="text-danger">*</span></label>
+                                                                        <input type="text" v-model.number="month"
+                                                                            v-validate="'required|digits:2|max_value:12'"
+                                                                            v-bind:class="[errors.has('month') ? 'is-invalid' : '']"
+                                                                            name="month"
+                                                                            class="form-control" id="month">
+                                                                        <div class="text-danger error-message"
+                                                                            v-if="errors.has('month')">
+                                                                            <p>Month is invalid!</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label for="year">YYYY <span class="text-danger">*</span></label>
+                                                                        <input type="text" v-model.number="year"
+                                                                            v-validate="'required|digits:4'"
+                                                                            v-bind:class="[errors.has('year') ? 'is-invalid' : '']"
+                                                                            name="year"
+                                                                            class="form-control" id="year">
+                                                                        <div class="text-danger error-message"
+                                                                            v-if="errors.has('year')">
+                                                                            <p>Year is invalid!</p>
+                                                                        </div>
                                                                     </div>
                                                                 </div> -->
                                                             </div>
-                                                            <!-- <div class="col-lg-2">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12 border-bottom">
+                                                    <div class="address">
+                                                        <div class="address-title">
+                                                            Address
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-2">
                                                                 <div class="form-group">
-                                                                    <label for="month">MM <span class="text-danger">*</span></label>
-                                                                    <input type="text" v-model.number="month"
-                                                                           v-validate="'required|digits:2|max_value:12'"
-                                                                           v-bind:class="[errors.has('month') ? 'is-invalid' : '']"
-                                                                           name="month"
-                                                                           class="form-control" id="month">
+                                                                    <label>District <span class="text-danger">*</span></label>
+                                                                    <select class="form-control" v-model="address.district"
+                                                                            v-validate="'required'"
+                                                                            v-bind:class="[errors.has('patientDetails.district') ? 'is-invalid' : '']"
+                                                                            name="district"
+                                                                            required>
+                                                                        <option value="dhaka">Dhaka</option>
+                                                                    </select>
                                                                     <div class="text-danger error-message"
-                                                                         v-if="errors.has('month')">
-                                                                        <p>Month is invalid!</p>
+                                                                        v-if="errors.has('patientDetails.district')">
+                                                                        <p>District is required!</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-2">
                                                                 <div class="form-group">
-                                                                    <label for="year">YYYY <span class="text-danger">*</span></label>
-                                                                    <input type="text" v-model.number="year"
-                                                                           v-validate="'required|digits:4'"
-                                                                           v-bind:class="[errors.has('year') ? 'is-invalid' : '']"
-                                                                           name="year"
-                                                                           class="form-control" id="year">
+                                                                    <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="address.postal_code"
+                                                                        v-validate="'required'"
+                                                                        v-bind:class="[errors.has('patientDetails.postal_code') ? 'is-invalid' : '']"
+                                                                        name="postal_code"
+                                                                        class="form-control" id="postalCode">
                                                                     <div class="text-danger error-message"
-                                                                         v-if="errors.has('year')">
-                                                                        <p>Year is invalid!</p>
+                                                                        v-if="errors.has('patientDetails.postal_code')">
+                                                                        <p>Postal Code is required!</p>
                                                                     </div>
                                                                 </div>
-                                                            </div> -->
+                                                            </div>
                                                         </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-12 border-bottom">
-                                                <div class="address">
-                                                    <div class="address-title">
-                                                        Address
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label>District <span class="text-danger">*</span></label>
-                                                                <select class="form-control" v-model="address.district"
+                                                        <div class="row">
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="town">Town <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="address.town"
                                                                         v-validate="'required'"
-                                                                        v-bind:class="[errors.has('district') ? 'is-invalid' : '']"
-                                                                        name="district"
-                                                                        required>
-                                                                    <option>Please select one</option>
-                                                                    <option value="dhaka">Dhaka</option>
-                                                                </select>
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('district')">
-                                                                    <p>District is required!</p>
+                                                                        v-bind:class="[errors.has('patientDetails.town') ? 'is-invalid' : '']"
+                                                                        name="town"
+                                                                        class="form-control" id="town">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('patientDetails.town')">
+                                                                        <p>Town is required!</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="address.postal_code"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('postal_code') ? 'is-invalid' : '']"
-                                                                       name="postal_code"
-                                                                       class="form-control" id="postalCode">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('postal_code')">
-                                                                    <p>Postal Code is required!</p>
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="village">Village <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="address.village"
+                                                                        v-validate="'required'"
+                                                                        v-bind:class="[errors.has('patientDetails.village') ? 'is-invalid' : '']"
+                                                                        name="village"
+                                                                        class="form-control" id="village">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('patientDetails.village')">
+                                                                        <p>Village is required!</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="town">Town <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="address.town"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('town') ? 'is-invalid' : '']"
-                                                                       name="town"
-                                                                       class="form-control" id="town">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('town')">
-                                                                    <p>Town is required!</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="village">Village <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="address.village"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('village') ? 'is-invalid' : '']"
-                                                                       name="village"
-                                                                       class="form-control" id="village">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('village')">
-                                                                    <p>Village is required!</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="streetName">Street Name <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="address.street_name"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('street_name') ? 'is-invalid' : '']"
-                                                                       name="street_name"
-                                                                       class="form-control" id="streetName">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('street_name')">
-                                                                    <p>Street Name is required!</p>
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="streetName">Street Name <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="address.street_name"
+                                                                        v-validate="'required'"
+                                                                        v-bind:class="[errors.has('patientDetails.street_name') ? 'is-invalid' : '']"
+                                                                        name="street_name"
+                                                                        class="form-control" id="streetName">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('patientDetails.street_name')">
+                                                                        <p>Street Name is required!</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row mt-4">
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <label for="mobilePhone">Mobile Phone <span class="text-danger">*</span></label>
-                                                    <input type="text" v-model="mobile"
-                                                           v-validate="'required'"
-                                                           v-bind:class="[errors.has('mobile') ? 'is-invalid' : '']"
-                                                           name="mobile"
-                                                           class="form-control" id="mobilePhone">
-                                                    <div class="text-danger error-message"
-                                                         v-if="errors.has('mobile')">
-                                                        <p>Mobile Phone is required!</p>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <label for="mobilePhone">Mobile Phone <span class="text-danger">*</span></label>
+                                                        <input type="text" v-model="mobile"
+                                                            v-validate="{ required: true, regex: /^(?:\+?88)?01[15-9]\d{8}$/ }"
+                                                            v-bind:class="[errors.has('patientDetails.mobile') ? 'is-invalid' : '']"
+                                                            name="mobile"
+                                                            class="form-control" id="mobilePhone">
+                                                        <div class="text-danger error-message"
+                                                            v-if="errors.has('patientDetails.mobile')">
+                                                            <p>Mobile number is not valid</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <label for="homePhone">Home Phone (Optional)</label>
+                                                        <input type="text" v-model="phone" class="form-control" id="homePhone">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <label for="homePhone">Home Phone (Optional)</label>
-                                                    <input type="text" v-model="phone" class="form-control" id="homePhone">
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <label for="email">Email Address</label>
-                                                    <input type="email" v-model="email"
-                                                           v-validate="'email'"
-                                                           v-bind:class="[errors.has('email') ? 'is-invalid' : '']"
-                                                           name="email"
-                                                           class="form-control" id="email">
-                                                    <div class="text-danger error-message"
-                                                         v-if="errors.has('email')">
-                                                        <p>Invalid Email Format!</p>
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <label for="email">Email Address</label>
+                                                        <input type="email" v-model="email"
+                                                            v-validate="'email'"
+                                                            v-bind:class="[errors.has('email') ? 'is-invalid' : '']"
+                                                            name="email"
+                                                            class="form-control" id="email">
+                                                        <div class="text-danger error-message"
+                                                            v-if="errors.has('email')">
+                                                            <p>Invalid Email Format!</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <label for="nationalId">National ID <span class="text-danger">*</span></label>
-                                                    <input type="text" v-model.number="nid"
-                                                           v-validate="'required'"
-                                                           v-bind:class="[errors.has('nid') ? 'is-invalid' : '']"
-                                                           name="nid"
-                                                           class="form-control" id="nationalId">
-                                                    <label for="nationalId" style="font-size: 14px">13 digit NID number</label>
-                                                    <div class="text-danger error-message"
-                                                         v-if="errors.has('nid')">
-                                                        <p>NID Number is required!</p>
+                                            <div class="row mb-4">
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <label for="nationalId">National ID <span class="text-danger">*</span></label>
+                                                        <input type="number" v-model.number="nid"
+                                                            v-validate="'required|min:10'"
+                                                            v-bind:class="[errors.has('patientDetails.nid') ? 'is-invalid' : '']"
+                                                            name="nid"
+                                                            class="form-control" id="nationalId">
+                                                        <!-- <label for="nationalId" style="font-size: 14px">13 digit NID number</label> -->
+                                                        <div class="text-danger error-message"
+                                                            v-if="errors.has('patientDetails.nid')">
+                                                            <p>NID Number is required!</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <label for="nationalId">PID</label>
+                                                        <input type="text" v-model="pid"
+                                                            name="pid"
+                                                            class="form-control" id="pId">
+                                                        <label for="nationalId" style="font-size: 14px">13 digit PID number</label>
+                                                        <div class="text-danger error-message"
+                                                            v-if="errors.has('pid')">
+                                                            <p>PID Number is required!</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <label for="nationalId">PID</label>
-                                                    <input type="text" v-model="pid"
-                                                           name="pid"
-                                                           class="form-control" id="pId">
-                                                    <label for="nationalId" style="font-size: 14px">13 digit PID number</label>
-                                                    <div class="text-danger error-message"
-                                                         v-if="errors.has('pid')">
-                                                        <p>PID Number is required!</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </tab-content>
@@ -346,189 +392,189 @@
                         <tab-content>
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="patient-details-content">
+                                    <form>
+                                        <div class="patient-details-content">
 
                                         <div class="row">
                                             <div class="col-lg-12 border-bottom">
                                                 <div class="title">Contact Details</div>
-                                                <div class="contact-details">
-                                                    <div class="row">
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="contactFirstName">Contact’s First Name <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="contact.first_name"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('contactFirstName') ? 'is-invalid' : '']"
-                                                                       name="contactFirstName"
-                                                                       class="form-control" id="contactFirstName">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('contactFirstName')">
-                                                                    <p>Contact`s First Name is required!</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="contactLastName">Contact’s Last Name <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="contact.last_name"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('contactLastName') ? 'is-invalid' : '']"
-                                                                       name="contactLastName"
-                                                                       class="form-control" id="contactLastName">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('contactLastName')">
-                                                                    <p>Contact`s Last Name is required!</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label>Relationship with contact <span class="text-danger">*</span></label>
-                                                                <select class="form-control" required v-model="contact.relationship"
+                                                    <div class="contact-details">
+                                                        <div class="row">
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactFirstName">Contact’s First Name <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="contact.first_name"
                                                                         v-validate="'required'"
-                                                                        v-bind:class="[errors.has('relationship') ? 'is-invalid' : '']"
-                                                                        name="relationship"
-                                                                >
-                                                                    <option>Please select one</option>
-                                                                    <option v-for="relationship in relationshipWithContact" :value="relationship.value">{{ relationship.text}}</option>
-                                                                </select>
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('relationship')">
-                                                                    <p>Relationship with Contact is required!</p>
+                                                                        v-bind:class="[errors.has('contactFirstName') ? 'is-invalid' : '']"
+                                                                        name="contactFirstName"
+                                                                        class="form-control" id="contactFirstName">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('contactFirstName')">
+                                                                        <p>Contact`s First Name is required!</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-12 border-bottom">
-                                                <div class="address">
-                                                    <div class="address-title">
-                                                        Address
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label>District <span class="text-danger">*</span></label>
-                                                                <select class="form-control" required v-model="contact.address.district"
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactLastName">Contact’s Last Name <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="contact.last_name"
                                                                         v-validate="'required'"
-                                                                        v-bind:class="[errors.has('contactDistrict') ? 'is-invalid' : '']"
-                                                                        name="contactDistrict"
-                                                                >
-                                                                    <option>Please select one</option>
-                                                                    <option value="dhaka">Dhaka</option>
-                                                                </select>
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('contactDistrict')">
-                                                                    <p>Contact's District is required!</p>
+                                                                        v-bind:class="[errors.has('contactLastName') ? 'is-invalid' : '']"
+                                                                        name="contactLastName"
+                                                                        class="form-control" id="contactLastName">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('contactLastName')">
+                                                                        <p>Contact`s Last Name is required!</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="contactPostalCode">Postal Code <span class="text-danger">*</span></label>
-                                                                <input type="text" class="form-control" v-model="contact.address.postal_code"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('contactPostalCode') ? 'is-invalid' : '']"
-                                                                       name="contactPostalCode"
-                                                                       id="contactPostalCode">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('contactPostalCode')">
-                                                                    <p>Contact's Postal Code is required!</p>
+                                                        <div class="row">
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label>Relationship with contact <span class="text-danger">*</span></label>
+                                                                    <select class="form-control" required v-model="contact.relationship"
+                                                                            v-validate="'required'"
+                                                                            v-bind:class="[errors.has('relationship') ? 'is-invalid' : '']"
+                                                                            name="relationship"
+                                                                    >
+                                                                        <option v-for="(relationship, index) in relationshipWithContact" :key="index" :value="relationship.value">{{ relationship.text}}</option>
+                                                                    </select>
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('relationship')">
+                                                                        <p>Relationship with Contact is required!</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="contactTown">Town <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="contact.address.town"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('contactTown') ? 'is-invalid' : '']"
-                                                                       name="contactTown"
-                                                                       class="form-control" id="contactTown">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('contactTown')">
-                                                                    <p>Contact's Town is required!</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="contactVillage">Village <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="contact.address.village"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('contactVillage') ? 'is-invalid' : '']"
-                                                                       name="contactVillage"
-                                                                       class="form-control" id="contactVillage">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('contactVillage')">
-                                                                    <p>Contact's Village is required!</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-                                                                <label for="contactStreetName">Street Name <span class="text-danger">*</span></label>
-                                                                <input type="text" v-model="contact.address.street_name"
-                                                                       v-validate="'required'"
-                                                                       v-bind:class="[errors.has('contactStreetName') ? 'is-invalid' : '']"
-                                                                       name="contactStreetName"
-                                                                       class="form-control" id="contactStreetName">
-                                                                <div class="text-danger error-message"
-                                                                     v-if="errors.has('contactStreetName')">
-                                                                    <p>Contact's Street Name is required!</p>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row mt-4">
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <label for="contactMobilePhone">Contact’s Mobile Phone <span class="text-danger">*</span></label>
-                                                    <input type="text" v-model="contact.mobile"
-                                                           v-validate="'required'"
-                                                           v-bind:class="[errors.has('contactMobilePhone') ? 'is-invalid' : '']"
-                                                           name="contactMobilePhone"
-                                                           class="form-control" id="contactMobilePhone">
-                                                    <div class="text-danger error-message"
-                                                         v-if="errors.has('contactMobilePhone')">
-                                                        <p>Contact's Mobile is required!</p>
+                                            <div class="row">
+                                                <div class="col-lg-12 border-bottom">
+                                                    <div class="address">
+                                                        <div class="address-title">
+                                                            Address
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label>District <span class="text-danger">*</span></label>
+                                                                    <select class="form-control" required v-model="contact.address.district"
+                                                                            v-validate="'required'"
+                                                                            v-bind:class="[errors.has('contactDistrict') ? 'is-invalid' : '']"
+                                                                            name="contactDistrict"
+                                                                    >
+                                                                        <option value="dhaka">Dhaka</option>
+                                                                    </select>
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('contactDistrict')">
+                                                                        <p>Contact's District is required!</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactPostalCode">Postal Code <span class="text-danger">*</span></label>
+                                                                    <input type="text" class="form-control" v-model="contact.address.postal_code"
+                                                                        v-validate="'required'"
+                                                                        v-bind:class="[errors.has('contactPostalCode') ? 'is-invalid' : '']"
+                                                                        name="contactPostalCode"
+                                                                        id="contactPostalCode">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('contactPostalCode')">
+                                                                        <p>Contact's Postal Code is required!</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactTown">Town <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="contact.address.town"
+                                                                        v-validate="'required'"
+                                                                        v-bind:class="[errors.has('contactTown') ? 'is-invalid' : '']"
+                                                                        name="contactTown"
+                                                                        class="form-control" id="contactTown">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('contactTown')">
+                                                                        <p>Contact's Town is required!</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactVillage">Village <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="contact.address.village"
+                                                                        v-validate="'required'"
+                                                                        v-bind:class="[errors.has('contactVillage') ? 'is-invalid' : '']"
+                                                                        name="contactVillage"
+                                                                        class="form-control" id="contactVillage">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('contactVillage')">
+                                                                        <p>Contact's Village is required!</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactStreetName">Street Name <span class="text-danger">*</span></label>
+                                                                    <input type="text" v-model="contact.address.street_name"
+                                                                        v-validate="'required'"
+                                                                        v-bind:class="[errors.has('contactStreetName') ? 'is-invalid' : '']"
+                                                                        name="contactStreetName"
+                                                                        class="form-control" id="contactStreetName">
+                                                                    <div class="text-danger error-message"
+                                                                        v-if="errors.has('contactStreetName')">
+                                                                        <p>Contact's Street Name is required!</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <label for="contactHomePhone">Contact’s Home Phone (Optional)</label>
-                                                    <input type="text" v-model="contact.phone" class="form-control" id="contactHomePhone">
+
+                                            <div class="row mt-4">
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <label for="contactMobilePhone">Contact’s Mobile Phone <span class="text-danger">*</span></label>
+                                                        <input type="text" v-model="contact.mobile"
+                                                            v-validate="'required'"
+                                                            v-bind:class="[errors.has('contactMobilePhone') ? 'is-invalid' : '']"
+                                                            name="contactMobilePhone"
+                                                            class="form-control" id="contactMobilePhone">
+                                                        <div class="text-danger error-message"
+                                                            v-if="errors.has('contactMobilePhone')">
+                                                            <p>Contact's Mobile is required!</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <label for="contactHomePhone">Contact’s Home Phone (Optional)</label>
+                                                        <input type="text" v-model="contact.phone" class="form-control" id="contactHomePhone">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-2 mb-4">
-                                                <div class="form-group">
-                                                    <label for="contactEmail">Contact’s Email Address</label>
-                                                    <input type="email" v-model="contact.email"
-                                                           name="contactEmail"
-                                                           class="form-control" id="contactEmail">
+                                            <div class="row">
+                                                <div class="col-lg-2 mb-4">
+                                                    <div class="form-group">
+                                                        <label for="contactEmail">Contact’s Email Address</label>
+                                                        <input type="email" v-model="contact.email"
+                                                            name="contactEmail"
+                                                            class="form-control" id="contactEmail">
+                                                    </div>
                                                 </div>
                                             </div>
+
+
                                         </div>
-
-
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </tab-content>
@@ -566,7 +612,7 @@
                             </div>
                         </tab-content>
 
-                        <tab-content>
+                        <!-- <tab-content>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="patient-details-content">
@@ -600,7 +646,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </tab-content>
+                        </tab-content> -->
 
                         <template slot="footer" slot-scope="props">
                             <div class="row">
@@ -612,7 +658,7 @@
                                         </wizard-button>
                                     </div>
                                     <div class="wizard-footer-right">
-                                        <wizard-button v-if="!props.isLastStep" :disabled='!isComplete' @click.native="nextTab(props)"
+                                        <wizard-button v-if="!props.isLastStep" @click.native="nextTab(props)"
                                                        class="wizard-footer-right" :style="props.fillButtonStyle">Next
                                         </wizard-button>
 
@@ -721,8 +767,25 @@
     methods: {
     nextTab(props){
         console.log(props);
-        this.activeTab = props.activeTabIndex + 1;
-        props.nextTab();
+        if (this.activeTab == 0) {
+            this.$validator.validate('patientDetails.*').then(isValid => {
+                console.log(isValid);
+                if (isValid) {
+                    this.activeTab = props.activeTabIndex + 1;
+                    props.nextTab();
+                }
+            });
+        } else {
+            this.$validator.validateAll().then(isValid => {
+                console.log(isValid);
+                if (isValid) {
+                    this.activeTab = props.activeTabIndex + 1;
+                    props.nextTab();
+                }
+            });
+        }
+        
+        
     },
     prevTab(props){
         console.log(props);

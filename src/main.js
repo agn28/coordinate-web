@@ -11,6 +11,8 @@ import { MultiSelectPlugin } from '@syncfusion/ej2-vue-dropdowns';
 import datePicker from 'vue-bootstrap-datetimepicker';
 import Loading from 'vue-loading-overlay';
 import VeeValidate from "vee-validate";
+import { Validator } from 'vee-validate';
+
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
