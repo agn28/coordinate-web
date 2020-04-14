@@ -105,9 +105,10 @@
                     <td>
                       <span
                         class="badge badge-secondary text-capitalize mr-2"
+                        v-if="permission"
                         v-for="(permission, key) in role.permissions"
                         :key="key"
-                      >{{ permission }}</span>
+                      >{{ key }}</span>
                     </td>
 
                     <td>
@@ -122,7 +123,7 @@
                       </a>
                       <router-link
                         class="btn btn-sm btn-secondary mr-2"
-                        :to="{ name: 'assignPermissions', params: { roleId: '123' } }"
+                        :to="{ name: 'assignPermissions', params: { roleId: role.id } }"
                       >Assign Permissions</router-link>
                     </td>
                   </tr>
@@ -168,8 +169,13 @@ export default {
       }
 
       let loader = this.$loading.show();
-      this.$http.post("/roles", this.newRole).then(
+      this.$http.post("/roles", { name: this.newRole }).then(
         response => {
+          if (response.status == 201) {
+            this.roles.push({ name: this.newRole });
+            this.$bvModal.hide("modal-role");
+            this.newRole = "";
+          }
           loader.hide();
         },
         error => {

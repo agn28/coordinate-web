@@ -153,7 +153,6 @@ export default {
       if (!this.newPermission) {
         return;
       }
-      console.log(this.newPermission);
 
       let loader = this.$loading.show();
       this.$http.post("/permissions", { name: this.newPermission }).then(
