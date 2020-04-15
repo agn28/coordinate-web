@@ -1,5 +1,5 @@
 <template>
-    <div class="content patient-care-plane">
+    <div class="content patient-care-plan">
         <div class="animated fadeIn">
             <div class="col-lg-12 d-flex breadcrumb-wrap">
                 <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.push({ name: 'dashboard'})"></i>
@@ -41,7 +41,7 @@
 
             <div class="row">
                 <div class="col-lg-12 border-bottom">
-                    <div class="care-plane-date">
+                    <div class="care-plan-date">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="generate-date">Generated on Jan 5, 2019</div>
@@ -61,12 +61,13 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="care-plane-list">
+                    <div class="care-plan-list">
                         <div class="table-responsive">
                             <table class="table border-bottom">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Care Plan Action</th>
+                                    <th scope="col">Care Plan Due Date</th>
                                     <th scope="col">Status</th>
                                 </tr>
                                 </thead>
@@ -78,6 +79,7 @@
 
                                         <tr :key="index" v-else class="care-data" @click="$router.push({ name: 'carePlanAction', params: { carePlanId: carePlan.id }})">
                                             <td>{{ carePlan.body.title }}</td>
+                                            <td>{{ carePlan.body.activityDuration.end | moment("Do MMMM YYYY") }}</td>
                                             <td v-if="carePlan.meta.status === 'pending'" class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
                                         </tr>
                                     </template>

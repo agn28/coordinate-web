@@ -21,7 +21,7 @@
                             <div class="age">{{ patient.body.age }} {{ patient.body.gender }}</div>
                             <div class="nid">NID: {{ patient.body.nid}}</div>
                             <!-- <div class="pid">PID: {{ patient.body.pid }}</div> -->
-                            <div class="register-date">Registered on {{ patient.meta.created_at }}</div>
+                            <div class="register-date">Registered on {{ patient.meta.created_at | moment("Do MMMM YYYY") }}</div>
                         </div>
                     </div>
                 </div>

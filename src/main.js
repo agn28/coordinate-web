@@ -37,6 +37,7 @@ Vue.use(VueFormWizard)
 Vue.use(MultiSelectPlugin);
 Vue.use(datePicker);
 Vue.use(VeeValidate);
+Vue.use(require('vue-moment'));
 Vue.use(Loading, {
   // props
   color: '#00569B'
