@@ -1,4 +1,4 @@
-.patient-care-plane {
+.patient-care-plan {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
@@ -21,7 +21,7 @@
 
   h4 {
     font-weight: bold;
-    font-size: 22px;;
+    font-size: 22px;
   }
 
   .breadcrumb {
@@ -33,7 +33,7 @@
     background: transparent;
 
     span {
-      color: #01579B;
+      color: #01579b;
       margin-right: 4.5px;
     }
   }
@@ -54,7 +54,6 @@
       img {
         width: 60px;
       }
-
     }
 
     .patient-details {
@@ -77,7 +76,7 @@
     }
   }
 
-  .care-plane-date {
+  .care-plan-date {
     padding: 17px 20px 17px 33px;
     font-family: Roboto;
     font-style: normal;
@@ -92,12 +91,12 @@
       margin-top: 10px;
     }
     .generate-card {
-      background: #0377BD;
-      color: #FFFFFF;
+      background: #0377bd;
+      color: #ffffff;
     }
   }
 
-  .care-plane-list {
+  .care-plan-list {
     margin: 20px;
     .table-responsive {
       font-family: Roboto;
@@ -119,13 +118,13 @@
         tr {
           font-size: 14px;
           line-height: 20px;
-          border-bottom: 2px solid #DEE2E6;
+          border-bottom: 2px solid #dee2e6;
           position: relative;
           .complete {
-            color: #2E7D32;
+            color: #2e7d32;
           }
           .pending {
-            color: #CF0026;
+            color: #cf0026;
           }
 
           span {
@@ -140,8 +139,6 @@
               display: inline;
             }
           }
-
-
         }
 
         .care-data {
