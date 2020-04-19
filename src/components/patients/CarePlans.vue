@@ -98,7 +98,7 @@
 
 <script>
     export default {
-        name: "CarePlane",
+        name: "CarePlan",
         data() {
             return {
                 carePlans: [],
