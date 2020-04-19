@@ -251,7 +251,11 @@ export default {
           loader.hide();
         })
         .catch(error => {
-          alert(error.response.data.message);
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message
+          });
           loader.hide();
         });
     }

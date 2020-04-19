@@ -12,7 +12,7 @@ import datePicker from 'vue-bootstrap-datetimepicker';
 import Loading from 'vue-loading-overlay';
 import VeeValidate from "vee-validate";
 import { Validator } from 'vee-validate';
-
+import VueSweetalert2 from 'vue-sweetalert2';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -23,7 +23,8 @@ import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
 import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 import 'vue-loading-overlay/dist/vue-loading.css';
-
+import 'sweetalert2/dist/sweetalert2.min.css';
+ 
 import store from "./store/store";
 import interceptor from "./interceptor"
 import UUID from 'vue-uuid';
@@ -42,6 +43,7 @@ Vue.use(Loading, {
   // props
   color: '#00569B'
 },);
+Vue.use(VueSweetalert2);
 
 
 Vue.prototype.$http = interceptor;
