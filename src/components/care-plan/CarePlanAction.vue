@@ -4,7 +4,7 @@
       <div class="col-lg-12 d-flex breadcrumb-wrap">
         <i
           class="fa fa-arrow-left text-secondary back-icon"
-          @click="$router.push({ name: 'carePlane'})"
+          @click="$router.push({ name: 'carePlan'})"
         ></i>
         <div class>
           <h4>Care Plan Action</h4>
@@ -156,7 +156,7 @@
 
 <script>
 export default {
-  name: "CarePlaneAction",
+  name: "CarePlanAction",
   data() {
     return {
       carePlanId: "",

@@ -100,7 +100,7 @@
                     </tr>
                   </template>
 
-                  <!-- <tr class="care-data" @click="$router.push({ name: 'carePlaneAction'})">
+                  <!-- <tr class="care-data" @click="$router.push({ name: 'carePlanAction'})">
                                         <td>Provide Smoking cessation advise</td>
                                         <td class="pending">Pending <span class="pull-right"><i class="fas fa-arrow-right"></i></span></td>
                   </tr>-->
