@@ -75,8 +75,10 @@ import Permissions from "../components/users-management/permissions/List";
 import Users from "../components/users-management/List";
 import AssignPermissions from "../components/users-management/roles/AssignPermissions";
 
+import NurseList from "../components/users-management/worklist/NurseList";
+import NurseWorkList from "../components/users-management/worklist/NurseWorkList";
 
-import store from "../store/store";
+
 import VueRouter from "vue-router";
 const routes = [
   {
@@ -130,6 +132,24 @@ const routes = [
       role: 'admin'
     }
   },
+  {
+    path: '/management/nurses',
+    name: 'nurses',
+    component: NurseList,
+    meta: {
+      role: 'admin'
+    }
+  },
+
+  {
+    path: '/management/nurses/:nurseId',
+    name: 'nurseWorklist',
+    component: NurseWorkList,
+    meta: {
+      role: 'admin'
+    }
+  },
+
   {
     path: '/health-records/list',
     name: 'healthList',
@@ -193,12 +213,12 @@ const routes = [
   },
   {
     path: '/patients/:patientId/past-encounters',
-    name:'pastEncounterList',
+    name: 'pastEncounterList',
     component: PastEncountersList
   },
   {
     path: '/patients/:assessmentId/past-encounter-details',
-    name:'pastEncounter',
+    name: 'pastEncounter',
     component: PastEncounterDetails
   },
 
@@ -428,15 +448,15 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/register', '/'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
-  
+
   if (authRequired && !loggedIn) {
     next('/login');
-  } else if(loggedIn && !authRequired){
-      next('/dashboard')
+  } else if (loggedIn && !authRequired) {
+    next('/dashboard')
   } else {
     if (to.meta && to.meta.role && to.meta.role !== JSON.parse(loggedIn).role) {
       return next('/dashboard');
-    } 
+    }
     next();
   }
 })

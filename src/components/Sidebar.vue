@@ -42,6 +42,7 @@
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/users') ? 'active' : ''" :to="{ name: 'users' }">Users</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/roles') ? 'active' : ''" :to="{ name: 'roles' }">Roles</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/permissions') ? 'active' : ''" :to="{ name: 'permissions' }">Permissions</router-link>
+                <router-link class="collapse-item" :class="this.$route.path.includes('management/nurse-list') ? 'active' : ''" :to="{ name: 'nurses' }">Work Lists</router-link>
             </div>
             </div>
         </li>
