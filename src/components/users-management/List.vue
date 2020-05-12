@@ -141,7 +141,7 @@
                       <a class="btn btn-sm btn-info mr-2" href>
                         <i class="fas fa-eye"></i>
                       </a>
-                      <a class="btn btn-sm btn-danger mr-2" href>
+                      <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteUser(user)">
                         <i class="fas fa-trash"></i>
                       </a>
                       <button
@@ -258,6 +258,22 @@ export default {
           });
           loader.hide();
         });
+    },
+
+    deleteUser(user) {
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.$swal("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     }
   },
   mounted() {
