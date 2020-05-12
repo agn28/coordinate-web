@@ -115,10 +115,7 @@
                       <a class="btn btn-sm btn-primary mr-2" href>
                         <i class="fas fa-pencil-alt"></i>
                       </a>
-                      <a class="btn btn-sm btn-info mr-2" href>
-                        <i class="fas fa-eye"></i>
-                      </a>
-                      <a class="btn btn-sm btn-danger mr-2" href>
+                      <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteRole(role)">
                         <i class="fas fa-trash"></i>
                       </a>
                       <router-link
@@ -182,6 +179,39 @@ export default {
           loader.hide();
         }
       );
+    },
+
+    deleteRole(role) {
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          let loader = this.$loading.show();
+          this.$http.delete("/roles/" + role.id).then(
+            response => {
+              let index = this.roles.findIndex(
+                r => r.id == role.id
+              );
+              this.roles.splice(index, 1);
+              loader.hide();
+              this.$swal(
+                "Deleted!",
+                "Your role has been deleted.",
+                "success"
+              );
+            },
+            error => {
+              loader.hide();
+            }
+          );
+        }
+      });
     }
   },
   mounted() {

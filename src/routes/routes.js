@@ -78,6 +78,8 @@ import AssignPermissions from "../components/users-management/roles/AssignPermis
 import NurseList from "../components/users-management/worklist/NurseList";
 import NurseWorkList from "../components/users-management/worklist/NurseWorkList";
 
+import Medications from "../components/users-management/medications/List";
+
 
 import VueRouter from "vue-router";
 const routes = [
@@ -145,6 +147,15 @@ const routes = [
     path: '/management/nurses/:nurseId',
     name: 'nurseWorklist',
     component: NurseWorkList,
+    meta: {
+      role: 'admin'
+    }
+  },
+
+  {
+    path: '/management/medications',
+    name: 'medications',
+    component: Medications,
     meta: {
       role: 'admin'
     }

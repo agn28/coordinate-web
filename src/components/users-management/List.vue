@@ -135,12 +135,12 @@
                       <span class="badge badge-secondary text-capitalize mr-2">{{ user.role }}</span>
                     </td>
                     <td>
-                      <a class="btn btn-sm btn-primary mr-2" href>
+                      <!-- <a class="btn btn-sm btn-primary mr-2" href>
                         <i class="fas fa-pencil-alt"></i>
                       </a>
                       <a class="btn btn-sm btn-info mr-2" href>
                         <i class="fas fa-eye"></i>
-                      </a>
+                      </a> -->
                       <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteUser(user)">
                         <i class="fas fa-trash"></i>
                       </a>
@@ -271,7 +271,7 @@ export default {
         confirmButtonText: "Yes, delete it!"
       }).then(result => {
         if (result.value) {
-          this.$swal("Deleted!", "Your file has been deleted.", "success");
+          this.$swal("Deleted!", "User has been deleted.", "success");
         }
       });
     }

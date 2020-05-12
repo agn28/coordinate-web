@@ -5,7 +5,7 @@
         <div class="col-lg-12 d-flex breadcrumb-wrap">
           <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
           <div class>
-            <h4>Permissions</h4>
+            <h4>Medications</h4>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
                 <input
                   class="form-control my-0 py-1 border-left-0"
                   type="text"
-                  placeholder="Permission name"
+                  placeholder="Medication name"
                   aria-label="Search"
                 />
               </div>
@@ -41,28 +41,24 @@
           <div class="patient-content float-right">
             <div class="right-side">
               <div class="register-patient">
-                <button class="btn" v-b-modal.modal-permission>
-                  <i class="fas fa-plus"></i>Create Permisison
+                <button class="btn" v-b-modal.modal-medication>
+                  <i class="fas fa-plus"></i>Create Medication
                 </button>
               </div>
 
-              <b-modal id="modal-permission" class="modal-role">
+              <b-modal id="modal-medication" class="modal-role">
                 <template v-slot:modal-header>
-                  <span class="title">Create Permission</span>
+                  <span class="title">Create Medication</span>
                 </template>
                 <div class="d-flex align-items-center">
                   <div class="form-group">
-                    <label for="newPermission">Permission</label>
+                    <label for="newMedication">Medication</label>
                     <input
                       type="text"
-                      id="newPermission"
-                      v-model="newPermission"
+                      id="newMedication"
+                      v-model="newMedication"
                       class="form-control form-coordinate height-input"
                     />
-                    <small id="permissionHelp" class="form-text text-muted">
-                      Examnple:
-                      <b>create.patient</b>
-                    </small>
                   </div>
                 </div>
 
@@ -70,16 +66,16 @@
                   <div class="w-100">
                     <b-button
                       type="button"
-                      @click="createPermission()"
+                      @click="createMedication()"
                       variant="link"
-                      :disabled="!newPermission"
+                      :disabled="!newMedication"
                       size="md"
                       class="float-right font-weight-bold p-0 pl-4 pr-1"
                     >Save</b-button>
 
                     <button
                       class="btn btn-link float-right font-weight-bold p-0"
-                      @click="$bvModal.hide('modal-permission')"
+                      @click="$bvModal.hide('modal-medication')"
                     >Cancel</button>
                   </div>
                 </template>
@@ -95,18 +91,18 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">Permissions</th>
+                    <th scope="col">Medications</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(permission, index) in permissions" :key="index">
-                    <td>{{ permission }}</td>
+                  <tr v-for="(medication, index) in medications" :key="index">
+                    <td>{{ medication.name }}</td>
                     <td>
                       <a
                         class="btn btn-sm btn-danger mr-2"
                         href="#"
-                        @click.prevent="deletePermission(permission)"
+                        @click.prevent="deleteMedication(medication)"
                       >
                         <i class="fas fa-trash"></i>
                       </a>
@@ -124,23 +120,24 @@
 
 <script>
 export default {
-  name: "permissions",
+  name: "medications",
   components: {},
   data() {
     return {
-      newPermission: null,
-      permissions: []
+      newMedication: null,
+      medications: []
     };
   },
   methods: {
-    getPermissions() {
+    getMedications() {
       let loader = this.$loading.show();
-      this.$http.get("/permissions").then(
+      this.$http.get("/medications").then(
         response => {
           if (response.status == 200) {
-            this.permissions = response.data.data[0].permissions;
-            loader.hide();
+            this.medications = response.data.data;
           }
+
+          loader.hide();
         },
         error => {
           loader.hide();
@@ -148,19 +145,19 @@ export default {
       );
     },
 
-    createPermission() {
-      if (!this.newPermission) {
+    createMedication() {
+      if (!this.newMedication) {
         return;
       }
 
       let loader = this.$loading.show();
-      this.$http.post("/permissions", { name: this.newPermission }).then(
+      this.$http.post("/medications", { name: this.newMedication }).then(
         response => {
           loader.hide();
           if (response.status == 201) {
-            this.permissions.push(this.newPermission);
-            this.$bvModal.hide("modal-permission");
-            this.newPermission = "";
+            this.medications.push(response.data);
+            this.$bvModal.hide("modal-medication");
+            this.newMedication = "";
           }
         },
         error => {
@@ -168,8 +165,8 @@ export default {
         }
       );
     },
-
-    deletePermission(permission) {
+    
+    deleteMedication(medication) {
       this.$swal({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -180,30 +177,32 @@ export default {
         confirmButtonText: "Yes, delete it!"
       }).then(result => {
         if (result.value) {
-          let loader = this.$loading.show();
-          this.$http.delete("/permissions/" + permission).then(
-            response => {
-              let index = this.permissions.findIndex(
-                r => r == permission
-              );
-              this.permissions.splice(index, 1);
-              loader.hide();
-              this.$swal(
-                "Deleted!",
-                "Your permission has been deleted.",
-                "success"
-              );
-            },
-            error => {
-              loader.hide();
-            }
-          );
+          this.confirmedDeleteMedication(medication);
         }
       });
+    },
+
+    confirmedDeleteMedication(medication) {
+      let loader = this.$loading.show();
+      this.$http.delete("/medications/" + medication.id).then(
+        response => {
+          let index = this.medications.findIndex(m => m.id == medication.id);
+          this.medications.splice(index, 1);
+          loader.hide();
+          this.$swal(
+            "Deleted!",
+            "Your medication has been deleted.",
+            "success"
+          );
+        },
+        error => {
+          loader.hide();
+        }
+      );
     }
   },
   mounted() {
-    this.getPermissions();
+    this.getMedications();
   }
 };
 </script>
