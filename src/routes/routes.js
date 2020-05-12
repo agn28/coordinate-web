@@ -133,7 +133,7 @@ const routes = [
     }
   },
   {
-    path: '/management/nurses',
+    path: '/work-lists',
     name: 'nurses',
     component: NurseList,
     meta: {

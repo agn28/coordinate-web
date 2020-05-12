@@ -37,7 +37,12 @@
         <div class="col-lg-12">
           <div class="patient-list-items">
             <div class="table-responsive">
-              <datatable :columns="columns" :data="worklists" :filter-by="filter" :class="'table border-bottom'">
+              <datatable
+                :columns="columns"
+                :data="worklists"
+                :filter-by="filter"
+                :class="'table border-bottom'"
+              >
                 <template slot-scope="{ row }">
                   <tr>
                     <td scope="row">
@@ -47,8 +52,8 @@
                       </div>
                     </td>
                     <td scope="row">
-                      <span v-if="row.collector">{{ row.collector.name }}</span>
-                      <span v-else>N/A</span>
+                      <span v-text="getUser(row)"></span>
+                      <i @click="openAssigneeModal(row)" class="fas fa-edit ml-2"></i>
                     </td>
                     <td scope="row">{{ row.patient.first_name}} {{ row.patient.last_name}}</td>
                     <td scope="row">{{ row.body.title }}</td>
@@ -58,50 +63,40 @@
                   </tr>
                 </template>
               </datatable>
-
-              <!-- <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id name="example1" />
-                        <label class="custom-control-label" for></label>
-                      </div>
-                    </th>
-                    <th scope="col">Nurse Name</th>
-                    <th scope="col">Paitent Name</th>
-                    <th scope="col">Care Plan Action</th>
-                    <th scope="col">Care Plan Due Date</th>
-                    <th scope="col">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    class="pointer"
-                    v-for="(worklist, index) in worklists"
-                    :key="index"
-                    @click="$router.push({ name: 'nurseWorklist', params: { nurseId: nurse.uid } })"
-                  >
-                    <template>
-                      <th scope="row">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id name="example1" />
-                          <label class="custom-control-label" for></label>
-                        </div>
-                      </th>
-                      <td>{{ worklist.name}}</td>
-                      <th scope="col">Care Plan Action</th>
-                      <th scope="col">Participant Name</th>
-                      <th scope="col">Care Plan Due Date</th>
-                      <th scope="col">Status</th>
-                    </template>
-                  </tr>
-                </tbody>
-              </table>-->
             </div>
           </div>
         </div>
       </div>
+
+      <b-modal id="modal-assign-user" class="modal-header">
+        <template v-slot:modal-header>
+          <span class="title">Task Assigned To:</span>
+        </template>
+        <div class="form-group">
+          <label for="users">Select a user</label>
+          <select v-model="selectedUser" name="users" id="users" class="form-control">
+            <option v-for="(user, index) in users" :key="index" :value="user">{{ user.name }}</option>
+          </select>
+        </div>
+
+        <template v-slot:modal-footer>
+          <div class="w-100">
+            <b-button
+              @click="assignUser(selectedUser, selectedCareplan)"
+              variant="link"
+              size="md"
+              class="float-right font-weight-bold p-0 pl-4 pr-1"
+            >Save</b-button>
+
+            <b-button
+              variant="link"
+              size="md"
+              class="float-right font-weight-bold p-0"
+              @click="closeAssigneeModal()"
+            >Cancel</b-button>
+          </div>
+        </template>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -119,34 +114,106 @@ export default {
   data() {
     return {
       worklists: [],
+      users: [],
+      selectedUser: {},
+      selectedCareplan: {},
       filter: "",
       columns: [
-        {label: ''},
-        { label: "Nurse Name", align: "left"},
+        { label: "" },
+        { label: "Nurse Name", align: "left" },
         {
           label: "Patient Name",
           align: "left"
         },
-        { label: "Care Plan Action", align: "left"},
-        { label: "Care Plan Due Date", align: "left"},
-        { label: "Status", align: "left" },
+        { label: "Care Plan Action", align: "left" },
+        { label: "Care Plan Due Date", align: "left" },
+        { label: "Status", align: "left" }
       ]
     };
   },
   methods: {
-    getNurses() {
+    getWorklists() {
       let loader = this.$loading.show();
       this.$http.get("care-plans/work-list").then(
         response => {
           if (response.status == 200) {
             this.worklists = response.data.data;
-            loader.hide();
           }
+          loader.hide();
         },
         error => {
           loader.hide();
         }
       );
+    },
+
+    getUsers() {
+      let loader = this.$loading.show();
+      this.$http.get("/users?role=nurse").then(
+        response => {
+          if (response.status == 200) {
+            this.users = response.data;
+          }
+          loader.hide();
+        },
+        error => {
+          loader.hide();
+        }
+      );
+    },
+
+    getUser(careplan) {
+      if (
+        typeof careplan.meta != "undefined" &&
+        typeof careplan.meta.assigned_to != "undefined"
+      ) {
+        let user = this.users.find(u => careplan.meta.assigned_to == u.uid);
+
+        return user ? user.name : "None";
+      }
+
+      return "None";
+    },
+
+    assignUser(user, careplan) {
+      let loader = this.$loading.show();
+      this.$http
+        .put("/care-plans/" + careplan.id, {
+          assigned_to: user.uid
+        })
+        .then(
+          response => {
+            loader.hide();
+            careplan.meta.assigned_to = user.uid;
+            this.selectedCareplan = {};
+            this.selectedUser = {};
+            this.$bvModal.hide("modal-assign-user");
+            this.$forceUpdate();
+          },
+          error => {
+            loader.hide();
+          }
+        );
+    },
+
+    openAssigneeModal(careplan) {
+      if (
+        typeof careplan.meta != "undefined" &&
+        typeof careplan.meta.assigned_to != "undefined"
+      ) {
+        let user = this.users.find(u => careplan.meta.assigned_to == u.uid);
+
+        if (user) {
+          this.selectedUser = user;
+        }
+      }
+      this.selectedCareplan = careplan;
+      this.$bvModal.show("modal-assign-user");
+    },
+    closeAssigneeModal() {
+      this.selectedCareplan = {};
+      this.selectedUser = {};
+      this.$bvModal.hide("modal-assign-user");
     },
 
     getId(identifier, type) {
@@ -162,7 +229,8 @@ export default {
     }
   },
   mounted() {
-    this.getNurses();
+    this.getUsers();
+    this.getWorklists();
   }
 };
 </script>

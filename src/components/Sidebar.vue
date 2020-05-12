@@ -32,6 +32,12 @@
                 <i class="fas fa-fw fa-h-square"></i><span>Patients</span>
             </router-link>
         </li>
+        <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('work-lists') ? 'active' : ''">
+            <router-link class="nav-link" :to="{ name: 'nurses' }">
+              <i class="fas fa-fw fa-list"></i><span>Work list</span>
+            </router-link>
+        </li>
+
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('management') ? 'active' : ''">
             <a class="nav-link" :class="this.$route.path.includes('management') ? '' : 'collapsed'" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
@@ -42,10 +48,9 @@
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/users') ? 'active' : ''" :to="{ name: 'users' }">Users</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/roles') ? 'active' : ''" :to="{ name: 'roles' }">Roles</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/permissions') ? 'active' : ''" :to="{ name: 'permissions' }">Permissions</router-link>
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/nurse-list') ? 'active' : ''" :to="{ name: 'nurses' }">Work Lists</router-link>
             </div>
             </div>
-        </li>
+        </li>   
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item d-none">

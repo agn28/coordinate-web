@@ -38,7 +38,10 @@
               <!-- <div class="register-date">Registered on Jan 5, 2019</div> -->
               <div class="assigned">
                 Assigned to: {{ (Object.keys(selectedValue).length !== 0) ? selectedValue.name : "None"}}
-                <i v-b-modal.modal-assign-user class="fas fa-edit"></i>
+                <i
+                  v-b-modal.modal-assign-user
+                  class="fas fa-edit"
+                ></i>
               </div>
 
               <b-modal id="modal-assign-user" class="modal-header">
@@ -205,7 +208,10 @@ export default {
           if (response.status == 200) {
             this.users = response.data;
 
-            if (typeof this.carePlan.meta.assigned_to != "undefined") {
+            if (
+              typeof this.carePlan.meta != "undefined" &&
+              typeof this.carePlan.meta.assigned_to != "undefined"
+            ) {
               let user = this.users.find(
                 u => this.carePlan.meta.assigned_to == u.uid
               );
