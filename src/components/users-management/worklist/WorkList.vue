@@ -117,6 +117,7 @@ export default {
       users: [],
       selectedUser: {},
       selectedCareplan: {},
+      patientId: null,
       filter: "",
       columns: [
         { label: "" },
@@ -134,7 +135,7 @@ export default {
   methods: {
     getWorklists() {
       let loader = this.$loading.show();
-      this.$http.get("care-plans/work-list").then(
+      this.$http.get("care-plans/work-list?patient_id=" + this.patientId).then(
         response => {
           if (response.status == 200) {
             this.worklists = response.data.data;
@@ -231,6 +232,9 @@ export default {
   mounted() {
     this.getUsers();
     this.getWorklists();
+  },
+  created() {
+    this.patientId = this.$route.params.patientId;
   }
 };
 </script>
