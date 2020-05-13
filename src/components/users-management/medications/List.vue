@@ -32,6 +32,7 @@
                   type="text"
                   placeholder="Medication name"
                   aria-label="Search"
+                  v-model="search"
                 />
               </div>
             </div>
@@ -50,8 +51,8 @@
                 <template v-slot:modal-header>
                   <span class="title">Create Medication</span>
                 </template>
-                <div class="d-flex align-items-center">
-                  <div class="form-group">
+                <div class="d-flex align-items-center row">
+                  <div class="form-group col-md-12">
                     <label for="newMedication">Medication</label>
                     <input
                       type="text"
@@ -96,7 +97,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(medication, index) in medications" :key="index">
+                  <tr v-for="(medication, index) in filteredList" :key="index">
                     <td>{{ medication.name }}</td>
                     <td>
                       <a
@@ -125,8 +126,19 @@ export default {
   data() {
     return {
       newMedication: null,
-      medications: []
+      medications: [],
+      search: ''
     };
+  },
+  mounted() {
+    this.getMedications();
+  },
+  computed: {
+    filteredList() {
+      return this.medications.filter(m => {
+        return m.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    }
   },
   methods: {
     getMedications() {
@@ -165,7 +177,7 @@ export default {
         }
       );
     },
-    
+
     deleteMedication(medication) {
       this.$swal({
         title: "Are you sure?",
@@ -200,9 +212,6 @@ export default {
         }
       );
     }
-  },
-  mounted() {
-    this.getMedications();
   }
 };
 </script>

@@ -50,8 +50,8 @@
                 <template v-slot:modal-header>
                   <span class="title">Create Permission</span>
                 </template>
-                <div class="d-flex align-items-center">
-                  <div class="form-group">
+                <div class="d-flex align-items-center row">
+                  <div class="form-group col-md-12">
                     <label for="newPermission">Permission</label>
                     <input
                       type="text"
@@ -132,6 +132,7 @@ export default {
       permissions: []
     };
   },
+  
   methods: {
     getPermissions() {
       let loader = this.$loading.show();

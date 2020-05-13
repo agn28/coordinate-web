@@ -30,41 +30,40 @@
                 <input
                   class="form-control my-0 py-1 border-left-0"
                   type="text"
-                  placeholder="Patient Name, ID, NID"
+                  placeholder="Patient Name, NID"
                   aria-label="Search"
+                  v-model="search"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-    
+
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-list">
             <div class="table-responsive">
-              <table class="table">
+              <table class="table" v-if="patients.length > 0">
                 <thead>
                   <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col">Patient Name</th>
+                    <th scope="col">Date of Birth</th>
                     <th scope="col">NID</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Gender</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     class="pointer"
-                    v-for="(patient, index) in patients"
+                    v-for="(patient, index) in filteredList"
                     :key="index"
                     @click="$router.push({ name: 'worklist', params: { patientId: patient.id } })"
                   >
                     <template>
                       <td>{{ patient.body.first_name + ' ' + patient.body.last_name}}</td>
-                      <td>{{ patient.body.nid }}</td>
-                      <td>{{ patient.body.age }}</td>
+                      <td>{{ patient.body.birth_date }}</td>
                       <td>
-                        {{ patient.body.gender.toUpperCase() }}
+                        {{ patient.body.nid }}
                         <span class="pull-right">
                           <i class="fas fa-arrow-right"></i>
                         </span>
@@ -82,19 +81,29 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Vue from "vue";
-import { VuejsDatatableFactory } from "vuejs-datatable";
-
-Vue.use(VuejsDatatableFactory);
-
 export default {
   name: "worklistPatient",
   components: {},
   data() {
     return {
-      patients: []
+      patients: [],
+      search: ''
     };
+  },
+  computed: {
+    filteredList() {
+      return this.patients.filter(patient => {
+        console.log(patient)
+        return (
+          patient.body.first_name
+            .toLowerCase()
+            .includes(this.search.toLowerCase()) ||
+          patient.body.last_name
+            .toLowerCase()
+            .includes(this.search.toLowerCase())
+        );
+      });
+    }
   },
   methods: {
     getPatients() {

@@ -23,8 +23,8 @@
                 <input
                   class="form-control my-0 py-1 border-left-0"
                   type="text"
-                  v-model="filter"
-                  placeholder="Nurse Name, Patient Name"
+                  v-model="search"
+                  placeholder="Care plan action"
                   aria-label="Search"
                 />
               </div>
@@ -37,32 +37,35 @@
         <div class="col-lg-12">
           <div class="patient-list-items">
             <div class="table-responsive">
-              <datatable
-                :columns="columns"
-                :data="worklists"
-                :filter-by="filter"
-                :class="'table border-bottom'"
-              >
-                <template slot-scope="{ row }">
+              <table class="table" v-if="worklists.length > 0">
+                <thead>
                   <tr>
-                    <td scope="row">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id name="example1" />
-                        <label class="custom-control-label" for></label>
-                      </div>
-                    </td>
-                    <td scope="row">
-                      <span v-text="getUser(row)"></span>
-                      <i @click="openAssigneeModal(row)" class="fas fa-edit ml-2"></i>
-                    </td>
-                    <td scope="row">{{ row.patient.first_name}} {{ row.patient.last_name}}</td>
-                    <td scope="row">{{ row.body.title }}</td>
-                    <td scope="row">{{ row.body.activityDuration.end | moment("Do MMMM YYYY") }}</td>
-                    <td v-if="row.meta.status === 'pending'" class="pending">Pending</td>
-                    <td v-else class="success">Completed</td>
+                    <th scope="col">Nurse Name</th>
+                    <th scope="col">Patient Name</th>
+                    <th scope="col">Care Plan Action</th>
+                    <th scope="col">Care Plan Due Date</th>
+                    <th scope="col">Status</th>
                   </tr>
-                </template>
-              </datatable>
+                </thead>
+                <tbody>
+                  <tr
+                    class="pointer"
+                    v-for="(row, index) in filteredList"
+                    :key="index">
+                    <template>
+                      <td scope="col">
+                        <span v-text="getUser(row)"></span>
+                        <i @click="openAssigneeModal(row)" class="fas fa-edit ml-2"></i>
+                      </td>
+                      <td scope="col">{{ row.patient.first_name}} {{ row.patient.last_name}}</td>
+                      <td scope="col">{{ row.body.title }}</td>
+                      <td scope="col">{{ row.body.activityDuration.end | moment("Do MMMM YYYY") }}</td>
+                      <td v-if="row.meta.status === 'pending'" class="pending">Pending</td>
+                      <td v-else class="success">Completed</td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -118,7 +121,7 @@ export default {
       selectedUser: {},
       selectedCareplan: {},
       patientId: null,
-      filter: "",
+      search: "",
       columns: [
         { label: "" },
         { label: "Nurse Name", align: "left" },
@@ -131,6 +134,17 @@ export default {
         { label: "Status", align: "left" }
       ]
     };
+  },
+  computed: {
+    filteredList() {
+      return this.worklists.filter(worklist => {
+        return (
+          worklist.body.title
+            .toLowerCase()
+            .includes(this.search.toLowerCase())
+        );
+      });
+    }
   },
   methods: {
     getWorklists() {
