@@ -50,8 +50,8 @@
                 <template v-slot:modal-header>
                   <span class="title">Create Role</span>
                 </template>
-                <div class="d-flex align-items-center">
-                  <div class="form-group">
+                <div class="d-flex align-items-center row">
+                  <div class="form-group col-md-12">
                     <label for="role">Role</label>
                     <input
                       type="text"

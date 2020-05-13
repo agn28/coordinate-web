@@ -75,8 +75,8 @@ import Permissions from "../components/users-management/permissions/List";
 import Users from "../components/users-management/List";
 import AssignPermissions from "../components/users-management/roles/AssignPermissions";
 
-import NurseList from "../components/users-management/worklist/NurseList";
-import NurseWorkList from "../components/users-management/worklist/NurseWorkList";
+import WorkList from "../components/users-management/worklist/WorkList";
+import WorklistPatient from "../components/users-management/worklist/PatientList";
 
 import Medications from "../components/users-management/medications/List";
 
@@ -135,18 +135,18 @@ const routes = [
     }
   },
   {
-    path: '/work-lists',
-    name: 'nurses',
-    component: NurseList,
+    path: '/work-lists/:patientId',
+    name: 'worklist',
+    component: WorkList,
     meta: {
       role: 'admin'
     }
   },
 
   {
-    path: '/management/nurses/:nurseId',
-    name: 'nurseWorklist',
-    component: NurseWorkList,
+    path: '/work-lists',
+    name: 'worklistPatient',
+    component: WorklistPatient,
     meta: {
       role: 'admin'
     }

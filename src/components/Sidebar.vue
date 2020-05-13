@@ -33,7 +33,7 @@
             </router-link>
         </li>
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('work-lists') ? 'active' : ''">
-            <router-link class="nav-link" :to="{ name: 'nurses' }">
+            <router-link class="nav-link" :to="{ name: 'worklistPatient' }">
               <i class="fas fa-fw fa-list"></i><span>Work list</span>
             </router-link>
         </li>
