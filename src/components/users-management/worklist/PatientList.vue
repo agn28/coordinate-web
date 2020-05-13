@@ -87,20 +87,20 @@ export default {
   data() {
     return {
       patients: [],
-      search: ''
+      search: ""
     };
   },
   computed: {
     filteredList() {
       return this.patients.filter(patient => {
-        console.log(patient)
         return (
           patient.body.first_name
             .toLowerCase()
             .includes(this.search.toLowerCase()) ||
           patient.body.last_name
             .toLowerCase()
-            .includes(this.search.toLowerCase())
+            .includes(this.search.toLowerCase()) ||
+          patient.body.nid.toString().includes(this.search.toLowerCase())
         );
       });
     }
