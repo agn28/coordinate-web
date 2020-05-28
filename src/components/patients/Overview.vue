@@ -17,17 +17,214 @@
                     </div>
                     <div class="patient-details">
                         <div class="patient-name">{{ patient.body.first_name + " " + patient.body.last_name }}</div>
-                        <div class="details">
-                            <div class="age">{{ patient.body.age }} {{ patient.body.gender }}</div>
-                            <div class="nid">NID: {{ patient.body.nid}}</div>
-                            <!-- <div class="pid">PID: {{ patient.body.pid }}</div> -->
-                            <div class="register-date">Registered on {{ patient.meta.created_at | moment("Do MMMM YYYY") }}</div>
+                        <div class="info">
+                            <div class="info-age text-capitalize">{{ patient.body.age }} Y {{ patient.body.gender }}</div>
+                            
+                            <div class="info-icon back-RED"> <img src="../../assets/images/fruit.png" alt=""></div>
+                            <div class="info-icon back-RED"> <img src="../../assets/images/vegetables.png" alt=""></div>
+                            <div class="info-icon back-AMBER"> <img src="../../assets/images/activity.png" alt=""></div>
+                            
+                        </div>
+                        <div class="assessment-pills">
+                            <div class="pill-item RED border-RED">BMI</div>
+                            <div class="pill-item RED border-RED">BP</div>
+                            <div class="pill-item RED border-RED">CVD RISK</div>
+                            <div class="pill-item AMBER border-AMBER">Cholesterol</div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-12 border-bottom">
+            <div class="row px-4 pt-4 pb-3 border-bottom-thick">
+                <div class="col-12">
+                    <table class="summary">
+                        <tr>
+                            <td>Last Encounter on:</td>
+                            <td>Jan 5, 2020</td>
+                        </tr>
+                        <tr>
+                            <td>Next assessment due on:</td>
+                            <td>Apr 15, 2020</td>
+                        </tr>
+                        <tr>
+                            <td>Current Conditions:</td>
+                            <td>Hypertension, Diabetes</td>
+                        </tr>
+                        <tr>
+                            <td>Allergies:</td>
+                            <td>Pollen</td>
+                        </tr>
+                        <tr>
+                            <td>Medications:</td>
+                            <td>Napa 12 mg, Tylenol 50ml</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row px-4 pt-4 pb-5 border-bottom-thick">
+                <div class="col-12">
+                    <div class="care-plans">
+                        <div class="header pb-3 w-100 d-flex justify-content-between">
+                            <h5 class="">Care Plan Actions</h5>
+                            <a href="" class="btn-careplan"> View Care Plan</a>
+                        </div>
+                        <div class="accordion" id="accordionCareplan">
+
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between" id="headingOne">
+                                    <button @click="onClickAccordion()" class="btn btn-link" type="button" data-toggle="collapse" data-target="#careplanCollapse" aria-expanded="false" aria-controls="collapseOne">
+                                        <i v-if="showIcon" class="fas fa-chevron-down pr-4"></i>
+                                        <i v-else class="fas fa-chevron-up pr-4"></i>
+                                        <span class="card-header-text">Due Today</span>
+                                    </button>
+                                    <span class="count">
+                                        3 Goals & 5 actions
+                                    </span>
+                                </div>
+
+                                <div id="careplanCollapse" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionCareplan">
+                                    <div class="card-body">
+                                        <div class="careplan-details">
+                                            <div class="careplan-item">
+                                                <span class='title'>Improve glycemic</span>
+                                                <div class="actions">
+                                                    <a href="" class=" d-flex justify-content-between">
+                                                        <span>Counselling about diet / physical activity to improve glycemic control</span>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="actions">
+                                                    <a href="" class="d-flex justify-content-between">
+                                                        <span>Use of smoking cessation aids</span>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="careplan-item">
+                                                <span class='title'>Improve glycemic</span>
+                                                <div class="actions">
+                                                    <a href="" class=" d-flex justify-content-between">
+                                                        <span>Counselling about diet / physical activity to improve glycemic control</span>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="actions">
+                                                    <a href="" class="d-flex justify-content-between">
+                                                        <span>Use of smoking cessation aids</span>
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row px-4 pt-4 pb-3 border-bottom-thick">
+                <div class="col-12">
+                    <div class="header pb-3 w-100 d-flex justify-content-between">
+                        <h5 class="">Patient History</h5>
+                        <a href="" class="btn-careplan"> <i class="fas fa-filter"></i></a>
+                    </div>
+
+                    <div class="timeline-wrapper">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="icon-wrapper">
+                                    <div class="icon"></div>
+                                </div>
+                                <div class="triangle-box"></div>
+                                <div class="timeline-data">
+                                    <div class="date">
+                                        Jan 25, 2020 (Wednesday)
+                                    </div>
+                                    <div class="title">
+                                        Follow-up Encounter: In-clinic
+                                    </div>
+                                    <div class="doctor">
+                                        <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="30" height="30" alt="">
+                                        <span>Dr. Jahangir Khan</span>
+
+                                    </div>
+                                    <div class="observation-icons">
+                                        <img src="../../assets/images/questionnaire.png" class="">
+                                        <img src="../../assets/images/body_measurements.png" class="">
+                                        <img src="../../assets/images/blood_pressure_sm.png" class="">
+                                        <img src="../../assets/images/blood_test.png" class="">
+                                    </div>
+
+                                    <div class="assessment-pills pb-2">
+                                        <div class="pill-item RED border-RED">BMI</div>
+                                        <div class="pill-item RED border-RED">BP</div>
+                                        <div class="pill-item RED border-RED">CVD RISK</div>
+                                        <div class="pill-item AMBER border-AMBER">Cholesterol</div>
+                                        
+                                    </div>
+                                    <br>
+
+                                    
+
+                                    <a href="view"> View Encounter Details</a>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="icon-wrapper">
+                                    <div class="icon"></div>
+                                </div>
+
+                                <div class="triangle-box"></div>
+                                <div class="timeline-data">
+                                    <div class="date">
+                                        Jan 25, 2020 (Wednesday)
+                                    </div>
+                                    <div class="title">
+                                        Follow-up Encounter: In-clinic
+                                    </div>
+                                    <div class="doctor">
+                                        <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="30" height="30" alt="">
+                                        <span>Dr. Jahangir Khan</span>
+
+                                    </div>
+                                    <div class="observation-icons">
+                                        <img src="../../assets/images/questionnaire.png" class="">
+                                        <img src="../../assets/images/body_measurements.png" class="">
+                                        <img src="../../assets/images/blood_pressure_sm.png" class="">
+                                        <img src="../../assets/images/blood_test.png" class="">
+                                    </div>
+
+                                    <div class="assessment-pills pb-2">
+                                        <div class="pill-item RED border-RED">BMI</div>
+                                        <div class="pill-item RED border-RED">BP</div>
+                                        <div class="pill-item RED border-RED">CVD RISK</div>
+                                        <div class="pill-item AMBER border-AMBER">Cholesterol</div>
+                                        
+                                    </div>
+                                    <br>
+
+                                    
+
+                                    <a href="view"> View Encounter Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
+            <!-- <div class="col-lg-12 border-bottom">
                 <div class="patient-edit">
                     <router-link class="edit" :to="{ name: 'editPatient', params: { patientId: patientId} }"><i class="fas fa-pen"></i>View/Edit Patient Details</router-link>
                     <div class="care-plane">
@@ -37,9 +234,9 @@
                     </div>
                     <div class="action"><i class="fas fa-circle"></i>{{ carePlans ? carePlans.length : 0 }} Actions Pending</div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-12">
                     <div class="patient-overview-content">
                         <div class="row">
@@ -109,7 +306,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -126,10 +323,16 @@
         fullPage: true,
         patient: null,
         patientId: '',
-        carePlans: ''
+        carePlans: '',
+        showIcon: true,
       };
     },
     methods: {
+        onClickAccordion(followup, index) {
+         
+            this.showIcon = !this.showIcon;
+            
+        },
       getPatients() {
         let loader = this.$loading.show();
         this.$http.get("/patients/" + this.patientId).then(response => {

@@ -1,0 +1,207 @@
+.patient-overview {
+  font-weight: normal;
+  font-size: 16px;
+  .info {
+    margin-top: 10px;
+
+    .info-age {
+      float: left;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    .info-icon {
+      float: left;
+      height: 23px;
+      width: 23px;
+      border-radius: 50%;
+      position: relative;
+      margin-right: 7px;
+
+      img {
+        position: absolute;
+        top: 3px;
+        left: 4px;
+        width: 15px;
+      }
+    }
+  }
+
+  .assessment-pills {
+    margin-top: 10px;
+
+    .pill-item {
+      font-size: 14px;
+      float: left;
+      border: 1px solid;
+      margin-right: 10px;
+      padding: 0px 5px;
+      border-radius: 3px;
+    }
+  }
+
+  .summary {
+    td {
+      width: 210px;
+      padding: 8px 0px;
+    }
+  }
+  .border-bottom-thick {
+    border-bottom: 7px solid #f2f2f2;
+  }
+
+  .care-plans {
+    .accordion {
+      border-bottom: 1px solid #dfdfdf;
+    }
+    .card {
+      min-height: 0px;
+    }
+    .card-header {
+      background-color: #fff;
+      border-bottom: 0px;
+      padding: 5px;
+      
+      .count {
+        padding-right: 10px;
+        padding-top: 5px;
+        color: #888;
+      }
+      
+
+      button {
+        color: #000;
+        text-decoration: none;
+        i {
+          color: #888;
+        }
+      }
+
+    }
+    .card-body {
+      min-height: 0px;
+      
+    }
+    .careplan-item {
+      .title {
+        font-size: 17px;
+        color: #666;
+      }
+      .actions {
+        
+      }
+      .actions a{
+        color: $primary-color;
+        border-bottom: 1px solid #dfdfdf;
+        display: block;
+        width: 100%;
+        padding: 15px 0px;
+      }
+    }
+
+    .careplan-item {
+      margin-bottom: 20px;
+    }
+    .card-header-text {
+      font-weight: 500;
+    }
+
+    .btn-careplan {
+      border: 1px solid $primary-color;
+      color: $primary-color;
+      border-radius: 3px;
+      padding: 3px 20px;
+      transition: .3s;
+
+      &:hover {
+        background-color: $primary-color;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+  .timeline-wrapper {
+    border-left: 1px solid #dfdfdf;
+
+    .timeline {
+
+    }
+    .timeline-item {
+      position: relative;
+      .icon-wrapper {
+        position: absolute;
+        top: 20px;
+        left: -10px;
+        height: 20px;
+        width: 20px;
+        background-color: #01579b42;
+        border-radius: 50%;
+
+        .icon {
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          height: 12px;
+          width: 12px;
+          background-color: $primary-color;
+          border-radius: 50%;
+          
+        }
+      }
+    }
+
+    .triangle-box {
+      // border: 1px solid #dfdfdf;
+      // height: 20px;
+      // width: 20px;
+      // position: absolute;
+      // top: 20px;
+      // left: 20px;
+    }
+    
+    .timeline-data {
+      min-height: 200px;
+      border: 1px solid #dfdfdf;
+      margin-bottom: 30px;
+      margin-left: 40px;
+      position: relative;
+      border-radius: 3px;
+      padding: 25px 30px;
+
+      .date {
+        font-size: 16px;
+        color: #444;
+        margin-bottom: 15px
+      }
+      .title {
+        font-weight: 500;
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .doctor {
+        span {
+          margin-left: 20px;
+        }
+        margin-bottom: 20px;
+      }
+
+      .observation-icons {
+        margin-bottom: 30px;
+
+        img {
+          margin-right: 30px;
+        }
+      }
+      
+      .assessment-pills {
+        margin-bottom: 20px;
+      }
+      .view {
+        color: $primary-color;
+      }
+      
+      &:before {
+        
+      }
+    }
+  }
+}
