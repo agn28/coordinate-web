@@ -20,6 +20,9 @@ import PendingReviewDetail from '../components/pending-reviews/Show'
 import PendingReviewGenerate from '../components/pending-reviews/Generate'
 import PendingReviewBloodPressure from '../components/pending-reviews/BloodPressure'
 
+import Followups from '../components/followups/List'
+import FollowupsShow from '../components/followups/Show'
+
 import Tobacco from '../components/questionnaire/Tobacco'
 import Alcohol from '../components/questionnaire/Alcohol'
 import Diet from '../components/questionnaire/Diet'
@@ -147,6 +150,22 @@ const routes = [
     path: '/work-lists',
     name: 'worklistPatient',
     component: WorklistPatient,
+    meta: {
+      role: 'admin'
+    }
+  },
+  {
+    path: '/followups',
+    name: 'followups',
+    component: Followups,
+    meta: {
+      role: 'admin'
+    }
+  },
+  {
+    path: '/followups/:patientId',
+    name: 'followupsShow',
+    component: FollowupsShow,
     meta: {
       role: 'admin'
     }

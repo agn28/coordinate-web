@@ -38,6 +38,12 @@
             </router-link>
         </li>
 
+        <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('followups') ? 'active' : ''">
+            <router-link class="nav-link" :to="{ name: 'followups' }">
+              <i class="fas fa-bezier-curve"></i><span>Follow-ups</span>
+            </router-link>
+        </li>
+
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('management') ? 'active' : ''">
             <a class="nav-link" :class="this.$route.path.includes('management') ? '' : 'collapsed'" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
