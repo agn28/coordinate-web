@@ -9,7 +9,7 @@
         <div class>
           <h4>Care Plan Action</h4>
           <div class="breadcrumb">
-            <span>Patients / Jahanara Begum</span> / Care Plan
+            <span>Patients / {{ carePlan.patient.first_name + ' ' + carePlan.patient.last_name }}</span> / Care Plan
           </div>
         </div>
       </div>
