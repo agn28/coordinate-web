@@ -40,6 +40,7 @@ import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
 
 
+
 export default {
   name: 'app',
   components: {
@@ -55,10 +56,9 @@ export default {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style>
-
-#right-panel {
-  overflow: hidden;
-  min-height: 100vh;
-}
+<style lang="scss">
+  #right-panel {
+    overflow: hidden;
+    min-height: 100vh;
+  }
 </style>
