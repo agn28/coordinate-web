@@ -40,7 +40,7 @@
 
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('followups') ? 'active' : ''">
             <router-link class="nav-link" :to="{ name: 'followups' }">
-              <i class="fas fa-bezier-curve"></i><span>Follow-ups</span>
+              <i class="fas fa-bezier-curve"></i><span>Referrals</span>
             </router-link>
         </li>
 
