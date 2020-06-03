@@ -404,11 +404,23 @@
             }
             );
         },
+
         getObservations() {
             let loader = this.$loading.show();
             let encounters = this.encounters;
+            this.$http.get("/patients/" + this.patientId + "/observations", ).then(
+                    response => {
+                        loader.hide()
+                        if (response.status == 200) {
+                            this
+                            this.encounters[index].body.observations = response.data.data;
+                        }
+                    },
+                    error => {
+                    }
+                );
             encounters.forEach( (encounter, index) => {
-                this.$http.get("/assessments/" + encounter.id + "/observations", ).then(
+                this.$http.get("/patients/" + this.patientId + "/observations", ).then(
                     response => {
                         loader.hide()
                         if (response.status == 200) {
@@ -459,7 +471,7 @@
       this.getCarePlans();
       this.getEncounters();
       this.getUsers();
-    //   this.getLastReport();
+      this.getLastReport();
     }
   };
 </script>
