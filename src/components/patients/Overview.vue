@@ -26,10 +26,14 @@
                             
                         </div>
                         <div class="assessment-pills">
-                            <div class="pill-item RED border-RED">BMI</div>
-                            <div class="pill-item RED border-RED">BP</div>
-                            <div class="pill-item RED border-RED">CVD RISK</div>
-                            <div class="pill-item AMBER border-AMBER">Cholesterol</div>
+                            <div v-if="patient.body.assessments && patient.body.assessments.body_composition.components.bmi" class="pill-item " 
+                                :class="patient.body.assessments.body_composition.components.bmi.tfl + ' border-' + patient.body.assessments && patient.body.assessments.body_composition.components.bmi.tfl">BMI</div>
+                            <div v-if="patient.body.assessments && patient.body.assessments.blood_pressure" class="pill-item"
+                                :class="patient.body.assessments.blood_pressure.tfl + ' border-' + patient.body.assessments.blood_pressure.tfl">BP</div>
+                            <div v-if="patient.body.assessments && patient.body.assessments.cvd" class="pill-item"
+                                :class="patient.body.assessments.cvd.tfl + ' border-' + patient.body.assessments.cvd.tfl">CVD RISK</div>
+                            <div v-if="patient.body.assessments && patient.body.assessments.cholesterol.components.total_cholesterol" class="pill-item"
+                                :class="patient.body.assessments.cholesterol.components.total_cholesterol.tfl + ' border-' + patient.body.assessments.cholesterol.components.total_cholesterol.tfl">Cholesterol</div>
                             
                         </div>
                     </div>
@@ -38,14 +42,14 @@
 
             <div class="row px-4 pt-4 pb-3 border-bottom-thick">
                 <div class="col-12">
-                    <table class="summary">
+                    <table class="summary" v-if="encounters.length > 0">
                         <tr>
                             <td>Last Encounter on:</td>
-                            <td>Jan 5, 2020</td>
+                            <td>{{ getLastEncounterDate() }}</td>
                         </tr>
                         <tr>
                             <td>Next assessment due on:</td>
-                            <td>Apr 15, 2020</td>
+                            <td>June 15, 2020</td>
                         </tr>
                         <tr>
                             <td>Current Conditions:</td>
@@ -68,7 +72,10 @@
                     <div class="care-plans">
                         <div class="header pb-3 w-100 d-flex justify-content-between">
                             <h5 class="">Care Plan Actions</h5>
-                            <a href="" class="btn-careplan"> View Care Plan</a>
+                            <router-link tag="a" :to="{ name: 'patientCarePlans', params: { patientId: patientId } }" class="btn-careplan">
+                                View Care Plan
+                            </router-link>
+
                         </div>
                         <div class="accordion" id="accordionCareplan">
 
@@ -80,45 +87,35 @@
                                         <span class="card-header-text">Due Today</span>
                                     </button>
                                     <span class="count">
-                                        3 Goals & 5 actions
+                                        {{ getCount() }}
                                     </span>
                                 </div>
 
                                 <div id="careplanCollapse" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionCareplan">
                                     <div class="card-body">
-                                        <div class="careplan-details">
-                                            <div class="careplan-item">
-                                                <span class='title'>Improve glycemic</span>
-                                                <div class="actions">
-                                                    <a href="" class=" d-flex justify-content-between">
-                                                        <span>Counselling about diet / physical activity to improve glycemic control</span>
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </a>
+                                        <div v-if="groupedCareplans.length > 0" class="careplan-details">
+                                            
+                                            <template v-for="(careplan, index) in groupedCareplans">
+                                                <div class="careplan-item " :key="index">
+                                                    <span class='title'>{{ careplan.title }}</span>
+                                                    <template v-for="(action, index) in careplan.items" >
+                                                    
+                                                        <div v-if="action.meta.status == 'pending'" class="actions" :key="index">
+                                                            <router-link tag="a" :to="{ name: 'carePlanAction', params: { carePlanId: action.id }}" class="d-flex justify-content-between">
+                                                                <span>{{ action.body.title }}</span>
+                                                                <i class="fas fa-chevron-right"></i>
+                                                            </router-link>
+                                                            <!-- <a href="" class=" d-flex justify-content-between">
+                                                                <span>{{ action.body.title }}</span>
+                                                                <i class="fas fa-chevron-right"></i>
+                                                            </a> -->
+                                                        </div>        
+                                                        
+                                                    </template>
+                                                    
                                                 </div>
-                                                <div class="actions">
-                                                    <a href="" class="d-flex justify-content-between">
-                                                        <span>Use of smoking cessation aids</span>
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </a>
-                                                </div>
-                                                
-                                            </div>
+                                            </template>
 
-                                            <div class="careplan-item">
-                                                <span class='title'>Improve glycemic</span>
-                                                <div class="actions">
-                                                    <a href="" class=" d-flex justify-content-between">
-                                                        <span>Counselling about diet / physical activity to improve glycemic control</span>
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="actions">
-                                                    <a href="" class="d-flex justify-content-between">
-                                                        <span>Use of smoking cessation aids</span>
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,83 +134,49 @@
                         <a href="" class="btn-careplan"> <i class="fas fa-filter"></i></a>
                     </div>
 
-                    <div class="timeline-wrapper">
+                    <div class="timeline-wrapper" v-if="encounters.length > 0">
                         <div class="timeline">
-                            <div class="timeline-item">
+                            <div class="timeline-item" v-for="(encounter, index) in encounters" :key="index">
                                 <div class="icon-wrapper">
                                     <div class="icon"></div>
                                 </div>
                                 <div class="triangle-box"></div>
                                 <div class="timeline-data">
                                     <div class="date">
-                                        Jan 25, 2020 (Wednesday)
+                                        {{ getDate(encounter)}}
                                     </div>
-                                    <div class="title">
-                                        Follow-up Encounter: In-clinic
+                                    <div class="title text-capitalize">
+                                        Follow-up Encounter: {{ encounter.body.type }}
                                     </div>
-                                    <div class="doctor">
+                                    <div class="doctor" v-if="users.length > 0">
                                         <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="30" height="30" alt="">
-                                        <span>Dr. Jahangir Khan</span>
+                                        <span>{{ getUser(encounter) }}</span>
 
                                     </div>
-                                    <div class="observation-icons">
-                                        <img src="../../assets/images/questionnaire.png" class="">
-                                        <img src="../../assets/images/body_measurements.png" class="">
-                                        <img src="../../assets/images/blood_pressure_sm.png" class="">
-                                        <img src="../../assets/images/blood_test.png" class="">
+                                    <div v-if="encounter.body.observations" class="observation-icons">
+                                        <img v-if="isObservationAvailable(encounter, 'survey')" src="../../assets/images/questionnaire.png" class="">
+                                        <img v-if="isObservationAvailable(encounter, 'body_measurement')" src="../../assets/images/body_measurements.png" class="">
+                                        <img v-if="isObservationAvailable(encounter, 'blood_pressure')" src="../../assets/images/blood_pressure_sm.png" class="">
+                                        <img v-if="isObservationAvailable(encounter, 'blood_test')" src="../../assets/images/blood_test.png" class="">
                                     </div>
 
-                                    <div class="assessment-pills pb-2">
+                                    <!-- <div class="assessment-pills pb-2">
+                                        
                                         <div class="pill-item RED border-RED">BMI</div>
                                         <div class="pill-item RED border-RED">BP</div>
                                         <div class="pill-item RED border-RED">CVD RISK</div>
                                         <div class="pill-item AMBER border-AMBER">Cholesterol</div>
                                         
-                                    </div>
+                                    </div> -->
                                     <br>
 
-                                    
+                                    <router-link
+                                        :to="{name: 'observations', params:{patientId: patientId, encounterId: encounter.id}}"
+                                        tag="a"
+                                        class="view"
+                                    >View Encounter Details</router-link>
 
-                                    <a href="view"> View Encounter Details</a>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="icon-wrapper">
-                                    <div class="icon"></div>
-                                </div>
-
-                                <div class="triangle-box"></div>
-                                <div class="timeline-data">
-                                    <div class="date">
-                                        Jan 25, 2020 (Wednesday)
-                                    </div>
-                                    <div class="title">
-                                        Follow-up Encounter: In-clinic
-                                    </div>
-                                    <div class="doctor">
-                                        <img src="../../assets/images/avatar/dummy-man-570x570.png" class="rounded-circle img-fluid" width="30" height="30" alt="">
-                                        <span>Dr. Jahangir Khan</span>
-
-                                    </div>
-                                    <div class="observation-icons">
-                                        <img src="../../assets/images/questionnaire.png" class="">
-                                        <img src="../../assets/images/body_measurements.png" class="">
-                                        <img src="../../assets/images/blood_pressure_sm.png" class="">
-                                        <img src="../../assets/images/blood_test.png" class="">
-                                    </div>
-
-                                    <div class="assessment-pills pb-2">
-                                        <div class="pill-item RED border-RED">BMI</div>
-                                        <div class="pill-item RED border-RED">BP</div>
-                                        <div class="pill-item RED border-RED">CVD RISK</div>
-                                        <div class="pill-item AMBER border-AMBER">Cholesterol</div>
-                                        
-                                    </div>
-                                    <br>
-
-                                    
-
-                                    <a href="view"> View Encounter Details</a>
+                                    <!-- <a href="view"> View Encounter Details</a> -->
                                 </div>
                             </div>
                         </div>
@@ -314,7 +277,7 @@
 
 <script>
   // @ is an alias to /src
-
+    import moment from 'moment';
 
   export default {
     name: "patients",
@@ -325,56 +288,190 @@
         patientId: '',
         carePlans: '',
         showIcon: true,
+        groupedCareplans: [],
+        encounters: [],
+        users: [],
+        report: null
       };
     },
     methods: {
+        getLastEncounterDate() {
+            let dates = this.encounters.map( encounter => moment(encounter.meta.created_at));
+            return moment.max(dates).format("MMMM DD, YYYY")
+        },
+        isObservationAvailable(encounter, observation) {
+            let obs = encounter.body.observations.find( item => {
+                if (item.body.type == observation) {
+                    return item
+                } 
+            })
+
+            return obs ;
+        },
+        getDate(encounter) {
+            let date = '';
+            if (encounter.meta.created_at) {
+                date = moment(encounter.meta.created_at).format("Do MMMM YYYY")
+            }
+            return date;
+        },
         onClickAccordion(followup, index) {
          
             this.showIcon = !this.showIcon;
             
         },
-      getPatients() {
-        let loader = this.$loading.show();
-        this.$http.get("/patients/" + this.patientId).then(response => {
-            loader.hide();
-            if (response.status == 200) {
-              this.patient = response.data.data;
+        getUser(encounter) {
+            let user = {};
+            if (encounter.meta.collected_by) {
+                user = this.users.find(user => user.uid == encounter.meta.collected_by)
             }
+            return user.name || '';
+        },
+
+        getLastReport() {
+            let loader = this.$loading.show();
+            this.$http.get("/health-reports/patient/" + this.patientId + "?filter=last").then(response => {
+                loader.hide();
+                if (response.status == 200) {
+                    this.report = response.data.data
+                    console.log(this.report);
+                }
           },
           error => {
             loader.hide()
           });
+        },
 
-      },
-      getCarePlans() {
-        this.$http.get("/care-plans/patient/" + this.patientId, ).then(
-          response => {
+        getUsers() {
+            this.$http.get("/users?role=nurse,doctor,chw").then(response => {
             if (response.status == 200) {
-              this.carePlans = response.data.data;
+              this.users = response.data
             }
           },
           error => {
-          }
-        );
-      },
+          });
+        },
 
-      getId(identifier, type) {
-        if (!identifier) {
-          return '';
-        }
-        let id = identifier.find(x => x.use === type);
+        getCount() {
+            let goals = this.groupedCareplans.length;
+            let actions = 0;
+            this.groupedCareplans.forEach(careplan => {
+                careplan.items.forEach( item => {
+                    if (item.meta.status == 'pending') {
+                        actions += 1;
+                    }
+                })
+            })
 
-        if (id) {
-          return id.value;
+            return goals + ' goals & ' + actions + ' actions'; 
+        },
+        getPatients() {
+            let loader = this.$loading.show();
+            this.$http.get("/patients/" + this.patientId).then(response => {
+                loader.hide();
+                if (response.status == 200) {
+                this.patient = response.data.data;
+                }
+            },
+            error => {
+                loader.hide()
+            });
+
+        },
+        getCarePlans() {
+            this.$http.get("/care-plans/patient/" + this.patientId, ).then(
+            response => {
+                if (response.status == 200) {
+                this.carePlans = response.data.data;
+                this.prepareCarePlans()
+                }
+            },
+            error => {
+            }
+            );
+        },
+
+        getEncounters() {
+            this.$http.get("/patients/" + this.patientId + "/assessments", ).then(
+            response => {
+                if (response.status == 200) {
+                    this.encounters = response.data.data;
+                    
+                    this.getObservations();
+                }
+            },
+            error => {
+            }
+            );
+        },
+
+        getObservations() {
+            let loader = this.$loading.show();
+            let encounters = this.encounters;
+            this.$http.get("/patients/" + this.patientId + "/observations", ).then(
+                    response => {
+                        loader.hide()
+                        if (response.status == 200) {
+                            this
+                            this.encounters[index].body.observations = response.data.data;
+                        }
+                    },
+                    error => {
+                    }
+                );
+            encounters.forEach( (encounter, index) => {
+                this.$http.get("/patients/" + this.patientId + "/observations", ).then(
+                    response => {
+                        loader.hide()
+                        if (response.status == 200) {
+                            this.encounters[index].body.observations = response.data.data;
+                        }
+                    },
+                    error => {
+                    }
+                );
+            });
+        },
+
+        prepareCarePlans() {
+
+            this.carePlans.forEach( item => {
+                let existdCp = this.groupedCareplans.find(cp => cp.id == item.body.goal.id);
+                if (!existdCp) {
+                    let items = [];
+                    items.push(item);
+                    this.groupedCareplans.push({
+                        'items': items,
+                        'title': item.body.goal.title,
+                        'id': item.body.goal.id
+                    });
+                } else {
+                    this.groupedCareplans[this.groupedCareplans.indexOf(existdCp)].items.push(item);
+                }
+                
+            })
+
+        },
+
+        getId(identifier, type) {
+            if (!identifier) {
+            return '';
+            }
+            let id = identifier.find(x => x.use === type);
+
+            if (id) {
+            return id.value;
+            }
+            return "";
         }
-        return "";
-      }
     },
     mounted() {
       this.patientId = this.$route.params.patientId;
       this.getPatients();
       this.getCarePlans();
-      console.log('hello');
+      this.getEncounters();
+      this.getUsers();
+      this.getLastReport();
     }
   };
 </script>

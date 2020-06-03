@@ -139,7 +139,6 @@ import moment from 'moment';
 
       getDate(followup) {
           let date = moment(followup.meta.created_at._seconds * 1000).format("DD MMM YYYY")
-          console.log(date);
           return date
       },
 
@@ -159,7 +158,6 @@ import moment from 'moment';
       this.patientId = this.$route.params.patientId;
       this.getPatients();
       this.getFollowups();
-      console.log('hello');
     }
   };
 </script>

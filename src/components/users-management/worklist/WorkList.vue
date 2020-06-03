@@ -40,10 +40,11 @@
               <table class="table" v-if="worklists.length > 0">
                 <thead>
                   <tr>
-                    <th scope="col">Nurse Name</th>
+                    <th scope="col">Responsible</th>
                     <th scope="col">Patient Name</th>
                     <th scope="col">Care Plan Action</th>
                     <th scope="col">Care Plan Due Date</th>
+                    <th scope="col">Roles</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
@@ -60,6 +61,7 @@
                       <td scope="col">{{ row.patient.first_name}} {{ row.patient.last_name}}</td>
                       <td scope="col">{{ row.body.title }}</td>
                       <td scope="col">{{ row.body.activityDuration.end | moment("Do MMMM YYYY") }}</td>
+                      <td scope="col">{{ row.body.role.join(', ')}}</td>
                       <td v-if="row.meta.status === 'pending'" class="pending">Pending</td>
                       <td v-else class="success">Completed</td>
                     </template>
@@ -78,7 +80,7 @@
         <div class="form-group">
           <label for="users">Select a user</label>
           <select v-model="selectedUser" name="users" id="users" class="form-control">
-            <option v-for="(user, index) in users" :key="index" :value="user">{{ user.name }}</option>
+            <option v-for="(user, index) in currentUsers" :key="index" :value="user">{{ user.name }}</option>
           </select>
         </div>
 
@@ -120,6 +122,7 @@ export default {
       users: [],
       selectedUser: {},
       selectedCareplan: {},
+      currentUsers: [],
       patientId: null,
       search: "",
       columns: [
@@ -164,7 +167,7 @@ export default {
 
     getUsers() {
       let loader = this.$loading.show();
-      this.$http.get("/users?role=nurse").then(
+      this.$http.get("/users?role=nurse,doctor,chw").then(
         response => {
           if (response.status == 200) {
             this.users = response.data;
@@ -223,6 +226,12 @@ export default {
         }
       }
       this.selectedCareplan = careplan;
+      this.currentUsers = this.users.filter(user => {
+        if (typeof this.selectedCareplan.body.role === 'undefined') {
+          return true;
+        }
+        return this.selectedCareplan.body.role.includes(user.role);
+      });
       this.$bvModal.show("modal-assign-user");
     },
     closeAssigneeModal() {

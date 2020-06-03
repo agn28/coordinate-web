@@ -34,6 +34,16 @@
                   aria-label="Search"
                   v-model="search"
                 />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span v-if="selectedAssignee == ''">Filter By Practionar</span>
+                    <span v-else> {{ selectedAssignee.name }} </span>
+                  </button>
+                  <div class="dropdown-menu">
+                    <button @click="filterByPractionar('none')" class="dropdown-item" href="#">None</button>
+                    <button @click="filterByPractionar(assignee)" v-for="(assignee, index) in assignees" :key="index" class="dropdown-item" href="#">{{ assignee.name }}</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -50,6 +60,8 @@
                     <th scope="col">Patient Name</th>
                     <th scope="col">Date of Birth</th>
                     <th scope="col">NID</th>
+                    <th scope="col">Assigned To</th>
+                    <th scope="col">Next Vist Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,6 +80,11 @@
                           <i class="fas fa-arrow-right"></i>
                         </span>
                       </td>
+                      <td>
+                        <div v-if="!hasAssignee(patient)" class="badge badge-danger">Not Assigned</div>
+                        <div v-else>{{ getAssignee(patient) }}</div>
+                      </td>
+                      <td>{{ getNextVisitDate(patient) }}</td>
                     </template>
                   </tr>
                 </tbody>
@@ -81,13 +98,19 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: "worklistPatient",
   components: {},
   data() {
     return {
       patients: [],
-      search: ""
+      allPatients: [],
+      users: [],
+      search: "",
+      assignees: [],
+      selectedAssignee: ''
     };
   },
   computed: {
@@ -106,13 +129,80 @@ export default {
     }
   },
   methods: {
+    filterByPractionar(assignee) {
+      if (assignee == 'none') {
+        this.selectedAssignee = '',
+        this.patients = this.allPatients;
+        return;
+      }
+      this.selectedAssignee = assignee;
+      this.patients = this.patients.filter( patient => {
+        if (this.hasAssignee(patient) && patient.body.next_assignment.meta.assigned_to == assignee.uid) {
+          return patient;
+        }
+      });
+    },
+
+    hasAssignee(patient) {
+      if (typeof patient.body.next_assignment != 'undefined' && typeof patient.body.next_assignment.meta.assigned_to != 'undefined') {
+        return true;
+      }
+      return false;
+    },
+    getAssignees() {
+        if (this.users.length > 0) {
+          this.patients.forEach( patient => {
+            if (this.hasAssignee(patient)) {
+                let user = this.users.find( user => user.uid == patient.body.next_assignment.meta.assigned_to)
+                if (user && this.assignees.indexOf(user) == -1) {
+                  this.assignees.push(user);
+                } 
+            }
+        });
+        }
+    },
+    getNextVisitDate(patient) {
+      let date = '';
+      if (typeof patient.body.next_assignment != 'undefined') {
+        date = moment(patient.body.next_assignment.body.activityDuration.start).format("DD MMM YYYY")
+      }
+      return date;
+    },
+    getAssignee(patient) {
+      let user = '';
+      if (typeof patient.body.next_assignment != 'undefined' && typeof patient.body.next_assignment.meta.assigned_to != 'undefined') {
+        user = this.users.find(user => user.uid == patient.body.next_assignment.meta.assigned_to)
+        if (user) {
+          user = user.name;
+        }
+      }
+      return user;
+    },
+
+    getUsers() {
+      let loader = this.$loading.show();
+      this.$http.get("/users?role=nurse,doctor,chw").then(
+        response => {
+          if (response.status == 200) {
+            this.users = response.data;
+            this.getAssignees()
+          }
+          loader.hide();
+        },
+        error => {
+          loader.hide();
+        }
+      );
+    },
     getPatients() {
       let loader = this.$loading.show();
       this.$http.get("/patients").then(
         response => {
           if (response.status == 200) {
             this.patients = response.data.data;
+            this.allPatients = this.patients;
             loader.hide();
+            
           }
         },
         error => {
@@ -134,6 +224,7 @@ export default {
     }
   },
   mounted() {
+    this.getUsers();
     this.getPatients();
   }
 };
