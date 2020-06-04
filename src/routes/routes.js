@@ -20,8 +20,8 @@ import PendingReviewDetail from '../components/pending-reviews/Show'
 import PendingReviewGenerate from '../components/pending-reviews/Generate'
 import PendingReviewBloodPressure from '../components/pending-reviews/BloodPressure'
 
-import Followups from '../components/followups/List'
-import FollowupsShow from '../components/followups/Show'
+import Referrals from '../components/referrals/List'
+import ReferralsShow from '../components/referrals/Show'
 
 import Tobacco from '../components/questionnaire/Tobacco'
 import Alcohol from '../components/questionnaire/Alcohol'
@@ -155,17 +155,17 @@ const routes = [
     }
   },
   {
-    path: '/followups',
-    name: 'followups',
-    component: Followups,
+    path: '/referrals',
+    name: 'referrals',
+    component: Referrals,
     meta: {
       role: 'admin'
     }
   },
   {
-    path: '/followups/:patientId',
-    name: 'followupsShow',
-    component: FollowupsShow,
+    path: '/referrals/:patientId',
+    name: 'referralsShow',
+    component: ReferralsShow,
     meta: {
       role: 'admin'
     }
