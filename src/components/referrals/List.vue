@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="patient-list">
-                        <div class="table-responsive">
+                        <div class="table-responsive table-referrals">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -51,7 +51,15 @@
                                         </td>
                                         <td>{{ getDate(patient.meta.referral_generated_at) }} </td>
                                         <td>
-                                            <button @click="openReferralModal(patient)" class="btn btn-primary btn-sm mr-2">Edit</button>
+                                            <div class="dropdown float-left mr-2">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Pending
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                    <button @click="updatePatientReferral(patient)" class="dropdown-item" type="button">Completed</button>
+                                                </div>
+                                            </div>
+                                            
                                             <button @click="showReferrals(patient)" class="btn btn-warning btn-sm">View</button>
                                         </td>
                                     </template>
@@ -66,36 +74,6 @@
             </div>
         </div>
 
-        <b-modal id="modal-update-referral" class="modal-header">
-            <template v-slot:modal-header>
-                <span class="title">Update Referral</span>
-            </template>
-            <div class="form-group">
-            <label for="users">Select Completed</label>
-            <select v-model="selectedStatus" name="users" id="users" class="form-control">
-                <option  value=""></option>
-                <option  value="completed">Completed</option>
-            </select>
-            </div>
-
-            <template v-slot:modal-footer>
-            <div class="w-100">
-                <b-button
-                @click="updatePatientReferral()"
-                variant="link"
-                size="md"
-                class="float-right font-weight-bold p-0 pl-4 pr-1"
-                >Update</b-button>
-
-                <b-button
-                variant="link"
-                size="md"
-                class="float-right font-weight-bold p-0"
-                @click="closeReferralModal()"
-                >Cancel</b-button>
-            </div>
-            </template>
-        </b-modal>
     </div>
 
 
@@ -126,13 +104,12 @@
         methods: {
             
 
-            updatePatientReferral() {
+            updatePatientReferral(patient) {
 
-                if (this.selectedPatient != {} && this.selectedStatus == 'completed') {
-                    this.selectedPatient.meta.referral_required = false;
+                    patient.meta.referral_required = false;
                     let loader = this.$loading.show();
 
-                    this.$http.put("/patients/" + this.selectedPatient.id + "/followups-status", this.selectedPatient.meta).then(response => {
+                    this.$http.put("/patients/" + patient.id + "/followups-status", patient.meta).then(response => {
                         if (response.status == 200) {
                             loader.hide()
                             this.followupPatients.splice(this.followupPatients.indexOf(this.selectedPatient), 1);
@@ -143,28 +120,14 @@
                     error => {
                         loader.hide();
                     });
-                } else {
-                    this.closeReferralModal()
-                }
 
                 
             },
 
             showReferrals(patient) {
-                this.$router.push({ name: 'followupsShow', params: { patientId: patient.id } })
+                this.$router.push({ name: 'referralsShow', params: { patientId: patient.id } })
             },
 
-            openReferralModal(patient) {
-
-                this.selectedPatient = patient;
-
-                this.$bvModal.show("modal-update-referral");
-            },
-            closeReferralModal() {
-                this.selectedCareplan = {};
-                this.selectedStatus = '';
-                this.$bvModal.hide("modal-update-referral");
-            },
             getFollowups() {
                 let loader = this.$loading.show();
                 this.$http.get("/followups").then(response => {

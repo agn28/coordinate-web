@@ -36,12 +36,12 @@
                 />
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span v-if="selectedAssignee == ''">Filter By Practionar</span>
+                    <span v-if="selectedAssignee == ''">Filter By Practitioner</span>
                     <span v-else> {{ selectedAssignee.name }} </span>
                   </button>
                   <div class="dropdown-menu">
-                    <button @click="filterByPractionar('none')" class="dropdown-item" href="#">None</button>
-                    <button @click="filterByPractionar(assignee)" v-for="(assignee, index) in assignees" :key="index" class="dropdown-item" href="#">{{ assignee.name }}</button>
+                    <button @click="filterByPractioner('none')" class="dropdown-item" href="#">None</button>
+                    <button @click="filterByPractioner(assignee)" v-for="(assignee, index) in assignees" :key="index" class="dropdown-item" href="#">{{ assignee.name }}</button>
                   </div>
                 </div>
               </div>
@@ -61,7 +61,7 @@
                     <th scope="col">Date of Birth</th>
                     <th scope="col">NID</th>
                     <th scope="col">Assigned To</th>
-                    <th scope="col">Next Vist Date</th>
+                    <th scope="col">Next Visit Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -129,7 +129,7 @@ export default {
     }
   },
   methods: {
-    filterByPractionar(assignee) {
+    filterByPractioner(assignee) {
       if (assignee == 'none') {
         this.selectedAssignee = '',
         this.patients = this.allPatients;
