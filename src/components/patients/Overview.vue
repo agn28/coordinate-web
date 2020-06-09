@@ -93,7 +93,7 @@
             </tr>
             <tr>
               <td>Allergies:</td>
-              <td>Pollen</td>
+              <td>{{ getAllergies() }}</td>
             </tr>
             <tr>
               <td>Medications:</td>
@@ -551,6 +551,17 @@ export default {
         
         if (ob) {
           return ob.body.data.medications.join(", ");
+        }
+    },
+
+    getAllergies() {
+        let ob = this.observations.find(o => {
+          return o.body.type === 'survey' && o.body.data.name === 'medical_history' 
+          && o.body.data.allergies === "yes";
+        });
+        
+        if (ob) {
+          return ob.body.data.allergy_types.join(", ");
         }
     },
 
