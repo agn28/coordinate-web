@@ -83,14 +83,14 @@
               <td>Last Encounter on:</td>
               <td>{{ getLastEncounterDate() }}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>Next assessment due on:</td>
               <td>June 15, 2020</td>
-            </tr>
-            <tr>
+            </tr> -->
+            <!-- <tr>
               <td>Current Conditions:</td>
               <td>Hypertension, Diabetes</td>
-            </tr>
+            </tr> -->
             <tr>
               <td>Allergies:</td>
               <td>{{ getAllergies() }}</td>
