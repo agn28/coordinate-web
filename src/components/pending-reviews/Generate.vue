@@ -128,8 +128,12 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label for="">Drug Name</label>
-                                                        <input type="text" v-model="medication.title" required
-                                                               class="form-control">
+                                                        <multiselect
+                                                          v-model="medication.title"
+                                                          :options="drugs"
+                                                          label="name"
+                                                          track-by="name"
+                                                        ></multiselect>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -236,8 +240,14 @@
                                             </template>
                                             <div class="form-group">
                                                 <label for="">Title</label>
-                                                <input type="text" class="form-control form-coordinate action-input"
-                                                       required v-model="actionTitle">
+                                                <!-- <input type="text" class="form-control form-coordinate action-input"
+                                                       required v-model="actionTitle"> -->
+                                                <multiselect
+                                                  v-model="actionTitle"
+                                                  :options="addActions"
+                                                  label=""
+                                                  track-by=""
+                                                ></multiselect>
                                             </div>
 
                                             <!--                                            <div class="form-group mt-3">-->
@@ -332,11 +342,25 @@
     </div>
 </template>
 <script>
+import Multiselect from "vue-multiselect";
   export default {
     name: "health-records",
-    components: {},
+    components: {Multiselect},
     data() {
       return {
+        drugs: [],
+        addActions: [
+          'Counseling about reduced salt intake',
+          'Repeat measurement of BP in community',
+          'Counselling about lipid lowering diet',
+          'Repeat measurement of total cholesterol level',
+          'Counselling about diet / physical activity to improve glycemic control',
+          'Repeat measurement of fasting blood sugar / HbA1c',
+          'Counseling on medication adherence',
+          'Counseling on diet for weight reduction',
+          'Counseling on smoking cessation',
+          'Counseling on increasing Fruits and vegetables intake'
+        ],
         medicationEnabled: false,
         medication: {},
         fullPage: true,
@@ -488,8 +512,8 @@
         let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
         this.activity = {
           category: "medication",
-          title: this.medication.title,
-          description: this.medication.title,
+          title: this.medication.title.name,
+          description: this.medication.title.name,
           id: '',
           roles: ['doctor'],
           component: {},
@@ -652,12 +676,24 @@
             this.dataReady = true
           }
         })
+      },
+
+      getDrugs() {
+        this.$http.get('/drugs').then(response => {
+          if (response.status == 200) {
+            this.drugs = response.data.data
+            console.log('drugs', this.drugs);
+            this.isLoading = false
+            this.dataReady = true
+          }
+        })
       }
     },
     created() {
       if (this.$route.params.reviewId) {
         this.reviewId = this.$route.params.reviewId
-        this.getHealthReport()
+        this.getHealthReport();
+        this.getDrugs();
       }
     },
     mounted() {
