@@ -144,10 +144,10 @@
                       <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteUser(user)">
                         <i class="fas fa-trash"></i>
                       </a>
-                      <button
+                      <!-- <button
                         v-b-modal.modal-assign-role
                         class="btn btn-sm btn-secondary mr-2"
-                      >Assign Role</button>
+                      >Assign Role</button> -->
                     </td>
                   </tr>
                 </tbody>
@@ -208,7 +208,7 @@ export default {
   methods: {
     getUsers() {
       let loader = this.$loading.show();
-      this.$http.get("/users?role=nurse,doctor").then(
+      this.$http.get("/users?role=nurse,doctor,admin").then(
         response => {
           if (response.status == 200) {
             this.users = response.data;
