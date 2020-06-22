@@ -44,12 +44,6 @@
             </router-link>
         </li>
 
-        <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('drugs') ? 'active' : ''">
-            <router-link class="nav-link" :to="{ name: 'drugs' }">
-              <i class="fas fa-pills"></i><span>Drugs</span>
-            </router-link>
-        </li>
-
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('management') ? 'active' : ''">
             <a class="nav-link" :class="this.$route.path.includes('management') ? '' : 'collapsed'" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
@@ -61,6 +55,7 @@
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/roles') ? 'active' : ''" :to="{ name: 'roles' }">Roles</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/permissions') ? 'active' : ''" :to="{ name: 'permissions' }">Permissions</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/medications') ? 'active' : ''" :to="{ name: 'medications' }">Medications</router-link>
+                <router-link class="collapse-item" :class="this.$route.path.includes('management/drugs') ? 'active' : ''" :to="{ name: 'drugs' }">Drugs</router-link>
             </div>
             </div>
         </li>   

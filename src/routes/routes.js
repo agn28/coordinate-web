@@ -141,7 +141,7 @@ const routes = [
   },
 
   {
-    path: '/drugs/list',
+    path: '/management/drugs',
     name: 'drugs',
     component: Drugs,
     meta: {
