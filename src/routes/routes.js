@@ -79,6 +79,7 @@ import Users from "../components/users-management/List";
 import AssignPermissions from "../components/users-management/roles/AssignPermissions";
 
 import Drugs from "../components/drugs/List";
+import Devices from "../components/devices/List";
 
 import WorkList from "../components/users-management/worklist/WorkList";
 import WorklistPatient from "../components/users-management/worklist/PatientList";
@@ -144,6 +145,15 @@ const routes = [
     path: '/drugs/list',
     name: 'drugs',
     component: Drugs,
+    meta: {
+      role: 'admin'
+    }
+  },
+
+  {
+    path: '/devices/list',
+    name: 'devices',
+    component: Devices,
     meta: {
       role: 'admin'
     }
