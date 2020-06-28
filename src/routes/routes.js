@@ -78,13 +78,13 @@ import Permissions from "../components/users-management/permissions/List";
 import Users from "../components/users-management/List";
 import AssignPermissions from "../components/users-management/roles/AssignPermissions";
 
-import Drugs from "../components/drugs/List";
+import Medications from "../components/medications/List";
 import Devices from "../components/devices/List";
 
 import WorkList from "../components/users-management/worklist/WorkList";
 import WorklistPatient from "../components/users-management/worklist/PatientList";
 
-import Medications from "../components/users-management/medications/List";
+import Symptoms from "../components/users-management/symptoms/List";
 
 
 import VueRouter from "vue-router";
@@ -142,9 +142,9 @@ const routes = [
   },
 
   {
-    path: '/management/drugs',
-    name: 'drugs',
-    component: Drugs,
+    path: '/management/medications',
+    name: 'medications',
+    component: Medications,
     meta: {
       role: 'admin'
     }
@@ -185,9 +185,9 @@ const routes = [
   },
 
   {
-    path: '/management/medications',
-    name: 'medications',
-    component: Medications,
+    path: '/management/symptoms',
+    name: 'symptoms',
+    component: Symptoms,
     meta: {
       role: 'admin'
     }

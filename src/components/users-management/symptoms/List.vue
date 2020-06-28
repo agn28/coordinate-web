@@ -5,7 +5,7 @@
         <div class="col-lg-12 d-flex breadcrumb-wrap">
           <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
           <div class>
-            <h4>Medications</h4>
+            <h4>Symptoms</h4>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
                 <input
                   class="form-control my-0 py-1 border-left-0"
                   type="text"
-                  placeholder="Medication name"
+                  placeholder="Symptoms name"
                   aria-label="Search"
                   v-model="search"
                 />
@@ -42,22 +42,22 @@
           <div class="patient-content float-right">
             <div class="right-side">
               <div class="register-patient">
-                <button class="btn" v-b-modal.modal-medication>
-                  <i class="fas fa-plus"></i>Create Medication
+                <button class="btn" v-b-modal.modal-symptom>
+                  <i class="fas fa-plus"></i>Create Symptom
                 </button>
               </div>
 
-              <b-modal id="modal-medication" class="modal-role">
+              <b-modal id="modal-symptom" class="modal-role">
                 <template v-slot:modal-header>
-                  <span class="title">Create Medication</span>
+                  <span class="title">Create Symptom</span>
                 </template>
                 <div class="d-flex align-items-center row">
                   <div class="form-group col-md-12">
-                    <label for="newMedication">Medication</label>
+                    <label for="newMedication">Symptom</label>
                     <input
                       type="text"
-                      id="newMedication"
-                      v-model="newMedication"
+                      id="newSymptom"
+                      v-model="newSymptom"
                       class="form-control form-coordinate height-input"
                     />
                   </div>
@@ -67,16 +67,16 @@
                   <div class="w-100">
                     <b-button
                       type="button"
-                      @click="createMedication()"
+                      @click="createSymptom()"
                       variant="link"
-                      :disabled="!newMedication"
+                      :disabled="!newSymptom"
                       size="md"
                       class="float-right font-weight-bold p-0 pl-4 pr-1"
                     >Save</b-button>
 
                     <button
                       class="btn btn-link float-right font-weight-bold p-0"
-                      @click="$bvModal.hide('modal-medication')"
+                      @click="$bvModal.hide('modal-symptom')"
                     >Cancel</button>
                   </div>
                 </template>
@@ -92,18 +92,18 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">Medications</th>
+                    <th scope="col">Symptoms</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(medication, index) in filteredList" :key="index">
-                    <td>{{ medication.name }}</td>
+                  <tr v-for="(symptom, index) in filteredList" :key="index">
+                    <td>{{ symptom.name }}</td>
                     <td>
                       <a
                         class="btn btn-sm btn-danger mr-2"
                         href="#"
-                        @click.prevent="deleteMedication(medication)"
+                        @click.prevent="deleteSymptom(symptom)"
                       >
                         <i class="fas fa-trash"></i>
                       </a>
@@ -121,32 +121,32 @@
 
 <script>
 export default {
-  name: "medications",
+  name: "symptoms",
   components: {},
   data() {
     return {
-      newMedication: null,
-      medications: [],
+      newSymptom: null,
+      symptoms: [],
       search: ''
     };
   },
   mounted() {
-    this.getMedications();
+    this.getSymptoms();
   },
   computed: {
     filteredList() {
-      return this.medications.filter(m => {
+      return this.symptoms.filter(m => {
         return m.name.toLowerCase().includes(this.search.toLowerCase());
       });
     }
   },
   methods: {
-    getMedications() {
+    getSymptoms() {
       let loader = this.$loading.show();
       this.$http.get("/medications").then(
         response => {
           if (response.status == 200) {
-            this.medications = response.data.data;
+            this.symptoms = response.data.data;
           }
 
           loader.hide();
@@ -157,19 +157,19 @@ export default {
       );
     },
 
-    createMedication() {
-      if (!this.newMedication) {
+    createSymptom() {
+      if (!this.newSymptom) {
         return;
       }
 
       let loader = this.$loading.show();
-      this.$http.post("/medications", { name: this.newMedication }).then(
+      this.$http.post("/medications", { name: this.newSymptom }).then(
         response => {
           loader.hide();
           if (response.status == 201) {
-            this.medications.push(response.data);
-            this.$bvModal.hide("modal-medication");
-            this.newMedication = "";
+            this.symptoms.push(response.data);
+            this.$bvModal.hide("modal-symptom");
+            this.newSymptom = "";
           }
         },
         error => {
@@ -178,7 +178,7 @@ export default {
       );
     },
 
-    deleteMedication(medication) {
+    deleteSymptom(symptom) {
       this.$swal({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -189,21 +189,21 @@ export default {
         confirmButtonText: "Yes, delete it!"
       }).then(result => {
         if (result.value) {
-          this.confirmedDeleteMedication(medication);
+          this.confirmedDeleteSymptom(symptom);
         }
       });
     },
 
-    confirmedDeleteMedication(medication) {
+    confirmedDeleteSymptom(symptom) {
       let loader = this.$loading.show();
-      this.$http.delete("/medications/" + medication.id).then(
+      this.$http.delete("/medications/" + symptom.id).then(
         response => {
-          let index = this.medications.findIndex(m => m.id == medication.id);
-          this.medications.splice(index, 1);
+          let index = this.symptoms.findIndex(m => m.id == symptom.id);
+          this.symptoms.splice(index, 1);
           loader.hide();
           this.$swal(
             "Deleted!",
-            "Your medication has been deleted.",
+            "Your symptom has been deleted.",
             "success"
           );
         },

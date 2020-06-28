@@ -54,8 +54,8 @@
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/users') ? 'active' : ''" :to="{ name: 'users' }">Users</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/roles') ? 'active' : ''" :to="{ name: 'roles' }">Roles</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/permissions') ? 'active' : ''" :to="{ name: 'permissions' }">Permissions</router-link>
+                <router-link class="collapse-item" :class="this.$route.path.includes('management/symptoms') ? 'active' : ''" :to="{ name: 'symptoms' }">Symptoms</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/medications') ? 'active' : ''" :to="{ name: 'medications' }">Medications</router-link>
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/drugs') ? 'active' : ''" :to="{ name: 'drugs' }">Drugs</router-link>
                 <router-link class="collapse-item" :class="this.$route.path.includes('management/devices') ? 'active' : ''" :to="{ name: 'devices' }">Devices</router-link>
 
             </div>
