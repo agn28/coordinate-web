@@ -150,8 +150,12 @@
                       </a>
                       <a class="btn btn-sm btn-info mr-2" href>
                         <i class="fas fa-eye"></i>
-                      </a> -->
-                      <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteUser(user)">
+                      </a>-->
+                      <a
+                        class="btn btn-sm btn-danger mr-2"
+                        href="#"
+                        @click.prevent="deleteUser(user)"
+                      >
                         <i class="fas fa-trash"></i>
                       </a>
 
@@ -161,7 +165,7 @@
                       <!-- <button
                         v-b-modal.modal-assign-role
                         class="btn btn-sm btn-secondary mr-2"
-                      >Assign Role</button> -->
+                      >Assign Role</button>-->
                     </td>
                   </tr>
                 </tbody>
@@ -305,6 +309,13 @@ export default {
           }
 
           this.$bvModal.hide("modal-user");
+
+          this.newUser = {
+            name: null,
+            password: null,
+            email: null,
+            role: null
+          };
           loader.hide();
         })
         .catch(error => {
