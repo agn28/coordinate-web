@@ -151,15 +151,6 @@ const routes = [
   },
 
   {
-    path: '/devices/list',
-    name: 'devices',
-    component: Devices,
-    meta: {
-      role: 'admin'
-    }
-  },
-
-  {
     path: '/work-lists/:patientId',
     name: 'worklist',
     component: WorkList,
@@ -197,6 +188,15 @@ const routes = [
     path: '/management/medications',
     name: 'medications',
     component: Medications,
+    meta: {
+      role: 'admin'
+    }
+  },
+
+  {
+    path: '/management/devices/list',
+    name: 'devices',
+    component: Devices,
     meta: {
       role: 'admin'
     }

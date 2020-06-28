@@ -144,10 +144,7 @@ export default {
     },
 
     hasAssignee(patient) {
-      if (typeof patient.body.next_assignment != 'undefined' && typeof patient.body.next_assignment.meta.assigned_to != 'undefined') {
-        return true;
-      }
-      return false;
+      return patient.body.assignees.length > 0;
     },
     getAssignees() {
         if (this.users.length > 0) {
@@ -169,14 +166,19 @@ export default {
       return date;
     },
     getAssignee(patient) {
-      let user = '';
-      if (typeof patient.body.next_assignment != 'undefined' && typeof patient.body.next_assignment.meta.assigned_to != 'undefined') {
-        user = this.users.find(user => user.uid == patient.body.next_assignment.meta.assigned_to)
+      let users = '';
+      patient.body.assignees.forEach(assignee => {
+        let user = this.users.find(user => user.uid == assignee)
         if (user) {
-          user = user.name;
+          if (users == '') {
+            users = user.name;
+          } else {
+            users = users + ', ' + user.name;
+          }
         }
-      }
-      return user;
+      });
+      
+      return users;
     },
 
     getUsers() {

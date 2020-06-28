@@ -41,7 +41,7 @@
           <div class="patient-content float-right">
             <div class="right-side">
               <div class="register-patient">
-                <button class="btn" v-b-modal.modal-user>
+                <button class="btn" @click="openCreateModal()">
                   <i class="fas fa-plus"></i>Create User
                 </button>
               </div>
@@ -96,12 +96,22 @@
                 <template v-slot:modal-footer>
                   <div class="w-100">
                     <b-button
+                      v-if="!isEdit"
                       @click="createUser()"
                       variant="link"
-                      :disabled="!(newUser.name && newUser.email && newUser.password && newUser.role)"
+                      :disabled="!validateForm()"
                       size="md"
                       class="float-right font-weight-bold p-0 pl-4 pr-1"
                     >Save</b-button>
+
+                    <b-button
+                      v-else
+                      @click="updateUser()"
+                      variant="link"
+                      :disabled="!validateForm()"
+                      size="md"
+                      class="float-right font-weight-bold p-0 pl-4 pr-1"
+                    >Update</b-button>
 
                     <b-button
                       variant="link"
@@ -143,6 +153,10 @@
                       </a> -->
                       <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteUser(user)">
                         <i class="fas fa-trash"></i>
+                      </a>
+
+                      <a class="btn btn-sm btn-primary mr-2" href="#" @click.prevent="editUser(user)">
+                        <i class="fas fa-pencil-alt"></i>
                       </a>
                       <!-- <button
                         v-b-modal.modal-assign-role
@@ -195,6 +209,7 @@ export default {
   components: {},
   data() {
     return {
+      isEdit: false,
       newUser: {
         name: null,
         password: null,
@@ -205,7 +220,15 @@ export default {
       roles: []
     };
   },
+  computed: {},
   methods: {
+    validateForm() {
+      if (this.isEdit) {
+        return this.newUser.name && this.newUser.email && this.newUser.role
+      }
+      return this.newUser.name && this.newUser.email && this.newUser.password && this.newUser.role
+      
+    },
     getUsers() {
       let loader = this.$loading.show();
       this.$http.get("/users?role=nurse,doctor,admin").then(
@@ -238,6 +261,40 @@ export default {
 
     assignRole() {},
 
+    openCreateModal() {
+      this.newUser = {
+        name: null,
+        password: null,
+        email: null,
+        role: null
+      }
+      this.isEdit = false;
+      this.$bvModal.show("modal-user");
+    },
+
+    updateUser() {
+      let loader = this.$loading.show();
+      this.$http
+        .put("/users/" + this.newUser.uid, this.newUser)
+        .then(response => {
+          if (response.status == 201) {
+            let index = this.users.findIndex((user => user.uid == this.newUser.uid));
+            this.users[index] = this.newUser;
+          }
+
+          this.$bvModal.hide("modal-user");
+          loader.hide();
+        })
+        .catch(error => {
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message
+          });
+          loader.hide();
+        });
+    },
+
     createUser() {
       let loader = this.$loading.show();
       this.$http
@@ -258,6 +315,13 @@ export default {
           });
           loader.hide();
         });
+    },
+
+    editUser(user) {
+      console.log(user);
+      this.isEdit = true;
+      this.$bvModal.show("modal-user");
+      this.newUser = user;
     },
 
     deleteUser(user) {
