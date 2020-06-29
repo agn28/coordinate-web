@@ -106,22 +106,21 @@
 
             updatePatientReferral(patient) {
 
-                    patient.meta.referral_required = false;
-                    let loader = this.$loading.show();
+                patient.meta.referral_required = false;
+                let loader = this.$loading.show();
 
-                    this.$http.put("/patients/" + patient.id + "/followups-status", patient.meta).then(response => {
-                        if (response.status == 200) {
-                            loader.hide()
-                            this.followupPatients.splice(this.followupPatients.indexOf(this.selectedPatient), 1);
-                            this.getFollowups();
-                            this.closeReferralModal()
-                        }
-                    },
-                    error => {
-                        loader.hide();
-                    });
+                this.$http.put("/patients/" + patient.id + "/followups-status", patient.meta).then(response => {
+                    if (response.status == 200) {
+                        loader.hide()
+                        this.followupPatients.splice(this.followupPatients.indexOf(this.selectedPatient), 1);
+                        this.getFollowups();
+                        this.closeReferralModal()
+                    }
+                },
+                error => {
+                    loader.hide();
+                });
 
-                
             },
 
             showReferrals(patient) {
@@ -145,20 +144,20 @@
             getPatients() {
                 let loader = this.$loading.show();
                 this.$http.get("/patients").then(response => {
-                        if (response.status == 200) {
-                            loader.hide()
-                            this.patients = response.data.data;
+                    if (response.status == 200) {
+                        loader.hide()
+                        this.patients = response.data.data;
 
-                            this.patients = this.patients.filter( patient => patient.meta.referral_required && patient.meta.referral_required == true);
-                            if (this.patients.length > 0 ) {
-                                this.prepareData()
-                            }
-                            
+                        this.patients = this.patients.filter( patient => patient.meta.referral_required && patient.meta.referral_required == true);
+                        if (this.patients.length > 0 ) {
+                            this.prepareData()
                         }
-                    },
-                    error => {
-                        loader.hide();
-                    });
+                        
+                    }
+                },
+                error => {
+                    loader.hide();
+                });
             },
 
             getDate(date) {
@@ -169,10 +168,15 @@
             prepareData() {
                 let patients = [];
                 this.followups.forEach( followup => {
+                    console.log(patients)
                     let patientExists =  patients.find( patient => patient.id == followup.meta.patient_id)
                     if (!patientExists) {
+                        console.log('hello')
                         let patient = this.patients.find( patient => patient.id == followup.meta.patient_id)
-                        patients.push(patient)
+                        console.log(patient);   
+                        if (patient) {
+                            patients.push(patient)
+                        }
                     }
                     
                 })
