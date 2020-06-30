@@ -46,19 +46,29 @@
 
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('management') ? 'active' : ''">
             <a class="nav-link" :class="this.$route.path.includes('management') ? '' : 'collapsed'" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Management</span>
+            <i class="fas fa-fw fa-user"></i>
+            <span>User Management</span>
             </a>
             <div id="collapseTwo" class="collapse" :class="this.$route.path.includes('management') ? 'show' : ''" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/users') ? 'active' : ''" :to="{ name: 'users' }">Users</router-link>
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/roles') ? 'active' : ''" :to="{ name: 'roles' }">Roles</router-link>
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/permissions') ? 'active' : ''" :to="{ name: 'permissions' }">Permissions</router-link>
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/symptoms') ? 'active' : ''" :to="{ name: 'symptoms' }">Symptoms</router-link>
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/medications') ? 'active' : ''" :to="{ name: 'medications' }">Medications</router-link>
-                <router-link class="collapse-item" :class="this.$route.path.includes('management/devices') ? 'active' : ''" :to="{ name: 'devices' }">Devices</router-link>
-
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <router-link class="collapse-item" :class="this.$route.path.includes('management/users') ? 'active' : ''" :to="{ name: 'users' }">Users</router-link>
+                  <router-link class="collapse-item" :class="this.$route.path.includes('management/roles') ? 'active' : ''" :to="{ name: 'roles' }">Roles</router-link>
+                  <router-link class="collapse-item" :class="this.$route.path.includes('management/permissions') ? 'active' : ''" :to="{ name: 'permissions' }">Permissions</router-link>
+              </div>
             </div>
+        </li>  
+
+        <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('settings') ? 'active' : ''">
+            <a class="nav-link" :class="this.$route.path.includes('settings') ? '' : 'collapsed'" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <i class="fas fa-fw fa-cog"></i>
+              <span>Settings</span>
+            </a>
+            <div id="collapseThree" class="collapse" :class="this.$route.path.includes('settings') ? 'show' : ''" aria-labelledby="headingThree" data-parent="#accordionSidebar" style="">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <router-link class="collapse-item" :class="this.$route.path.includes('settings/symptoms') ? 'active' : ''" :to="{ name: 'symptoms' }">Symptoms</router-link>
+                  <router-link class="collapse-item" :class="this.$route.path.includes('settings/medications') ? 'active' : ''" :to="{ name: 'medications' }">Medications</router-link>
+                  <router-link class="collapse-item" :class="this.$route.path.includes('settings/devices') ? 'active' : ''" :to="{ name: 'devices' }">Devices</router-link>
+              </div>
             </div>
         </li>   
 

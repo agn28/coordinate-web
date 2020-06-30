@@ -18,7 +18,7 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-6">
           <div class="patient-search">
             <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-6">
           <div class="patient-content float-right">
             <div class="right-side">
               <div class="register-patient">
@@ -89,7 +89,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <div class="patient-list">
             <div class>
               <table class="table table-bordered">

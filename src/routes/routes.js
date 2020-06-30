@@ -142,15 +142,6 @@ const routes = [
   },
 
   {
-    path: '/management/medications',
-    name: 'medications',
-    component: Medications,
-    meta: {
-      role: 'admin'
-    }
-  },
-
-  {
     path: '/work-lists/:patientId',
     name: 'worklist',
     component: WorkList,
@@ -185,7 +176,7 @@ const routes = [
   },
 
   {
-    path: '/management/symptoms',
+    path: '/settings/symptoms',
     name: 'symptoms',
     component: Symptoms,
     meta: {
@@ -194,7 +185,7 @@ const routes = [
   },
 
   {
-    path: '/management/devices/list',
+    path: '/settings/devices/list',
     name: 'devices',
     component: Devices,
     meta: {
@@ -202,6 +193,14 @@ const routes = [
     }
   },
 
+  {
+    path: '/settings/medications',
+    name: 'medications',
+    component: Medications,
+    meta: {
+      role: 'admin'
+    }
+  },
   {
     path: '/health-records/list',
     name: 'healthList',
