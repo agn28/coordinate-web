@@ -60,7 +60,7 @@
                       class="form-control form-coordinate height-input"
                     />
                     <small id="permissionHelp" class="form-text text-muted">
-                      Examnple:
+                      Example:
                       <b>Napa 12mg</b>
                     </small>
                   </div>

@@ -85,6 +85,9 @@ import WorkList from "../components/users-management/worklist/WorkList";
 import WorklistPatient from "../components/users-management/worklist/PatientList";
 
 import Symptoms from "../components/users-management/symptoms/List";
+import Questionnaires from "../components/questionnaires/List";
+import EditQuestionnaire from "../components/questionnaires/View";
+import QuestionnaireSection from "../components/questionnaires/Section";
 
 
 import VueRouter from "vue-router";
@@ -179,6 +182,31 @@ const routes = [
     path: '/settings/symptoms',
     name: 'symptoms',
     component: Symptoms,
+    meta: {
+      role: 'admin'
+    }
+  },
+  {
+    path: '/settings/questionnaires',
+    name: 'questionnaires',
+    component: Questionnaires,
+    meta: {
+      role: 'admin'
+    }
+  },
+
+  {
+    path: '/settings/questionnaires/:id',
+    name: 'editQuestionnaire',
+    component: EditQuestionnaire,
+    meta: {
+      role: 'admin'
+    }
+  },
+  {
+    path: '/settings/questionnaires/:id/section/:sectionId',
+    name: 'questionnaireSection',
+    component: QuestionnaireSection,
     meta: {
       role: 'admin'
     }
