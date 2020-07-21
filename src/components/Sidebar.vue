@@ -68,6 +68,7 @@
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/symptoms') ? 'active' : ''" :to="{ name: 'symptoms' }">Symptoms</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/medications') ? 'active' : ''" :to="{ name: 'medications' }">Medications</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/devices') ? 'active' : ''" :to="{ name: 'devices' }">Devices</router-link>
+                  <router-link class="collapse-item" :class="this.$route.path.includes('settings/questionnaires') ? 'active' : ''" :to="{ name: 'questionnaires' }">Questionnaires</router-link>
               </div>
             </div>
         </li>   
