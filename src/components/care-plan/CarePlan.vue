@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
   name: "CarePlan",
   data() {
@@ -133,6 +134,7 @@ export default {
         response => {
           if (response.status == 200) {
             this.carePlans = response.data.data;
+            this.sortCarePlans();
           }
           loader.hide();
         },
@@ -140,8 +142,16 @@ export default {
           loader.hide();
         }
       );
+    },
+
+    sortCarePlans() {
+      this.carePlans = this.carePlans.sort((a, b) => {
+        return moment(a.body.activityDuration.end).diff(b.body.activityDuration.end);
+      });
     }
   }
+
+  
 };
 </script>
 
