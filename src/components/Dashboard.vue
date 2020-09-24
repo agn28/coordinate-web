@@ -50,9 +50,9 @@
             <div class="card-body">
               <span class>Patients Pending Care Plan</span>
 
-              <p class="text-black text-bold mt-3">{{ total_careplan}}</p>
+              <p class="text-black text-bold mt-3">{{ total_pending_careplan_patients }}</p>
 
-              <router-link class="text-link custom-text-link" :to="{ name: 'carePlan'}">View</router-link>
+              <router-link class="text-link custom-text-link" :to="{ name: 'carePlanPatients'}">View</router-link>
             </div>
           </div>
         </div>
@@ -125,6 +125,7 @@ export default {
       total_patient: 0,
       total_careplan: 0,
       total_pending: 0,
+      total_pending_careplan_patients: 0,
       data: null
     };
   },
@@ -140,6 +141,7 @@ export default {
             this.total_patient = response.data.data.total_patient;
             this.total_careplan = response.data.data.total_careplan;
             this.total_pending = response.data.data.total_pending;
+            this.total_pending_careplan_patients = response.data.data.total_pending_careplan_patients;
             this.data = response.data.data.data;
           }
           loader.hide();

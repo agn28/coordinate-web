@@ -46,6 +46,7 @@ import EncounterMedication from "../components/past-encounters/encounter-questio
 
 import CarePlan from "../components/care-plan/CarePlan";
 import CarePlanAction from "../components/care-plan/CarePlanAction";
+import CarePlanPatients from '../components/care-plan/CarePlanPatients'
 
 import Allergy from '../components/allergy/List'
 import AllergyCreate from '../components/allergy/Create'
@@ -264,6 +265,7 @@ const routes = [
     name: 'patientCarePlans',
     component: PatientCarePlans
   },
+  
   {
     path: '/patients/create',
     name: 'patientCreate',
@@ -427,6 +429,11 @@ const routes = [
     path: '/care-plan',
     name: 'carePlan',
     component: CarePlan
+  },
+  {
+    path: '/care-plan-patients',
+    name: 'carePlanPatients',
+    component: CarePlanPatients
   },
   {
     path: '/care-plan/:carePlanId/action',

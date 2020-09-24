@@ -198,7 +198,7 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients").then(
+      this.$http.get("/patients?type=pending").then(
         response => {
           if (response.status == 200) {
             this.patients = response.data.data;
