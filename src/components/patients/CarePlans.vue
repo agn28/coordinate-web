@@ -5,7 +5,7 @@
                 <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.push({ name: 'dashboard'})"></i>
                 <div class="">
                     <h4>Care Plan</h4>
-                    <div class="breadcrumb"><span>Patients / Jahanara Begum</span> / Care Plan</div>
+                    <div class="breadcrumb" v-if="patient"><span>Patients / {{ patient.body.first_name + " " + patient.body.last_name }}</span> / Care Plan</div>
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-between mt-3">
@@ -104,7 +104,8 @@
         data() {
             return {
                 carePlans: [],
-                patientId: null
+                patientId: null,
+                patient: null
             }
         },
 
@@ -113,6 +114,7 @@
         mounted() {
             this.patientId = this.$route.params.patientId;
             this.getCarePlans();
+            this.getPatient();
         },
         methods: {
             getCarePlans() {
@@ -128,7 +130,21 @@
                     loader.hide();
                     }
                 );
-            }
+            },
+            getPatient() {
+              let loader = this.$loading.show();
+              this.$http.get("/patients/" + this.patientId).then(
+                response => {
+                  loader.hide();
+                  if (response.status == 200) {
+                    this.patient = response.data.data;
+                  }
+                },
+                error => {
+                  loader.hide();
+                }
+              );
+            },
         }
     }
 </script>

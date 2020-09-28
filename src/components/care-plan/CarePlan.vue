@@ -8,7 +8,7 @@
         ></i>
         <div class>
           <h4>Care Plan</h4>
-          <div class="breadcrumb">
+          <div class="breadcrumb" v-if="patient">
             <span>Patients / Jahanara Begum</span> / Care Plan
           </div>
         </div>
@@ -120,12 +120,16 @@ export default {
   name: "CarePlan",
   data() {
     return {
-      carePlans: []
+      carePlans: [],
+      patient: {},
+      patientId: ''
     };
   },
 
-  created() {
+  mounted() {
+    this.patientId = this.$route.params.patientId;
     this.getCarePlans();
+    this.getPatient();
   },
   methods: {
     getCarePlans() {
@@ -137,6 +141,20 @@ export default {
             this.sortCarePlans();
           }
           loader.hide();
+        },
+        error => {
+          loader.hide();
+        }
+      );
+    },
+    getPatient() {
+      let loader = this.$loading.show();
+      this.$http.get("/patients/" + this.patientId).then(
+        response => {
+          loader.hide();
+          if (response.status == 200) {
+            this.patient = response.data.data;
+          }
         },
         error => {
           loader.hide();
