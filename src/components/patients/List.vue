@@ -135,10 +135,10 @@
                       </div>
                     </th>
                     <th scope="col">Name</th>
-                    <!-- <th scope="col">PID</th> -->
                     <th scope="col">NID</th>
                     <th scope="col">Age</th>
                     <th scope="col">Gender</th>
+                    <th scope="col">Registration Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -174,9 +174,10 @@
                       <!-- <td>P2342343</td> -->
                       <td>{{ patient.body.nid }}</td>
                       <td>{{ patient.body.age }}</td>
-                      <td>
-                        {{ patient.body.gender.toUpperCase()
-                        }}<span class="pull-right"
+                      <td>{{ patient.body.gender.toUpperCase()
+                        }}</td>
+                      <td>{{ patient.body.registration_date }}
+                        <span class="pull-right"
                           ><i class="fas fa-arrow-right"></i
                         ></span>
                       </td>
