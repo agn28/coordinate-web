@@ -110,7 +110,8 @@ export default {
       users: [],
       search: "",
       assignees: [],
-      selectedAssignee: ''
+      selectedAssignee: '',
+      carePlans: []
     };
   },
   computed: {
@@ -198,10 +199,11 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients?type=pending").then(
+      this.$http.get("/patients").then(
         response => {
           if (response.status == 200) {
             this.patients = response.data.data;
+            this.filterPatients();
             this.allPatients = this.patients;
             loader.hide();
             
@@ -223,11 +225,35 @@ export default {
         return id.value;
       }
       return "";
-    }
+    },
+
+    filterPatients() {
+        this.patients = this.patients.filter(patient => {
+          let hasCarePlan = this.carePlans.find(plan => plan.body.patient_id == patient.id);
+          if (hasCarePlan){
+            return patient;
+          }
+        });
+      },
+      getCarePlans() {
+        let loader = this.$loading.show();
+        this.$http.get("/care-plans").then(
+          response => {
+            if (response.status == 200) {
+              this.carePlans = response.data.data;
+              this.getPatients();
+            }
+            loader.hide();
+          },
+          error => {
+            loader.hide();
+          }
+        );
+      },
   },
   mounted() {
     this.getUsers();
-    this.getPatients();
+    this.getCarePlans();
   }
 };
 </script>
