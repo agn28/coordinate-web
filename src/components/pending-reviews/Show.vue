@@ -742,7 +742,7 @@
                         <div class="color-3"></div>
                       </div>
                     </div>
-                    <div class="condition-range">&lt; 130 / 80 mmHG</div>
+                    <div class="condition-range">&lt; {{ assessment.assessments.blood_pressure.target}} mmHG</div>
                   </div>
                 </div>
                 <div class="suggest">
@@ -886,7 +886,9 @@
                         <div class="color-3"></div>
                       </div>
                     </div>
-                    <div class="condition-range">&lt; 100mg/dL</div>
+                    <div class="condition-range">{{
+                    assessment.assessments.diabetes.target
+                  }}</div>
                   </div>
                 </div>
                 <div class="suggest">
@@ -1051,7 +1053,10 @@
                         <div class="color-3"></div>
                       </div>
                     </div>
-                    <div class="condition-range">&lt; 200mg/dL</div>
+                    <div class="condition-range">{{
+                    assessment.assessments.cholesterol.components
+                      .total_cholesterol.target
+                  }}</div>
                   </div>
                 </div>
                 <div class="suggest">
