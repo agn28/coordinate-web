@@ -339,7 +339,7 @@
                     <div class="body-condition">
                       <div class="condition">
                         <div class="condition-header">
-                          <div class="type-name">Hip Circumference</div>
+                          <div class="type-name">Waist Circumference</div>
                           <span class="edit-icon" v-b-modal.modal-circumference>
                             <i class="fas fa-pen"></i
                           ></span>
@@ -455,43 +455,59 @@
                             assessment.assessments.body_composition
                               .components &&
                             assessment.assessments.body_composition.components
-                              .hip_circ
+                              .waist_circ
                           "
                         >
                           <div
                             class="measurement"
                             :class="
                               assessment.assessments.body_composition.components
-                                .hip_circ.tfl
+                                .waist_circ.tfl
                             "
                           >
                             {{
                               assessment.assessments.body_composition.components
-                                .hip_circ.value
+                                .waist_circ.value
                             }}
                           </div>
                           <div
                             class="result"
                             :class="
                               assessment.assessments.body_composition.components
-                                .hip_circ.tfl
+                                .waist_circ.tfl
                             "
                           >
                             {{
                               assessment.assessments.body_composition.components
-                                .hip_circ.eval
+                                .waist_circ.eval
                             }}
                           </div>
-                          <div class="color-code" id="circumference">
+                          <div class="color-code">
                             <div class="color-1"></div>
                             <div class="color-2"></div>
                             <div class="color-3"></div>
                           </div>
-                          <div class="condition-range">18.5 to 24.9</div>
-                          <div class="suggest">Weight reduction</div>
                         </div>
-                        <div class="condition-range">
-                          <h6>No Hip Circumference data found!</h6>
+                        <div
+                          v-if="
+                            assessment.assessments &&
+                            assessment.assessments.body_composition &&
+                            assessment.assessments.body_composition
+                              .components &&
+                            assessment.assessments.body_composition.components
+                              .waist_circ
+                          "
+                        >
+                          <div class="condition-range"><{{
+                              assessment.assessments.body_composition.components
+                                .waist_circ.target
+                            }}</div>
+                          <div class="">
+                            {{
+                              assessment.assessments.body_composition.components
+                                .waist_circ.message
+                            }}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -659,7 +675,10 @@
                               .bmi
                           "
                         >
-                          <div class="condition-range">18.5 to 24.9</div>
+                          <div class="condition-range">{{
+                              assessment.assessments.body_composition.components
+                                .bmi.target
+                            }}</div>
                           <div class="">
                             {{
                               assessment.assessments.body_composition.components
