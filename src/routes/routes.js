@@ -31,6 +31,7 @@ import Medication from '../components/questionnaire/Medication'
 import Medical from '../components/questionnaire/Medical'
 
 import Encounters from '../components/encounters/List'
+import EncounterStats from '../components/encounter-stats/EncounterStats'
 import PastEncounters from "../components/encounters/PastEncounters";
 import EncounterCreate from '../components/past-encounters/Create'
 import EncounterEdit from '../components/past-encounters/edit-encounters/Edit'
@@ -111,6 +112,12 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+  },
+
+  {
+    path: '/encounter-stats',
+    name: 'encounterStats',
+    component: EncounterStats,
   },
   {
     path: '/management/users/list',

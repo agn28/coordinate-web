@@ -26,6 +26,11 @@
                 <i class="fas fa-fw fa-h-square"></i><span>Health Record</span>
             </router-link>
         </li>
+        <li class="nav-item" :class="this.$route.path.includes('encounter-stats') ? 'active' : ''">
+          <router-link to="/encounter-stats" class="nav-link">
+              <i class="fas fa-fw fa-h-square"></i><span>Encounter Stats</span>
+          </router-link>
+        </li>
         <!-- Nav Item - Dashboard -->
         <li class="nav-item" :class="this.$route.path.includes('patients') ? 'active' : ''">
             <router-link to="/patients/list" class="nav-link">
