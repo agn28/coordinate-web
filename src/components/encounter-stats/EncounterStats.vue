@@ -207,12 +207,7 @@
             </div>
         </div>
         
-        
-    <button @click="fillData()">Randomize</button>
     </div>
-
-
-
 
 </template>
 
