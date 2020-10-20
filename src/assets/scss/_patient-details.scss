@@ -120,7 +120,6 @@
     }
   }
   .timeline-wrapper {
-    border-left: 1px solid #dfdfdf;
 
     .timeline {
 
@@ -160,12 +159,13 @@
     
     .timeline-data {
       min-height: 200px;
-      border: 1px solid #dfdfdf;
+      border: 2px solid #095293;
       margin-bottom: 30px;
       margin-left: 40px;
       position: relative;
-      border-radius: 3px;
+      border-radius: 6px;
       padding: 25px 30px;
+      overflow: hidden;
 
       .date {
         font-size: 16px;
@@ -173,8 +173,7 @@
         margin-bottom: 15px
       }
       .title {
-        font-weight: 500;
-        font-size: 20px;
+        font-size: 19px;
         margin-bottom: 20px;
       }
       .doctor {
