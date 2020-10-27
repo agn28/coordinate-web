@@ -104,7 +104,6 @@
                       >Current Encounters</a
                     >
                   </li>
-
                   <li class="nav-item">
                     <a
                       class="nav-link"
@@ -114,9 +113,22 @@
                       role="tab"
                       aria-controls="Three"
                       aria-selected="false"
-                      >History</a
+                      >All Assessment</a
                     >
                   </li>
+
+                  <!-- <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="four-tab"
+                      data-toggle="tab"
+                      href="#five"
+                      role="tab"
+                      aria-controls="Three"
+                      aria-selected="false"
+                      >History</a
+                    >
+                  </li> -->
                 </ul>
               </div>
 
@@ -127,180 +139,9 @@
                   role="tabpanel"
                   aria-labelledby="one-tab"
                 >
-                  <div class="row">
-                    <div class="col-sm-12 col-md-8">
-                      <div class="card patient-card">
-                        <div class="card-body">
-                          <div class="header">
-                            <div class="row">
-                              <div class="col-sm-1">
-                                <div class="avatar">
-                                  <img
-                                    src="../../assets/images/avatar.png"
-                                    alt
-                                  />
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                                <h6>
-                                  {{
-                                    patient.body.first_name +
-                                    " " +
-                                    patient.body.last_name
-                                  }}
-                                </h6>
-                                <span class="type"
-                                  >Height:
-                                  <span class="value">{{
-                                    bodyHeight
-                                  }}</span></span
-                                >
-                                <span class="type"
-                                  >Weight:
-                                  <span class="value">{{
-                                    bodyWeight
-                                  }}</span></span
-                                >
-                              </div>
-                            </div>
-                          </div>
 
-                          <div class="content">
-                            <div class="row">
-                              <div class="col-sm-4">
-                                <p>
-                                  Birthday:
-                                  <span
-                                    >{{ patient.body.birth_date }} ({{
-                                      patient.body.age
-                                    }}
-                                    y.o)</span
-                                  >
-                                </p>
-                                <p>
-                                  Phone: <span>{{ patient.body.mobile }}</span>
-                                </p>
-                                <!-- <p>Policy: <span>Primary, 426-45-12AFT-12</span></p> -->
-                              </div>
-                              <div class="col-sm-6">
-                                <p>
-                                  Address:
-                                  <span>{{
-                                    patient.body.address.village +
-                                    ", " +
-                                    patient.body.address.town +
-                                    ", " +
-                                    patient.body.address.district +
-                                    ", " +
-                                    patient.body.address.postal_code
-                                  }}</span>
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- <div class="card-footer">
-                                        </div>   -->
-                      </div>
-
-                      <div class="card mt-3 p-2 pl-3 pb-5">
-                        <div class="row">
-                          <div class="col-sm-12 pb-3">
-                            <h6 class="text-secondary">Vitals</h6>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <div class="card vital-item border p-2">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <span
-                                    >Blood Pressure
-                                    <span class="text-secondary"
-                                      >({{ bloodPressures.length }})</span
-                                    ></span
-                                  >
-                                </div>
-                                <div class="col-sm-6 text-right">
-                                  <span class="text-success pl-3">Normal</span>
-                                </div>
-                              </div>
-                              <h5>
-                                {{ avgDiastolic + "/" + avgSystolic }}
-                                <span class="text-secondary">mm/hg</span>
-                              </h5>
-                              <line-chart :chart-data="bpChart"></line-chart>
-                            </div>
-                          </div>
-                          <div class="col-sm-4">
-                            <div class="card vital-item border p-2">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <span
-                                    >Heart Rate
-                                    <span class="text-secondary"
-                                      >({{ bloodPressures.length }})</span
-                                    ></span
-                                  >
-                                </div>
-                                <div class="col-sm-6 text-right">
-                                  <span class="text-success pl-3">Normal</span>
-                                </div>
-                              </div>
-                              <h5>
-                                {{ avgPulse }}
-                                <span class="text-secondary">mm/hg</span>
-                              </h5>
-                              <line-chart :chart-data="heartChart"></line-chart>
-                            </div>
-                          </div>
-                          <div class="col-sm-4">
-                            <div class="card vital-item border p-2">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <span
-                                    >BMI
-                                    <span class="text-secondary"
-                                      >({{ totalBMI }})</span
-                                    ></span
-                                  >
-                                </div>
-                                <div class="col-sm-6 text-right">
-                                  <span class="text-success pl-3">Normal</span>
-                                </div>
-                              </div>
-                              <h5>
-                                {{ avgBMI }} <span class="text-secondary">mm/hg</span>
-                              </h5>
-                              <line-chart :chart-data="bmiChart"></line-chart>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-4 sidebar">
-                      <div class="card p-2 pl-3">
-                        <div class="header text-secondary">
-                          <h6>Medcications</h6>
-                        </div>
-                        <div class="content">
-                          {{ getMedications() }}
-                        </div>
-                      </div>
-
-                      <div class="card p-2 pl-3 mt-4">
-                        <div class="header text-secondary">
-                          <h6>Allergies</h6>
-                        </div>
-                        <div class="content">
-                          {{ getAllergies() }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <patient-chart v-if="report" :patient="patient" :report="report" :observations="observations" :currentEncounter="currentEncounter"></patient-chart>
+                  
                 </div>
                 <div
                   class="tab-pane fade p-3"
@@ -308,85 +149,7 @@
                   role="tabpanel"
                   aria-labelledby="three-tab"
                 >
-                  <div class="encounter-details">
-                    <div class="row">
-                      <div class="col-sm-8"></div>
-                    </div>
-                  </div>
-
-                  <div class="timeline-wrapper" v-if="encounters.length > 0">
-                    <div class="timeline">
-                      <div class="row">
-                        <div
-                          class="col-sm-4 timeline-item"
-                          v-for="(encounter, index) in encounters"
-                          :key="index"
-                        >
-                          <div class="timeline-data bg-white">
-                            <div class="date">{{ getDate(encounter) }}</div>
-                            <div class="title text-capitalize">
-                              Follow-up Encounter: {{ encounter.body.type }}
-                            </div>
-                            <div class="doctor" v-if="users.length > 0">
-                              <img
-                                src="../../assets/images/avatar/dummy-man-570x570.png"
-                                class="rounded-circle img-fluid"
-                                width="30"
-                                height="30"
-                                alt
-                              />
-                              <span>{{ getUser(encounter) }}</span>
-                            </div>
-                            <div class="observation-icons">
-                              <img
-                                src="../../assets/images/body_measurements_.png"
-                                class
-                              />
-                              <img
-                                src="../../assets/images/blood_pressure_.png"
-                                class
-                              />
-                              <img
-                                src="../../assets/images/blood_test_.png"
-                                class
-                              />
-                              <img
-                                src="../../assets/images/medical_history_.png"
-                                class
-                              />
-                            </div>
-
-                            <!-- <div class="assessment-pills pb-2">
-                                                              
-                                                              <div class="pill-item RED border-RED">BMI</div>
-                                                              <div class="pill-item RED border-RED">BP</div>
-                                                              <div class="pill-item RED border-RED">CVD RISK</div>
-                                                              <div class="pill-item AMBER border-AMBER">Cholesterol</div>
-                                                              
-                                        </div>-->
-                            <br />
-
-                            <div class="float-right"></div>
-                            <router-link
-                              :to="{
-                                name: 'observations',
-                                params: {
-                                  patientId: patientId,
-                                  encounterId: encounter.id,
-                                },
-                              }"
-                              tag="a"
-                              class="view float-right"
-                              >View Encounter Details
-                              <i class="fas fa-arrow-right"></i
-                            ></router-link>
-
-                            <!-- <a href="view"> View Encounter Details</a> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <all-encounters v-if="encounters" :encounters="encounters" :users="users" :patientId="patientId"></all-encounters>
                 </div>
                 <div
                   class="tab-pane fade p-3"
@@ -394,120 +157,7 @@
                   role="tabpanel"
                   aria-labelledby="two-tab"
                 >
-                  <div class="encounter-details" v-if="currentEncounter">
-                    <div class="row">
-                      <div class="col-sm-8">
-                        <div class="card p-3 card-big">
-                          <h6 class="mb-3">Vitals</h6>
-
-                          <table>
-                            <!-- <tr>
-                              <td class="text-secondary">Temperature:</td>
-                              <td>46 <span>&#176;</span></td>
-                            </tr> -->
-                            <tr>
-                              <td class="text-secondary">Heart Rate:</td>
-                              <td>{{ getBp(currentEncounter.body.observations) ? getBp(currentEncounter.body.observations).body.data.pulse_rate : ''}}</td>
-                            </tr>
-                            <tr>
-                              <td class="text-secondary">Blood Pressure:</td>
-                              <td>{{ getBp(currentEncounter.body.observations) ? getBp(currentEncounter.body.observations).body.data.systolic + '/' + getBp(currentEncounter.body.observations).body.data.diastolic : ''}}</td>
-                            </tr>
-                            <tr>
-                              <td class="text-secondary">Height:</td>
-                              <td>{{ getHeight(currentEncounter.body.observations) ? getHeight(currentEncounter.body.observations).body.data.value +' ' + getHeight(currentEncounter.body.observations).body.data.unit : '' }}</td>
-                            </tr>
-                            <tr>
-                              <td class="text-secondary">Weight:</td>
-                              <td>{{ getWeight(currentEncounter.body.observations) ? getWeight(currentEncounter.body.observations).body.data.value +' ' + getWeight(currentEncounter.body.observations).body.data.unit : '' }}</td>
-                            </tr>
-                            <!-- <tr>
-                              <td class="text-secondary">BMI:</td>
-                              <td>29</td>
-                            </tr> -->
-                          </table>
-                        </div>
-
-                        <div class="card p-3 card-big mt-3">
-                          <h6 class="mb-3">Labotory Tests</h6>
-
-                          <table>
-                            <tr>
-                              <td class="text-secondary">Floating Blood Sugar:</td>
-                              <td>{{ getBloodSugar(currentEncounter.body.observations) ? getBloodSugar(currentEncounter.body.observations).body.data.value +' ' + getBloodSugar(currentEncounter.body.observations).body.data.unit : '' }}</td>
-                            </tr>
-                          </table>
-                        </div>
-
-                      </div>
-
-                      <div class="col-sm-4">
-                        <div class="card p-3 card-small">
-                          <h6 class="mb-3">DIagnosis</h6>
-
-                        </div>
-                        <div class="card p-3 card-small mt-3">
-                          <h6 class="mb-3">Previous Encounter</h6>
-
-                          <div class="previous-encounter bg-white">
-                              <div class="date">{{ getDate(previousEncounter) }}</div>
-                              <div class="mt-2 text-capitalize"><strong> Follow-up Encounter: {{ previousEncounter.body.type }}</strong></div>
-                              <div class="doctor mt-3" v-if="users.length > 0">
-                                <img
-                                  src="../../assets/images/avatar/dummy-man-570x570.png"
-                                  class="rounded-circle img-fluid"
-                                  width="30"
-                                  height="30"
-                                  alt
-                                />
-                                <span class="pl-2">{{ getUser(previousEncounter) }}</span>
-                              </div>
-                              <!-- <div class="observation-icons mt-2">
-                                <img
-                                  src="../../assets/images/body_measurements_.png"
-                                  class
-                                />
-                                <img
-                                  src="../../assets/images/blood_pressure_.png"
-                                  class
-                                />
-                                <img
-                                  src="../../assets/images/blood_test_.png"
-                                  class
-                                />
-                                <img
-                                  src="../../assets/images/medical_history_.png"
-                                  class
-                                />
-                              </div> -->
-
-                              <!-- <div class="assessment-pills pb-2">
-                                                    
-                                                    <div class="pill-item RED border-RED">BMI</div>
-                                                    <div class="pill-item RED border-RED">BP</div>
-                                                    <div class="pill-item RED border-RED">CVD RISK</div>
-                                                    <div class="pill-item AMBER border-AMBER">Cholesterol</div>
-                                                    
-                              </div>-->
-                              <br />
-
-                              <div class="float-right">
-                                
-                              </div>
-                              <!-- <router-link
-                                :to="{ name: 'observations', params: { patientId: patientId, encounterId: encounter.id }}"
-                                tag="a"
-                                class="view float-right"
-                                >View Encounter Details <i class="fas fa-arrow-right"></i></router-link> -->
-
-                              <!-- <a href="view"> View Encounter Details</a> -->
-                            
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <current-encounter v-if="observations" :currentEncounter="currentEncounter" :previousEncounter="previousEncounter" :users="users" :patientId="patientId"></current-encounter>
                 </div>
 
                 <div
@@ -516,8 +166,17 @@
                   role="tabpanel"
                   aria-labelledby="four-tab"
                 >
-                  <h5 class="card-title">History</h5>
+                  <all-assessments v-if="reports" :reports="reports" :encounters="encounters" :users="users" :patientId="patientId"></all-assessments>
                 </div>
+
+                <!-- <div
+                  class="tab-pane fade p-3"
+                  id="five"
+                  role="tabpanel"
+                  aria-labelledby="four-tab"
+                >
+                  <history v-if="encounters" :reports="reports" :encounters="encounters" :users="users" :patientId="patientId"></history>
+                </div> -->
               </div>
             </div>
           </div>
@@ -551,7 +210,7 @@
             />
             <img
               v-else
-              src="../../assets/images/avatar/dummy-man-570x570.png"
+              src="../../../assets/images/avatar/dummy-man-570x570.png"
               class="rounded-circle img-fluid"
               width="100"
               height="100"
@@ -566,13 +225,13 @@
               >{{ patient.body.age }} Y {{ patient.body.gender }}</div>
 
               <div class="info-icon back-RED">
-                <img src="../../assets/images/fruit.png" alt />
+                <img src="../../../assets/images/fruit.png" alt />
               </div>
               <div class="info-icon back-RED">
-                <img src="../../assets/images/vegetables.png" alt />
+                <img src="../../../assets/images/vegetables.png" alt />
               </div>
               <div class="info-icon back-AMBER">
-                <img src="../../assets/images/activity.png" alt />
+                <img src="../../../assets/images/activity.png" alt />
               </div>
             </div>
             <div class="assessment-pills">
@@ -712,7 +371,7 @@
                   <div class="title text-capitalize">Follow-up Encounter: {{ encounter.body.type }}</div>
                   <div class="doctor" v-if="users.length > 0">
                     <img
-                      src="../../assets/images/avatar/dummy-man-570x570.png"
+                      src="../../../assets/images/avatar/dummy-man-570x570.png"
                       class="rounded-circle img-fluid"
                       width="30"
                       height="30"
@@ -723,22 +382,22 @@
                   <div v-if="encounter.body.observations" class="observation-icons">
                     <img
                       v-if="isObservationAvailable(encounter, 'survey')"
-                      src="../../assets/images/questionnaire.png"
+                      src="../../../assets/images/questionnaire.png"
                       class
                     />
                     <img
                       v-if="isObservationAvailable(encounter, 'body_measurement')"
-                      src="../../assets/images/body_measurements.png"
+                      src="../../../assets/images/body_measurements.png"
                       class
                     />
                     <img
                       v-if="isObservationAvailable(encounter, 'blood_pressure')"
-                      src="../../assets/images/blood_pressure_sm.png"
+                      src="../../../assets/images/blood_pressure_sm.png"
                       class
                     />
                     <img
                       v-if="isObservationAvailable(encounter, 'blood_test')"
-                      src="../../assets/images/blood_test.png"
+                      src="../../../assets/images/blood_test.png"
                       class
                     />
                   </div>
@@ -785,12 +444,22 @@
 import moment from "moment";
 import VueJsonPretty from "vue-json-pretty";
 import LineChart from "./LineChart.js";
+import PatientChart from "./PatientChart";
+import AllEncounters from "./AllEncounters";
+import CurrentEncounter from "./CurrentEncounter";
+import AllAssessments from "./AllAssessments";
+import History from "./History";
 
 export default {
   name: "patients",
   components: {
     VueJsonPretty,
     LineChart,
+    PatientChart,
+    AllEncounters,
+    CurrentEncounter,
+    AllAssessments,
+    History,
   },
   data() {
     return {
@@ -816,34 +485,13 @@ export default {
       totalBMI: 0,
       currentEncounter: null,
       previousEncounter: null,
+      reports: null
     };
   },
   computed: {
-    bodyHeight: function () {
-      let height = this.observations.find(
-        (o) =>
-          o.body.type === "body_measurement" && o.body.data.name === "height"
-      );
-
-      if (!height) {
-        return "N/A";
-      }
-      return height.body.data.value + " " + height.body.data.unit;
-    },
-
-    bodyWeight() {
-      let weight = this.observations.find(
-        (o) =>
-          o.body.type === "body_measurement" && o.body.data.name === "weight"
-      );
-
-      if (!weight) {
-        return "N/A";
-      }
-      return weight.body.data.value + " " + weight.body.data.unit;
-    },
   },
   methods: {
+
     fillData(dias, sys) {
       this.bpChart = {
         datasets: [
@@ -951,6 +599,23 @@ export default {
             loader.hide();
             if (response.status == 200) {
               this.report = response.data.data;
+            }
+          },
+          (error) => {
+            loader.hide();
+          }
+        );
+    },
+
+    getReports() {
+      let loader = this.$loading.show();
+      this.$http
+        .get("/health-reports/patient/" + this.patientId)
+        .then(
+          (response) => {
+            loader.hide();
+            if (response.status == 200) {
+              this.reports = response.data.data;
             }
           },
           (error) => {
@@ -1201,39 +866,6 @@ export default {
       this.fillBMIChart(bmiValues);
     },
   
-    getBp(observations) {
-      return observations.find(obs => obs.body.type == 'blood_pressure')
-    },
-
-    getHeight(observations) {
-      return observations.find(obs => {
-        if (obs.body.type == 'body_measurement') {
-          if (obs.body.data.name == 'height') {
-            return obs;
-          }
-        }
-      })
-    },
-    getWeight(observations) {
-      return observations.find(obs => {
-        if (obs.body.type == 'body_measurement') {
-          if (obs.body.data.name == 'weight') {
-            return obs;
-          }
-        }
-      })
-    },
-
-    getBloodSugar(observations) {
-      return observations.find(obs => {
-        if (obs.body.type == 'blood_test') {
-          if (obs.body.data.name == 'blood_sugar') {
-            return obs;
-          }
-        }
-      })
-    }
-  
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
@@ -1242,12 +874,52 @@ export default {
     this.getEncounters();
     this.getUsers();
     this.getLastReport();
+    this.getReports();
     this.fillData();
   },
 };
 </script>
 
 <style lang="scss">
+
+.lifestyle-card {
+  border: 1px solid #095293 !important;
+  padding: 13px;
+  .lifestyle-item {
+    border: 1px solid #095293;
+    border-radius: 3px;
+    padding: 4px 11px;
+    margin-top: 10px;
+    .title {
+      img {
+        margin-right: 20px
+      }
+      span {
+        font-weight: 600;
+        font-size: 17px;
+      }
+    }
+  }
+
+  .lifestyle-item:first-child {
+    margin-top: 0px;
+  }
+}
+.patient-card {
+  border: 1px solid #095293 !important;
+    .header {
+      border-bottom: none;
+  }
+}
+
+.summary-card {
+  border: 1px solid #095293 !important;
+  height: 100%;
+  td {
+    width: 200px
+  }
+
+}
 .encounter-details {
   .card-big, .card-small {
     border: 1px solid #1765ab !important;
@@ -1264,6 +936,12 @@ export default {
     .observation-icons img {
       margin-right: 10px
     }
+  }
+}
+
+.observation-icons {
+  span {
+    font-size: 12px;
   }
 }
 </style>
