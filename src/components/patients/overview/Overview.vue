@@ -259,49 +259,6 @@ export default {
   },
   computed: {},
   methods: {
-    fillData(dias, sys) {
-      this.bpChart = {
-        datasets: [
-          {
-            label: "Diastolic",
-            backgroundColor: "#bdd9fc",
-            data: dias ? dias : [],
-            display: false,
-          },
-          {
-            label: "Systolic",
-            backgroundColor: "red",
-            data: sys ? sys : [],
-            display: false,
-          },
-        ],
-      };
-    },
-    fillHeartRate(data) {
-      this.heartChart = {
-        datasets: [
-          {
-            label: "Heart Rate",
-            backgroundColor: "#bdd9fc",
-            data: data ? data : [],
-            display: false,
-          },
-        ],
-      };
-    },
-
-    fillBMIChart(data) {
-      this.bmiChart = {
-        datasets: [
-          {
-            label: "BMI",
-            backgroundColor: "#bdd9fc",
-            data: data ? data : [],
-            display: false,
-          },
-        ],
-      };
-    },
     getRandomInt() {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
     },
