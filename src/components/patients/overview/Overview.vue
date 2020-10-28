@@ -455,10 +455,10 @@ export default {
                     this.encounters[index].body.observations = [];
                     this.encounters[index].body.observations.push(obs);
                   }
-                  
+
                 }
               });
-              
+
               this.dataLoaded = true;
             });
           }
@@ -470,7 +470,7 @@ export default {
             } else {
               this.previousEncounter = this.currentEncounter;
             }
-            
+
             console.log(this.$route);
             if (this.$route.query.encounter) {
               // this.currentEncounter = this.encounters[0];
@@ -484,9 +484,9 @@ export default {
                 // }
                 document.getElementById("three-tab").click();
               }
-              
+
             }
-            
+
 
           }
         },
