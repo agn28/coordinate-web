@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="encounter-details" v-if="currentEncounter">
+    <div class="encounter-details" v-if="currentEncounterParent">
       <div class="row">
         <div class="col-sm-8">
           <div class="card p-3 card-big">
@@ -12,20 +12,20 @@
                 <td>46 <span>&#176;</span></td>
               </tr> -->
               <tr>
-                <td class="text-secondary">Heart Rate:</td>
-                <td>{{ getBp(currentEncounter.body.observations) ? getBp(currentEncounter.body.observations).body.data.pulse_rate : ''}}</td>
+                <td @click="test()" class="text-secondary">Heart Rate:</td>
+                <td>{{ getBp(currentEncounterParent.body.observations) ? getBp(currentEncounterParent.body.observations).body.data.pulse_rate : ''}}</td>
               </tr>
               <tr>
                 <td class="text-secondary">Blood Pressure:</td>
-                <td>{{ getBp(currentEncounter.body.observations) ? getBp(currentEncounter.body.observations).body.data.systolic + '/' + getBp(currentEncounter.body.observations).body.data.diastolic : ''}}</td>
+                <td>{{ getBp(currentEncounterParent.body.observations) ? getBp(currentEncounterParent.body.observations).body.data.systolic + '/' + getBp(currentEncounterParent.body.observations).body.data.diastolic : ''}}</td>
               </tr>
               <tr>
                 <td class="text-secondary">Height:</td>
-                <td>{{ getHeight(currentEncounter.body.observations) ? getHeight(currentEncounter.body.observations).body.data.value +' ' + getHeight(currentEncounter.body.observations).body.data.unit : '' }}</td>
+                <td>{{ getHeight(currentEncounterParent.body.observations) ? getHeight(currentEncounterParent.body.observations).body.data.value +' ' + getHeight(currentEncounterParent.body.observations).body.data.unit : '' }}</td>
               </tr>
               <tr>
                 <td class="text-secondary">Weight:</td>
-                <td>{{ getWeight(currentEncounter.body.observations) ? getWeight(currentEncounter.body.observations).body.data.value +' ' + getWeight(currentEncounter.body.observations).body.data.unit : '' }}</td>
+                <td>{{ getWeight(currentEncounterParent.body.observations) ? getWeight(currentEncounterParent.body.observations).body.data.value +' ' + getWeight(currentEncounterParent.body.observations).body.data.unit : '' }}</td>
               </tr>
               <!-- <tr>
                 <td class="text-secondary">BMI:</td>
@@ -40,7 +40,7 @@
             <table>
               <tr>
                 <td class="text-secondary">Floating Blood Sugar:</td>
-                <td>{{ getBloodSugar(currentEncounter.body.observations) ? getBloodSugar(currentEncounter.body.observations).body.data.value +' ' + getBloodSugar(currentEncounter.body.observations).body.data.unit : '' }}</td>
+                <td>{{ getBloodSugar(currentEncounterParent.body.observations) ? getBloodSugar(currentEncounterParent.body.observations).body.data.value +' ' + getBloodSugar(currentEncounterParent.body.observations).body.data.unit : '' }}</td>
               </tr>
             </table>
           </div>
@@ -55,9 +55,9 @@
           <div class="card p-3 card-small mt-3">
             <h6 class="mb-3">Previous Encounter</h6>
 
-            <div class="previous-encounter bg-white">
-                <div class="date">{{ getDate(previousEncounter) }}</div>
-                <div class="mt-2 text-capitalize"><strong> Follow-up Encounter: {{ previousEncounter.body.type }}</strong></div>
+            <div v-if="previousEncounterParent" class="previous-encounter bg-white">
+                <div class="date">{{ getDate(previousEncounterParent) }}</div>
+                <div class="mt-2 text-capitalize"><strong> Follow-up Encounter: {{ previousEncounterParent.body.type }}</strong></div>
                 <div class="doctor mt-3" v-if="users.length > 0">
                   <img
                     src="../../../assets/images/avatar/dummy-man-570x570.png"
@@ -66,7 +66,7 @@
                     height="30"
                     alt
                   />
-                  <span class="pl-2">{{ getUser(previousEncounter) }}</span>
+                  <span class="pl-2">{{ getUser(previousEncounterParent) }}</span>
                 </div>
                 <br />
 
@@ -94,7 +94,7 @@ export default {
   components: {
     VueJsonPretty,
   },
-  props: ['currentEncounter', 'previousEncounter', 'users', 'patientId'],
+  props: ['currentEncounterParent', 'previousEncounterParent', 'users', 'patientId'],
   data() {
     return {
 
@@ -104,7 +104,9 @@ export default {
 
   },
   methods: {
-   
+    test() {
+      console.log(this.currentEncounterParent.id)
+    },
     getUser(encounter) {
       let user = {};
       if (encounter.meta.collected_by) {
@@ -125,7 +127,7 @@ export default {
       return date;
     },
 
-        getBp(observations) {
+    getBp(observations) {
       return observations.find(obs => obs.body.type == 'blood_pressure')
     },
 
@@ -162,7 +164,7 @@ export default {
   
   },
   mounted() {
-
+    console.log('mounted');
   },
 };
 </script>

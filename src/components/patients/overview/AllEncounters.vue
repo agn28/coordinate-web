@@ -41,7 +41,7 @@
                     <br>
                     <span>Body Measurement</span>
                   </div>
-<!-- 
+
                   <div v-if="isObservationAvailable(encounter, 'blood_pressure')" class="col-sm-3">
                     <img
                       src="../../../assets/images/blood_pressure_.png"
@@ -67,12 +67,9 @@
                     />
                     <br>
                     <span>Medical History</span>
-                  </div> -->
+                  </div>
 
                 </div>
-                
-                
-                
                 
               </div>
 
@@ -87,7 +84,14 @@
               <br />
 
               <div class="float-right"></div>
-              <router-link
+              <button
+                @click="encounterDetails(encounter)"
+                class="btn btn-light float-right"
+                >View Encounter Details
+                <i class="fas fa-arrow-right"></i
+              ></button>
+
+              <!-- <router-link
                 :to="{
                   name: 'observations',
                   params: {
@@ -99,7 +103,7 @@
                 class="view float-right"
                 >View Encounter Details
                 <i class="fas fa-arrow-right"></i
-              ></router-link>
+              ></router-link> -->
 
               <!-- <a href="view"> View Encounter Details</a> -->
             </div>
@@ -114,13 +118,11 @@
 // @ is an alias to /src
 import moment from "moment";
 import VueJsonPretty from "vue-json-pretty";
-import LineChart from "./LineChart.js";
 
 export default {
   name: "patients",
   components: {
     VueJsonPretty,
-    LineChart,
   },
   props: ['encounters', 'users', 'patientId'],
   data() {
@@ -132,6 +134,11 @@ export default {
 
   },
   methods: {
+    encounterDetails(encounter) {
+      
+      this.$emit('goToEncounterDetails', encounter);
+      this.$router.replace({ name: "patientOverview", params: { patientId: this.patientId }, query: { encounter: encounter.id } })
+    },
     isObservationAvailable(encounter, observation) {
       // console.log('encounter.body.observations');
       console.log('encounter.body.observations');

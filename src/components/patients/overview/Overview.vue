@@ -70,6 +70,7 @@
                 >
                   <li class="nav-item">
                     <a
+                      @click="onTabClick()"
                       class="nav-link active"
                       id="one-tab"
                       data-toggle="tab"
@@ -82,6 +83,7 @@
                   </li>
                   <li class="nav-item">
                     <a
+                      @click="onTabClick()"
                       class="nav-link"
                       id="two-tab"
                       data-toggle="tab"
@@ -95,7 +97,7 @@
                   <li class="nav-item">
                     <a
                       class="nav-link"
-                      id="two-tab"
+                      id="three-tab"
                       data-toggle="tab"
                       href="#two"
                       role="tab"
@@ -106,6 +108,7 @@
                   </li>
                   <li class="nav-item">
                     <a
+                      @click="onTabClick()"
                       class="nav-link"
                       id="three-tab"
                       data-toggle="tab"
@@ -158,6 +161,7 @@
                     :encounters="encounters"
                     :users="users"
                     :patientId="patientId"
+                    @goToEncounterDetails="goToEncounterDetails"
                   ></all-encounters>
                 </div>
                 <div
@@ -168,8 +172,8 @@
                 >
                   <current-encounter
                     v-if="observations"
-                    :currentEncounter="currentEncounter"
-                    :previousEncounter="previousEncounter"
+                    :currentEncounterParent="currentEncounter"
+                    :previousEncounterParent="previousEncounter"
                     :users="users"
                     :patientId="patientId"
                   ></current-encounter>
@@ -259,6 +263,25 @@ export default {
   },
   computed: {},
   methods: {
+    onTabClick() {
+      if (this.$route.query.encounter) {
+        this.$router.replace({});
+      }
+    },
+    goToEncounterDetails(encounter) {
+      this.currentEncounter = encounter;
+      // if () {
+
+      // }
+      this.previousEncounter = this.encounters[this.encounters.indexOf(encounter) + 1];
+      console.log('this.previousEncounter');
+      console.log(this.previousEncounter);
+      console.log(encounter.id)
+      console.log(this.currentEncounter.id)
+      console.log(document.getElementById("three-tab"))
+      document.getElementById("three-tab").click();
+      console.log(encounter);
+    },
     getRandomInt() {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
     },
@@ -421,8 +444,21 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.observations = response.data.data;
+            console.log('observations');
+            console.log(this.observations[0]);
             encounters.forEach((encounter, index) => {
-              this.encounters[index].body.observations = this.observations;
+              this.observations.forEach((obs) => {
+                if (obs.body.assessment_id == encounter.id) {
+                  if (this.encounters[index].body.observations) {
+                    this.encounters[index].body.observations.push(obs);
+                  } else {
+                    this.encounters[index].body.observations = [];
+                    this.encounters[index].body.observations.push(obs);
+                  }
+
+                }
+              });
+
               this.dataLoaded = true;
             });
           }
@@ -434,6 +470,24 @@ export default {
             } else {
               this.previousEncounter = this.currentEncounter;
             }
+
+            console.log(this.$route);
+            if (this.$route.query.encounter) {
+              // this.currentEncounter = this.encounters[0];
+              let matchedEncounter = this.encounters.find(item => item.id == this.$route.query.encounter);
+              if (matchedEncounter) {
+                this.currentEncounter = matchedEncounter;
+                this.previousEncounter = this.encounters[this.encounters.indexOf(matchedEncounter) - 1];
+                console.log(this.previousEncounter)
+                // if () {
+
+                // }
+                document.getElementById("three-tab").click();
+              }
+
+            }
+
+
           }
         },
         (error) => {}
