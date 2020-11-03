@@ -85,31 +85,31 @@
               <td>46 <span>&#176;</span></td>
             </tr> -->
 
-            <tr>
+            <tr v-if="getBpReport() != ''">
               <td class="text-secondary">Blood Pressure:</td>
               <td class="text-bold" :class="getBpColor()">
                 {{ getBpReport() }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="getBmiReport() != ''">
               <td class="text-secondary">BMI:</td>
               <td class="text-bold" :class="getBmiColor()">
                 {{ getBmiReport() }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="getCholesterolColor() != ''">
               <td class="text-secondary">Total Cholesterol:</td>
               <td class="text-bold" :class="getCholesterolColor()">
                 {{ getCholesterolReport() }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="getCvdColor() != ''">
               <td class="text-secondary">CVD:</td>
               <td class="text-bold" :class="getCvdColor()">
                 {{ getCvdReport() }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="getDiabetesColor() != ''">
               <td class="text-secondary">Diabetes:</td>
               <td class="text-bold" :class="getDiabetesColor()">
                 {{ getDiabetesReport() }}
@@ -198,7 +198,7 @@
               <td class="text-secondary">Temperature:</td>
               <td>46 <span>&#176;</span></td>
             </tr> -->
-            <tr>
+            <tr v-if="getBp(currentEncounter.body.observations)">
               <td class="text-secondary">Heart Rate:</td>
               <td class="text-bold">
                 {{
@@ -209,7 +209,7 @@
                 }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="getBp(currentEncounter.body.observations)">
               <td class="text-secondary">Blood Pressure:</td>
               <td class="text-bold">
                 {{
@@ -223,7 +223,7 @@
                 }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="getHeight(currentEncounter.body.observations)">
               <td class="text-secondary">Height:</td>
               <td class="text-bold">
                 {{
@@ -237,7 +237,7 @@
                 }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="getWeight(currentEncounter.body.observations)">
               <td class="text-secondary">Weight:</td>
               <td class="text-bold">
                 {{
@@ -383,6 +383,17 @@ export default {
     },
   },
   methods: {
+    isObservationAvailable(encounter, observation) {
+      // console.log('encounter.body.observations');
+      // console.log(encounter.body.observations);
+      let obs = encounter.body.observations.find((item) => {
+        if (item.body.type == observation) {
+          return item;
+        }
+      });
+
+      return obs;
+    },
     fillData(dias, sys) {
       this.bpChart = {
         datasets: [

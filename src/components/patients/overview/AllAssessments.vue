@@ -72,7 +72,13 @@
               <br />
 
               <div class="float-right"></div>
-              <router-link
+              <button
+                @click="assessmentDetails(report)"
+                class="btn btn-light float-right"
+                >View Details
+                <i class="fas fa-arrow-right"></i
+              ></button>
+              <!-- <router-link
                 :to="{
                   name: 'pastHealthAssessmentDetails',
                   params: {
@@ -84,7 +90,7 @@
                 class="view float-right"
                 >View Details
                 <i class="fas fa-arrow-right"></i
-              ></router-link>
+              ></router-link> -->
 
               <!-- <a href="view"> View Encounter Details</a> -->
             </div>
@@ -139,6 +145,12 @@ export default {
     },
   },
   methods: {
+    assessmentDetails(report) {
+      console.log('report');
+      console.log(report);
+      this.$emit('goToAssessmentDetails', report);
+      this.$router.replace({ name: "patientOverview", params: { patientId: this.patientId }, query: { assessment: report.id } })
+    },
     isObservationAvailable(encounter, observation) {
       // console.log('encounter.body.observations');
       // console.log(encounter.body.observations);

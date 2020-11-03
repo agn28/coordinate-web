@@ -11,21 +11,21 @@
                 <td class="text-secondary">Temperature:</td>
                 <td>46 <span>&#176;</span></td>
               </tr> -->
-              <tr>
+              <tr v-if="getBp(currentEncounterParent.body.observations)">
                 <td @click="test()" class="text-secondary">Heart Rate:</td>
-                <td>{{ getBp(currentEncounterParent.body.observations) ? getBp(currentEncounterParent.body.observations).body.data.pulse_rate : ''}}</td>
+                <td>{{ getBp(currentEncounterParent.body.observations).body.data.pulse_rate }}</td>
               </tr>
-              <tr>
+              <tr v-if="getBp(currentEncounterParent.body.observations)">
                 <td class="text-secondary">Blood Pressure:</td>
-                <td>{{ getBp(currentEncounterParent.body.observations) ? getBp(currentEncounterParent.body.observations).body.data.systolic + '/' + getBp(currentEncounterParent.body.observations).body.data.diastolic : ''}}</td>
+                <td>{{ getBp(currentEncounterParent.body.observations).body.data.systolic + '/' + getBp(currentEncounterParent.body.observations).body.data.diastolic }}</td>
               </tr>
-              <tr>
+              <tr v-if="getHeight(currentEncounterParent.body.observations)">
                 <td class="text-secondary">Height:</td>
-                <td>{{ getHeight(currentEncounterParent.body.observations) ? getHeight(currentEncounterParent.body.observations).body.data.value +' ' + getHeight(currentEncounterParent.body.observations).body.data.unit : '' }}</td>
+                <td>{{ getHeight(currentEncounterParent.body.observations).body.data.value +' ' + getHeight(currentEncounterParent.body.observations).body.data.unit }}</td>
               </tr>
-              <tr>
+              <tr v-if="getWeight(currentEncounterParent.body.observations)">
                 <td class="text-secondary">Weight:</td>
-                <td>{{ getWeight(currentEncounterParent.body.observations) ? getWeight(currentEncounterParent.body.observations).body.data.value +' ' + getWeight(currentEncounterParent.body.observations).body.data.unit : '' }}</td>
+                <td>{{ getWeight(currentEncounterParent.body.observations).body.data.value +' ' + getWeight(currentEncounterParent.body.observations).body.data.unit }}</td>
               </tr>
               <!-- <tr>
                 <td class="text-secondary">BMI:</td>
@@ -38,9 +38,9 @@
             <h6 class="mb-3">Labotory Tests</h6>
 
             <table>
-              <tr>
+              <tr v-if="getBloodSugar(currentEncounterParent.body.observations)">
                 <td class="text-secondary">Floating Blood Sugar:</td>
-                <td>{{ getBloodSugar(currentEncounterParent.body.observations) ? getBloodSugar(currentEncounterParent.body.observations).body.data.value +' ' + getBloodSugar(currentEncounterParent.body.observations).body.data.unit : '' }}</td>
+                <td>{{ getBloodSugar(currentEncounterParent.body.observations).body.data.value +' ' + getBloodSugar(currentEncounterParent.body.observations).body.data.unit }}</td>
               </tr>
             </table>
           </div>

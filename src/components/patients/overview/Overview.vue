@@ -87,7 +87,7 @@
                       class="nav-link"
                       id="two-tab"
                       data-toggle="tab"
-                      href="#three"
+                      href="#two"
                       role="tab"
                       aria-controls="Two"
                       aria-selected="false"
@@ -96,10 +96,11 @@
                   </li>
                   <li class="nav-item">
                     <a
+                      @click="onTabClick()"
                       class="nav-link"
                       id="three-tab"
                       data-toggle="tab"
-                      href="#two"
+                      href="#three"
                       role="tab"
                       aria-controls="Two"
                       aria-selected="false"
@@ -117,6 +118,20 @@
                       aria-controls="Three"
                       aria-selected="false"
                       >All Assessment</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      @click="onTabClick()"
+                      class="nav-link"
+                      id="five-tab"
+                      data-toggle="tab"
+                      href="#five"
+                      role="tab"
+                      aria-controls="Five"
+                      aria-selected="false"
+                      >Current Assessment</a
                     >
                   </li>
 
@@ -152,7 +167,7 @@
                 </div>
                 <div
                   class="tab-pane fade p-3"
-                  id="three"
+                  id="two"
                   role="tabpanel"
                   aria-labelledby="three-tab"
                 >
@@ -166,7 +181,7 @@
                 </div>
                 <div
                   class="tab-pane fade p-3"
-                  id="two"
+                  id="three"
                   role="tabpanel"
                   aria-labelledby="two-tab"
                 >
@@ -191,7 +206,22 @@
                     :encounters="encounters"
                     :users="users"
                     :patientId="patientId"
+                    @goToAssessmentDetails="goToAssessmentDetails"
                   ></all-assessments>
+                </div>
+
+                <div
+                  class="tab-pane fade p-3"
+                  id="five"
+                  role="tabpanel"
+                  aria-labelledby="two-tab"
+                >
+                  <current-assessment
+                    v-if="observations"
+                    :assessment="currentAssessment"
+                    :users="users"
+                    :patientId="patientId"
+                  ></current-assessment>
                 </div>
 
                 <!-- <div
@@ -220,6 +250,7 @@ import PatientChart from "./PatientChart";
 import AllEncounters from "./AllEncounters";
 import CurrentEncounter from "./CurrentEncounter";
 import AllAssessments from "./AllAssessments";
+import CurrentAssessment from "./CurrentAssessment";
 import History from "./History";
 
 export default {
@@ -231,6 +262,7 @@ export default {
     AllEncounters,
     CurrentEncounter,
     AllAssessments,
+    CurrentAssessment,
     History,
   },
   data() {
@@ -258,21 +290,20 @@ export default {
       currentEncounter: null,
       previousEncounter: null,
       reports: null,
+      currentAssessment: null,
       dataLoaded: false
     };
   },
   computed: {},
   methods: {
     onTabClick() {
-      if (this.$route.query.encounter) {
+      if (this.$route.query.encounter || this.$route.query.assessment) {
         this.$router.replace({});
       }
     },
     goToEncounterDetails(encounter) {
       this.currentEncounter = encounter;
-      // if () {
 
-      // }
       this.previousEncounter = this.encounters[this.encounters.indexOf(encounter) + 1];
       console.log('this.previousEncounter');
       console.log(this.previousEncounter);
@@ -281,6 +312,13 @@ export default {
       console.log(document.getElementById("three-tab"))
       document.getElementById("three-tab").click();
       console.log(encounter);
+    },
+    goToAssessmentDetails(report) {
+      this.currentAssessment = report;
+
+      console.log(this.currentAssessment)
+      console.log(document.getElementById("five-tab"))
+      document.getElementById("five-tab").click();
     },
     getRandomInt() {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
@@ -360,6 +398,9 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.reports = response.data.data;
+            if (this.reports.length > 0) {
+              this.currentAssessment = this.reports[this.reports.length - 1];
+            }
           }
         },
         (error) => {

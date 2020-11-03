@@ -75,12 +75,12 @@
 
               <!-- <div class="assessment-pills pb-2">
                                                 
-                                                <div class="pill-item RED border-RED">BMI</div>
-                                                <div class="pill-item RED border-RED">BP</div>
-                                                <div class="pill-item RED border-RED">CVD RISK</div>
-                                                <div class="pill-item AMBER border-AMBER">Cholesterol</div>
+                  <div class="pill-item RED border-RED">BMI</div>
+                  <div class="pill-item RED border-RED">BP</div>
+                  <div class="pill-item RED border-RED">CVD RISK</div>
+                  <div class="pill-item AMBER border-AMBER">Cholesterol</div>
                                                 
-                          </div>-->
+              </div>-->
               <br />
 
               <div class="float-right"></div>
@@ -135,7 +135,6 @@ export default {
   },
   methods: {
     encounterDetails(encounter) {
-      
       this.$emit('goToEncounterDetails', encounter);
       this.$router.replace({ name: "patientOverview", params: { patientId: this.patientId }, query: { encounter: encounter.id } })
     },
