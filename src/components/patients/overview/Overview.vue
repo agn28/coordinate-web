@@ -135,18 +135,18 @@
                     >
                   </li>
 
-                  <!-- <li class="nav-item">
+                  <li class="nav-item">
                     <a
                       class="nav-link"
                       id="four-tab"
                       data-toggle="tab"
-                      href="#five"
+                      href="#six"
                       role="tab"
                       aria-controls="Three"
                       aria-selected="false"
                       >History</a
                     >
-                  </li> -->
+                  </li>
                 </ul>
               </div>
 
@@ -224,14 +224,14 @@
                   ></current-assessment>
                 </div>
 
-                <!-- <div
+                <div
                   class="tab-pane fade p-3"
-                  id="five"
+                  id="six"
                   role="tabpanel"
                   aria-labelledby="four-tab"
                 >
-                  <history v-if="encounters" :reports="reports" :encounters="encounters" :users="users" :patientId="patientId"></history>
-                </div> -->
+                  <history v-if="history" :reports="reports" :history="history" :users="users" :patientId="patientId"></history>
+                </div>
               </div>
             </div>
           </div>
@@ -274,6 +274,7 @@ export default {
       showIcon: true,
       groupedCareplans: [],
       encounters: [],
+      history: [],
       users: [],
       report: null,
       data: [],
@@ -410,7 +411,7 @@ export default {
     },
 
     getUsers() {
-      this.$http.get("/users?role=nurse,doctor,chw").then(
+      this.$http.get("/users").then(
         (response) => {
           if (response.status == 200) {
             this.users = response.data;
@@ -593,6 +594,16 @@ export default {
       }
       return "";
     },
+    getHistory() {
+      this.$http.get("/patients/" + this.patientId + "/history").then(
+        (response) => {
+          if (response.status == 200) {
+            this.history = response.data.data.patient_history;
+          }
+        },
+        (error) => {}
+      );
+    }
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
@@ -602,6 +613,7 @@ export default {
     this.getUsers();
     this.getLastReport();
     this.getReports();
+    this.getHistory();
   },
 };
 </script>

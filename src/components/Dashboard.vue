@@ -24,9 +24,7 @@
           <div class="card mb-4">
             <div class="card-body">
               <span class>Total Patients</span>
-
               <p class="text-black text-bold mt-3">{{ total_patient}}</p>
-
               <router-link tag="a" class="text-link custom-text-link" :to="{name: 'patients'}">Manage an Existing Patient</router-link>
             </div>
           </div>
