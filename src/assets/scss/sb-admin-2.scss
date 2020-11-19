@@ -52,6 +52,11 @@
 @import "patient-details";
 @import "patient-history";
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 //Home page
 .account-info {
