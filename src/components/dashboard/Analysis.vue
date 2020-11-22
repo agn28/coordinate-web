@@ -46,10 +46,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsOneMale" :series="chartOptionsOneMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsOneFemale" :series="chartOptionsOneFemale.series"></apexchart>
               </div>
               </div>
               
@@ -65,10 +65,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsTwoMale" :series="chartOptionsTwoMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsTwoFemale" :series="chartOptionsTwoFemale.series"></apexchart>
               </div>
               </div>
               
@@ -84,10 +84,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsThreeMale" :series="chartOptionsThreeMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsThreeFemale" :series="chartOptionsThreeFemale.series"></apexchart>
               </div>
               </div>
               
@@ -213,10 +213,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsFourMale" :series="chartOptionsFourMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsFourFemale" :series="chartOptionsFourFemale.series"></apexchart>
               </div>
               </div>
               
@@ -232,10 +232,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsFiveMale" :series="chartOptionsFiveMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsFiveFemale" :series="chartOptionsFiveFemale.series"></apexchart>
               </div>
               </div>
               
@@ -297,10 +297,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsSixMale" :series="chartOptionsSixMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsSixFemale" :series="chartOptionsSixFemale.series"></apexchart>
               </div>
               </div>
               
@@ -315,10 +315,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsSevenMale" :series="chartOptionsSevenMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsSevenFemale" :series="chartOptionsSevenFemale.series"></apexchart>
               </div>
               </div>
               
@@ -334,10 +334,10 @@
 
               <div class="row">
                   <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsEightMale" :series="chartOptionsEightMale.series"></apexchart>
               </div>
               <div id="chart" class="col-md-6">
-                <apexchart type="radialBar" height="200" :options="chartOptions" :series="series"></apexchart>
+                <apexchart type="radialBar" height="200" :options="chartOptionsEightFemale" :series="chartOptionsEightFemale.series"></apexchart>
               </div>
               </div>
               
@@ -361,8 +361,8 @@ export default {
   props: ['patientStat'],
     data() {
       return {
-          series: [67],
-          chartOptions: {
+          chartOptionsOneMale: {
+            series: [67],
             chart: {
               height: 200,
               type: 'radialBar',
@@ -380,10 +380,10 @@ export default {
                 },
                 dataLabels: {
                   name: {
-                    show: false,
+                    show: true,
                   },
                   value: {
-                    fontSize: "30px",
+                    fontSize: "25px",
                     show: true
                   }
                 }
@@ -401,7 +401,637 @@ export default {
             stroke: {
               lineCap: "butt"
             },
-            labels: ["Progress"]
+            labels: ["Male"]
+          },
+          chartOptionsOneFemale: {
+            series: [30],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
+          },
+          chartOptionsTwoMale: {
+            series: [60],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#01579B"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Male"]
+          },
+          chartOptionsTwoFemale: {
+            series: [20],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
+          },
+          chartOptionsThreeMale: {
+            series: [44],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#01579B"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Male"]
+          },
+          chartOptionsThreeFemale: {
+            series: [30],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
+          },
+          chartOptionsFourMale: {
+            series: [60],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#01579B"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Male"]
+          },
+          chartOptionsFourFemale: {
+            series: [20],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
+          },
+          chartOptionsFiveMale: {
+            series: [60],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#01579B"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Male"]
+          },
+          chartOptionsFiveFemale: {
+            series: [20],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
+          },
+          chartOptionsSixMale: {
+            series: [60],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#01579B"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Male"]
+          },
+          chartOptionsSixFemale: {
+            series: [20],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
+          },
+          chartOptionsSevenMale: {
+            series: [60],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#01579B"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Male"]
+          },
+          chartOptionsSevenFemale: {
+            series: [20],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
+          },
+          chartOptionsEightMale: {
+            series: [60],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#01579B"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Male"]
+          },
+          chartOptionsEightFemale: {
+            series: [20],
+            chart: {
+              height: 200,
+              type: 'radialBar',
+              offsetY: -10
+            },
+            colors: ["#F9A90C"],
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                  background: '#e9ecef',
+                  startAngle: -135,
+                  endAngle: 135,
+                },
+                dataLabels: {
+                  name: {
+                    show: true,
+                  },
+                  value: {
+                    fontSize: "25px",
+                    show: true,
+                  }
+                }
+              }
+            },
+            fill: {
+              type: "normal",
+              gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#01579B"],
+                stops: [0, 100]
+              }
+            },
+            stroke: {
+              lineCap: "butt"
+            },
+            labels: ["Female"]
           },
         }
     }
@@ -409,6 +1039,10 @@ export default {
 </script>
 
 <style lang="scss">
+  .card-body {
+    border: 1px solid #01579B;
+    border-radius: 5px;
+  }
   .male-progress {
     p {
       margin: 10px 0 0 0;
