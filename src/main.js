@@ -28,6 +28,23 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import store from "./store/store";
 import interceptor from "./interceptor"
 import UUID from 'vue-uuid';
+
+import ProgressBar from 'vuejs-progress-bar';
+Vue.use(ProgressBar);
+import 'vue-progress-path/dist/vue-progress-path.css';
+import VueProgress from 'vue-progress-path';
+
+Vue.use(VueProgress, {
+  // defaultShape: 'circle',
+});
+import VueEllipseProgress from 'vue-ellipse-progress';
+Vue.use(VueEllipseProgress);
+
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
+
 Vue.use(UUID);
 Vue.use( VuejsDatatableFactory );
 Vue.use(Vuex)
