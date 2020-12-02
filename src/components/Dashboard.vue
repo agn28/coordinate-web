@@ -82,13 +82,13 @@
                   role="tabpanel"
                   aria-labelledby="one-tab"
                 >
-                  <all-encounters
-                    v-if="encounters"
-                    :encounters="encounters"
-                    :users="users"
-                    :patientId="patientId"
-                    @goToEncounterDetails="goToEncounterDetails"
-                  ></all-encounters>
+                  <Summary
+                    :patients="patients"
+                    :patientStat="patientStat"
+                    :total_pending="total_pending"
+                    :total_pending_careplan_patients="total_pending_careplan_patients"
+                    :data="data"
+                  ></Summary>
                 </div>
                 <div
                   class="tab-pane fade"
@@ -105,85 +105,6 @@
           </div>
         </div>
       </div>
-
-    <!-- Begin Page Content -->
-    <!-- <div class="container-fluid mt-5">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <div class="card-body">
-              <span class>Total Patients</span>
-              <p class="text-black text-bold mt-3">{{ total_patient}}</p>
-              <router-link tag="a" class="text-link custom-text-link" :to="{name: 'patients'}">Manage an Existing Patient</router-link>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <div class="card-body">
-              <span class>Patients Pending Recommendations</span>
-
-              <p class="text-black text-bold mt-3">{{ total_pending}}</p>
-
-              <router-link
-                :to="{name: 'pendingReviews'}"
-                class="text-link custom-text-link"
-              >View Patients Pending Review</router-link>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <div class="card-body">
-              <span class>Patients Pending Care Plan</span>
-
-              <p class="text-black text-bold mt-3">{{ total_pending_careplan_patients }}</p>
-
-              <router-link class="text-link custom-text-link" :to="{ name: 'carePlanPatients'}">View</router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-5">
-        <div class="col-md-12">
-          <h2 class="title text-20">Assessment Performance</h2>
-        </div>
-        <div class="col-md-12 col-lg-12">
-          <form action class="assessmentForm mt-4">
-            <div class="row w-100">
-              <div class="col-md-8 col-lg-5">
-                <div class="mb-2">
-                  <label class="mr-1">Period: &nbsp;</label>
-                  <date-range-picker v-model="dateRange"></date-range-picker>
-                </div>
-              </div>
-              <div class="col-md-4 col-lg-3">
-                <div class="d-flex justify-content-center md-2">
-                  <input type="button" class="border-0 chartSelectBtn activeBtn" value="Week" />
-                  <input type="button" class="border-0 chartSelectBtn" value="Day" />
-                  <input type="button" class="border-0 chartSelectBtn" value="Month" />
-                </div>
-              </div> -->
-              <!-- <div class="col-md-12 col-lg-4">
-                <div class="d-flex justify-content-center mb-2">
-                  <button class="border-0 chartSelectBtn w-100">
-                    <span class="bttn1"></span>Participant Registered
-                  </button>
-                  <button class="border-0 chartSelectBtn w-100">
-                    <span class="bttn2"></span>Screenings completed
-                  </button>
-                </div>
-              </div> -->
-            <!-- </div>
-          </form>
-        </div>
-        <div class="col-md-12">
-          <bar-chart v-if="data" :stats="data"></bar-chart>
-        </div>
-      </div>
-    </div> -->
-    <!-- /.container-fluid -->
   </div>
   <!-- End of Main Content -->
 </template>
@@ -193,11 +114,13 @@ import BarChart from "./utils/BarChart.vue";
 import DateRangePicker from "vue2-daterange-picker";
 import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
 import Analysis from "./dashboard/Analysis";
+import Summary from "./dashboard/Summery";
 export default {
   components: {
     BarChart,
     DateRangePicker,
-    Analysis
+    Analysis,
+    Summary
   },
   computed: {
     user() {
@@ -206,11 +129,7 @@ export default {
   },
   data() {
     return {
-      dateRange: {
-        startDate: "2020-01-01",
-        endDate: "2020-01-10",
-        format: "DD-MM-YYYY"
-      },
+      search: '',
       patientStat: {
         total_patient: 0,
         male_patients: 0,
@@ -235,7 +154,8 @@ export default {
       total_careplan: 0,
       total_pending: 0,
       total_pending_careplan_patients: 0,
-      data: null
+      data: null,
+      patients: null
     };
   },
   created() {
@@ -252,6 +172,7 @@ export default {
       this.$http.get("/stats", ).then(
         response => {
           if (response.status == 200) {
+            this.patients = response.data.data.patients,
             this.patientStat.total_patient = response.data.data.patients.length;
             this.total_careplan = response.data.data.total_careplan;
             this.total_pending = response.data.data.total_pending;
