@@ -77,23 +77,23 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row summery-tables">
           <div class="col-md-4">
             <div class="table-responsive my-5 px-3">
               <h2 class="title text-20">Enrollment of total patients</h2>
-              <table class="table-bordered w-100">
+              <table class="w-100">
                 <tbody>
-                  <tr>
-                    <td class="p-2">Male</td>
-                    <td class="text-right pr-3">{{ patientStat.male_patients }}</td>
+                  <tr class="male-patients">
+                    <td class="p-2 pl-4">Male</td>
+                    <td class="text-right pr-4">{{ patientStat.male_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Female</td>
-                    <td class="text-right pr-3">{{ patientStat.female_patients }}</td>
+                  <tr class="female-patients">
+                    <td class="p-2 pl-4">Female</td>
+                    <td class="text-right pr-4">{{ patientStat.female_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Total</td>
-                    <td class="text-right pr-3">{{ patientStat.total_patient }}</td>
+                  <tr class="total-patients">
+                    <td class="p-2 pl-4">Total</td>
+                    <td class="text-right pr-4">{{ patientStat.total_patient }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -101,19 +101,19 @@
 
             <div class="table-responsive my-5 px-3">
               <h2 class="title text-20">Patient Retention from Total Enrolled Patients</h2>
-              <table class="table-bordered w-100">
+              <table class="w-100">
                 <tbody>
-                  <tr>
-                    <td class="p-2">Male</td>
-                    <td class="text-right pr-3">{{ patientStat.male_patients }}</td>
+                  <tr class="male-patients">
+                    <td class="p-2 pl-4">Male</td>
+                    <td class="text-right pr-4">{{ patientStat.male_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Female</td>
-                    <td class="text-right pr-3">{{ patientStat.female_patients }}</td>
+                  <tr class="female-patients">
+                    <td class="p-2 pl-4">Female</td>
+                    <td class="text-right pr-4">{{ patientStat.female_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Total</td>
-                    <td class="text-right pr-3">{{ patientStat.total_patient }}</td>
+                  <tr class="total-patients">
+                    <td class="p-2 pl-4">Total</td>
+                    <td class="text-right pr-4">{{ patientStat.total_patient }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -121,19 +121,19 @@
 
             <div class="table-responsive my-5 px-3">
               <h2 class="title text-20">Patients Follow up at Center</h2>
-              <table class="table-bordered w-100">
+              <table class="w-100">
                 <tbody>
-                  <tr>
-                    <td class="p-2">Male</td>
-                    <td class="text-right pr-3">{{ patientStat.male_patients }}</td>
+                  <tr class="male-patients">
+                    <td class="p-2 pl-4">Male</td>
+                    <td class="text-right pr-4">{{ patientStat.male_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Female</td>
-                    <td class="text-right pr-3">{{ patientStat.female_patients }}</td>
+                  <tr class="female-patients">
+                    <td class="p-2 pl-4">Female</td>
+                    <td class="text-right pr-4">{{ patientStat.female_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Total</td>
-                    <td class="text-right pr-3">{{ patientStat.total_patient }}</td>
+                  <tr class="total-patients">
+                    <td class="p-2 pl-4">Total</td>
+                    <td class="text-right pr-4">{{ patientStat.total_patient }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -141,19 +141,19 @@
 
             <div class="table-responsive my-5 px-3">
               <h2 class="title text-20">Follow up for Self Monitor Patients by CHW</h2>
-              <table class="table-bordered w-100">
+              <table class="w-100">
                 <tbody>
-                  <tr>
-                    <td class="p-2">Male</td>
-                    <td class="text-right pr-3">{{ patientStat.male_patients }}</td>
+                  <tr class="male-patients">
+                    <td class="p-2 pl-4">Male</td>
+                    <td class="text-right pr-4">{{ patientStat.male_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Female</td>
-                    <td class="text-right pr-3">{{ patientStat.female_patients }}</td>
+                  <tr class="female-patients">
+                    <td class="p-2 pl-4">Female</td>
+                    <td class="text-right pr-4">{{ patientStat.female_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Total</td>
-                    <td class="text-right pr-3">{{ patientStat.total_patient }}</td>
+                  <tr class="total-patients">
+                    <td class="p-2 pl-4">Total</td>
+                    <td class="text-right pr-4">{{ patientStat.total_patient }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -162,44 +162,44 @@
           <div class="col-md-4">
             <div class="table-responsive my-5 px-3">
               <h2 class="title text-20">Age group distribution (all patients)</h2>
-              <table class="table-bordered w-100">
+              <table class="w-100">
                 <thead>
-                  <tr>
-                    <th class="p-2">Ages</th>
-                    <th class="p-2">Male</th>
-                    <th class="p-2">Female</th>
+                  <tr class="table-heading">
+                    <th class="py-2 text-center">Ages</th>
+                    <th class="py-2 text-center">Male</th>
+                    <th class="py-2 text-center">Female</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th class="p-2">30 to 39</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 text-center horizontal-heading">30 to 39</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                   <tr>
-                    <th class="p-2">40 to 49</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 text-center horizontal-heading">40 to 49</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                   <tr>
-                    <th class="p-2">50 to 59</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_50_to_59 / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_50_to_59 / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 text-center horizontal-heading">50 to 59</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_50_to_59 / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_50_to_59 / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                   <tr>
-                    <th class="p-2">60 to 69</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_60_to_69 / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_60_to_69 / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 text-center horizontal-heading">60 to 69</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_60_to_69 / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_60_to_69 / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                   <tr>
-                    <th class="p-2">70 +</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_70_plus / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_70_plus / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 text-center horizontal-heading">70 +</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_70_plus / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_70_plus / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                   <tr>
-                    <th class="p-2">Total</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_patients / patientStat.total_patient) * 100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_patients / patientStat.total_patient) * 100)) }}%</td>
+                    <th class="py-2 text-center horizontal-heading">Total</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_patients / patientStat.total_patient) * 100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_patients / patientStat.total_patient) * 100)) }}%</td>
                   </tr>
                 </tbody>
               </table>
@@ -207,19 +207,19 @@
 
             <div class="table-responsive my-5 px-3">
               <h2 class="title text-20">Patients Reduce HbA1C ≥ 1%</h2>
-              <table class="table-bordered w-100">
+              <table class="w-100">
                 <tbody>
-                  <tr>
-                    <td class="p-2">Male</td>
-                    <td class="text-right pr-3">{{ patientStat.male_patients }}</td>
+                  <tr class="male-patients">
+                    <td class="p-2 pl-4">Male</td>
+                    <td class="text-right pr-4">{{ patientStat.male_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Female</td>
-                    <td class="text-right pr-3">{{ patientStat.female_patients }}</td>
+                  <tr class="female-patients">
+                    <td class="p-2 pl-4">Female</td>
+                    <td class="text-right pr-4">{{ patientStat.female_patients }}</td>
                   </tr>
-                  <tr>
-                    <td class="p-2">Total</td>
-                    <td class="text-right pr-3">{{ patientStat.total_patient }}</td>
+                  <tr class="total-patients">
+                    <td class="p-2 pl-4">Total</td>
+                    <td class="text-right pr-4">{{ patientStat.total_patient }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -228,29 +228,29 @@
           <div class="col-md-4">
             <div class="table-responsive my-5 px-3">
               <h2 class="title text-20">Disease distribution (all patients)</h2>
-              <table class="table-bordered w-100">
+              <table class="w-100">
                 <thead>
-                  <tr>
-                    <th class="p-2">Disease</th>
-                    <th class="p-2">Male</th>
-                    <th class="p-2">Female</th>
+                  <tr class="table-heading">
+                    <th class="p-2 pl-4">Disease</th>
+                    <th class="p-2 text-center">Male</th>
+                    <th class="p-2 text-center">Female</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th class="p-2">Diabetes</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 pl-4 horizontal-heading">Diabetes</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_30_to_39 / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                   <tr>
-                    <th class="p-2">Hypertension</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 pl-4 horizontal-heading">Hypertension</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                   <tr>
-                    <th class="p-2">Diabetes and Hypertension</th>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.male_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
-                    <td class="text-right pr-3">{{ Math.round(((patientStat.female_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
+                    <th class="py-2 pl-4 horizontal-heading">Diabetes and Hypertension</th>
+                    <td class="text-center male-patients">{{ Math.round(((patientStat.male_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
+                    <td class="text-center female-patients">{{ Math.round(((patientStat.female_age_40_to_49 / patientStat.total_patient)*100)) }}%</td>
                   </tr>
                 </tbody>
               </table>
@@ -334,5 +334,36 @@ export default {
 .dropdown-actions {
   margin-top: 5px;
   margin-left: 10px;
+  }
+  .male-patients {
+    background: #c5e6ff;
+  }
+  .female-patients {
+    background: #e8dec7;
+  }
+  // table tr:first-child td:first-child {
+  //   border-top-left-radius: 10px;
+  // }
+  // table tr:first-child td:last-child {
+  //     border-top-right-radius: 10px;
+  // }
+  // table tr:last-child td:first-child {
+  //   border-bottom-left-radius: 10px;
+  // }
+  // table tr:last-child td:last-child {
+  //     border-bottom-right-radius: 10px;
+  // }
+  .total-patients {
+    background: #ceedef;
+  }
+  .summery-tables table tr {
+    // border: 1px solid #01579B;
+    border-radius: 5px;
+  }
+  .table-heading {
+    background: #a6d4e1;
+  }
+  .horizontal-heading {
+    background:  #ceedef;
   }
 </style>
