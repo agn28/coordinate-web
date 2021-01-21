@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="assessment-details pending-review-assessment" >
-      <div class="row">
+      <div class="row" v-if="assessment">
         <div class="col-lg-9">
           <div class="body-composition">
             <div class="card assessment-card">
@@ -509,7 +509,7 @@
 
       
 
-      <div class="row">
+      <div class="row" v-if="assessment">
         <div class="col-lg-3">
           <div class="body-composition blood-pressure">
             <div class="card assessment-card">
@@ -730,7 +730,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" v-if="assessment">
         <div class="col-lg-12">
           <div class="body-composition lifestyle">
             <div class="card assessment-card">
@@ -1138,6 +1138,7 @@ export default {
   },
   mounted() {
     console.log('mounted');
+
   },
 };
 </script>

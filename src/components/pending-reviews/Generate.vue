@@ -680,8 +680,9 @@ import Multiselect from "vue-multiselect";
 
       getDrugs() {
         this.$http.get('/drugs').then(response => {
-          if (response.status == 200) {
+          if (response.status == 200 && !response.data.error && response.data.error === false) {
             this.drugs = response.data.data
+            console.log(response, 'drugs');
             this.isLoading = false
             this.dataReady = true
           }
