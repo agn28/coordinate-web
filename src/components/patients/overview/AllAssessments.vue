@@ -184,27 +184,27 @@ export default {
     },
 
     getBpReport(report) {
-      console.log(report);
-      if (report && report.result.assessments.blood_pressure) {
+      console.log(report, 'report');
+      if (report && report.result && report.result.assessments.blood_pressure) {
         return report.result.assessments.blood_pressure.value;
       }
       return '';
     },
     getBmiReport(report) {
-      if (report && report.result.assessments.body_composition.components.bmi) {
+      if (report && report.result && report.result.assessments.body_composition.components.bmi) {
         return report.result.assessments.body_composition.components.bmi.value;
       }
       return '';
     },
     getCholesterolReport(report) {
-      if (report && report.result.assessments.cholesterol.components.total_cholesterol) {
+      if (report && report.result && report.result.assessments.cholesterol.components.total_cholesterol) {
         return report.result.assessments.cholesterol.components.total_cholesterol.value;
       }
       return '';
     },
 
     getCvdReport(report) {
-      if (report && report.result.assessments.cvd) {
+      if (report && report.result && report.result.assessments.cvd) {
         return report.result.assessments.cvd.value;
       }
       return '';

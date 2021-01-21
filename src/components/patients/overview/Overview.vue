@@ -451,8 +451,10 @@ export default {
     getCarePlans() {
       this.$http.get("/care-plans/patient/" + this.patientId).then(
         (response) => {
-          if (response.status == 200) {
+          if (response.status == 200 && !response.data.error && response.data.error === false) {
+            console.log(response, 'carePlans');
             this.carePlans = response.data.data;
+            console.log(this.carePlans, 'carePlans');
             this.prepareCarePlans();
           }
         },

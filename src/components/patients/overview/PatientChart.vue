@@ -472,20 +472,21 @@ export default {
     },
 
     getBpReport() {
-      if (this.report && this.report.body.result.assessments.blood_pressure) {
+      console.log(this.report, "report");
+      if (this.report.body && this.report.body.result.assessments.blood_pressure) {
         return this.report.body.result.assessments.blood_pressure.value;
       }
       return "";
     },
     getBpColor() {
-      if (this.report && this.report.body.result.assessments.blood_pressure) {
+      if (this.report.body && this.report.body.result.assessments.blood_pressure) {
         return this.report.body.result.assessments.blood_pressure.tfl;
       }
       return "";
     },
     getBmiReport() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.body_composition.components.bmi
       ) {
         return this.report.body.result.assessments.body_composition.components
@@ -495,7 +496,7 @@ export default {
     },
     getBmiColor() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.body_composition.components.bmi
       ) {
         return this.report.body.result.assessments.body_composition.components
@@ -505,7 +506,7 @@ export default {
     },
     getCholesterolReport() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.cholesterol.components
           .total_cholesterol
       ) {
@@ -516,7 +517,7 @@ export default {
     },
     getCholesterolColor() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.cholesterol.components
           .total_cholesterol
       ) {
@@ -527,25 +528,25 @@ export default {
     },
 
     getCvdReport() {
-      if (this.report && this.report.body.result.assessments.cvd) {
+      if (this.report.body && this.report.body.result.assessments.cvd) {
         return this.report.body.result.assessments.cvd.value;
       }
       return "";
     },
     getCvdColor() {
-      if (this.report && this.report.body.result.assessments.cvd) {
+      if (this.report.body && this.report.body.result.assessments.cvd) {
         return this.report.body.result.assessments.cvd.tfl;
       }
       return "";
     },
     getDiabetesReport() {
-      if (this.report && this.report.body.result.assessments.diabetes) {
+      if (this.report.body && this.report.body.result.assessments.diabetes) {
         return this.report.body.result.assessments.diabetes.value;
       }
       return "";
     },
     getDiabetesColor() {
-      if (this.report && this.report.body.result.assessments.diabetes) {
+      if (this.report.body && this.report.body.result.assessments.diabetes) {
         return this.report.body.result.assessments.diabetes.tfl;
       }
       return "";
@@ -553,7 +554,7 @@ export default {
 
     getTobaccoReport() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components.smoking
       ) {
         return this.report.body.result.assessments.lifestyle.components.smoking
@@ -563,7 +564,7 @@ export default {
     },
     getTobaccoColor() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components.smoking
       ) {
         return this.report.body.result.assessments.lifestyle.components.smoking
@@ -574,7 +575,7 @@ export default {
 
     getAlcoholReport() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components.alcohol
       ) {
         return this.report.body.result.assessments.lifestyle.components.alcohol
@@ -584,7 +585,7 @@ export default {
     },
     getAlcoholColor() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components.alcohol
       ) {
         return this.report.body.result.assessments.lifestyle.components.alcohol
@@ -595,7 +596,7 @@ export default {
 
     getDietReport() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components.diet.components
           .fruit_vegetable
       ) {
@@ -606,7 +607,7 @@ export default {
     },
     getDietColor() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components.diet.components
           .fruit_vegetable
       ) {
@@ -618,7 +619,7 @@ export default {
 
     getActivityReport() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components
           .physical_activity
       ) {
@@ -629,7 +630,7 @@ export default {
     },
     getActivityColor() {
       if (
-        this.report &&
+        this.report.body &&
         this.report.body.result.assessments.lifestyle.components
           .physical_activity
       ) {

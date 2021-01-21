@@ -229,9 +229,11 @@ export default {
 
     filterPatients() {
         this.patients = this.patients.filter(patient => {
-          let hasCarePlan = this.carePlans.find(plan => plan.body.patient_id == patient.id);
-          if (hasCarePlan){
-            return patient;
+          if (this.carePlans) {
+            let hasCarePlan = this.carePlans.find(plan => plan.body.patient_id == patient.id);
+            if (hasCarePlan){
+              return patient;
+            }
           }
         });
       },
