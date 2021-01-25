@@ -472,7 +472,6 @@ export default {
     },
 
     getBpReport() {
-      console.log(this.report, "report");
       if (this.report.body && this.report.body.result.assessments.blood_pressure) {
         return this.report.body.result.assessments.blood_pressure.value;
       }

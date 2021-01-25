@@ -60,9 +60,15 @@
 
                                                 <div v-else class="followup-item pt-3" :key="index">
                                                     <h6  class="text-capitalize">{{ getTitle(index) }}</h6>
-                                                    <template>
+                                                    <template v-if="index !== 'reason'">
                                                         <p v-for="(value, index) in item" :key="index">
                                                             <span class=""><span class="text-capitalize">{{ index }}</span>: {{ value }}</span>
+                                                        </p>
+                                                    </template>
+                                                    <template v-else>
+                                                        <p>
+                                                            <span class="text-capitalize">
+                                                                 {{ item }}</span>
                                                         </p>
                                                     </template>
                                                 </div>      

@@ -176,6 +176,7 @@
                     :encounters="encounters"
                     :users="users"
                     :patientId="patientId"
+                    :lastReport="currentAssessment"
                     @goToEncounterDetails="goToEncounterDetails"
                   ></all-encounters>
                 </div>
@@ -186,11 +187,12 @@
                   aria-labelledby="two-tab"
                 >
                   <current-encounter
-                    v-if="observations"
-                    :currentEncounterParent="currentEncounter"
+                    v-if="observations && encounters.length"
+                    :currentEncounterParent="encounters[encounters.length-1]"
                     :previousEncounterParent="previousEncounter"
                     :users="users"
                     :patientId="patientId"
+                    :lastReport="currentAssessment"
                   ></current-encounter>
                 </div>
 
@@ -305,20 +307,20 @@ export default {
     goToEncounterDetails(encounter) {
       this.currentEncounter = encounter;
 
-      this.previousEncounter = this.encounters[this.encounters.indexOf(encounter) + 1];
-      console.log('this.previousEncounter');
-      console.log(this.previousEncounter);
-      console.log(encounter.id)
-      console.log(this.currentEncounter.id)
-      console.log(document.getElementById("three-tab"))
+      this.previousEncounter = this.encounters[this.encounters.indexOf(encounter)];
+      // console.log('this.previousEncounter');
+      // console.log(this.previousEncounter);
+      // console.log(encounter.id)
+      // console.log(this.currentEncounter.id)
+      // console.log(document.getElementById("three-tab"))
       document.getElementById("three-tab").click();
-      console.log(encounter);
+      // console.log(encounter);
     },
     goToAssessmentDetails(report) {
       this.currentAssessment = report;
 
-      console.log(this.currentAssessment)
-      console.log(document.getElementById("five-tab"))
+      // console.log(this.currentAssessment)
+      // console.log(document.getElementById("five-tab"))
       document.getElementById("five-tab").click();
     },
     getRandomInt() {
@@ -398,8 +400,10 @@ export default {
         (response) => {
           loader.hide();
           if (response.status == 200) {
+            // console.log(response, 'resp');
             this.reports = response.data.data;
-            if (this.reports.length > 0) {
+            console.log(this.reports, 'reports');
+            if (this.reports && this.reports.length > 0) {
               this.currentAssessment = this.reports[this.reports.length - 1];
             }
           }
@@ -452,9 +456,9 @@ export default {
       this.$http.get("/care-plans/patient/" + this.patientId).then(
         (response) => {
           if (response.status == 200 && !response.data.error && response.data.error === false) {
-            console.log(response, 'carePlans');
+            // console.log(response, 'carePlans');
             this.carePlans = response.data.data;
-            console.log(this.carePlans, 'carePlans');
+            // console.log(this.carePlans, 'carePlans');
             this.prepareCarePlans();
           }
         },
@@ -488,8 +492,8 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.observations = response.data.data;
-            console.log('observations');
-            console.log(this.observations[0]);
+            // console.log('observations');
+            // console.log(this.observations[0]);
             encounters.forEach((encounter, index) => {
               this.observations.forEach((obs) => {
                 if (obs.body.assessment_id == encounter.id) {
@@ -515,14 +519,14 @@ export default {
               this.previousEncounter = this.currentEncounter;
             }
 
-            console.log(this.$route);
+            // console.log(this.$route);
             if (this.$route.query.encounter) {
               // this.currentEncounter = this.encounters[0];
               let matchedEncounter = this.encounters.find(item => item.id == this.$route.query.encounter);
               if (matchedEncounter) {
                 this.currentEncounter = matchedEncounter;
                 this.previousEncounter = this.encounters[this.encounters.indexOf(matchedEncounter) - 1];
-                console.log(this.previousEncounter)
+                // console.log(this.previousEncounter)
                 // if () {
 
                 // }
