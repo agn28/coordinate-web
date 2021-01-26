@@ -138,10 +138,12 @@ export default {
       let loader = this.$loading.show();
       this.$http.get("/permissions").then(
         response => {
-          if (response.status == 200) {
+          
+          if (response.status == 200 && !response.data.error) {
             this.permissions = response.data.data[0].permissions;
-            loader.hide();
+            
           }
+          loader.hide();
         },
         error => {
           loader.hide();
@@ -153,10 +155,11 @@ export default {
       if (!this.newPermission) {
         return;
       }
-
+      console.log('Hello')
       let loader = this.$loading.show();
       this.$http.post("/permissions", { name: this.newPermission }).then(
         response => {
+          console.log(response, 'permission')
           loader.hide();
           if (response.status == 201) {
             this.permissions.push(this.newPermission);

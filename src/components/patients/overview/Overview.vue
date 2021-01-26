@@ -193,6 +193,8 @@
                     :users="users"
                     :patientId="patientId"
                     :lastReport="currentAssessment"
+                    :medicalHistory="prepareSurveyData(encounters[encounters.length-1].body.observations)"
+                    
                   ></current-encounter>
                 </div>
 
@@ -294,7 +296,8 @@ export default {
       previousEncounter: null,
       reports: null,
       currentAssessment: null,
-      dataLoaded: false
+      dataLoaded: false,
+      medicalHistory: []
     };
   },
   computed: {},
@@ -445,6 +448,7 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
+            console.log(this.patient, 'patient')
           }
         },
         (error) => {
@@ -609,6 +613,30 @@ export default {
         },
         (error) => {}
       );
+    },
+    prepareSurveyData(observations) {
+      let medicalHistory = []
+      if (observations) {
+        observations.forEach((obs) => {
+          if (
+            obs.body.patient_id == this.patientId &&
+            obs.body.type == "survey"
+          ) {
+            
+            if (obs.body.data) {
+              Object.keys(obs.body.data).forEach((key) => {
+                if (obs.body.data[key] == "yes") {
+                  if (!medicalHistory.includes(key.replace(/_/g, " "))) {
+                    medicalHistory.push(key.replace(/_/g, " "));
+                  }
+                }
+              });
+            }
+          }
+        });
+        
+      }
+      return medicalHistory;
     }
   },
   mounted() {

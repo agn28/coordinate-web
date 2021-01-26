@@ -34,22 +34,22 @@
           <div class="card p-2 card-big mt-3">
             <h6 class="mb-1"> Measurements performed: </h6>
             <table class="ml-2">
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td>Height:</td>
                 <td v-if="getHeight(currentEncounterParent.body.observations) && getHeight(currentEncounterParent.body.observations).body.data.value">{{ getHeight(currentEncounterParent.body.observations).body.data.value +' ' + getHeight(currentEncounterParent.body.observations).body.data.unit }}</td>
                 <td v-else>Not measured</td>
               </tr>
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td>Weight:</td>
                 <td v-if="getHeight(currentEncounterParent.body.observations) && getWeight(currentEncounterParent.body.observations).body.data.value">{{ getWeight(currentEncounterParent.body.observations).body.data.value +' ' + getWeight(currentEncounterParent.body.observations).body.data.unit }}</td>
                 <td v-else>Not measured</td>
               </tr>
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td>BMI:</td>
                 <td v-if="getHeight(currentEncounterParent.body.observations)">{{ getBp(currentEncounterParent.body.observations).body.data.pulse_rate }}</td>
                 <td v-else>Not measured</td>
               </tr>
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td>Blood Pressure:</td>
                 <td v-if="getHeight(currentEncounterParent.body.observations) && getBp(currentEncounterParent.body.observations).body.data.systolic && getBp(currentEncounterParent.body.observations).body.data.diastolic">{{ getBp(currentEncounterParent.body.observations).body.data.systolic + '/' + getBp(currentEncounterParent.body.observations).body.data.diastolic }}</td>
                 <td v-else>Not measured</td>
@@ -60,29 +60,29 @@
           <div class="card p-2 card-big mt-3">
             <h6 class="mb-1"> Blood tests performed: </h6>
             <table class="ml-2">
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td>Random blood glucose:</td>
                 <td v-if="getHeight(currentEncounterParent.body.observations) && getHeight(currentEncounterParent.body.observations).body.data.value">{{ getHeight(currentEncounterParent.body.observations).body.data.value +' ' + getHeight(currentEncounterParent.body.observations).body.data.unit }}</td>
                 <td v-else>Not measured</td>
               </tr>
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td> Fasting blood glucose:</td>
                 <td v-if="getHeight(currentEncounterParent.body.observations) && getWeight(currentEncounterParent.body.observations).body.data.value">{{ getWeight(currentEncounterParent.body.observations).body.data.value +' ' + getWeight(currentEncounterParent.body.observations).body.data.unit }}</td>
                 <td v-else>Not measured</td>
               </tr>
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td>Total cholesterol:</td>
                 <td v-if="getHeight(currentEncounterParent.body.observations)">{{ getBp(currentEncounterParent.body.observations).body.data.pulse_rate }}</td>
                 <td v-else>Not measured</td>
               </tr>
-              <tr>
+              <tr v-if="currentEncounterParent.body.observations">
                 <td>HbA1c:</td>
                 <td v-if="getBp(currentEncounterParent.body.observations) && getBp(currentEncounterParent.body.observations).body.data.systolic && getBp(currentEncounterParent.body.observations).body.data.diastolic">{{ getBp(currentEncounterParent.body.observations).body.data.systolic + '/' + getBp(currentEncounterParent.body.observations).body.data.diastolic }}</td>
                 <td v-else>Not measured</td>
               </tr>
             </table>
           </div>
-          {{prepareSurveyData(currentEncounterParent.body.observations)}}
+          
           <div class="card p-2 card-big mt-3">
             <h6 class="mb-1"> Medical History: </h6>
             <table class="ml-2">
@@ -191,7 +191,7 @@
         <div class="col-sm-4">
           <div class="card p-2 card-small">
             <h6 class="mb-1">Date: </h6>
-            <p class="mb-1">{{ getDate(currentEncounterParent) }}</p>
+            <p v-if="currentEncounterParent" class="mb-1">{{ getDate(currentEncounterParent) }}</p>
           </div>
           <div class="card p-2 card-small mt-3">
             <h6 class="mb-3">New diagnosis: </h6>
@@ -222,7 +222,7 @@
 
           <div class="card p-2 card-small mt-3">
             <h6 class="mb-3">New referral:  </h6>
-            <p v-if="lastReport.result.referrals.reasons">Yes, <span v-for="(item, index) in lastReport.result.referrals.reasons" :key="index" class="text-capitalize"> {{ getTitle(item.type) }}, </span></p>
+            <p v-if="lastReport && lastReport.result.referrals.reasons">Yes, <span v-for="(item, index) in lastReport.result.referrals.reasons" :key="index" class="text-capitalize"> {{ getTitle(item.type) }}, </span></p>
           </div>
 
           <div class="card p-2 card-small mt-3">
@@ -230,13 +230,13 @@
             <p>None</p>
           </div>
 
-          <div class="card p-2 card-small mt-3">
+          <div class="card p-2 card-small mt-3" v-if="currentEncounterParent.body.observations">
             <h6 class="mb-1">Medication: </h6>
             <p v-if="getMedications(currentEncounterParent.body.observations)" class="mb-1">{{ getMedications(currentEncounterParent.body.observations) }}</p>
             <p class="mb-1" v-else>None</p>
           </div>
 
-          <div class="card p-2 card-small mt-3">
+          <div class="card p-2 card-small mt-3" v-if="currentEncounterParent.body.observations">
             <h6 class="mb-1">Allergies: </h6>
             <p v-if="getAllergies(currentEncounterParent.body.observations)" class="mb-1">{{ getAllergies(currentEncounterParent.body.observations) }}</p>
             <p class="mb-1" v-else>None</p>
@@ -257,10 +257,10 @@ export default {
   components: {
     VueJsonPretty,
   },
-  props: ['currentEncounterParent', 'previousEncounterParent', 'users', 'patientId', 'lastReport'],
+  props: ['currentEncounterParent', 'previousEncounterParent', 'users', 'patientId', 'lastReport', 'medicalHistory'],
   data() {
     return {
-      medicalHistory: []
+      
     };
   },
   computed: {
@@ -279,8 +279,10 @@ export default {
         user = this.users.find(
           (user) => user.uid == encounter.meta.collected_by
         );
+        if (user)
+          return user.name;
       }
-      return user.name || "";
+      return "";
     },
     getBp(observations) {
       return observations.find(obs => obs.body.type == 'blood_pressure')
@@ -350,39 +352,10 @@ export default {
         return ob.body.data.allergy_types.join(", ");
       }
     },
-    prepareSurveyData(observations) {
-      observations.forEach((obs) => {
-        if (
-          obs.body.patient_id == this.patientId &&
-          obs.body.type == "survey"
-        ) {
-          // console.log(obs.body);
-          // if (obs.body.data.name == "medical_history") {
-            Object.keys(obs.body.data).forEach((key) => {
-              if (obs.body.data[key] == "yes") {
-                if (!this.medicalHistory.includes(key.replace(/_/g, " "))) {
-                  this.medicalHistory.push(key.replace(/_/g, " "));
-                }
-              }
-            });
-          // }
-
-          // if (obs.body.data.name == "current_medication") {
-          //   this.medications = obs.body.data.medications;
-          // }
-        }
-      });
-      console.log(this.medicalHistory, 'history')
-      console.log(this.medications, 'medications')
-    }
-  
-
-  
   },
   created() {
     console.log('created');
     console.log(this.currentEncounterParent, 'parent');
-    this.prepareSurveyData(this.currentEncounterParent.body.observations)
   },
 };
 </script>

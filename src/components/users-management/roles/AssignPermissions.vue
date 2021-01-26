@@ -83,12 +83,15 @@ export default {
         response => {
           if (response.status == 200) {
             this.role = response.data.data;
-            for (let [p, v] of Object.entries(this.role.permissions)) {
+            if (this.role.permissions) {
+              for (let [p, v] of Object.entries(this.role.permissions)) {
               if (v) {
                 this.selectedPermissions.push(p);
               }
             }
             loader.hide();
+            }
+            
           }
         },
         error => {
