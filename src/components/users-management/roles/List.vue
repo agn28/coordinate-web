@@ -168,6 +168,7 @@ export default {
       let loader = this.$loading.show();
       this.$http.post("/roles", { name: this.newRole }).then(
         response => {
+          console.log(response)
           if (response.status == 201) {
             this.roles.push({ name: this.newRole });
             this.$bvModal.hide("modal-role");

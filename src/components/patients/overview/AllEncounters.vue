@@ -404,13 +404,9 @@ export default {
     encounterDetails(encounter) {
       console.log(encounter, 'enc');
       this.currentEncounterParent = encounter;
-      // this.previousEncounterParent = this.encounters[this.encounters.indexOf(encounter) - 1];
       this.prepareSurveyData(encounter.body.observations)
-      // this.$emit('goToEncounterDetails', encounter);
-      // this.$router.replace({ name: "patientOverview", params: { patientId: this.patientId }, query: { encounter: encounter.id } })
     },
     isObservationAvailable(encounter, observation) {
-      // console.log('encounter.body.observations');
       console.log('encounter.body.observations');
       // console.log(encounter.body);
       let obs;
@@ -519,8 +515,6 @@ export default {
           obs.body.patient_id == this.patientId &&
           obs.body.type == "survey"
         ) {
-          // console.log(obs.body);
-          // if (obs.body.data.name == "medical_history") {
             Object.keys(obs.body.data).forEach((key) => {
               if (obs.body.data[key] == "yes") {
                 if (!this.medicalHistory.includes(key.replace(/_/g, " "))) {
@@ -528,15 +522,8 @@ export default {
                 }
               }
             });
-          // }
-
-          // if (obs.body.data.name == "current_medication") {
-          //   this.medications = obs.body.data.medications;
-          // }
         }
       });
-      console.log(this.medicalHistory, 'history')
-      console.log(this.medications, 'medications')
     }
   
   },
