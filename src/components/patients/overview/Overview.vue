@@ -176,7 +176,7 @@
                     :encounters="encounters"
                     :users="users"
                     :patientId="patientId"
-                    :lastReport="currentAssessment"
+                    :lastReport="followups"
                     @goToEncounterDetails="goToEncounterDetails"
                   ></all-encounters>
                 </div>
@@ -187,13 +187,13 @@
                   aria-labelledby="two-tab"
                 >
                   <current-encounter
-                    v-if="observations && encounters.length"
+                    v-if="observations && encounters"
                     :currentEncounterParent="encounters[encounters.length-1]"
                     :previousEncounterParent="previousEncounter"
                     :users="users"
                     :patientId="patientId"
-                    :lastReport="currentAssessment"
-                    :medicalHistory="prepareSurveyData(encounters[encounters.length-1].body.observations)"
+                    :lastReport="followups"
+                    :medicalHistory="prepareSurveyData(encounters[encounters.length-1]? encounters[encounters.length-1].body.observations: null)"
                     
                   ></current-encounter>
                 </div>
@@ -297,7 +297,8 @@ export default {
       reports: null,
       currentAssessment: null,
       dataLoaded: false,
-      medicalHistory: []
+      medicalHistory: [],
+      followups: null
     };
   },
   computed: {},
@@ -352,11 +353,13 @@ export default {
       return moment.max(dates).format("MMMM DD, YYYY");
     },
     isObservationAvailable(encounter, observation) {
-      let obs = encounter.body.observations.find((item) => {
-        if (item.body.type == observation) {
+      if (encounter) {
+        let obs = encounter.body.observations.find((item) => {
+        if (item && item.body.type == observation) {
           return item;
         }
       });
+      }
 
       return obs;
     },
@@ -389,6 +392,7 @@ export default {
             loader.hide();
             if (response.status == 200) {
               this.report = response.data.data;
+              console.log(this.report, 'last report');
             }
           },
           (error) => {
@@ -476,12 +480,16 @@ export default {
           if (response.status == 200) {
             this.encounters = response.data.data;
 
-            this.encounters = this.encounters.sort(
+            if (this.encounters) {
+              console.log(this.encounters, 'encounters');
+              this.encounters = this.encounters.sort(
               (a, b) =>
                 new Date(b.meta.created_at) - new Date(a.meta.created_at)
             );
 
             this.getObservations();
+            }
+            
           }
         },
         (error) => {}
@@ -498,14 +506,18 @@ export default {
             this.observations = response.data.data;
             // console.log('observations');
             // console.log(this.observations[0]);
-            encounters.forEach((encounter, index) => {
+            if (encounters && this.observations) {
+              encounters.forEach((encounter, index) => {
               this.observations.forEach((obs) => {
-                if (obs.body.assessment_id == encounter.id) {
-                  if (this.encounters[index].body.observations) {
+                if (obs && obs.body.assessment_id == encounter.id) {
+                  if (this.encounters[index] && this.encounters[index].body.observations) {
                     this.encounters[index].body.observations.push(obs);
                   } else {
-                    this.encounters[index].body.observations = [];
-                    this.encounters[index].body.observations.push(obs);
+                    if (this.encounters[index]) {
+                      this.encounters[index].body.observations = [];
+                      this.encounters[index].body.observations.push(obs);
+                    }
+                
                   }
 
                 }
@@ -513,6 +525,8 @@ export default {
 
               this.dataLoaded = true;
             });
+            }
+            
           }
 
           if (this.encounters.length > 0) {
@@ -548,9 +562,11 @@ export default {
 
     getMedications() {
       let ob = this.observations.find((o) => {
-        return (
+        if (o) {
+          return (
           o.body.type === "survey" && o.body.data.name === "current_medication"
         );
+        }
       });
 
       if (ob) {
@@ -560,11 +576,14 @@ export default {
 
     getAllergies() {
       let ob = this.observations.find((o) => {
-        return (
+        if (o) {
+          return (
           o.body.type === "survey" &&
           o.body.data.name === "medical_history" &&
           o.body.data.allergies === "yes"
         );
+        }
+        
       });
 
       if (ob) {
@@ -574,7 +593,8 @@ export default {
 
     prepareCarePlans() {
       this.carePlans.forEach((item) => {
-        let existdCp = this.groupedCareplans.find(
+        if (item) {
+          let existdCp = this.groupedCareplans.find(
           (cp) => cp.id == item.body.goal.id
         );
         if (!existdCp) {
@@ -590,6 +610,9 @@ export default {
             this.groupedCareplans.indexOf(existdCp)
           ].items.push(item);
         }
+        }
+        
+        
       });
     },
 
@@ -614,11 +637,24 @@ export default {
         (error) => {}
       );
     },
+    getFollowups() {
+        this.$http.get("/patients/" + this.patientId + '/followups', ).then(
+        response => {
+            if (response.status == 200) {
+            this.followups = response.data.data.length ? response.data.data[response.data.data.length-1]: null;
+            console.log(this.followups, 'follow')
+            }
+        },
+        error => {
+
+      });
+    },
     prepareSurveyData(observations) {
       let medicalHistory = []
       if (observations) {
         observations.forEach((obs) => {
           if (
+            obs &&
             obs.body.patient_id == this.patientId &&
             obs.body.type == "survey"
           ) {
@@ -648,6 +684,8 @@ export default {
     this.getLastReport();
     this.getReports();
     this.getHistory();
+    this.getFollowups();
+    
   },
 };
 </script>

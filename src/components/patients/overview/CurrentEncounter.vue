@@ -86,20 +86,19 @@
           <div class="card p-2 card-big mt-3">
             <h6 class="mb-1"> Medical History: </h6>
             <table class="ml-2">
-              <tr>
+              <!-- <tr>
                 <td>  1. Chest pain present: </td>
                 <td >No</td>
               </tr>
               <tr>
                 <td>  2. Stroke symptoms present: </td>
                 <td >No</td>
+              </tr> -->
+              <tr v-if="medicalHistory.includes('diabetes')">
+                <td>  Diabetes history: </td>
+                <td >YES</td>
               </tr>
-              <tr>
-                <td>  3. Diabetes history: </td>
-                <td v-if="medicalHistory.includes('diabetes')">YES</td>
-                <td v-else>NO</td>
-              </tr>
-              <tr>
+              <!-- <tr>
                 <td>  4. Stroke history: </td>
                 <td >No</td>
               </tr>
@@ -118,18 +117,17 @@
               <tr>
                 <td>  8. Cancer history: </td>
                 <td >No</td>
+              </tr> -->
+              <tr v-if="medicalHistory.includes('hypertension')">
+                <td>  Hypertension history: </td>
+                <td >YES</td>
               </tr>
-              <tr>
-                <td>  9. Hypertension history: </td>
-                <td v-if="medicalHistory.includes('hypertension')">YES</td>
-                <td v-else>NO</td>
+              <tr v-if="medicalHistory.includes('hypertension medicine')">
+                <td>   Hypertension medication: </td>
+                <td >YES</td>
+                
               </tr>
-              <tr>
-                <td>  10. Hypertension medication: </td>
-                <td v-if="medicalHistory.includes('hypertension medicine')">YES</td>
-                <td v-else>NO</td>
-              </tr>
-              <tr>
+              <!-- <tr>
                 <td>  11. Diabetes medication: </td>
                 <td >No</td>
               </tr>
@@ -144,44 +142,44 @@
               <tr>
                 <td>  14. Regular medication: </td>
                 <td >No</td>
+              </tr> -->
+              <tr v-if="medicalHistory.includes('smoking')">
+                <td>  Current smoker? </td>
+                <td >YES</td>
+                
               </tr>
-              <tr>
-                <td>  15. Current smoker? </td>
-                <td v-if="medicalHistory.includes('smoking')">YES</td>
-                <td v-else>NO</td>
+              <tr v-if="medicalHistory.includes('tobacco')">
+                <td>   Current smokeless tobacco? </td>
+                <td >YES</td>
+            
               </tr>
-              <tr>
-                <td>  16. Current smokeless tobacco? </td>
-                <td v-if="medicalHistory.includes('tobacco')">YES</td>
-                <td v-else>NO</td>
-              </tr>
-              <tr>
+              <!-- <tr>
                 <td>  17. Fruits and vegetables? </td>
                 <td >No</td>
+              </tr> -->
+              <tr v-if="medicalHistory.includes('processed foods')">
+                <td>   Processed foods? </td>
+                <td >YES</td>
+                
               </tr>
-              <tr>
-                <td>  18. Processed foods? </td>
-                <td v-if="medicalHistory.includes('processed foods')">YES</td>
-                <td v-else>NO</td>
+              <tr v-if="medicalHistory.includes('sugary drinks')">
+                <td>   Sugary drinks? </td>
+                <td >YES</td>
+              
               </tr>
-              <tr>
-                <td>  19. Sugary drinks? </td>
-                <td v-if="medicalHistory.includes('sugary drinks')">YES</td>
-                <td v-else>NO</td>
+              <tr v-if="medicalHistory.includes('extra salt')">
+                <td>    Extra salt? </td>
+                <td >YES</td>
+            
               </tr>
-              <tr>
-                <td>  20.  Extra salt? </td>
-                <td v-if="medicalHistory.includes('extra salt')">YES</td>
-                <td v-else>NO</td>
-              </tr>
-              <tr>
+              <!-- <tr>
                 <td>  21. Physical activity moderate? </td>
                 <td >No</td>
-              </tr>
-              <tr>
-                <td>  22. Physical activity high? </td>
-                <td v-if="medicalHistory.includes('physical activity high')">YES</td>
-                <td v-else>NO</td>
+              </tr> -->
+              <tr v-if="medicalHistory.includes('physical activity high')">
+                <td>   Physical activity high? </td>
+                <td >YES</td>
+              
               </tr>
             </table>
           </div>
@@ -222,7 +220,8 @@
 
           <div class="card p-2 card-small mt-3">
             <h6 class="mb-3">New referral:  </h6>
-            <p v-if="lastReport && lastReport.result.referrals.reasons">Yes, <span v-for="(item, index) in lastReport.result.referrals.reasons" :key="index" class="text-capitalize"> {{ getTitle(item.type) }}, </span></p>
+            <p class="text-capitalize" v-if="lastReport && lastReport.body.reason">Yes, {{ lastReport.body.reason }}</p>
+            <p class="text-capitalize" v-else>None</p>
           </div>
 
           <div class="card p-2 card-small mt-3">

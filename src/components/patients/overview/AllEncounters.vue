@@ -346,7 +346,8 @@
 
                     <div class="card p-2 card-small mt-3">
                       <h6 class="mb-3">New referral:  </h6>
-                      <p v-if="lastReport.result.referrals.reasons">Yes, <span v-for="(item, index) in lastReport.result.referrals.reasons" :key="index" class="text-capitalize"> {{ getTitle(item.type) }}, </span></p>
+                      <p class="text-capitalize" v-if="lastReport && lastReport.body.reason">Yes, {{ lastReport.body.reason }}</p>
+                      <p class="text-capitalize" v-else>None</p>
                     </div>
 
                     <div class="card p-2 card-small mt-3">
@@ -441,7 +442,10 @@ export default {
     //   return date;
     // },
     getBp(observations) {
-      return observations.find(obs => obs.body.type == 'blood_pressure')
+      if (observations) {
+        return observations.find(obs => obs.body.type == 'blood_pressure')
+      }
+      
     },
     getDate(encounter) {
       let date = "";
@@ -451,41 +455,51 @@ export default {
       return date;
     },
 
-    getBp(observations) {
-      return observations.find(obs => obs.body.type == 'blood_pressure')
-    },
+    // getBp(observations) {
+    //   return observations.find(obs => obs.body.type == 'blood_pressure')
+    // },
 
     getHeight(observations) {
-      return observations.find(obs => {
+      if (observations) {
+        return observations.find(obs => {
         if (obs.body.type == 'body_measurement') {
           if (obs.body.data.name == 'height') {
             return obs;
           }
         }
       })
+      }
+      
     },
     getWeight(observations) {
-      return observations.find(obs => {
+      if (observations) {
+        return observations.find(obs => {
         if (obs.body.type == 'body_measurement') {
           if (obs.body.data.name == 'weight') {
             return obs;
           }
         }
       })
+      }
+      
     },
 
     getBloodSugar(observations) {
-      return observations.find(obs => {
+      if (observations) {
+        return observations.find(obs => {
         if (obs.body.type == 'blood_test') {
           if (obs.body.data.name == 'blood_sugar') {
             return obs;
           }
         }
       })
+      }
+      
     },
 
     getMedications(observations) {
-      let ob = observations.find((o) => {
+      if (observations) {
+        let ob = observations.find((o) => {
         return (
           o.body.type === "survey" && o.body.data.name === "current_medication"
         );
@@ -494,10 +508,13 @@ export default {
       if (ob) {
         return ob.body.data.medications.join(", ");
       }
+      }
+      
     },
 
     getAllergies(observations) {
-      let ob = observations.find((o) => {
+      if (observations) {
+        let ob = observations.find((o) => {
         return (
           o.body.type === "survey" &&
           o.body.data.name === "medical_history" &&
@@ -508,9 +525,12 @@ export default {
       if (ob) {
         return ob.body.data.allergy_types.join(", ");
       }
+      }
+      
     },
     prepareSurveyData(observations) {
-      observations.forEach((obs) => {
+      if (observations) {
+        observations.forEach((obs) => {
         if (
           obs.body.patient_id == this.patientId &&
           obs.body.type == "survey"
@@ -524,6 +544,8 @@ export default {
             });
         }
       });
+      }
+      
     }
   
   },
