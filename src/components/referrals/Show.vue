@@ -135,6 +135,7 @@ import moment from 'moment';
             response => {
                 if (response.status == 200) {
                 this.followups = response.data.data;
+                console.log(this.followups, 'follow')
                 loader.hide();
                 }
             },
