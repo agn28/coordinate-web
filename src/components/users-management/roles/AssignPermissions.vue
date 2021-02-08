@@ -73,25 +73,52 @@ export default {
     return {
       newRole: null,
       role: [],
-      selectedPermissions: []
+      selectedPermissions: [],
+      permissions: []
     };
   },
   methods: {
-    getRoles() {
+    getRole() {
       let loader = this.$loading.show();
       this.$http.get(`/roles/${this.$route.params.roleId}`).then(
         response => {
+          loader.hide();
           if (response.status == 200) {
             this.role = response.data.data;
             if (this.role.permissions) {
               for (let [p, v] of Object.entries(this.role.permissions)) {
-              if (v) {
-                this.selectedPermissions.push(p);
+                if (v) {
+                  this.selectedPermissions.push(p);
+                }
               }
             }
-            loader.hide();
-            }
+
+            //add if role has missing permissions (new)
+            this.permissions.forEach(permission => {
+              if (!this.role.permissions) {
+                this.role.permissions = {};
+                this.role.permissions[permission] = false;
+              } else if (!this.role.permissions.hasOwnProperty(permission)) {
+                this.role.permissions[permission] = false;
+              }
+            });
             
+          }
+        },
+        error => {
+          loader.hide();
+        }
+      );
+    },
+
+    getPermisions() {
+      let loader = this.$loading.show();
+      this.$http.get(`/permissions`).then(
+        response => {
+          loader.hide();
+          if (response.status == 200) {
+            this.permissions = response.data.data[0].permissions;
+            this.getRole();
           }
         },
         error => {
@@ -107,10 +134,12 @@ export default {
           this.role.permissions[p] = true;
         }
       }
+
       let loader = this.$loading.show();
       this.$http.put(`/roles/${this.$route.params.roleId}`, this.role).then(
         response => {
            loader.hide();
+           this.$router.go(-1);
         },
         error => {
           loader.hide();
@@ -119,7 +148,8 @@ export default {
     }
   },
   mounted() {
-    this.getRoles();
+    this.getPermisions();
+    
   }
 };
 </script>
