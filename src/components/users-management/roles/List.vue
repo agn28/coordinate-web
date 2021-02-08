@@ -112,9 +112,6 @@
                     </td>
 
                     <td>
-                      <a class="btn btn-sm btn-primary mr-2" href>
-                        <i class="fas fa-pencil-alt"></i>
-                      </a>
                       <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteRole(role)">
                         <i class="fas fa-trash"></i>
                       </a>
