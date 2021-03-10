@@ -133,13 +133,13 @@
 
         thead {
           th {
-            border-top: none;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            border: 0;
+            // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
           }
         }
 
         tr {
-          border-bottom: 1px solid #DEE2E6;
+          //border-bottom: 1px solid #DEE2E6;
           position: relative;
 
           span {
@@ -157,6 +157,12 @@
             }
           }
 
+        }
+        .custom-checkbox{
+          .custom-control-label::before{
+            border-radius: 0;
+            border-color: #489cfc;
+          }
         }
       }
     }
