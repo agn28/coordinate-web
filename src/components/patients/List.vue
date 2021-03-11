@@ -1,7 +1,7 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <TopNavBar></TopNavBar>
+      <TopNavBar heading="Patients"></TopNavBar>
       <!-- <div class="row">
         <div class="col-lg-12 d-flex breadcrumb-wrap">
           <i

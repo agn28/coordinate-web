@@ -6,7 +6,7 @@
         <i class="fa fa-bars"></i>
       </button> --> 
 
-        <div class=""> <h4> <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)" ></i> Dashboard</h4></div>
+        <div class=""> <h4> <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)" ></i> {{ heading }}</h4></div>
       
       <!-- Topbar Search -->
       <form class="d-none d-sm-inline-block form-inline ml-auto  my-2 my-md-0 mw-100 navbar-search" >
@@ -276,8 +276,9 @@ export default {
       user() {
         return this.$store.state.auth.user;
       },
-      //props: ['heading'],
+      
     },
+    props: ['heading'],
 };
 </script>
 
