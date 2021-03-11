@@ -133,31 +133,31 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="font-weight-bold"> Diabetes mellitus:</td>
+                  <td > Diabetes mellitus:</td>
                   <td class="txt-grey">No</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">Hypertension:</td>
+                  <td >Hypertension:</td>
                   <td class="txt-red">Yes</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold"> Stroke:</td>
+                  <td > Stroke:</td>
                   <td class="txt-grey">No</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold"> Heart attack:</td>
+                  <td > Heart attack:</td>
                   <td class="txt-grey">No</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold"> Asthma / COPD: </td>
+                  <td > Asthma / COPD: </td>
                   <td class="txt-grey">Yes</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold"> Cancer: </td>
+                  <td > Cancer: </td>
                   <td class="txt-grey">No</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold"> Chronic kidney disease: </td>
+                  <td > Chronic kidney disease: </td>
                   <td class="txt-grey">No</td>
                 </tr>
               </tbody>
@@ -177,11 +177,11 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="font-weight-bold"> Diabetes mellitus:</td>
+                  <td > Diabetes mellitus:</td>
                   <td class="txt-grey">No</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">  Hypertension::</td>
+                  <td >  Hypertension::</td>
                   <td class="txt-red">Yess</td>
                 </tr>
                 
@@ -204,7 +204,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="font-weight-bold">Anti-hypertensives:</td>
+                  <td >Anti-hypertensives:</td>
                   <td >Propranolol</td>
                   <td >Yes</td>
                 </tr>
@@ -233,26 +233,26 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="font-weight-bold"> Blood pressure:</td>
+                  <td > Blood pressure:</td>
                   <td>149 / 95</td>
                   <td>mmHg</td>
                   <td>5 Jan 2021</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">Height:</td>
+                  <td >Height:</td>
                   <td>164.5</td>
                   <td>cm</td>
                   <td>5 Mar 2021</td>
                 </tr>
 
                 <tr>
-                  <td class="font-weight-bold">Weight:</td>
+                  <td >Weight:</td>
                   <td>78.5</td>
                   <td>kg</td>
                   <td>5 Mar 2021</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">BMI:</td>
+                  <td >BMI:</td>
                   <td>23.1</td>
                   <td>kg/m2</td>
                   <td>5 Mar 2021</td>
@@ -277,26 +277,26 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="font-weight-bold">Random blood sugar:</td>
+                  <td >Random blood sugar:</td>
                   <td>149 / 95</td>
                   <td>mmol/L</td>
                   <td>5 Jan 2021</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">Fasting blood sugar:</td>
+                  <td >Fasting blood sugar:</td>
                   <td>164.5</td>
                   <td>mmol/L</td>
                   <td>5 Mar 2021</td>
                 </tr>
 
                 <tr>
-                  <td class="font-weight-bold">2HABF:</td>
+                  <td >2HABF:</td>
                   <td>78.5</td>
                   <td>mmol/L</td>
                   <td>5 Mar 2021</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">HbA1c:</td>
+                  <td >HbA1c:</td>
                   <td>23.1</td>
                   <td>%</td>
                   <td>5 Mar 2021</td>
@@ -321,13 +321,13 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="font-weight-bold">Urinary ketone:</td>
+                  <td >Urinary ketone:</td>
                   <td>14.5</td>
                   <td>mmol/L</td>
                   <td>5 Jan 2021</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">Urinary protein:</td>
+                  <td >Urinary protein:</td>
                   <td>N/A</td>
                   <td>mmol/L</td>
                   <td>5 Jan 2021</td>
