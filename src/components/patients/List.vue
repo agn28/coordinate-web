@@ -1,7 +1,8 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <div class="row">
+      <TopNavBar heading="Patients"></TopNavBar>
+      <!-- <div class="row">
         <div class="col-lg-12 d-flex breadcrumb-wrap">
           <i
             class="fa fa-arrow-left text-secondary back-icon"
@@ -11,12 +12,12 @@
             <h4>Patients</h4>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-content">
-            <div class="title">Patients</div>
-            <div class="right-side">
+            <div class="title">Patient List</div>
+            <!-- <div class="right-side">
               <div class="dropdown mr-3">
                 <button
                   class="btn dropdown-toggle"
@@ -44,15 +45,15 @@
                   <i class="fas fa-plus"></i>Register a New Patient
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
 
-      <div class="row">
+      <!--<div class="row">
         <div class="col-lg-12">
           <div class="patient-search">
-            <div class="search">
+             <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
                 <div class="input-group-prepend">
                   <span class="input-group-text lighten-3" id="basic-text1">
@@ -67,7 +68,7 @@
                   v-model="search"
                 />
               </div>
-            </div>
+            </div> 
 
             <div class="thumbprint-button">
               <button class="btn" v-b-modal.modal-findThumbprint>
@@ -95,11 +96,11 @@
                   </div>
                 </template>
               </b-modal>
-            </div>
+            </div> 
           </div>
         </div>
-      </div>
-      <div class="row">
+      </div>-->
+      <!-- <div class="row">
         <div class="col-lg-12">
           <div class="pending-checkbox">
             <div class="custom-control custom-checkbox">
@@ -115,8 +116,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
+      </div> -->
+      <div class="row mt-0">
         <div class="col-lg-12">
           <div class="patient-list">
             <div class="table-responsive">
@@ -125,11 +126,7 @@
                   <tr>
                     <th scope="col">
                       <div class="custom-control custom-checkbox">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input"
-                          id=""
-                          name="example1"
+                        <input type="checkbox" class="custom-control-input" id="" name="example1"
                         />
                         <label class="custom-control-label" for=""></label>
                       </div>
@@ -143,7 +140,7 @@
                 </thead>
                 <tbody>
                   <tr
-                    class="pointer"
+                    class="pointer bg-white tr-border-bttom-grey"
                     v-for="(patient, index) in filteredList"
                     :key="index"
                     @click="
@@ -197,12 +194,12 @@
 // @ is an alias to /src
 import Vue from "vue";
 import { VuejsDatatableFactory } from "vuejs-datatable";
-
+import TopNavBar from '../TopNavBar.vue';
 Vue.use(VuejsDatatableFactory);
 
 export default {
   name: "patients",
-  components: {},
+  components: {TopNavBar},
   data() {
     return {
       patients: [],

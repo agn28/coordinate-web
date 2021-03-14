@@ -1,31 +1,247 @@
 <template>
   <div class="content patient-overview">
-      <TopNavBar heading="Patient Details"></TopNavBar>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-lg-12 d-flex breadcrumb-wrap">
+          <i
+            class="fa fa-arrow-left text-secondary back-icon"
+            @click="$router.go(-1)"
+          ></i>
+          <div class="">
+            <h4>Patient Overview</h4>
+          </div>
+        </div>
+      </div>
 
-      <div class="row pl-4 pr-4">
+      <div class="row ml-3">
         <div class="col-lg-6">
           <div class="patient-search">
-             <h4 class="">Patient Summary</h4>
+            <div class="search">
+              <div class="input-group md-form form-sm form-1 pl-0">
+                <div class="input-group-prepend">
+                  <span class="input-group-text lighten-3" id="basic-text1">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <input
+                  class="form-control my-0 py-1 border-left-0 form-control-search"
+                  type="text"
+                  placeholder="Patient Name, NID"
+                  aria-label="Search"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <span>All Patients</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="col-lg-6 text-right">
           <button
-            class="btn btn-primary mr-3 radious-0"
+            class="btn btn-primary mr-3"
             type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
-            <span>Proceed To Care Plan</span>
+            <span>Create New Encounter</span>
           </button>
         </div>
       </div>
 
-      <!-- <div v-if="patient" class="row">
-        <div class="col-lg-6">
-          <PatientSummary></PatientSummary>
-          
+      <div v-if="patient" class="row">
+        <div class="col-lg-12">
+          <div class="encounter-stats">
+            <div class="card mt-3 tab-card">
+              <div class="card-header tab-card-header">
+                <ul
+                  class="nav nav-tabs card-header-tabs"
+                  id="myTab"
+                  role="tablist"
+                >
+                  <li class="nav-item">
+                    <a
+                      @click="onTabClick()"
+                      class="nav-link active"
+                      id="one-tab"
+                      data-toggle="tab"
+                      href="#one"
+                      role="tab"
+                      aria-controls="One"
+                      aria-selected="true"
+                      >Patient Chart</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      @click="onTabClick()"
+                      class="nav-link"
+                      id="two-tab"
+                      data-toggle="tab"
+                      href="#two"
+                      role="tab"
+                      aria-controls="Two"
+                      aria-selected="false"
+                      >All Encounters</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      @click="onTabClick()"
+                      class="nav-link"
+                      id="three-tab"
+                      data-toggle="tab"
+                      href="#three"
+                      role="tab"
+                      aria-controls="Two"
+                      aria-selected="false"
+                      >Current Encounters</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      @click="onTabClick()"
+                      class="nav-link"
+                      id="three-tab"
+                      data-toggle="tab"
+                      href="#four"
+                      role="tab"
+                      aria-controls="Three"
+                      aria-selected="false"
+                      >All Assessment</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      @click="onTabClick()"
+                      class="nav-link"
+                      id="five-tab"
+                      data-toggle="tab"
+                      href="#five"
+                      role="tab"
+                      aria-controls="Five"
+                      aria-selected="false"
+                      >Current Assessment</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="four-tab"
+                      data-toggle="tab"
+                      href="#six"
+                      role="tab"
+                      aria-controls="Three"
+                      aria-selected="false"
+                      >History</a
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show active p-3"
+                  id="one"
+                  role="tabpanel"
+                  aria-labelledby="one-tab"
+                >
+                  <patient-chart
+                    v-if="report && dataLoaded"
+                    :patient="patient"
+                    :report="report"
+                    :observations="observations"
+                    :currentEncounter="currentEncounter"
+                  ></patient-chart>
+                </div>
+                <div
+                  class="tab-pane fade p-3"
+                  id="two"
+                  role="tabpanel"
+                  aria-labelledby="three-tab"
+                >
+                  <all-encounters
+                    v-if="encounters"
+                    :encounters="encounters"
+                    :users="users"
+                    :patientId="patientId"
+                    :lastReport="followups"
+                    @goToEncounterDetails="goToEncounterDetails"
+                  ></all-encounters>
+                </div>
+                <div
+                  class="tab-pane fade p-3"
+                  id="three"
+                  role="tabpanel"
+                  aria-labelledby="two-tab"
+                >
+                  <current-encounter
+                    v-if="observations && encounters"
+                    :currentEncounterParent="encounters[encounters.length-1]"
+                    :previousEncounterParent="previousEncounter"
+                    :users="users"
+                    :patientId="patientId"
+                    :lastReport="followups"
+                    :medicalHistory="prepareSurveyData(encounters[encounters.length-1]? encounters[encounters.length-1].body.observations: null)"
+                    
+                  ></current-encounter>
+                </div>
+
+                <div
+                  class="tab-pane fade p-3"
+                  id="four"
+                  role="tabpanel"
+                  aria-labelledby="four-tab"
+                >
+                  <all-assessments
+                    v-if="reports"
+                    :reports="reports"
+                    :encounters="encounters"
+                    :users="users"
+                    :patientId="patientId"
+                    @goToAssessmentDetails="goToAssessmentDetails"
+                  ></all-assessments>
+                </div>
+
+                <div
+                  class="tab-pane fade p-3"
+                  id="five"
+                  role="tabpanel"
+                  aria-labelledby="two-tab"
+                >
+                  <current-assessment
+                    v-if="observations"
+                    :assessment="currentAssessment"
+                    :users="users"
+                    :patientId="patientId"
+                  ></current-assessment>
+                </div>
+
+                <div
+                  class="tab-pane fade p-3"
+                  id="six"
+                  role="tabpanel"
+                  aria-labelledby="four-tab"
+                >
+                  <history v-if="history" :reports="reports" :history="history" :users="users" :patientId="patientId"></history>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div> -->
-     <PatientSummary></PatientSummary>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,8 +256,6 @@ import CurrentEncounter from "./CurrentEncounter";
 import AllAssessments from "./AllAssessments";
 import CurrentAssessment from "./CurrentAssessment";
 import History from "./History";
-import TopNavBar from '../../TopNavBar.vue';
-import PatientSummary from './PatientSummary';
 
 export default {
   name: "patients",
@@ -54,8 +268,6 @@ export default {
     AllAssessments,
     CurrentAssessment,
     History,
-    TopNavBar,
-    PatientSummary
   },
   data() {
     return {
@@ -464,15 +676,15 @@ export default {
     }
   },
   mounted() {
-    // this.patientId = this.$route.params.patientId;
-    // this.getPatients();
-    // this.getCarePlans();
-    // this.getEncounters();
-    // this.getUsers();
-    // this.getLastReport();
-    // this.getReports();
-    // this.getHistory();
-    // this.getFollowups();
+    this.patientId = this.$route.params.patientId;
+    this.getPatients();
+    this.getCarePlans();
+    this.getEncounters();
+    this.getUsers();
+    this.getLastReport();
+    this.getReports();
+    this.getHistory();
+    this.getFollowups();
     
   },
 };
@@ -540,8 +752,5 @@ export default {
   span {
     font-size: 12px;
   }
-}
-.radious-0{
-  border-radius: 0;
 }
 </style>

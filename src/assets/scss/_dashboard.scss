@@ -1,0 +1,31 @@
+.metrics-title {
+    background-color: #489CFC;
+    padding: 11px;
+    color: #fff;
+}
+.metrics-title:hover{
+    text-decoration: none;
+    color: #fff
+}
+.bg-yellow{ background-color: #FFD715;}
+.bg-grey {background: #fce0e3 }
+.tr-border-bttom {border-bottom: 5px solid #fff}
+.tr-border-bttom-grey {border-bottom: 5px solid #f8f9fb !important}
+.h-fit{
+    height: fit-content;
+}
+.exportbtn-container {
+    display: flex;
+    justify-content: flex-end;
+    button{
+        border-radius: 0;
+    }
+}
+.src-btn {
+    border-radius: 0;
+    padding: 11px 30px;
+    background-color: #01579B;
+}
+.sharp-input { 
+    .form-control {border-radius: 0;}
+}

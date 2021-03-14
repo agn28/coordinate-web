@@ -3,23 +3,13 @@
   <div id="content">
 
     <!-- Top Nav Bar -->
-    <TopNavBar heading="Dashboard"></TopNavBar>
+    <TopNavBar></TopNavBar>
 
     <div class="row">
       <div class="col-lg-12">
         <div class="encounter-stats">
-          <div class="card tab-card bg-off-white border-0 border-radious-0">
-
-            <Summary
-                  :patients="patients"
-                  :patientStat="patientStat"
-                  :total_pending="total_pending"
-                  :total_pending_careplan_patients="
-                    total_pending_careplan_patients
-                  "
-                  :data="data"
-                ></Summary>
-            <!-- <div class="card-header tab-card-header">
+          <div class="card mt-3 tab-card">
+            <div class="card-header tab-card-header">
               <ul
                 class="nav nav-tabs card-header-tabs"
                 id="myTab"
@@ -52,9 +42,9 @@
                   >
                 </li>
               </ul>
-            </div> -->
+            </div>
 
-            <!-- <div class="tab-content" id="myTabContent">
+            <div class="tab-content" id="myTabContent">
               <div
                 class="tab-pane fade show active"
                 id="one"
@@ -79,7 +69,7 @@
               >
                 <Analysis :patientStat="patientStat"></Analysis>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -299,6 +289,4 @@ export default {
 .encounter-stats {
   margin: 0;
 }
-#content {background-color: #f8f9fb;}
-.bg-off-white {background-color: #f8f9fb;}
 </style>
