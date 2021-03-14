@@ -467,15 +467,15 @@ export default {
     }
   },
   mounted() {
-    this.patientId = this.$route.params.patientId;
-    this.getPatients();
-    this.getCarePlans();
-    this.getEncounters();
-    this.getUsers();
-    this.getLastReport();
-    this.getReports();
-    this.getHistory();
-    this.getFollowups();
+    // this.patientId = this.$route.params.patientId;
+    // this.getPatients();
+    // this.getCarePlans();
+    // this.getEncounters();
+    // this.getUsers();
+    // this.getLastReport();
+    // this.getReports();
+    // this.getHistory();
+    // this.getFollowups();
     
   },
 };
