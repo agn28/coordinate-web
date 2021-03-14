@@ -91,6 +91,7 @@ import Questionnaires from "../components/questionnaires/List";
 import EditQuestionnaire from "../components/questionnaires/View";
 import QuestionnaireSection from "../components/questionnaires/Section";
 
+import AddPatientInvestigations from '../components/patients/AddPatientInvestigations';
 
 import VueRouter from "vue-router";
 const routes = [
@@ -528,9 +529,12 @@ const routes = [
     path: '/patients/:patientId/health-assessment/past-health-assessment/:assessmentId',
     name: 'pastHealthAssessmentDetails',
     component: PastHealthAssessmentDetails
-  }
-
-
+  },
+  {
+    path: '/patients/:patientId/investigations/create',
+    name: 'addPatientInvestigations',
+    component: AddPatientInvestigations,
+  },
 ]
 const router = new VueRouter({
   routes,

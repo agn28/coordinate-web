@@ -63,3 +63,30 @@ a {
   color: $title-color;
   font-size: 22px;
 }
+
+.card-blue-header {
+  border-color: $blue!important;
+  .card-header {
+      background-color: $blue;
+      color: $white;
+      &:first-child {
+        border-radius: 0;
+      }
+  }
+}
+
+.card-red-header {
+  border-color: $red !important;
+  .card-header {
+      background-color: $red;
+      color:  $white;
+      &:first-child {
+        border-radius: 0;
+      }
+  }
+}
+.form-sharp-corner {
+  .form-control {
+    border-radius: 0;
+  }
+}
