@@ -11,11 +11,8 @@
 
         <div class="col-lg-6 text-right">
           <button
-            class="btn btn-primary mr-3"
+            class="btn btn-primary mr-3 radious-0"
             type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
           >
             <span>Proceed To Care Plan</span>
           </button>
@@ -543,5 +540,8 @@ export default {
   span {
     font-size: 12px;
   }
+}
+.radious-0{
+  border-radius: 0;
 }
 </style>
