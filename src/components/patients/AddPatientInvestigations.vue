@@ -357,11 +357,20 @@ export default {
       };
       
       this.$http.post("/assessments/except-oha", data).then(response => { 
+        let loader = this.$loading.show();
         if (response.status == 201) {
           this.addBloodPressure();
           this.addBodyMeasurement();
           this.addBloodTest();
+          let self = this;
+          setTimeout(function() {
+           loader.hide();
+           self.$router.push({ name: 'patientOverview', params: { patientId: self.patientId } });
+          }, 2000);
+        } else {
+          loader.hide();
         }
+        
       }).catch(error => {
         console.log(error)
       });
