@@ -31,6 +31,7 @@ import Medication from '../components/questionnaire/Medication'
 import Medical from '../components/questionnaire/Medical'
 
 import Encounters from '../components/encounters/List'
+import EncountersShow from '../components/encounters/Show'
 import EncounterStats from '../components/encounter-stats/EncounterStats'
 import PastEncounters from "../components/encounters/PastEncounters";
 import EncounterCreate from '../components/past-encounters/Create'
@@ -314,6 +315,11 @@ const routes = [
     path: '/patients/:patientId/encounters',
     name: 'encounters',
     component: Encounters,
+  },
+  {
+    path: '/patients/:patientId/encounters/:encounterId',
+    name: 'encountersShow',
+    component: EncountersShow,
   },
   {
     path: '/patients/:patientId/encounters/create',

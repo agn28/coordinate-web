@@ -8,7 +8,7 @@
               <a href @click.prevent="$router.go(-1)">
                 <i class="fa fa-arrow-left float-left mr-4 text-secondary"></i>
               </a>
-              <h4 class="font-weight-bold">List of Encounters</h4>
+              <h4 class="font-weight-bold">List of Encounterss</h4>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default {
   methods: {
     getEncounters() {
       this.$http
-        .get("/patients/" + this.participantId + "/encounters")
+        .get("/patients/" + this.participantId + "/assessments")
         .then(response => {
           this.prepareEncounters(response.data);
           this.isLoading = false;
@@ -83,6 +83,7 @@ export default {
     }
   },
   mounted() {
+    console.log('hello')
     this.participantId = this.$route.params.participantId;
     this.getEncounters();
   }

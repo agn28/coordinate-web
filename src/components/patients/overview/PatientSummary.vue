@@ -57,7 +57,7 @@
                 </tr>
                 <tr>
                   <td class="text-right"><a href="javascript:void(0)" class="btn btn-primary">See Details</a></td>
-                  <td class="text-center"><a href="javascript:void(0)" class="btn btn-primary">See History</a></td>
+                  <td class="text-center"><router-link :to="{ name: 'encounters', params: { patientId: patientId }}" tag="a" class="btn btn-primary">See History</router-link></td>
                 </tr>
               </tbody>
             </table>
