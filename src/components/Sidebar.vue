@@ -13,7 +13,7 @@
         </a>
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item" :class="this.$route.path.includes('dashboard') ? 'active' : ''">
+        <li class="nav-item nav-item-home" :class="this.$route.path.includes('dashboard') ? 'active' : ''">
             <router-link to="/dashboard" class="nav-link">
                 <i class="fas fa-fw fa-home"></i><span>Home</span>
             </router-link>
@@ -27,11 +27,21 @@
             </router-link>
         </li>
         <!-- Nav Item - Dashboard -->
+        
+        <div class="menu-heading">
+          <span>Doctor Tools</span>
+        </div>
+        
         <li class="nav-item" :class="this.$route.path.includes('patients') ? 'active' : ''">
             <router-link to="/patients/list" class="nav-link">
                 <i class="fas fa-fw fa-h-square"></i><span>Patients</span>
             </router-link>
         </li>
+
+
+        <div v-if="user.role == 'admin'" class="menu-heading">
+          <span>Administrator Tools</span>
+        </div>
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('work-lists') ? 'active' : ''">
             <router-link class="nav-link" :to="{ name: 'worklistPatient' }">
               <i class="fas fa-fw fa-list"></i><span>Work list</span>
@@ -125,5 +135,20 @@
   };
 </script>
 
-<style>
+<style scoped lang="scss">
+  .menu-heading {
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    span {
+      color: white;
+      font-weight: bold;
+    }
+  }
+  .nav-item {
+    padding-left: 20px;
+  }
+  .nav-item-home {
+    margin-left: -20px;
+  }
 </style>
