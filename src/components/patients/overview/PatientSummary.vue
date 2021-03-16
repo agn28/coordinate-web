@@ -272,9 +272,9 @@
                 <tr>
                   <td >BMI:</td>
                   <!-- //TODO: Calculate BMI -->
-                  <!-- <td>23.1</td>
+                  <td>{{ getBmi()}}</td>
                   <td>kg/m2</td>
-                  <td>5 Mar 2021</td> -->
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -503,6 +503,17 @@ export default {
     };
   },
   methods: {
+
+    getBmi() {
+      console.log('bmi ', this.details.height);
+      
+      if (this.details.height && this.details.weight) {
+        if (this.details.height.value && this.details.weight.value) {
+          return (this.details.weight.value / (this.details.height.value / 100)**2).toFixed(2);
+        }
+      }
+      return '';
+    },
 
     getColor(value, condition) {
       console.log('get color', value);
