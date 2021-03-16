@@ -346,8 +346,8 @@ export default {
           "created_at": new Date(),
         },
         "body": {
-          "type": 'follow up',
-          "screening_type": 'follow-up',
+          "type": 'doctor consultation',
+          "screening_type": 'doctor-consultation',
           "comment": '',
           "performed_by": collected_by,
           "assessment_date": moment().format('YYYY-MM-DD'),
