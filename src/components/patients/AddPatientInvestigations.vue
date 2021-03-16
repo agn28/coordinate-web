@@ -400,11 +400,14 @@ export default {
 
         // console.log('bl0od p.data; ', data);
         //create
-        this.$http.post("/observations", data).then(response => {
-          console.log('blod press res: ', response);
-        }).catch(error => {
-          console.log(error);
-        });
+        if (this.systolic_blood_pressure && this.diastolic_blood_pressure && this.pulse_rate) {
+          this.$http.post("/observations", data).then(response => {
+            console.log('blod press res: ', response);
+          }).catch(error => {
+            console.log(error);
+          });
+        }
+        
       }
     },
     addBodyMeasurement() {
@@ -514,7 +517,6 @@ export default {
 
       //protein
       if (this.protein && this.protein_unit) { 
-        console.log('pro: s')
        let dataKetones = this.prepareBloodTestData(this.user.uid, created_at, 'blood_test', 'protein', this.protein_unit, this.protein, '', this.patientId, this.assessment_id);
         this.saveObservationData(dataKetones);
       }
