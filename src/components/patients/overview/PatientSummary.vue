@@ -944,56 +944,9 @@ export default {
                 }
               });
             }
-
-
-            if (encounters && this.observations) {
-              encounters.forEach((encounter, index) => {
-              this.observations.forEach((obs) => {
-                if (obs && obs.body.assessment_id == encounter.id) {
-                  if (this.encounters[index] && this.encounters[index].body.observations) {
-                    this.encounters[index].body.observations.push(obs);
-                  } else {
-                    if (this.encounters[index]) {
-                      this.encounters[index].body.observations = [];
-                      this.encounters[index].body.observations.push(obs);
-                    }
-                
-                  }
-
-                }
-              });
-
-              this.dataLoaded = true;
-            });
-            }
             
-          }
 
-          if (this.encounters.length > 0) {
-            this.currentEncounter = this.encounters[0];
-            if (this.encounters.length > 1) {
-              this.previousEncounter = this.encounters[1];
-            } else {
-              this.previousEncounter = this.currentEncounter;
-            }
-
-            // console.log(this.$route);
-            if (this.$route.query.encounter) {
-              // this.currentEncounter = this.encounters[0];
-              let matchedEncounter = this.encounters.find(item => item.id == this.$route.query.encounter);
-              if (matchedEncounter) {
-                this.currentEncounter = matchedEncounter;
-                this.previousEncounter = this.encounters[this.encounters.indexOf(matchedEncounter) - 1];
-                // console.log(this.previousEncounter)
-                // if () {
-
-                // }
-                document.getElementById("three-tab").click();
-              }
-
-            }
-
-
+            this.$forceUpdate();
           }
         },
         (error) => {}
