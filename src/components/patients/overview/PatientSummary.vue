@@ -61,7 +61,7 @@
                   <td colspan="3" class="">
                     <div class="d-flex align-items-center patient-summary__action mt-3">
                       <a href="javascript:void(0)" class="btn btn-cust">See Details</a>
-                      <a href="javascript:void(0)" class="btn btn-cust">See History</a>
+                      <router-link :to="{ name: 'encounters', params: { patientId: patientId }}" tag="a" class="btn btn-cust">See History</router-link>
                     </div>
                   </td>
                 </tr>
@@ -75,7 +75,7 @@
           <div class="card-header">Risk Factors</div>
           <div class="table-responsive mt-2">
             <table class="table table-borderless">
-              
+
               <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">10 year CVD risk score</td>
@@ -236,8 +236,8 @@
      -->
      <div class="row mb-3">
         <div class="col-md-6">
-        
-        <div class="card tab-card mb-3 card-blue-header"> 
+
+        <div class="card tab-card mb-3 card-blue-header">
           <div class="card-header">Body measurements</div>
           <div class="table-responsive">
             <table class="table table-borderless">
@@ -281,7 +281,7 @@
           </div>
         </div>
 
-        <div class="card tab-card mb-3 card-blue-header"> 
+        <div class="card tab-card mb-3 card-blue-header">
           <div class="card-header ">Investigations
             <!-- <h4 class="custom-title font-weight-bold p-0">Investigations</h4> -->
             </div>
@@ -357,8 +357,8 @@
       </div>  
       
       <div class="col-md-6">
-          <div class="card tab-card card-blue-header"> 
-           <div class="card-header">Blood test</div> 
+          <div class="card tab-card card-blue-header">
+           <div class="card-header">Blood test</div>
           <div class="table-responsive">
             <table class="table table-borderless">
               <thead>
@@ -426,7 +426,7 @@
     </div>
     <div class="row mb-3 d-none">
         <div class="col-md-12">
-          <div class="card tab-card mb-3 card-blue-header"> 
+          <div class="card tab-card mb-3 card-blue-header">
             <div class="card-header">
               Complaints / Note
             </div>
