@@ -3,9 +3,11 @@
     <div class="row">
       <div class="col-md-6">
         <div class="card tab-card  card-blue-header">
-          <div class="card-header "> Patient Information </div>
+          <div class="card-header "> Patient Information 
+            <div class="text-xs pt-2 float-right" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
+          </div>
           <div class="table-responsive">
-            <table v-if="patient" class="table table-borderless mt-2">
+            <table v-if="patient" class="table table-patient table-borderless mt-2">
               <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">Patient ID</td>
@@ -71,8 +73,8 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="card tab-card card-red-header">
-          <div class="card-header">Risk Factors</div>
+        <div class="card mb-3 tab-card card-blue-header">
+          <div class="card-header">CVD</div>
           <div class="table-responsive mt-2">
             <table class="table table-borderless">
 
@@ -82,6 +84,18 @@
                   <td width="5%" class="text-center">:</td>
                   <td width="65%" class="text-capitalize">n/a</td>
                 </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card tab-card card-red-header">
+          <div class="card-header">Risk Factors</div>
+          <div class="table-responsive mt-2">
+            <table class="table table-borderless">
+
+              <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">Smoking status</td>
                    <td width="5%" class="text-center">:</td>
@@ -213,20 +227,20 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col" class="mb-2">Type:</th>
+                  <th scope="col" class="mb-2">Drug added:</th>
                   <th scope="col" class="mb-2">Drug Name:</th>
-                  <th scope="col" class="mb-2">Regular:</th>
+                  <th scope="col" class="mb-2">Dosage:</th>
+                  <th scope="col" class="mb-2">Duration:</th>
 
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td >Anti-hypertensives:</td>
-                  <td >N/A</td>
-                  <td >{{ details.hypertension_medication_regular }}</td>
-                </tr>
+                  
               </tbody>
             </table>
+              <div class="text-secondary text-center">
+                  No Data found
+                </div>
           </div>
         </div>
       </div>
@@ -357,8 +371,33 @@
       </div>  
       
       <div class="col-md-6">
-          <div class="card tab-card card-blue-header">
-           <div class="card-header">Blood test</div>
+        <div class="card mb-3 tab-card card-blue-header">
+          <div class="card-header">Last Care plan generated</div>
+          <div class="pt-2 table-responsive">
+            <table class="table  table-borderless">
+              
+              <tbody>
+                <!-- <tr>
+                  <td class="pt-2" >Dr. Jahanginr Kabir</td>
+                  <td class="pt-2">15 Mar 2021</td>
+                  <td>
+                    <button class="btn btn-primary btn-sm">
+                      View
+                    </button>
+                  </td>
+                </tr> -->
+
+              </tbody>
+            </table>
+
+            <div class="text-secondary text-center">
+              No data available
+            </div>
+          </div>
+        </div>
+
+        <div class="card tab-card card-blue-header">
+          <div class="card-header">Blood test</div>
           <div class="table-responsive">
             <table class="table table-borderless">
               <thead>
@@ -1240,6 +1279,9 @@ export default {
  .patient-summary__action a {
     display: block;
     width: 100%;
+  }
+  .table-patient {
+    height: 429px;
   }
 }
 </style>
