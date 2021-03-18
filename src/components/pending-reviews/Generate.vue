@@ -629,6 +629,9 @@ import Multiselect from "vue-multiselect";
           this.allData.data.body.comment = this.comments
         }
         var data = this.calculateDuration(this.allData.data);
+        // console.log('generate careplan: ', JSON.stringify(data));
+        // return data;
+
         this.$http.put('/health-reports/' + this.reviewId, data).then( response => {
           loader.hide();
           if (response.status == 200 ) {

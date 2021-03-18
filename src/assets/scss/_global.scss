@@ -90,3 +90,47 @@ a {
     border-radius: 0;
   }
 }
+.radious-0 { border-radius: 0 !important;}
+.custom-switch {
+  .custom-control-label{ 
+    &::before {
+      // width: 3rem !important;
+      background-color: #D7D7D7;
+      border: 0;
+    } 
+    &::after {
+      background-color: #fff !important;
+    }
+  }
+}
+.tbl-bordered-td {
+  td{
+    padding-top: .5rem !important; 
+    padding-bottom: .5rem !important; 
+  }
+} 
+
+.follow-up {
+  .custom-checkbox {
+    .custom-control-label {
+      &::before {
+        border-radius: 0;
+        border: #489CFC solid 1px;
+        height: 1.2rem;
+        width: 1.2rem;
+        top: 3px;
+      }
+      &::after {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+    .custom-control-input {
+      &:checked {
+        &~.custom-control-label { 
+            &::after { top: 3px; }
+        }
+      }
+    }
+  } 
+}

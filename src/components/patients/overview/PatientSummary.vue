@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="card tab-card  card-blue-header">
-          <div class="card-header "> Patient Information </div>
+          <div class="card-header "> Patient Information</div>
           <div class="table-responsive">
             <table v-if="patient" class="table table-borderless mt-2">
               <tbody>
@@ -420,7 +420,7 @@
     </div>
     <div class="text-center m-3 mb-5" >
         <!-- <a href="patients/13e781d8-702d-4f0f-ad6f-2e7d1cb1f013/investigations/create" >Update</a> -->
-      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-primary">
+      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-primary px-4 radious-0">
         Update
       </router-link>
     </div>
@@ -1230,7 +1230,7 @@ export default {
     .txt-red{color: #f72b34}
     .txt-success{color: #00b0a6}
     table {
-        td {padding: 0.1rem .75rem}
+        td {padding: 0.2rem .75rem}
     }
     .add-note{
       border-radius: 0 !important;
