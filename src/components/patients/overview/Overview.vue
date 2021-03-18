@@ -10,12 +10,9 @@
         </div>
 
         <div class="col-lg-6 text-right">
-          <button
-            class="btn btn-primary mr-3 radious-0"
-            type="button"
-          >
-            <span>Proceed To Care Plan</span>
-          </button>
+          <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary mr-3 radious-0">
+            <span>Proceed To Care Plan </span>
+          </router-link>
         </div>
       </div>
 
@@ -475,6 +472,9 @@ export default {
     // this.getFollowups();
     
   },
+  created() {
+    this.patientId = this.$route.params.patientId;
+  }
 };
 </script>
 

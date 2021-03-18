@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-md-6">
         <div class="card tab-card  card-blue-header">
-          <div class="card-header "> Patient Information 
+          <div class="card-header "> Patient Information
             <div class="text-xs pt-2 float-right" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
           </div>
           <div class="table-responsive">
-            <table v-if="patient" class="table table-patient table-borderless mt-2">
+            <table v-if="patient" class="table table-borderless mt-2">
               <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">Patient ID</td>
@@ -235,7 +235,7 @@
                 </tr>
               </thead>
               <tbody>
-                  
+
               </tbody>
             </table>
               <div class="text-secondary text-center">
@@ -375,7 +375,7 @@
           <div class="card-header">Last Care plan generated</div>
           <div class="pt-2 table-responsive">
             <table class="table  table-borderless">
-              
+
               <tbody>
                 <!-- <tr>
                   <td class="pt-2" >Dr. Jahanginr Kabir</td>
@@ -459,7 +459,7 @@
     </div>
     <div class="text-center m-3 mb-5" >
         <!-- <a href="patients/13e781d8-702d-4f0f-ad6f-2e7d1cb1f013/investigations/create" >Update</a> -->
-      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-primary">
+      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-primary px-4 radious-0">
         Update
       </router-link>
     </div>
@@ -545,7 +545,7 @@ export default {
 
     getBmi() {
       console.log('bmi ', this.details.height);
-      
+
       if (this.details.height && this.details.weight) {
         if (this.details.height.value && this.details.weight.value) {
           return (this.details.weight.value / (this.details.height.value / 100)**2).toFixed(2);
@@ -994,7 +994,7 @@ export default {
                 }
               });
             }
-            
+
 
             this.$forceUpdate();
           }
@@ -1233,7 +1233,7 @@ export default {
     .txt-red{color: #f72b34}
     .txt-success{color: #00b0a6}
     table {
-        td {padding: 0.1rem .75rem}
+        td {padding: 0.2rem .75rem}
     }
     .add-note{
       border-radius: 0 !important;
