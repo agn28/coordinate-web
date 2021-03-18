@@ -46,39 +46,7 @@
                   <th class="p-2">Female Ration</th>
                 </tr>
                 <tr class="bg-white tr-border-bttom">
-                  <td class="p-2">Total Patient Enrolled</td>
-                  <td class="p-2">1000</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">50%</td>
-                  <td class="p-2">50%</td>
-                </tr>
-                <tr class="bg-yellow tr-border-bttom">
-                  <td class="p-2">Total Patient Enrolled</td>
-                  <td class="p-2">1000</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">50%</td>
-                  <td class="p-2">50%</td>
-                </tr>
-                <tr class="bg-grey tr-border-bttom">
-                  <td class="p-2">Total Patient Enrolled</td>
-                  <td class="p-2">1000</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">50%</td>
-                  <td class="p-2">50%</td>
-                </tr>
-                <tr class="bg-grey tr-border-bttom">
-                  <td class="p-2">Total Patient Enrolled</td>
-                  <td class="p-2">1000</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">50%</td>
-                  <td class="p-2">50%</td>
-                </tr>
-                <tr class="bg-grey tr-border-bttom">
-                  <td class="p-2">Total Patient Enrolled</td>
+                  <td class="p-2">Total Patients Enrolled</td>
                   <td class="p-2">1000</td>
                   <td class="p-2">500</td>
                   <td class="p-2">500</td>
@@ -86,7 +54,63 @@
                   <td class="p-2">50%</td>
                 </tr>
                 <tr class="bg-white tr-border-bttom">
-                  <td class="p-2">Total Patient Enrolled</td>
+                  <td class="p-2">Total Newly Enrolled</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-yellow tr-border-bttom">
+                  <td class="p-2">Total Patients with hypertension</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-grey tr-border-bttom">
+                  <td class="p-2">Total Patients with diabetes</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-grey tr-border-bttom">
+                  <td class="p-2">Total Patients with HTN and DM</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-white tr-border-bttom">
+                  <td class="p-2">Number of new centre visits</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-white tr-border-bttom">
+                  <td class="p-2">Number of follow up centre visits</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-white tr-border-bttom">
+                  <td class="p-2">Number of follow up home visits</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-white tr-border-bttom">
+                  <td class="p-2">Number of referrals from centre</td>
                   <td class="p-2">1000</td>
                   <td class="p-2">500</td>
                   <td class="p-2">500</td>
@@ -117,7 +141,7 @@
                   <th class="p-2">Female Ration</th>
                 </tr>
                 <tr class="bg-white tr-border-bttom">
-                  <td class="p-2">Total Counselling Interventions</td>
+                  <td class="p-2">% of patients reduce HbA1c > 1%</td>
                   <td class="p-2">1000</td>
                   <td class="p-2">500</td>
                   <td class="p-2">500</td>
@@ -126,15 +150,7 @@
                 </tr>
                
                 <tr class="bg-grey tr-border-bttom">
-                  <td class="p-2">Smoking ceassation counselling provided</td>
-                  <td class="p-2">1000</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">500</td>
-                  <td class="p-2">50%</td>
-                  <td class="p-2">50%</td>
-                </tr>
-                 <tr class="bg-yellow tr-border-bttom">
-                  <td class="p-2">Smokeless tobaco ceassation counselling provided</td>
+                  <td class="p-2">% of patients reduce HbA1c < 7%</td>
                   <td class="p-2">1000</td>
                   <td class="p-2">500</td>
                   <td class="p-2">500</td>
@@ -142,7 +158,15 @@
                   <td class="p-2">50%</td>
                 </tr>
                 <tr class="bg-white tr-border-bttom">
-                  <td class="p-2">Salt reduction counselling provided</td>
+                  <td class="p-2">% of patience reduce SBP > 10 mmHg</td>
+                  <td class="p-2">1000</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">500</td>
+                  <td class="p-2">50%</td>
+                  <td class="p-2">50%</td>
+                </tr>
+                <tr class="bg-white tr-border-bttom">
+                  <td class="p-2">% of patience reduce DBP > 5 mmHg</td>
                   <td class="p-2">1000</td>
                   <td class="p-2">500</td>
                   <td class="p-2">500</td>

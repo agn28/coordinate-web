@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="card tab-card  card-blue-header">
-          <div class="card-header "> Patient Information</div>
+          <div class="card-header "> Patient Information
+            <div class="text-xs pt-2 float-right" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
+          </div>
           <div class="table-responsive">
             <table v-if="patient" class="table table-borderless mt-2">
               <tbody>
@@ -61,7 +63,7 @@
                   <td colspan="3" class="">
                     <div class="d-flex align-items-center patient-summary__action mt-3">
                       <a href="javascript:void(0)" class="btn btn-cust">See Details</a>
-                      <a href="javascript:void(0)" class="btn btn-cust">See History</a>
+                      <router-link :to="{ name: 'encounters', params: { patientId: patientId }}" tag="a" class="btn btn-cust">See History</router-link>
                     </div>
                   </td>
                 </tr>
@@ -71,17 +73,29 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="card tab-card card-red-header">
-          <div class="card-header">Risk Factors</div>
+        <div class="card mb-3 tab-card card-blue-header">
+          <div class="card-header">CVD</div>
           <div class="table-responsive mt-2">
             <table class="table table-borderless">
-              
+
               <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">10 year CVD risk score</td>
                   <td width="5%" class="text-center">:</td>
                   <td width="65%" class="text-capitalize">n/a</td>
                 </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card tab-card card-red-header">
+          <div class="card-header">Risk Factors</div>
+          <div class="table-responsive mt-2">
+            <table class="table table-borderless">
+
+              <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">Smoking status</td>
                    <td width="5%" class="text-center">:</td>
@@ -213,20 +227,20 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col" class="mb-2">Type:</th>
+                  <th scope="col" class="mb-2">Drug added:</th>
                   <th scope="col" class="mb-2">Drug Name:</th>
-                  <th scope="col" class="mb-2">Regular:</th>
+                  <th scope="col" class="mb-2">Dosage:</th>
+                  <th scope="col" class="mb-2">Duration:</th>
 
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td >Anti-hypertensives:</td>
-                  <td >N/A</td>
-                  <td >{{ details.hypertension_medication_regular }}</td>
-                </tr>
+
               </tbody>
             </table>
+              <div class="text-secondary text-center">
+                  No Data found
+                </div>
           </div>
         </div>
       </div>
@@ -236,8 +250,8 @@
      -->
      <div class="row mb-3">
         <div class="col-md-6">
-        
-        <div class="card tab-card mb-3 card-blue-header"> 
+
+        <div class="card tab-card mb-3 card-blue-header">
           <div class="card-header">Body measurements</div>
           <div class="table-responsive">
             <table class="table table-borderless">
@@ -272,16 +286,16 @@
                 <tr>
                   <td >BMI:</td>
                   <!-- //TODO: Calculate BMI -->
-                  <!-- <td>23.1</td>
+                  <td>{{ getBmi()}}</td>
                   <td>kg/m2</td>
-                  <td>5 Mar 2021</td> -->
+                  <td></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="card tab-card mb-3 card-blue-header"> 
+        <div class="card tab-card mb-3 card-blue-header">
           <div class="card-header ">Investigations
             <!-- <h4 class="custom-title font-weight-bold p-0">Investigations</h4> -->
             </div>
@@ -357,8 +371,33 @@
       </div>  
       
       <div class="col-md-6">
-          <div class="card tab-card card-blue-header"> 
-           <div class="card-header">Blood test</div> 
+        <div class="card mb-3 tab-card card-blue-header">
+          <div class="card-header">Last Care plan generated</div>
+          <div class="pt-2 table-responsive">
+            <table class="table  table-borderless">
+
+              <tbody>
+                <!-- <tr>
+                  <td class="pt-2" >Dr. Jahanginr Kabir</td>
+                  <td class="pt-2">15 Mar 2021</td>
+                  <td>
+                    <button class="btn btn-primary btn-sm">
+                      View
+                    </button>
+                  </td>
+                </tr> -->
+
+              </tbody>
+            </table>
+
+            <div class="text-secondary text-center">
+              No data available
+            </div>
+          </div>
+        </div>
+
+        <div class="card tab-card card-blue-header">
+          <div class="card-header">Blood test</div>
           <div class="table-responsive">
             <table class="table table-borderless">
               <thead>
@@ -426,7 +465,7 @@
     </div>
     <div class="row mb-3 d-none">
         <div class="col-md-12">
-          <div class="card tab-card mb-3 card-blue-header"> 
+          <div class="card tab-card mb-3 card-blue-header">
             <div class="card-header">
               Complaints / Note
             </div>
@@ -503,6 +542,17 @@ export default {
     };
   },
   methods: {
+
+    getBmi() {
+      console.log('bmi ', this.details.height);
+
+      if (this.details.height && this.details.weight) {
+        if (this.details.height.value && this.details.weight.value) {
+          return (this.details.weight.value / (this.details.height.value / 100)**2).toFixed(2);
+        }
+      }
+      return '';
+    },
 
     getColor(value, condition) {
       console.log('get color', value);
@@ -946,54 +996,7 @@ export default {
             }
 
 
-            if (encounters && this.observations) {
-              encounters.forEach((encounter, index) => {
-              this.observations.forEach((obs) => {
-                if (obs && obs.body.assessment_id == encounter.id) {
-                  if (this.encounters[index] && this.encounters[index].body.observations) {
-                    this.encounters[index].body.observations.push(obs);
-                  } else {
-                    if (this.encounters[index]) {
-                      this.encounters[index].body.observations = [];
-                      this.encounters[index].body.observations.push(obs);
-                    }
-                
-                  }
-
-                }
-              });
-
-              this.dataLoaded = true;
-            });
-            }
-            
-          }
-
-          if (this.encounters.length > 0) {
-            this.currentEncounter = this.encounters[0];
-            if (this.encounters.length > 1) {
-              this.previousEncounter = this.encounters[1];
-            } else {
-              this.previousEncounter = this.currentEncounter;
-            }
-
-            // console.log(this.$route);
-            if (this.$route.query.encounter) {
-              // this.currentEncounter = this.encounters[0];
-              let matchedEncounter = this.encounters.find(item => item.id == this.$route.query.encounter);
-              if (matchedEncounter) {
-                this.currentEncounter = matchedEncounter;
-                this.previousEncounter = this.encounters[this.encounters.indexOf(matchedEncounter) - 1];
-                // console.log(this.previousEncounter)
-                // if () {
-
-                // }
-                document.getElementById("three-tab").click();
-              }
-
-            }
-
-
+            this.$forceUpdate();
           }
         },
         (error) => {}
@@ -1276,6 +1279,9 @@ export default {
  .patient-summary__action a {
     display: block;
     width: 100%;
+  }
+  .table-patient {
+    height: 429px;
   }
 }
 </style>
