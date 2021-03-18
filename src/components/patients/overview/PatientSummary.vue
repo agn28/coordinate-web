@@ -7,7 +7,7 @@
             <div class="text-xs pt-2 float-right" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
           </div>
           <div class="table-responsive">
-            <table v-if="patient" class="table table-borderless mt-2">
+            <table v-if="patient" class="table table-patient table-borderless mt-2">
               <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">Patient ID</td>
