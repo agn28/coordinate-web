@@ -130,44 +130,6 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-          <div class="col-md-12">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">New Recommendations From Decission Support Tool</div>
-                 <div class="table-responsive">
-                    <table class="table tbl-bordered-td mt-2">
-                      <thead>
-                        <tr>
-                          <th class="border-top-0">Action</th>
-                          <th class="border-top-0">Add To Care Plan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Initiate first line therapy for hypertension</td>
-                          <td>
-                            <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" id="addtocalreplan-1">
-                              <label class="custom-control-label " for="addtocalreplan-1"></label>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Counselling on medication adherence</td>
-                          <td>
-                            <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" checked id="addtocalreplan-2" >
-                              <label class="custom-control-label " for="addtocalreplan-2"></label>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-            </div>
-        </div>
-
         <!-- mediation  -->
         <div class="row mb-3">
           <div class="col-md-12">
@@ -175,18 +137,18 @@
                 <div class="card-header">Medication Recommendations</div>
                   <button type="button" class="btn btn-primary right px-3 m-2 ml-auto radious-0"  data-toggle="modal" data-target="#modal-add-medication"><i class="fa fa-plus"></i> Add</button>
                   <h5 class="px-2">New Recommendations</h5>
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="allData && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
-                    
                       <tbody>
-                        <tr>  <td>Start on first line anti-cholesterol medication</td> </tr>
-                         <tr>  <td>Start on first line anti-cholesterol medication</td> </tr>
+                        <tr v-for="(item,index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication' && item.comments"> 
+                          <td>{{ item.comments.comment }}</td> 
+                        </tr>
                       </tbody>
                     </table>
                   </div>
 
                   <h5 class="px-2">Current Medication</h5>
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="allData && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
@@ -195,30 +157,30 @@
                           <th class="border-top-0">Unit</th>
                           <th class="border-top-0">Frequency</th>
                           <th class="border-top-0">Duration</th>
+                          <th class="border-top-0"></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Atorvastatin</td>
-                          <td>20</td>
-                          <td>mg</td>
-                          <td>Once per day</td>
-                          <td>3 months</td>
-                        </tr>
-                        <tr>
-                          <td>Atorvastatin</td>
-                          <td>20</td>
-                          <td>mg</td>
-                          <td>Once per day</td>
-                          <td>3 months</td>
+                        <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication'"> 
+                          <td>{{ item.title }}</td>
+                          <td>{{ item.dosage ? item.dosage : '--'}}</td>
+                          <td>{{ item.unit ? item.unit : '--'}}</td>
+                          <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
+                          <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td> 
+                          <td>
+                            <a href="javascript:void(0)" @click="removeMedication(item.id)" class="btn btn-warning">
+                                <i class="fa fa-times text-white" ></i>
+                            </a>
+                            
+                            </td> 
                         </tr>
                       </tbody>
                     </table>
                   </div>
 
                   <h5 class="px-2">New Medication</h5>
-                  <div class="table-responsive">
-                    <table class="table tbl-bordered-td" v-if="allData.data && allData.data.body && allData.data.body.result && allData.data.body.result.careplan && allData.data.body.result.careplan.activities">
+                  <div class="table-responsive" v-if="newMedication.length">
+                    <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
                           <th class="border-top-0">Drug Name</th>
@@ -229,12 +191,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in allData.data.body.result.careplan.activities" :key="'activity-' + index" v-if="item.category == 'medication'">
+                        <tr v-for="(item, index) in newMedication" :key="index" >
                           <td>{{ item.title }}</td>
                           <td>{{ item.dosage }}</td>
                           <td>{{ item.unit }}</td>
-                          <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.durationFrequency }}</td>
-                          <td>{{ item.activityDuration.repeat.period }} {{ item.activityDuration.repeat.periodUnit }} </td>
+                          <td>{{ item.activityDuration.repeat.frequency }}  {{ item.activityDuration.repeat.periodUnit }}</td>
+                          <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }} </td>
                         </tr>
                       </tbody>
                     </table>
@@ -251,7 +213,7 @@
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">New Counselling Care Plan Recommendations</div>
                   <!-- <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" ><i class="fa fa-plus"></i> Add</button> -->
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="allData && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
@@ -261,40 +223,16 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="align-middle">Counselling on medicatoin adherence</td>
+                        <tr  v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'survey'">
+                          <td class="align-middle">{{ item.description }}</td>
                           <td class="text-center align-middle">
                             <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" checked id="addtocalreplan-3" >
-                              <label class="custom-control-label " for="addtocalreplan-3"></label>
+                              <input type="checkbox" class="custom-control-input" :id="'ncr-'+item.id"  @change="changeCounsellingStatus(item.id)">>
+                              <label class="custom-control-label " :for="'ncr-'+item.id"></label>
                             </div>
                           </td>
                           <td class="align-middle">
                             <textarea class="form-control" value="Patient agred to take medication constantly"></textarea>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="align-middle">Counselling about diet / physical activity to imporve glycemic control</td>
-                          <td class="text-center align-middle">
-                            <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input"  id="addtocalreplan-4" >
-                              <label class="custom-control-label " for="addtocalreplan-4"></label>
-                            </div>
-                          </td>
-                          <td class="align-middle">
-                            <textarea class="form-control" value=""></textarea>
-                          </td>
-                        </tr>
-                         <tr>
-                          <td class="align-middle">Counselling on smoking cessation</td>
-                          <td class="text-center align-middle">
-                            <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input"  id="addtocalreplan-4" >
-                              <label class="custom-control-label " for="addtocalreplan-4"></label>
-                            </div>
-                          </td>
-                          <td class="align-middle">
-                            <textarea class="form-control" value=""></textarea>
                           </td>
                         </tr>
                       </tbody>
@@ -334,7 +272,7 @@
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Add Diagnosis</div>
                   <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" data-toggle="modal" data-target="#modal-add-diagnosis"><i class="fa fa-plus"></i> Add</button>
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="newDiagnosis.length">
                     <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
@@ -343,13 +281,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Hypertension</td>
-                          <td>Early Stage</td>
-                        </tr>
-                         <tr>
-                          <td>Blood pressure</td>
-                          <td>....</td>
+                        <tr v-for="(item, index) in newDiagnosis" :key="index">
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.comment }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -401,7 +335,8 @@
         </div>
 
         <div class="text-center py-3 mb-3">
-            <router-link :to="{name: 'carePlanReview', params: {patientId: patientId}}" class="btn btn-primary px-5 radious-0">Proceed To Confirmation</router-link>
+            <!-- <router-link :to="{name: 'carePlanReview', params: {patientId: patientId}}" class="btn btn-primary px-5 radious-0">Proceed To Confirmation</router-link> -->
+            <button class="btn btn-primary px-5 radious-0" @click="proceed">Proceed To Confirmation</button>
         </div>
       <!-- </form> -->
 
@@ -448,16 +383,16 @@
                       </div>
                       <div class="col-md-4 mb-3">
                           <label for="validationCustom01" class="">Frequency Duration</label>
-                          <select class="form-control" required v-model="medication.durationFrequency">
+                          <select class="form-control" required v-model="medication.period">
                             <option selected value="">Please select one</option>
                             <option v-for="type in frequencyType"  :key="type.id" v-bind:value="type.value">{{type.title}}</option>
                           </select>
                       </div>
                       <div class="col-md-4 mb-3">
                           <label for="validationCustom01">Duration</label>
-                          <select class="form-control" required v-model="medication.period">
+                          <select class="form-control" required v-model="medication.review">
                               <option selected value="">Please select one</option>
-                              <option v-for="duration in durations" :key="duration.id" v-bind:value="duration.value">{{duration.title}}
+                              <option v-for="duration in durations" :key="duration.id" v-bind:value="duration.value">{{duration.title }}
                               </option>
                           </select>
                       </div>
@@ -486,21 +421,20 @@
               <div class="form-row">
                   <div class="col-md-12 mb-3">
                       <label for="validationCustom01">Diagnosis</label>
-                      <select class="form-control" name="" v-model="diagnosisItem.name">
-                        <option value="">Diagnosis Name</option>
-                        <option value="">Diagnosis Name</option>
-                        <option value="">Diagnosis Name</option>
+                      <select class="form-control" name="" v-model="diagnosis.name" required>
+                        <option value="">Select diagnosis</option>
+                        <option v-for="(item, index) in diagnosisList" :key="index" :value="item">{{ item }}</option>
                       </select>
                   </div>
                   <div class="col-md-12 ">
                       <label for="validationCustom01">Comments</label>
-                      <textarea class="form-control" name="comments" placeholder="Comments"></textarea>
+                      <textarea class="form-control" name="comments" placeholder="Comments" v-model="diagnosis.comment"></textarea>
                   </div>
               </div>
             </div>
             <div class="modal-footer p-3">
               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-              <button type="button" class="btn btn-primary radious-0">Confirm</button>
+              <button type="button" class="btn btn-primary radious-0" @click="addDiagnosis">Confirm</button>
             </div>
           </div>
         </div>
@@ -563,7 +497,9 @@ export default {
       drugs: [],
       medicationEnabled: false,
       medication: {},
+      newMedication: [],
       activity: {},
+      newActions: [],
       frequencyType: [
         {
           "id": '1',
@@ -655,17 +591,7 @@ export default {
           "value": 180
         },
       ],
-      allData: {
-        data: {
-          body: {
-            result:{
-              careplan: {
-                activities: []
-              }
-            }
-          }
-        }
-      },
+      allData: null,
       investigations: [],
       investigation: '',
       investigationItems: [
@@ -679,33 +605,18 @@ export default {
         }
       ],
       isInvestigationMsg: false,
-      diagnosis: [],
-      diagnosisItem: {},
+      newDiagnosis: [],
+      diagnosis: {},
+      diagnosisList: ['lupus', 'diabetes', 'bronchitis', 'hypertension', 'cancer', 'Ciliac', 'Scleroderma', 'Abulia', 'Agraphia', 'Chorea', 'Coma' ],
       isDiagnosisMsg: false,
     };
   },
   methods: {
     getHealthReport() {
-      this.$http.get('/health-reports/' + this.reviewId).then(response => {
+      let pID = '13e781d8-702d-4f0f-ad6f-2e7d1cb1f013';
+      this.$http.post('/health-reports/generate/' + pID).then(response => {
         if (response.status == 200) {
-          this.allData = response.data
-          for (var item of this.allData.data.body.result.careplan.activities) {
-            var index = this.allData.data.body.result.careplan.activities.indexOf(item)
-            this.selectedDurations[index] = 'Within 1 month'
-
-            var type = this.types.find(item => item.text == this.selectedDurations[index])
-            let startDate = new Date()
-            let endDate = new Date()
-            endDate.addDays(type.value);
-
-            item.activityDuration.start = startDate;
-            item.activityDuration.end = endDate;
-          }
-          if (response.data.data && response.data.data.body && response.data.data.body.result && response.data.data.body.result.careplan && response.data.data.body.result.careplan.activities) {
-            this.newActions = response.data.data.body.result.careplan.activities
-          }
-          // this.patientId = response.data.data.body.patient_id
-          // this.getPatientInfo();
+          this.allData = response.data;
         }
       })
     },
@@ -716,7 +627,6 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
-            console.log('patient: ', this.patient);
           }
         },
         (error) => {
@@ -728,8 +638,7 @@ export default {
     getDrugs() {
       this.$http.get('/drugs').then(response => {
         if (response.status == 200 && !response.data.error && response.data.error === false) {
-          this.drugs = response.data.data
-          console.log(response, 'drugs');
+          this.drugs = response.data.data;
           this.isLoading = false
           this.dataReady = true
         }
@@ -739,17 +648,21 @@ export default {
     addMedication() {
       let startDate = new Date()
       let endDate = new Date()
-      let period = this.medication.period.split(/(\d+)/).filter(Boolean)
-      if (period[1] == 'w') {
-        endDate = endDate.addDays(period[0] * 7)
-      } else if (period[1] == 'm') {
-        endDate = endDate.addDays(period[0] * 30)
+      let period = this.medication.period.split(/(\d+)/).filter(Boolean);
+      let review = this.medication.review.split(/(\d+)/).filter(Boolean)
+     
+      if (review[1] == 'w') {
+        endDate = endDate.addDays(review[0] * 7)
+      } else if (review[1] == 'm') {
+        endDate = endDate.addDays(review[0] * 30)
       } else {
-        endDate = endDate.addDays(period[0])
+        endDate = endDate.addDays(review[0])
       }
+
+
       let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
       let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
-      this.activity = {
+      let activity = {
         category: "medication",
         title: this.medication.title.name,
         description: this.medication.title.name,
@@ -763,10 +676,13 @@ export default {
           start: startPeriod,
           end: endPeriod,
           repeat: {
-            period: period[0],
-            periodUnit: period[1],
-            frequency: this.medication.frequency,
-            durationFrequency: this.medication.durationFrequency
+            // period: period[0],
+            periodUnit: period[0],
+            frequency: this.medication.frequency
+          },
+          review: {
+            period: review[0],
+            periodUnit: review[1],
           }
         },
         comments: {
@@ -774,35 +690,51 @@ export default {
         }
       }
 
-      console.log('activity: ', this.activity);
-
-      this.allData.data.body.result.careplan.activities.push(this.activity);
-      console.log('all data: ', this.allData);
+      this.newMedication.push(activity);
+      this.medication = {};
     },
 
     addInvestigation() {
       this.investigations.push(this.investigation);
     },
 
-    removeInvestigation(index) {
-      console.log('index: ', index);
-      let findIndex = this.investigations.indexOf(index);
-        if (findIndex > -1) {
-        console.log('in')
-        this.investigations = this.investigations.splice(findIndex, 1);
-         console.log();
+    removeMedication(id) {
+      let findIndex = null;
+      
+      this.allData.careplan.activities.forEach((element, index) => {
+         if (element.id == id) { findIndex = index };
+      });
+      
+      if (findIndex) {
+        this.allData.careplan.activities.splice(findIndex, 1)
       }
     },
 
     addDiagnosis() {
-      this.diagnosis.name = this.diagnosisItem.name;
-      this.diagnosis.comment = this.diagnosisItem.comment;
-      console('diag: ', this.diagnosis);
+      let data = {
+        name: this.diagnosis.name,
+        comment: this.diagnosis.comment
+      };
+      
+      this.newDiagnosis.push(data);
+      this.diagnosis = {};
     },
+    changeCounsellingStatus(activityId) {
+      console.log('activity: id', activityId);
+    },
+    proceed() {
+      if (this.newMedication.length) {
+        this.newMedication.forEach(item => {
+          this.allData.careplan.activities.push(item);
+        })
+      }
+
+      console.log('Final:' , this.allData);
+    }
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
-    // this.getHealthReport();
+    this.getHealthReport();
     this.getPatients();
     this.getDrugs();
   },

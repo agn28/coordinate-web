@@ -39,7 +39,7 @@
             </b-alert>
             <div class="care-plans">
 
-                <div class="care-plan-item d-none">
+                <div class="care-plan-item">
                     <div class="row ml-3">
                         <div class="col-lg-6 col-md-8 col-sm-9 col-11">
                             <div class="card card-form">
