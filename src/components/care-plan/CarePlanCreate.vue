@@ -223,8 +223,8 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr  v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'survey'">
-                          <td class="align-middle">{{ item.description }}</td>
+                        <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'survey'">
+                          <td class="align-middle">{{ item.title }}</td>
                           <td class="text-center align-middle">
                             <div class="custom-control custom-switch">
                               <input type="checkbox" class="custom-control-input" :id="'ncr-'+item.id"  @change="changeCounsellingStatus(item.id)">>
@@ -730,6 +730,10 @@ export default {
       }
 
       console.log('Final:' , this.allData);
+      localStorage.setItem('report', JSON.stringify(this.allData));
+      localStorage.setItem('investigations', JSON.stringify(this.investigations));
+      localStorage.setItem('diagnosis', JSON.stringify(this.newDiagnosis));
+      this.$router.push({ name: 'carePlanReview', params: { patientId: this.patientId } } );
     }
   },
   mounted() {
