@@ -105,7 +105,7 @@
                 <div class="card-header">Medication Recommendations</div>
                   <button type="button" class="btn btn-primary right px-3 m-2 ml-auto radious-0"  data-toggle="modal" data-target="#modal-add-medication"><i class="fa fa-plus"></i> Add</button>
                   <h5 class="px-2">New Recommendations</h5>
-                  <div class="table-responsive mb-3" v-if="allData && allData.careplan.activities">
+                  <div class="table-responsive mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
                       <tbody>
                         <tr v-for="(item,index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication' && item.comments"> 
@@ -116,7 +116,7 @@
                   </div>
 
                   <h5 class="px-2">Current Medication</h5>
-                  <div class="table-responsive  mb-3" v-if="allData && allData.careplan.activities">
+                  <div class="table-responsive  mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
@@ -180,7 +180,7 @@
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">New Counselling Care Plan Recommendations</div>
                   <!-- <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" ><i class="fa fa-plus"></i> Add</button> -->
-                  <div class="table-responsive" v-if="allData && allData.careplan.activities">
+                  <div class="table-responsive" v-if="allData && allData.careplan && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
@@ -313,7 +313,7 @@
           <div class="modal-content modal-blue-header p-0 radious-0">
             <div class="modal-header py-2 px-3">
               <h5 class="modal-title text-white">Add Medication</h5>
-              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <button type="button" ref="elCloseMedication" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -380,7 +380,7 @@
           <div class="modal-content modal-blue-header p-0 radious-0">
             <div class="modal-header py-2 px-3">
               <h5 class="modal-title text-white">Add Diagnosis</h5>
-              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <button type="button" ref="elCloseDiagnosis" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -388,7 +388,7 @@
               <div class="form-row">
                   <div class="col-md-12 mb-3">
                       <label for="validationCustom01">Diagnosis</label>
-                      <select class="form-control" name="" v-model="diagnosis.name" required>
+                      <select class="form-control diagnosis-dropdown" name="" v-model="diagnosis.name" required>
                         <option value="">Select diagnosis</option>
                         <option v-for="(item, index) in diagnosisList" :key="index" :value="item">{{ item }}</option>
                       </select>
@@ -414,7 +414,7 @@
             <div class="modal-content modal-blue-header p-0 radious-0">
               <div class="modal-header py-2 px-3">
                 <h5 class="modal-title text-white">Add Investigation</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <button type="button" ref="elCloseInvestigation" class="close text-white" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -574,7 +574,7 @@ export default {
       isInvestigationMsg: false,
       newDiagnosis: [],
       diagnosis: {},
-      diagnosisList: ['Lupus', 'Diabetes', 'Bronchitis', 'Hypertension', 'Cancer', 'Ciliac', 'Scleroderma', 'Abulia', 'Agraphia', 'Chorea', 'Coma' ],
+      diagnosisList: ['lupus', 'diabetes', 'bronchitis', 'hypertension', 'cancer', 'Ciliac', 'Scleroderma', 'Abulia', 'Agraphia', 'Chorea', 'Coma'],
       isDiagnosisMsg: false,
       lastEncounter: null,
       lastReports: null,
@@ -664,10 +664,12 @@ export default {
 
       this.newMedication.push(activity);
       this.medication = {};
+      this.$refs.elCloseMedication.click();
     },
 
     addInvestigation() {
       this.investigations.push(this.investigation);
+      this.$refs.elCloseInvestigation.click();
     },
 
     removeMedication(id) {
@@ -690,6 +692,9 @@ export default {
       
       this.newDiagnosis.push(data);
       this.diagnosis = {};
+
+      this.$refs.elCloseDiagnosis.click();
+
     },
     changeCounsellingStatus(activityId) {
       console.log('activity: id', activityId);
@@ -800,7 +805,6 @@ export default {
     this.getLastEncounter();
     this.lastGeneratedReports();
     this.lastGeneratedCareplans();
-    //  $(this.$refs.vuemodal).on("hidden.bs.modal", this.doSomethingOnHidden)
   },
   
   created() {},
@@ -875,4 +879,5 @@ export default {
   color: #fff;
   padding: 5px 10px;
 }
+.diagnosis-dropdown option {text-transform:capitalize}
 </style>
