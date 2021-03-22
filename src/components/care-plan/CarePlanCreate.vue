@@ -2,20 +2,12 @@
   <div class="content patient-overview">
     <TopNavBar heading="Care Plan Review"></TopNavBar>
 
-    <!-- <div class="row pl-4 pr-4">
-      <div class="col-lg-6">
-        <div class="patient-search">
-          <h4 class="">Patient Investigations</h4>
-        </div>
-      </div>
-    </div> -->
-
     <div class="patient-summary  pl-4 pr-4">
       <!-- <form id="body-measurements" class="form-sharp-corner" @submit.prevent="createInvestigations"> -->
         <div class="row mb-3">
             <div class="col-md-6">
               <div class="card tab-card card-blue-header">
-                  <div class="card-header d-flex align-items-center justify-content-spacebetween">Patient Information <span class=" ml-auto last-encounter">Last Encounter 5 Jan 2021</span></div>
+                  <div class="card-header d-flex align-items-center justify-content-spacebetween">Patient Information <span class=" ml-auto last-encounter" v-if="lastEncounter">Last Encounter: {{ lastEncounter }}</span></div>
                   <div class="table-responsive">
                     <table v-if="patient" class="table table-borderless mt-2">
                       <tbody>
@@ -59,42 +51,30 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Last Care Plan Generated</div>
-                 <div class="table-responsive">
+                 <div class="table-responsive" v-if="lastReports">
                     <table class="table table-borderless mt-2">
                       <tbody>
-                        <tr>
-                          <td width="30%" >Dr Aliul</td>
+                        <tr v-for="(report, index) in lastReports" :key="index">
+                          <td width="30%" >Doctor Name</td>
                           <td width="5%" class="text-center">:</td>
-                          <td width="60%">5 Jan 2021</td>
-                          <td width="5%"><a href="javascript:void(0)">View</a></td>
+                          <td width="60%">{{ getFormatedDate(report.report_date._seconds) }}</td>
+                          <td width="5%">
+                            <a href="javascript:void(0)">View</a>
+                            <!-- <router-link :to="{name: 'diagnosticCreate', params:{patientId: patientId, encounterId: encounterId}}">View</router-link> -->
+                          </td>
                         </tr>
-                        <tr>
-                          <td width="30%" >Dr Aliul</td>
-                          <td width="5%" class="text-center">:</td>
-                          <td width="60%">3 Jan 2021</td>
-                          <td width="5%"><a href="javascript:void(0)">View</a></td>
-                        </tr>
-                        <tr>
-                          <td width="30%" >Dr Aliul</td>
-                          <td width="5%" class="text-center">:</td>
-                          <td width="60%">2 Jan 2021</td>
-                          <td width="5%"><a href="javascript:void(0)">View</a></td>
-                        </tr>
-                        
                       </tbody>
                     </table>
                   </div>
               </div>
             </div>
-
-            
         </div>
 
         <div class="row mb-3">
           <div class="col-md-12">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Care Plan Intervention Status</div>
-                 <div class="table-responsive">
+                 <div class="table-responsive" v-if="lastCareplans.length">
                     <table class="table tbl-bordered-td mt-2">
                       <thead>
                         <tr>
@@ -105,23 +85,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Counselling about diet / physical activity to imporve glycemic control</td>
-                          <td>5 Jan 2021</td>
-                          <td>Fatima Hasan</td>
-                          <td>Not Completed</td>
-                        </tr>
-                        <tr>
-                          <td>Counselling about diet / physical activity to imporve glycemic control</td>
-                          <td>5 Jan 2021</td>
-                          <td>N/A</td>
-                          <td>Completed</td>
-                        </tr>
-                        <tr>
-                          <td>Counselling about diet / physical activity to imporve glycemic control</td>
-                          <td>5 Jan 2021</td>
-                          <td>Fatima Hasan</td>
-                          <td>Not Completed</td>
+                        <tr v-for="(plan, index) in lastCareplans" :key="index">
+                          <td>{{ plan.body.title }}</td>
+                          <td>{{ getFormatedDate(plan.meta.created_at._seconds) }}</td>
+                          <td>Doctor Name</td>
+                          <td>{{ plan.meta.status }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -137,7 +105,7 @@
                 <div class="card-header">Medication Recommendations</div>
                   <button type="button" class="btn btn-primary right px-3 m-2 ml-auto radious-0"  data-toggle="modal" data-target="#modal-add-medication"><i class="fa fa-plus"></i> Add</button>
                   <h5 class="px-2">New Recommendations</h5>
-                  <div class="table-responsive" v-if="allData && allData.careplan.activities">
+                  <div class="table-responsive mb-3" v-if="allData && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
                       <tbody>
                         <tr v-for="(item,index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication' && item.comments"> 
@@ -148,7 +116,7 @@
                   </div>
 
                   <h5 class="px-2">Current Medication</h5>
-                  <div class="table-responsive" v-if="allData && allData.careplan.activities">
+                  <div class="table-responsive  mb-3" v-if="allData && allData.careplan.activities">
                     <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
@@ -171,7 +139,6 @@
                             <a href="javascript:void(0)" @click="removeMedication(item.id)" class="btn btn-warning">
                                 <i class="fa fa-times text-white" ></i>
                             </a>
-                            
                             </td> 
                         </tr>
                       </tbody>
@@ -179,7 +146,7 @@
                   </div>
 
                   <h5 class="px-2">New Medication</h5>
-                  <div class="table-responsive" v-if="newMedication.length">
+                  <div class="table-responsive  mb-3" v-if="newMedication.length">
                     <table class="table tbl-bordered-td">
                       <thead>
                         <tr>
@@ -300,35 +267,35 @@
                   
                   <div class="follow-up p-3">
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" name="follow_up"  class="custom-control-input" id="one-week">
+                      <input type="radio" name="follow_up" value="1w"  class="custom-control-input" id="one-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
                       <label class="custom-control-label" for="one-week">1 week</label>
                     </div>
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" name="follow_up"  class="custom-control-input" id="two-week">
+                      <input type="radio" name="follow_up" value="2w"  class="custom-control-input" id="two-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
                       <label class="custom-control-label" for="two-week">2 week</label>
                     </div>
 
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" name="follow_up"  class="custom-control-input" id="one-month">
+                      <input type="radio" name="follow_up" value="1m"  class="custom-control-input" id="one-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
                       <label class="custom-control-label" for="one-month">1 month</label>
                     </div>
 
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" name="follow_up"  class="custom-control-input" id="three-month">
+                      <input type="radio" name="follow_up" value="3m"  class="custom-control-input" id="three-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
                       <label class="custom-control-label" for="three-month">3 months</label>
                     </div>
 
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" name="follow_up"  class="custom-control-input" id="six-month">
+                      <input type="radio" name="follow_up"  value="6m" class="custom-control-input" id="six-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
                       <label class="custom-control-label" for="six-month">6 months</label>
                     </div>
 
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" name="follow_up"  class="custom-control-input" id="one-year">
+                      <input type="radio" name="follow_up" value="1y" class="custom-control-input" id="one-year" v-on:change="generateFollowUpDate" v-model="folloUpDate">
                       <label class="custom-control-label" for="one-year">1 year</label>
                     </div>
 
-                    <div class="follow-up-date mt-3"><b>Follow up date:</b> 25 Mar 2021</div>
+                    <div class="follow-up-date mt-3" v-if="folloUpDate"><b>Follow up date:</b> {{  moment(folloUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
                   </div>
               </div>
             </div>
@@ -607,8 +574,12 @@ export default {
       isInvestigationMsg: false,
       newDiagnosis: [],
       diagnosis: {},
-      diagnosisList: ['lupus', 'diabetes', 'bronchitis', 'hypertension', 'cancer', 'Ciliac', 'Scleroderma', 'Abulia', 'Agraphia', 'Chorea', 'Coma' ],
+      diagnosisList: ['Lupus', 'Diabetes', 'Bronchitis', 'Hypertension', 'Cancer', 'Ciliac', 'Scleroderma', 'Abulia', 'Agraphia', 'Chorea', 'Coma' ],
       isDiagnosisMsg: false,
+      lastEncounter: null,
+      lastReports: null,
+      lastCareplans: [],
+      folloUpDate: null
     };
   },
   methods: {
@@ -617,6 +588,7 @@ export default {
       this.$http.post('/health-reports/generate/' + pID).then(response => {
         if (response.status == 200) {
           this.allData = response.data;
+          console.log('Report: ', this.allData);
         }
       })
     },
@@ -722,6 +694,46 @@ export default {
     changeCounsellingStatus(activityId) {
       console.log('activity: id', activityId);
     },
+    lastGeneratedReports() {
+      this.$http.get("/health-reports/patient/" + this.patientId).then(
+        (response) => {
+          if (response.status == 200) {
+            if(response.data.data) {
+              this.lastReports = response.data.data.slice(0, 3);
+            }
+          }
+        },
+        (error) => {}
+      );
+    },
+
+    lastGeneratedCareplans() {
+      this.$http.get("/care-plans/patient/" + this.patientId).then(
+        (response) => {
+          
+          if (response.status == 200) {
+
+            if (response.data.data) {
+              let count = 0;
+              let responseData = response.data.data;
+              for (let i = 0; i < responseData.length; i ++) {
+                if(responseData[i].body.category == 'survey') {
+                  this.lastCareplans.push(responseData[i]);
+                  count = 1 + count;
+                }
+
+                if(count == 3) {
+                  return;
+                }
+              }
+              
+            }
+          }
+
+        },
+        (error) => {}
+      );
+    },
     proceed() {
       if (this.newMedication.length) {
         this.newMedication.forEach(item => {
@@ -729,18 +741,66 @@ export default {
         })
       }
 
+      if (this.folloUpDate) {
+        localStorage.setItem('follow_up_date', this.folloUpDate);
+      }
       console.log('Final:' , this.allData);
       localStorage.setItem('report', JSON.stringify(this.allData));
       localStorage.setItem('investigations', JSON.stringify(this.investigations));
       localStorage.setItem('diagnosis', JSON.stringify(this.newDiagnosis));
       this.$router.push({ name: 'carePlanReview', params: { patientId: this.patientId } } );
+    },
+    getLastEncounter() {
+      this.$http.get("/assessments/patients/" + this.patientId + "/last").then(
+        (response) => {
+          if (response.status == 200) {
+            if(response.data.data.meta.created_at) {
+              this.lastEncounter =  moment(response.data.data.meta.created_at).format("Do MMMM YYYY")
+            }
+          }
+        },
+        (error) => {}
+      );
+    },
+
+    getFormatedDate(data) {
+     
+        let date = moment
+          .unix(data)
+          .format("DD MMM YYYY");
+   
+      return date;
+    },
+    generateFollowUpDate() {
+      if (this.folloUpDate) {
+        let days = '';
+
+        let dateStr = this.folloUpDate.split(/(\d+)/).filter(Boolean);
+        if (dateStr[1] == 'w') {
+          days = parseInt(dateStr[0]) * 7;
+        }
+
+        if (dateStr[1] == 'm') {
+          days = parseInt(dateStr[0]) * 30;
+        }
+
+        if (dateStr[1] == 'y') {
+          days = parseInt(dateStr[0]) * 365;
+        } 
+        this.folloUpDate =  moment().add(days, 'days').format('YYYY-MM-DD');
+      };
     }
+
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
     this.getHealthReport();
     this.getPatients();
     this.getDrugs();
+    this.getLastEncounter();
+    this.lastGeneratedReports();
+    this.lastGeneratedCareplans();
+    //  $(this.$refs.vuemodal).on("hidden.bs.modal", this.doSomethingOnHidden)
   },
   
   created() {},

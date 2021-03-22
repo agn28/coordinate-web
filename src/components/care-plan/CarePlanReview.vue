@@ -170,7 +170,7 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Next Follow Up Date</div>
-                  <div class="follow-up-date p-3"> 25 Mar 2021</div>
+                  <div class="follow-up-date p-3" v-if="followUpDate">{{ moment(followUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
               </div>
             </div>
         </div>
@@ -211,6 +211,7 @@ export default {
       newDiagnosis: [],
       investigations: [],
       reviewId: '',
+      followUpDate: null
     };
   },
   computed: {
@@ -309,11 +310,12 @@ export default {
       this.previousData =  localData ? JSON.parse(localData) : null;
       this.newDiagnosis =  localDiagnosis ? JSON.parse(localDiagnosis) : [];
       this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
-      this.reviewId = this.previousData.report_id;
+      this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
       this.getHealthReport();
     }
   },
   mounted() {
+    this.followUpDate = localStorage.getItem('follow_up_date');
     this.prepareData();
     this.getPatients();
   },
