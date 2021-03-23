@@ -276,9 +276,9 @@ export default {
       //let preparedData = this.prepareFinalData(this.allData);
       console.log('Final Data: ', this.allData);
       //console.log('prepared: ', preparedData);
-      this.saveObservationData();
-      loader.hide();
-      return;
+      // this.saveObservationData();
+      // loader.hide();
+      // return;
 
       this.$http.put('/health-reports/' + this.reviewId, this.allData).then( response => {
         loader.hide();
