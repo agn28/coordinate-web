@@ -200,7 +200,7 @@
       </div>  
       
       <div class="col-md-6">
-        <div class="card tab-card card-blue-header">
+        <div class="card tab-card card-blue-header mb-3">
           <div class="card-header "> Diagnosed conditions </div>
           <div class="table-responsive mt-2">
             <table class="table table-borderless">

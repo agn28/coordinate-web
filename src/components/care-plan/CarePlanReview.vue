@@ -54,48 +54,7 @@
               </div>
                <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Doctor</div>
-                <p class="p-3 mb-0">Mehedi Hasan</p>
-              </div>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-12">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">List of incomplete care plan action</div>
-                 <div class="table-responsive">
-                    <table class="table tbl-bordered-td mt-2">
-                      <thead>
-                        <tr>
-                          <th class="border-top-0">Action</th>
-                          <th class="border-top-0">Date Added</th>
-                          <th class="border-top-0">Completed</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Counselling about diet / physical activity to imporve glycemic control</td>
-                          <td>5 Jan 2021</td>
-                          <td> 
-                              <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" id="addtocalreplan-1">
-                              <label class="custom-control-label " for="addtocalreplan-1"></label>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Counselling about diet / physical activity to imporve glycemic control</td>
-                          <td>5 Jan 2021</td>
-                          <td>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" checked id="addtocalreplan-2" >
-                                <label class="custom-control-label " for="addtocalreplan-2"></label>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                <p class="p-3 mb-0">{{ user.name }}</p>
               </div>
             </div>
         </div>
@@ -105,7 +64,7 @@
           <div class="col-md-12">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Pending care plan Intervention</div>
-                 <div class="table-responsive">
+                 <div class="table-responsive" v-if="previousData && previousData.careplan.activities">
                     <table class="table tbl-bordered-td mt-2">
                       <thead>
                         <tr>
@@ -114,13 +73,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Counselling on imporving diet</td>
-                          <td>5 Jan 2021</td>
-                        </tr>
-                        <tr>
-                          <td>Counselling on imporving diet</td>
-                          <td>5 Jan 2021</td>
+                        <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'survey'">
+                          <td class="align-middle">{{ item.title }}</td>
+                          <td class="text-center align-middle">
+                            
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -133,7 +90,7 @@
           <div class="col-md-12">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Medication</div>
-                 <div class="table-responsive">
+                 <div class="table-responsive" v-if="previousData && previousData.careplan.activities">
                     <table class="table tbl-bordered-td mt-2">
                       <thead>
                         <tr>
@@ -145,26 +102,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Initiate first line therapy for hypertension</td>
-                          <td>20</td>
-                          <td>mg</td>
-                          <td>Once per day</td>
-                          <td>3 months</td>
-                        </tr>
-                        <tr>
-                          <td>Initiate first line therapy for hypertension</td>
-                          <td>20</td>
-                          <td>mg</td>
-                          <td>Once per day</td>
-                          <td>3 months</td>
-                        </tr>
-                        <tr>
-                          <td>Initiate first line therapy for hypertension</td>
-                          <td>20</td>
-                          <td>mg</td>
-                          <td>Once per day</td>
-                          <td>3 months</td>
+                        <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'medication'"> 
+                          <td>{{ item.title }}</td>
+                          <td>{{ item.dosage ? item.dosage : '--'}}</td>
+                          <td>{{ item.unit ? item.unit : '--'}}</td>
+                          <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
+                          <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -186,14 +129,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Serum creatinine test</td>
-                        </tr>
-                        <tr>
-                          <td>Chext X-Ray</td>
+                        <tr v-for="(item, index) in investigations" :key="index">
+                          <td>{{ item }}</td>
+                          <td>
+                            <!-- <i class="fa fa-times" @click="removeInvestigation(index)"></i> -->
+                            </td>
                         </tr>
                       </tbody>
                     </table>
+                    <div v-if="investigations.length == 0" class="text-center mt-2">No investigation added</div>
                   </div>
               </div>
             </div>
@@ -209,14 +153,13 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Hypertension</td>
-                        </tr>
-                         <tr>
-                          <td>Blood pressure</td>
+                        <tr v-for="(item, index) in newDiagnosis" :key="index">
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.comment }}</td>
                         </tr>
                       </tbody>
                     </table>
+                    <div v-if="newDiagnosis.length == 0" class="text-center mt-2">No diagnosis added</div>
                   </div>
               </div>
             </div>
@@ -227,14 +170,14 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Next Follow Up Date</div>
-                  <div class="follow-up-date p-3"> 25 Mar 2021</div>
+                  <div class="follow-up-date p-3" v-if="followUpDate">{{ moment(followUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
               </div>
             </div>
         </div>
 
         <div class="text-center  py-3">
             
-            <button type="submit" class="btn btn-primary px-5 radious-0 m-auto">Confirm New Care Plan</button>
+            <button type="button" @click.prevent="updateReviewData()" class="btn btn-primary px-5 radious-0 m-auto">Confirm New Care Plan</button>
         </div>
         <div class="py-3 mb-3">
             <a href="javascript:void(0)" @click="$router.go(-1)" class="text-secondary " > <i class="fa fa-arrow-left text-secondary" ></i> Back to reivew</a>
@@ -263,7 +206,20 @@ export default {
     return {
       patientId: '',
       patient: null,
+      previousData: null,
+      allData: null,
+      newDiagnosis: [],
+      investigations: [],
+      reviewId: '',
+      followUpDate: null,
+      assessment_id: null
     };
+  },
+  computed: {
+    user() {
+      return this.$store.state.auth.user;
+    },
+      
   },
   methods: {
     getPatients() {
@@ -282,9 +238,169 @@ export default {
         }
       );
     },
+
+    getHealthReport() {
+      this.$http.get('/health-reports/' + this.reviewId).then(response => {
+        if (response.status == 200) {
+          this.allData = response.data;
+
+          // for (var item of this.previousData.data.body.result.careplan.activities) {
+          //   var index = this.previousData.data.body.result.careplan.activities.indexOf(item)
+          //   this.selectedDurations[index] = 'Within 1 month'
+
+          //   var type = this.types.find(item => item.text == this.selectedDurations[index])
+          //   let startDate = new Date()
+          //   let endDate = new Date()
+          //   endDate.addDays(type.value);
+
+          //   item.activityDuration.start = startDate;
+          //   item.activityDuration.end = endDate;
+          // }
+          // if (response.data.data && response.data.data.body && response.data.data.body.result && response.data.data.body.result.careplan && response.data.data.body.result.careplan.activities) {
+          //   this.newActions = response.data.data.body.result.careplan.activities
+          // }
+        }
+      })
+    },
+    updateReviewData() {
+      let loader = this.$loading.show();
+      this.isLoading = true;
+      // var data = this.calculateDuration(this.allData.data);
+      // console.log('generate careplan: ', JSON.stringify(data));
+      // return data;
+
+      console.log('all data: ', this.allData);
+      console.log('Previous: ', this.previousData);
+
+      this.allData.data.body.result.careplan = this.previousData.careplan;
+      //let preparedData = this.prepareFinalData(this.allData);
+      console.log('Final Data: ', this.allData);
+      //console.log('prepared: ', preparedData);
+      // this.saveObservationData();
+      // loader.hide();
+      // return;
+
+      this.$http.put('/health-reports/' + this.reviewId, this.allData).then( response => {
+        loader.hide();
+        console.log('res: ', response.data)
+        if (response.status == 200 ) {
+          this.alert = response.data.message;
+          // this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
+
+        } else {
+          this.alert = 'error'
+        }
+        this.isLoading = false
+
+      })
+    },
+
+    prepareFinalData(data) {
+      for (var item of data.data.body.result.careplan.activities) {
+        if (item.status) {
+          item.status == item.status == true ? 'completed' : 'pending';
+        }
+        if( item.activityDuration.start  == '' || item.activityDuration.start  == null) {
+          item.activityDuration.start = '2021-03-01';
+        }
+
+        if( item.activityDuration.endDate  == '' || item.activityDuration.endDate  == null) {
+          item.activityDuration.end = '2021-03-20';
+        }
+        
+      }
+
+      return data;
+
+    },
+
+    prepareData() {
+      this.patientId = this.$route.params.patientId;
+      let localData = localStorage.getItem('report');
+      let localDiagnosis = localStorage.getItem('diagnosis');
+      let localInvestigations = localStorage.getItem('investigations');
+      this.previousData =  localData ? JSON.parse(localData) : null;
+      this.newDiagnosis =  localDiagnosis ? JSON.parse(localDiagnosis) : [];
+      this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
+      this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
+      this.getHealthReport();
+    },
+
+    prepareTestData(collected_by, created_at, type, dataKey, value, patientId, assessment_id) {
+      let data = {
+        "meta": {
+          "collected_by": collected_by,
+          "device_id": '',
+          "created_at": created_at
+        },
+        "body": {
+          "type": "survey",
+          "data": {
+            'name': 'medical_history',
+            dataKey: value,
+          },
+          "patient_id": patientId,
+          'assessment_id' : assessment_id
+        },
+        id: this.$uuid.v4()
+      }
+
+      return data;
+    }, 
+    saveObservationData() {
+      let created_at = new Date();
+      this.assessment_id = this.$uuid.v4();
+      let data = {
+        "meta": {
+          "collected_by": this.user.uid,
+          "created_at": created_at,
+        },
+        "body": {
+          "type": 'doctor consultation',
+          "screening_type": 'doctor-consultation',
+          "comment": '',
+          "performed_by": this.user.uid,
+          "assessment_date": moment().format('YYYY-MM-DD'),
+          "patient_id": this.patientId
+        },
+        id: this.assessment_id
+      };
+      
+      this.$http.post("/assessments/except-oha", data).then(response => {
+        if (response.status == 201) {
+          this.saveInvestigation(created_at, this.assessment_id);
+          this.saveDiagonosis(created_at, this.assessment_id);
+        }
+      }).catch(error => { console.log(error) });
+    },
+    saveInvestigation(created_at, assesment_id) {
+      if (this.investigations.length > 0) {
+        for (let i = 0; i < this.investigations.length; i ++) {
+          let dataKey = this.investigations[i].replace("", "_");
+          console.log('kk', dataKey)
+          let data = this.prepareTestData(this.user.uid, created_at, 'survey', dataKey, 'yes', this.patientId, assesment_id);
+          console.log('investigations '+ i +': ', data);
+          // this.$http.post("/observations", data).then(response => {
+          //   console.log('Observation response: ', response)
+          // }).catch(error => { console.log(error) });
+        }
+      }
+    },
+    saveDiagonosis(created_at, assesment_id) {
+      if (this.newDiagnosis.length > 0) {
+        for (let i = 0; i < this.newDiagnosis.length; i ++) {
+          let data = this.prepareTestData(this.user.uid, created_at, 'survey', this.newDiagnosis[i].name, '', '', this.newDiagnosis[i].comment, this.patientId, assesment_id);
+          console.log('diagonis '+ i +': ', data);
+          // this.$http.post("/observations", data).then(response => {
+          //   console.log('Observation response: ', response)
+          // }).catch(error => { console.log(error) });
+        }
+      }
+    }
   },
   mounted() {
-    this.patientId = this.$route.params.patientId;
+    this.followUpDate = localStorage.getItem('follow_up_date');
+    this.prepareData();
     this.getPatients();
   },
   
