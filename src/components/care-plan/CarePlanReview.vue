@@ -211,7 +211,8 @@ export default {
       newDiagnosis: [],
       investigations: [],
       reviewId: '',
-      followUpDate: null
+      followUpDate: null,
+      assessment_id: null
     };
   },
   computed: {
@@ -262,40 +263,51 @@ export default {
       })
     },
     updateReviewData() {
-      // let loader = this.$loading.show();
-      // this.isLoading = true;
+      let loader = this.$loading.show();
+      this.isLoading = true;
       // var data = this.calculateDuration(this.allData.data);
       // console.log('generate careplan: ', JSON.stringify(data));
       // return data;
 
-      console.log(this.allData);
-      console.log(this.previousData);
+      console.log('all data: ', this.allData);
+      console.log('Previous: ', this.previousData);
+
       this.allData.data.body.result.careplan = this.previousData.careplan;
+      //let preparedData = this.prepareFinalData(this.allData);
+      console.log('Final Data: ', this.allData);
+      //console.log('prepared: ', preparedData);
+      this.saveObservationData();
+      loader.hide();
+      return;
 
-      // return;
-
-      this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
-        // loader.hide();
+      this.$http.put('/health-reports/' + this.reviewId, this.allData).then( response => {
+        loader.hide();
+        console.log('res: ', response.data)
         if (response.status == 200 ) {
-          // this.alert = 'success';
-          // this.$router.push({ name: 'pendingReviews' })
+          this.alert = response.data.message;
+          // this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
+
         } else {
-          // this.alert = 'error'
+          this.alert = 'error'
         }
         this.isLoading = false
 
       })
     },
 
-    calculateDuration(data) {
-      for (var item of data.body.result.careplan.activities) {
-        var index = data.body.result.careplan.activities.indexOf(item);
-        var type = this.types.find(item => item.text == this.selectedDurations[index])
-        let startDate = new Date()
-        let endDate = new Date()
-        endDate.addDays(type.value);
-        item.activityDuration.start = startDate;
-        item.activityDuration.end = endDate;
+    prepareFinalData(data) {
+      for (var item of data.data.body.result.careplan.activities) {
+        if (item.status) {
+          item.status == item.status == true ? 'completed' : 'pending';
+        }
+        if( item.activityDuration.start  == '' || item.activityDuration.start  == null) {
+          item.activityDuration.start = '2021-03-01';
+        }
+
+        if( item.activityDuration.endDate  == '' || item.activityDuration.endDate  == null) {
+          item.activityDuration.end = '2021-03-20';
+        }
+        
       }
 
       return data;
@@ -312,6 +324,78 @@ export default {
       this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
       this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
       this.getHealthReport();
+    },
+
+    prepareTestData(collected_by, created_at, type, dataKey, value, patientId, assessment_id) {
+      let data = {
+        "meta": {
+          "collected_by": collected_by,
+          "device_id": '',
+          "created_at": created_at
+        },
+        "body": {
+          "type": "survey",
+          "data": {
+            'name': 'medical_history',
+            dataKey: value,
+          },
+          "patient_id": patientId,
+          'assessment_id' : assessment_id
+        },
+        id: this.$uuid.v4()
+      }
+
+      return data;
+    }, 
+    saveObservationData() {
+      let created_at = new Date();
+      this.assessment_id = this.$uuid.v4();
+      let data = {
+        "meta": {
+          "collected_by": this.user.uid,
+          "created_at": created_at,
+        },
+        "body": {
+          "type": 'doctor consultation',
+          "screening_type": 'doctor-consultation',
+          "comment": '',
+          "performed_by": this.user.uid,
+          "assessment_date": moment().format('YYYY-MM-DD'),
+          "patient_id": this.patientId
+        },
+        id: this.assessment_id
+      };
+      
+      this.$http.post("/assessments/except-oha", data).then(response => {
+        if (response.status == 201) {
+          this.saveInvestigation(created_at, this.assessment_id);
+          this.saveDiagonosis(created_at, this.assessment_id);
+        }
+      }).catch(error => { console.log(error) });
+    },
+    saveInvestigation(created_at, assesment_id) {
+      if (this.investigations.length > 0) {
+        for (let i = 0; i < this.investigations.length; i ++) {
+          let dataKey = this.investigations[i].replace("", "_");
+          console.log('kk', dataKey)
+          let data = this.prepareTestData(this.user.uid, created_at, 'survey', dataKey, 'yes', this.patientId, assesment_id);
+          console.log('investigations '+ i +': ', data);
+          // this.$http.post("/observations", data).then(response => {
+          //   console.log('Observation response: ', response)
+          // }).catch(error => { console.log(error) });
+        }
+      }
+    },
+    saveDiagonosis(created_at, assesment_id) {
+      if (this.newDiagnosis.length > 0) {
+        for (let i = 0; i < this.newDiagnosis.length; i ++) {
+          let data = this.prepareTestData(this.user.uid, created_at, 'survey', this.newDiagnosis[i].name, '', '', this.newDiagnosis[i].comment, this.patientId, assesment_id);
+          console.log('diagonis '+ i +': ', data);
+          // this.$http.post("/observations", data).then(response => {
+          //   console.log('Observation response: ', response)
+          // }).catch(error => { console.log(error) });
+        }
+      }
     }
   },
   mounted() {

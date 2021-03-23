@@ -55,7 +55,7 @@
                     <table class="table table-borderless mt-2">
                       <tbody>
                         <tr v-for="(report, index) in lastReports" :key="index">
-                          <td width="30%" >Doctor Name</td>
+                          <td width="30%" >N/A</td>
                           <td width="5%" class="text-center">:</td>
                           <td width="60%">{{ getFormatedDate(report.report_date._seconds) }}</td>
                           <td width="5%">
@@ -88,8 +88,8 @@
                         <tr v-for="(plan, index) in lastCareplans" :key="index">
                           <td>{{ plan.body.title }}</td>
                           <td>{{ getFormatedDate(plan.meta.created_at._seconds) }}</td>
-                          <td>Doctor Name</td>
-                          <td>{{ plan.meta.status }}</td>
+                          <td>N/A</td>
+                          <td class="text-capitalize">{{ plan.meta.status }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -114,6 +114,7 @@
                       </tbody>
                     </table>
                   </div>
+                  <p class="px-2" v-else>Not available</p>
 
                   <h5 class="px-2">Current Medication</h5>
                   <div class="table-responsive  mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
@@ -136,14 +137,15 @@
                           <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
                           <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td> 
                           <td>
-                            <a href="javascript:void(0)" @click="removeMedication(item.id)" class="btn btn-warning">
-                                <i class="fa fa-times text-white" ></i>
+                            <a href="javascript:void(0)" @click="removeMedication(item.id)" class="btn btn-sm btn-warning">
+                                <i class="fa fa-times text-white"></i>
                             </a>
                             </td> 
                         </tr>
                       </tbody>
                     </table>
                   </div>
+                  <p class="px-2" v-else>Not available</p>
 
                   <h5 class="px-2">New Medication</h5>
                   <div class="table-responsive  mb-3" v-if="newMedication.length">
@@ -172,42 +174,40 @@
             </div>
         </div>
 
-        <!-- 
-          
-         -->
-          <div class="row mb-3">
-            <div class="col-md-12">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">New Counselling Care Plan Recommendations</div>
-                  <!-- <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" ><i class="fa fa-plus"></i> Add</button> -->
-                  <div class="table-responsive" v-if="allData && allData.careplan && allData.careplan.activities">
-                    <table class="table tbl-bordered-td">
-                      <thead>
-                        <tr>
-                          <th width="45%" class="border-top-0">Action</th>
-                          <th width="5%" class="border-top-0 text-center">Action Completed?</th>
-                          <th width="45%" class="border-top-0">Outcome</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'survey'">
-                          <td class="align-middle">{{ item.title }}</td>
-                          <td class="text-center align-middle">
-                            <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" :id="'ncr-'+item.id"  @change="changeCounsellingStatus(item.id)">>
-                              <label class="custom-control-label " :for="'ncr-'+item.id"></label>
-                            </div>
-                          </td>
-                          <td class="align-middle">
-                            <textarea class="form-control" value="Patient agred to take medication constantly"></textarea>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
+        <!-- New Counselling Care Plan Recommendations  -->
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <div class="card tab-card mb-3 card-blue-header">
+              <div class="card-header">New Counselling Care Plan Recommendations</div>
+                <!-- <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" ><i class="fa fa-plus"></i> Add</button> -->
+                <div class="table-responsive" v-if="allData && allData.careplan && allData.careplan.activities">
+                  <table class="table tbl-bordered-td">
+                    <thead>
+                      <tr>
+                        <th width="45%" class="border-top-0">Action</th>
+                        <th width="5%" class="border-top-0 text-center">Action Completed?</th>
+                        <th width="45%" class="border-top-0">Outcome</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'survey'">
+                        <td class="align-middle">{{ item.title }}</td>
+                        <td class="text-center align-middle">
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" :id="'ncr-'+item.id" v-model="allData.careplan.activities[index].status">
+                            <label class="custom-control-label " :for="'ncr-'+item.id"></label>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <textarea class="form-control" v-model="allData.careplan.activities[index].outcomeConcept.comment"></textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
             </div>
           </div>
+        </div>
 
         <!-- investigations  -->
         <div class="row mb-3">
@@ -384,6 +384,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
+             <form @submit.prevent="addDiagnosis">
             <div class="modal-body p-3">
               <div class="form-row">
                   <div class="col-md-12 mb-3">
@@ -400,9 +401,9 @@
               </div>
             </div>
             <div class="modal-footer p-3">
-              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-              <button type="button" class="btn btn-primary radious-0" @click="addDiagnosis">Confirm</button>
+              <button type="submit" class="btn btn-primary radious-0">Confirm</button>
             </div>
+             </form>
           </div>
         </div>
       </div>
@@ -422,10 +423,9 @@
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
                         <label for="validationCustom01">Investigation</label>
-                        <select class="form-control" v-model="investigation">
+                        <select class="form-control" v-model="investigation" required>
                           <option value="">Please Select</option>
-                          <option value="serum creatinine test">Serum creatinine test</option>
-                          <option value="chest X-ray">Chest X-ray</option>
+                          <option value="serum creatinine test" v-for="(item,index) in investigationLists" :key="index">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -456,7 +456,6 @@ export default {
     TopNavBar,
     Multiselect
   },
-  // props: ["patientId"],
   data() {
     return {
       patientId: '',
@@ -561,7 +560,7 @@ export default {
       allData: null,
       investigations: [],
       investigation: '',
-      investigationItems: [
+      investigationLists: [
         {
           id: 1,
           name: 'Serum creatinine ' 
@@ -584,8 +583,10 @@ export default {
   },
   methods: {
     getHealthReport() {
-      let pID = '13e781d8-702d-4f0f-ad6f-2e7d1cb1f013';
-      this.$http.post('/health-reports/generate/' + pID).then(response => {
+      // To do: remove below line
+      // let pID = '13e781d8-702d-4f0f-ad6f-2e7d1cb1f013';
+
+      this.$http.post('/health-reports/generate/' + this.patientId).then(response => {
         if (response.status == 200) {
           this.allData = response.data;
           console.log('Report: ', this.allData);
@@ -670,6 +671,7 @@ export default {
     addInvestigation() {
       this.investigations.push(this.investigation);
       this.$refs.elCloseInvestigation.click();
+      this.investigation = '';
     },
 
     removeMedication(id) {
@@ -695,9 +697,6 @@ export default {
 
       this.$refs.elCloseDiagnosis.click();
 
-    },
-    changeCounsellingStatus(activityId) {
-      console.log('activity: id', activityId);
     },
     lastGeneratedReports() {
       this.$http.get("/health-reports/patient/" + this.patientId).then(
@@ -749,7 +748,10 @@ export default {
       if (this.folloUpDate) {
         localStorage.setItem('follow_up_date', this.folloUpDate);
       }
-      console.log('Final:' , this.allData);
+
+      // console.log('Final:' , this.allData);
+      // return;
+
       localStorage.setItem('report', JSON.stringify(this.allData));
       localStorage.setItem('investigations', JSON.stringify(this.investigations));
       localStorage.setItem('diagnosis', JSON.stringify(this.newDiagnosis));
@@ -769,7 +771,6 @@ export default {
     },
 
     getFormatedDate(data) {
-     
         let date = moment
           .unix(data)
           .format("DD MMM YYYY");
@@ -878,6 +879,7 @@ export default {
   background-color: #FF8383;
   color: #fff;
   padding: 5px 10px;
+  font-size: 15px;
 }
 .diagnosis-dropdown option {text-transform:capitalize}
 </style>
