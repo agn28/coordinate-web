@@ -280,8 +280,9 @@ export default {
       // loader.hide();
       // return;
 
-      this.$http.put('/health-reports/' + this.reviewId, this.allData).then( response => {
+      this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
         loader.hide();
+        this.isLoading = false
         console.log('res: ', response.data)
         if (response.status == 200 ) {
           this.alert = response.data.message;
@@ -290,8 +291,12 @@ export default {
         } else {
           this.alert = 'error'
         }
-        this.isLoading = false
+        
 
+      }).catch(err => {
+        console.log(err.message)
+        loader.hide();
+        this.isLoading = false
       })
     },
 

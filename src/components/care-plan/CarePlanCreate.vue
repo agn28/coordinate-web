@@ -70,240 +70,248 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-          <div class="col-md-12">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Care Plan Intervention Status</div>
-                 <div class="table-responsive" v-if="lastCareplans.length">
-                    <table class="table tbl-bordered-td mt-2">
-                      <thead>
-                        <tr>
-                          <th class="border-top-0">Action</th>
-                          <th class="border-top-0">Date Added</th>
-                          <th class="border-top-0">Assigned To</th>
-                          <th class="border-top-0">Completed</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(plan, index) in lastCareplans" :key="index">
-                          <td>{{ plan.body.title }}</td>
-                          <td>{{ getFormatedDate(plan.meta.created_at._seconds) }}</td>
-                          <td>N/A</td>
-                          <td class="text-capitalize">{{ plan.meta.status }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-            </div>
+        <div v-if="missingData" class="alert alert-danger" role="alert">
+          The patient does not have sufficient observations to generate careplan. Please try another one. 
+          <a href="#" @click.prevent="$router.go(-1)">Go Back</a>
         </div>
 
-        <!-- mediation  -->
-        <div class="row mb-3">
-          <div class="col-md-12">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Medication Recommendations</div>
-                  <button type="button" class="btn btn-primary right px-3 m-2 ml-auto radious-0"  data-toggle="modal" data-target="#modal-add-medication"><i class="fa fa-plus"></i> Add</button>
-                  <h5 class="px-2">New Recommendations</h5>
-                  <div class="table-responsive mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
-                    <table class="table tbl-bordered-td">
-                      <tbody>
-                        <tr v-for="(item,index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication' && item.comments"> 
-                          <td>{{ item.comments.comment }}</td> 
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <p class="px-2" v-else>Not available</p>
 
-                  <h5 class="px-2">Current Medication</h5>
-                  <div class="table-responsive  mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
-                    <table class="table tbl-bordered-td">
-                      <thead>
-                        <tr>
-                          <th class="border-top-0">Drug Name</th>
-                          <th class="border-top-0">Dosage</th>
-                          <th class="border-top-0">Unit</th>
-                          <th class="border-top-0">Frequency</th>
-                          <th class="border-top-0">Duration</th>
-                          <th class="border-top-0"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication'"> 
-                          <td>{{ item.title }}</td>
-                          <td>{{ item.dosage ? item.dosage : '--'}}</td>
-                          <td>{{ item.unit ? item.unit : '--'}}</td>
-                          <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
-                          <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td> 
-                          <td>
-                            <a href="javascript:void(0)" @click="removeMedication(item.id)" class="btn btn-sm btn-warning">
-                                <i class="fa fa-times text-white"></i>
-                            </a>
-                            </td> 
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <p class="px-2" v-else>Not available</p>
-
-                  <h5 class="px-2">New Medication</h5>
-                  <div class="table-responsive  mb-3" v-if="newMedication.length">
-                    <table class="table tbl-bordered-td">
-                      <thead>
-                        <tr>
-                          <th class="border-top-0">Drug Name</th>
-                          <th class="border-top-0">Dosage</th>
-                          <th class="border-top-0">Unit</th>
-                          <th class="border-top-0">Frequency</th>
-                          <th class="border-top-0">Duration</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(item, index) in newMedication" :key="index" >
-                          <td>{{ item.title }}</td>
-                          <td>{{ item.dosage }}</td>
-                          <td>{{ item.unit }}</td>
-                          <td>{{ item.activityDuration.repeat.frequency }}  {{ item.activityDuration.repeat.periodUnit }}</td>
-                          <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }} </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-            </div>
-        </div>
-
-        <!-- New Counselling Care Plan Recommendations  -->
-        <div class="row mb-3">
-          <div class="col-md-12">
-            <div class="card tab-card mb-3 card-blue-header">
-              <div class="card-header">New Counselling Care Plan Recommendations</div>
-                <!-- <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" ><i class="fa fa-plus"></i> Add</button> -->
-                <div class="table-responsive" v-if="allData && allData.careplan && allData.careplan.activities">
-                  <table class="table tbl-bordered-td">
-                    <thead>
-                      <tr>
-                        <th width="45%" class="border-top-0">Action</th>
-                        <th width="5%" class="border-top-0 text-center">Action Completed?</th>
-                        <th width="45%" class="border-top-0">Outcome</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'survey'">
-                        <td class="align-middle">{{ item.title }}</td>
-                        <td class="text-center align-middle">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" :id="'ncr-'+item.id" v-model="allData.careplan.activities[index].status">
-                            <label class="custom-control-label " :for="'ncr-'+item.id"></label>
-                          </div>
-                        </td>
-                        <td class="align-middle">
-                          <textarea class="form-control" v-model="allData.careplan.activities[index].outcomeConcept.comment"></textarea>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+        <div v-if="!missingData && !isLoading">
+          <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="card tab-card mb-3 card-blue-header">
+                  <div class="card-header">Care Plan Intervention Status</div>
+                  <div class="table-responsive" v-if="lastCareplans.length">
+                      <table class="table tbl-bordered-td mt-2">
+                        <thead>
+                          <tr>
+                            <th class="border-top-0">Action</th>
+                            <th class="border-top-0">Date Added</th>
+                            <th class="border-top-0">Assigned To</th>
+                            <th class="border-top-0">Completed</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(plan, index) in lastCareplans" :key="index">
+                            <td>{{ plan.body.title }}</td>
+                            <td>{{ getFormatedDate(plan.meta.created_at._seconds) }}</td>
+                            <td>N/A</td>
+                            <td class="text-capitalize">{{ plan.meta.status }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                 </div>
+              </div>
+          </div>
+
+          <!-- mediation  -->
+          <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="card tab-card mb-3 card-blue-header">
+                  <div class="card-header">Medication Recommendations</div>
+                    <button type="button" class="btn btn-primary right px-3 m-2 ml-auto radious-0"  data-toggle="modal" data-target="#modal-add-medication"><i class="fa fa-plus"></i> Add</button>
+                    <h5 class="px-2">New Recommendations</h5>
+                    <div class="table-responsive mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
+                      <table class="table tbl-bordered-td">
+                        <tbody>
+                          <tr v-for="(item,index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication' && item.comments"> 
+                            <td>{{ item.comments.comment }}</td> 
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="px-2" v-else>Not available</p>
+
+                    <h5 class="px-2">Current Medication</h5>
+                    <div class="table-responsive  mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
+                      <table class="table tbl-bordered-td">
+                        <thead>
+                          <tr>
+                            <th class="border-top-0">Drug Name</th>
+                            <th class="border-top-0">Dosage</th>
+                            <th class="border-top-0">Unit</th>
+                            <th class="border-top-0">Frequency</th>
+                            <th class="border-top-0">Duration</th>
+                            <th class="border-top-0"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication'"> 
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.dosage ? item.dosage : '--'}}</td>
+                            <td>{{ item.unit ? item.unit : '--'}}</td>
+                            <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
+                            <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td> 
+                            <td>
+                              <a href="javascript:void(0)" @click="removeMedication(item.id)" class="btn btn-sm btn-warning">
+                                  <i class="fa fa-times text-white"></i>
+                              </a>
+                              </td> 
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="px-2" v-else>Not available</p>
+
+                    <h5 class="px-2">New Medication</h5>
+                    <div class="table-responsive  mb-3" v-if="newMedication.length">
+                      <table class="table tbl-bordered-td">
+                        <thead>
+                          <tr>
+                            <th class="border-top-0">Drug Name</th>
+                            <th class="border-top-0">Dosage</th>
+                            <th class="border-top-0">Unit</th>
+                            <th class="border-top-0">Frequency</th>
+                            <th class="border-top-0">Duration</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(item, index) in newMedication" :key="index" >
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.dosage }}</td>
+                            <td>{{ item.unit }}</td>
+                            <td>{{ item.activityDuration.repeat.frequency }}  {{ item.activityDuration.repeat.periodUnit }}</td>
+                            <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+              </div>
+          </div>
+
+          <!-- New Counselling Care Plan Recommendations  -->
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="card tab-card mb-3 card-blue-header">
+                <div class="card-header">New Counselling Care Plan Recommendations</div>
+                  <!-- <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" ><i class="fa fa-plus"></i> Add</button> -->
+                  <div class="table-responsive" v-if="allData && allData.careplan && allData.careplan.activities">
+                    <table class="table tbl-bordered-td">
+                      <thead>
+                        <tr>
+                          <th width="45%" class="border-top-0">Action</th>
+                          <th width="5%" class="border-top-0 text-center">Action Completed?</th>
+                          <th width="45%" class="border-top-0">Outcome</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'survey'">
+                          <td class="align-middle">{{ item.title }}</td>
+                          <td class="text-center align-middle">
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" :id="'ncr-'+item.id" v-model="allData.careplan.activities[index].status">
+                              <label class="custom-control-label " :for="'ncr-'+item.id"></label>
+                            </div>
+                          </td>
+                          <td class="align-middle">
+                            <textarea class="form-control" v-model="allData.careplan.activities[index].outcomeConcept.comment"></textarea>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- investigations  -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Add Investigation</div>
-                  <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" data-toggle="modal" data-target="#modal-add-investigations"><i class="fa fa-plus"></i> Add</button>
-                  <div class="table-responsive">
-                    <table class="table tbl-bordered-td" v-if="investigations.length">
-                      <thead>
-                        <tr>
-                          <th class="border-top-0" colspan="2">Investigation Name</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(item, index) in investigations" :key="index">
-                          <td>{{ item }}</td>
-                          <td>
-                            <!-- <i class="fa fa-times" @click="removeInvestigation(index)"></i> -->
-                            </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+          <!-- investigations  -->
+          <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="card tab-card mb-3 card-blue-header">
+                  <div class="card-header">Add Investigation</div>
+                    <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" data-toggle="modal" data-target="#modal-add-investigations"><i class="fa fa-plus"></i> Add</button>
+                    <div class="table-responsive">
+                      <table class="table tbl-bordered-td" v-if="investigations.length">
+                        <thead>
+                          <tr>
+                            <th class="border-top-0" colspan="2">Investigation Name</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(item, index) in investigations" :key="index">
+                            <td>{{ item }}</td>
+                            <td>
+                              <!-- <i class="fa fa-times" @click="removeInvestigation(index)"></i> -->
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
               </div>
-            </div>
 
-            <div class="col-md-6">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Add Diagnosis</div>
-                  <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" data-toggle="modal" data-target="#modal-add-diagnosis"><i class="fa fa-plus"></i> Add</button>
-                  <div class="table-responsive" v-if="newDiagnosis.length">
-                    <table class="table tbl-bordered-td">
-                      <thead>
-                        <tr>
-                          <th class="border-top-0">Diagnosis</th>
-                          <th class="border-top-0">Comments</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(item, index) in newDiagnosis" :key="index">
-                          <td>{{ item.name }}</td>
-                          <td>{{ item.comment }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+              <div class="col-md-6">
+                <div class="card tab-card mb-3 card-blue-header">
+                  <div class="card-header">Add Diagnosis</div>
+                    <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" data-toggle="modal" data-target="#modal-add-diagnosis"><i class="fa fa-plus"></i> Add</button>
+                    <div class="table-responsive" v-if="newDiagnosis.length">
+                      <table class="table tbl-bordered-td">
+                        <thead>
+                          <tr>
+                            <th class="border-top-0">Diagnosis</th>
+                            <th class="border-top-0">Comments</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(item, index) in newDiagnosis" :key="index">
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.comment }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
               </div>
-            </div>
-        </div>
+          </div>
 
-        <!-- follow up  -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Follow Up</div>
-                  
-                  <div class="follow-up p-3">
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" name="follow_up" value="1w"  class="custom-control-input" id="one-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                      <label class="custom-control-label" for="one-week">1 week</label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" name="follow_up" value="2w"  class="custom-control-input" id="two-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                      <label class="custom-control-label" for="two-week">2 week</label>
-                    </div>
+          <!-- follow up  -->
+          <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="card tab-card mb-3 card-blue-header">
+                  <div class="card-header">Follow Up</div>
+                    
+                    <div class="follow-up p-3">
+                      <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="radio" name="follow_up" value="1w"  class="custom-control-input" id="one-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
+                        <label class="custom-control-label" for="one-week">1 week</label>
+                      </div>
+                      <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="radio" name="follow_up" value="2w"  class="custom-control-input" id="two-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
+                        <label class="custom-control-label" for="two-week">2 week</label>
+                      </div>
 
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" name="follow_up" value="1m"  class="custom-control-input" id="one-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                      <label class="custom-control-label" for="one-month">1 month</label>
-                    </div>
+                      <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="radio" name="follow_up" value="1m"  class="custom-control-input" id="one-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
+                        <label class="custom-control-label" for="one-month">1 month</label>
+                      </div>
 
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" name="follow_up" value="3m"  class="custom-control-input" id="three-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                      <label class="custom-control-label" for="three-month">3 months</label>
-                    </div>
+                      <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="radio" name="follow_up" value="3m"  class="custom-control-input" id="three-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
+                        <label class="custom-control-label" for="three-month">3 months</label>
+                      </div>
 
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" name="follow_up"  value="6m" class="custom-control-input" id="six-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                      <label class="custom-control-label" for="six-month">6 months</label>
-                    </div>
+                      <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="radio" name="follow_up"  value="6m" class="custom-control-input" id="six-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
+                        <label class="custom-control-label" for="six-month">6 months</label>
+                      </div>
 
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" name="follow_up" value="1y" class="custom-control-input" id="one-year" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                      <label class="custom-control-label" for="one-year">1 year</label>
-                    </div>
+                      <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="radio" name="follow_up" value="1y" class="custom-control-input" id="one-year" v-on:change="generateFollowUpDate" v-model="folloUpDate">
+                        <label class="custom-control-label" for="one-year">1 year</label>
+                      </div>
 
-                    <div class="follow-up-date mt-3" v-if="folloUpDate"><b>Follow up date:</b> {{  moment(folloUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
-                  </div>
+                      <div class="follow-up-date mt-3" v-if="folloUpDate"><b>Follow up date:</b> {{  moment(folloUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                    </div>
+                </div>
               </div>
-            </div>
-        </div>
+          </div>
 
-        <div class="text-center py-3 mb-3">
-            <!-- <router-link :to="{name: 'carePlanReview', params: {patientId: patientId}}" class="btn btn-primary px-5 radious-0">Proceed To Confirmation</router-link> -->
-            <button class="btn btn-primary px-5 radious-0" @click="proceed">Proceed To Confirmation</button>
+          <div class="text-center py-3 mb-3">
+              <!-- <router-link :to="{name: 'carePlanReview', params: {patientId: patientId}}" class="btn btn-primary px-5 radious-0">Proceed To Confirmation</router-link> -->
+              <button class="btn btn-primary px-5 radious-0" @click="proceed">Proceed To Confirmation</button>
+          </div>
         </div>
       <!-- </form> -->
 
@@ -439,6 +447,8 @@
         </div>
       </div>
       <!-- end popups -->
+
+            <!-- add Investigations -->
     </div>
   </div>
 </template>
@@ -458,7 +468,9 @@ export default {
   },
   data() {
     return {
+      missingData: false,
       patientId: '',
+      isLoading: false,
       patient: null,
       drugs: [],
       medicationEnabled: false,
@@ -585,12 +597,27 @@ export default {
     getHealthReport() {
       // To do: remove below line
       // let pID = '13e781d8-702d-4f0f-ad6f-2e7d1cb1f013';
-
+      this.isLoading = true;
       this.$http.post('/health-reports/generate/' + this.patientId).then(response => {
+        this.isLoading = false;
         if (response.status == 200) {
+          console.log('health report ', response.data);
+          if (!response.data || response.data == {} || !response.data.careplan) {
+            console.log('hello')
+            this.missingData = true;
+            return;
+          }
+          // if ()
           this.allData = response.data;
           console.log('Report: ', this.allData);
-        }
+        } else {
+          this.missingData = true;
+          console.log('error ');
+        } 
+      }).catch(err => {
+        this.isLoading = false;
+        this.missingData = true;
+        console.log(err.message);
       })
     },
     getPatients() {
