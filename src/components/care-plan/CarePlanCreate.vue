@@ -55,12 +55,12 @@
                     <table class="table table-borderless mt-2">
                       <tbody>
                         <tr v-for="(report, index) in lastReports" :key="index">
-                          <td width="30%" >N/A</td>
+                          <td width="30%" >{{ report.meta.generated_by.name }}</td>
                           <td width="5%" class="text-center">:</td>
-                          <td width="60%">{{ getFormatedDate(report.report_date._seconds) }}</td>
+                          <td width="60%">{{ moment(report.meta.created_at).format('DD-MM-YYYY')  }}</td>
                           <td width="5%">
-                            <a href="javascript:void(0)">View</a>
-                            <!-- <router-link :to="{name: 'diagnosticCreate', params:{patientId: patientId, encounterId: encounterId}}">View</router-link> -->
+                            <!-- <a href="javascript:void(0)">View</a> -->
+                            <router-link :to="{name: 'carePlanSummary', params:{ carePlanId: report.id, patientId: patientId}}">View</router-link>
                           </td>
                         </tr>
                       </tbody>
@@ -433,7 +433,7 @@
                         <label for="validationCustom01">Investigation</label>
                         <select class="form-control" v-model="investigation" required>
                           <option value="">Please Select</option>
-                          <option value="serum creatinine test" v-for="(item,index) in investigationLists" :key="index">{{ item.name }}</option>
+                          <option :value="item.name" v-for="(item,index) in investigationLists" :key="index">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -725,8 +725,8 @@ export default {
       this.$refs.elCloseDiagnosis.click();
 
     },
-    lastGeneratedReports() {
-      this.$http.get("/health-reports/patient/" + this.patientId).then(
+    getGeneratedCareplans() {
+      this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
         (response) => {
           if (response.status == 200) {
             if(response.data.data) {
@@ -831,7 +831,7 @@ export default {
     this.getPatients();
     this.getDrugs();
     this.getLastEncounter();
-    this.lastGeneratedReports();
+    this.getGeneratedCareplans();
     this.lastGeneratedCareplans();
   },
   
