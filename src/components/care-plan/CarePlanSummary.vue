@@ -137,7 +137,7 @@
                         </tr>
                       </tbody>
                     </table>
-                    <div v-if="investigations.length == 0" class="text-center mt-2">No investigation added</div>
+                    <!-- <div v-if="investigations.length == 0" class="text-center mt-2">No investigation added</div> -->
                   </div>
               </div>
             </div>
@@ -159,7 +159,7 @@
                         </tr>
                       </tbody>
                     </table>
-                    <div v-if="newDiagnosis.length == 0" class="text-center mt-2">No diagnosis added</div>
+                    <!-- <div v-if="newDiagnosis.length == 0" class="text-center mt-2">No diagnosis added</div> -->
                   </div>
               </div>
             </div>
@@ -340,14 +340,14 @@ export default {
     prepareData() {
       this.patientId = this.$route.params.patientId;
       this.generatedCarePlanId = this.$route.params.carePlanId;
-      let localData = localStorage.getItem('report');
-      let localDiagnosis = localStorage.getItem('diagnosis');
-      let localInvestigations = localStorage.getItem('investigations');
-      this.previousData =  localData ? JSON.parse(localData) : null;
-      this.newDiagnosis =  localDiagnosis ? JSON.parse(localDiagnosis) : [];
-      this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
-      this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
-      this.getHealthReport();
+      // let localData = localStorage.getItem('report');
+      // let localDiagnosis = localStorage.getItem('diagnosis');
+      // let localInvestigations = localStorage.getItem('investigations');
+      // this.previousData =  localData ? JSON.parse(localData) : null;
+      // this.newDiagnosis =  localDiagnosis ? JSON.parse(localDiagnosis) : [];
+      // this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
+      // this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
+      // this.getHealthReport();
     },
 
     prepareTestData(collected_by, created_at, type, dataKey, value, patientId, assessment_id) {
