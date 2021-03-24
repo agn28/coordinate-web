@@ -50,7 +50,7 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Date</div>
-                <p class="p-3 mb-0">14 Mar 2021</p>
+                <p class="p-3 mb-0">{{ generatedCarePlan ? moment(generatedCarePlan.meta.created_at).format('DD-MM-YYYY') : '' }}</p>
               </div>
                <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Doctor</div>
@@ -63,8 +63,8 @@
         <div class="row mb-3">
           <div class="col-md-12">
               <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Pending care plan Intervention</div>
-                 <div class="table-responsive" v-if="previousData && previousData.careplan.activities">
+                <div class="card-header">Care plan Intervention</div>
+                 <div class="table-responsive">
                     <table class="table tbl-bordered-td mt-2">
                       <thead>
                         <tr>
@@ -73,7 +73,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'survey'">
+                        <tr v-for="(item, index) in counsellingInterventions" :key="index">
                           <td class="align-middle">{{ item.title }}</td>
                           <td class="text-center align-middle">
                             
@@ -90,7 +90,7 @@
           <div class="col-md-12">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Medication</div>
-                 <div class="table-responsive" v-if="previousData && previousData.careplan.activities">
+                 <div class="table-responsive">
                     <table class="table tbl-bordered-td mt-2">
                       <thead>
                         <tr>
@@ -102,7 +102,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'medication'"> 
+                        <tr v-for="(item, index) in medications" :key="index"> 
                           <td>{{ item.title }}</td>
                           <td>{{ item.dosage ? item.dosage : '--'}}</td>
                           <td>{{ item.unit ? item.unit : '--'}}</td>
@@ -122,14 +122,14 @@
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Investigation Requested</div>
                   <div class="table-responsive">
-                    <table class="table tbl-bordered-td">
+                    <table class="table tbl-bordered-td" v-if="generatedCarePlan && generatedCarePlan.body.investigations">
                       <thead>
                         <tr>
                           <th class="border-top-0">Investigation Name</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in investigations" :key="index">
+                        <tr v-for="(item, index) in generatedCarePlan.body.investigations" :key="index">
                           <td>{{ item }}</td>
                           <td>
                             <!-- <i class="fa fa-times" @click="removeInvestigation(index)"></i> -->
@@ -146,14 +146,14 @@
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Diagnosised Conditions</div>
                   <div class="table-responsive">
-                    <table class="table tbl-bordered-td">
+                    <table class="table tbl-bordered-td" v-if="generatedCarePlan && generatedCarePlan.body.diagnosis">
                       <thead>
                         <tr>
                           <th class="border-top-0">Diagnosis</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in newDiagnosis" :key="index">
+                        <tr v-for="(item, index) in generatedCarePlan.body.diagnosis" :key="index">
                           <td>{{ item.name }}</td>
                           <td>{{ item.comment }}</td>
                         </tr>
@@ -165,23 +165,6 @@
             </div>
         </div>
 
-        <!-- follow up  -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-              <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Next Follow Up Date</div>
-                  <div class="follow-up-date p-3" v-if="followUpDate">{{ moment(followUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
-              </div>
-            </div>
-        </div>
-
-        <div class="text-center  py-3">
-            
-            <button type="button" @click.prevent="updateReviewData()" class="btn btn-primary px-5 radious-0 m-auto">Confirm New Care Plan</button>
-        </div>
-        <div class="py-3 mb-3">
-            <a href="javascript:void(0)" @click="$router.go(-1)" class="text-secondary " > <i class="fa fa-arrow-left text-secondary" ></i> Back to reivew</a>
-        </div>
       <!-- </form> -->
 
 
@@ -212,7 +195,11 @@ export default {
       investigations: [],
       reviewId: '',
       followUpDate: null,
-      assessment_id: null
+      assessment_id: null,
+      generatedCarePlanId: '',
+      generatedCarePlan: null,
+      counsellingInterventions: [],
+      medications: [],
     };
   },
   computed: {
@@ -238,6 +225,34 @@ export default {
         }
       );
     },
+
+    getGeneratedCarePlan() {
+      let loader = this.$loading.show();
+      this.$http.get("/generated-care-plans/" + this.generatedCarePlanId).then(
+        (response) => {
+          loader.hide();
+          if (response.status == 200) {
+            this.generatedCarePlan = response.data.data;
+
+            this.generatedCarePlan.body.care_plans.filter((carePlan) => {
+              if (carePlan.category == 'survey') {
+                this.counsellingInterventions.push(carePlan);
+              } else if (carePlan.category == 'medication') {
+                console.log('action ', carePlan);
+                this.medications.push(carePlan);
+              }
+            });
+            console.log('care plan ', this.generatedCarePlan)
+            // console.log(this.patient, 'patient')
+          }
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
+    },
+
+    
 
     getHealthReport() {
       this.$http.get('/health-reports/' + this.reviewId).then(response => {
@@ -289,7 +304,7 @@ export default {
         console.log('res: ', response.data)
         if (response.status == 200 ) {
           this.alert = response.data.message;
-          this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
+          // this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
 
         } else {
           this.alert = 'error'
@@ -324,6 +339,7 @@ export default {
 
     prepareData() {
       this.patientId = this.$route.params.patientId;
+      this.generatedCarePlanId = this.$route.params.carePlanId;
       let localData = localStorage.getItem('report');
       let localDiagnosis = localStorage.getItem('diagnosis');
       let localInvestigations = localStorage.getItem('investigations');
@@ -410,6 +426,7 @@ export default {
     this.followUpDate = localStorage.getItem('follow_up_date');
     this.prepareData();
     this.getPatients();
+    this.getGeneratedCarePlan();
   },
   
   created() {},

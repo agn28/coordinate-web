@@ -51,6 +51,7 @@ import CarePlanAction from "../components/care-plan/CarePlanAction";
 import CarePlanPatients from '../components/care-plan/CarePlanPatients';
 import CarePlanCreate from '../components/care-plan/CarePlanCreate';
 import CarePlanReview from '../components/care-plan/CarePlanReview';
+import CarePlanSummary from '../components/care-plan/CarePlanSummary';
 
 import Allergy from '../components/allergy/List'
 import AllergyCreate from '../components/allergy/Create'
@@ -465,6 +466,11 @@ const routes = [
     path: '/care-plan/:patientId/review',
     name: 'carePlanReview',
     component: CarePlanReview
+  },
+  {
+    path: '/care-plan-summary/:carePlanId/patient/:patientId',
+    name: 'carePlanSummary',
+    component: CarePlanSummary
   },
 
   {
