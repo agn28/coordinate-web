@@ -462,7 +462,7 @@ export default {
       let loader = this.$loading.show();
       query = query || {};
       //TODO: add query params to request
-      this.$http.get("/stats/summary",).then(
+      this.$http.get("/stats/summary", query).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {

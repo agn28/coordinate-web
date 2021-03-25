@@ -199,7 +199,7 @@ export default {
       }
 
       //TODO: add query to request
-      this.$http.get("/patients").then(
+      this.$http.get("/patients", query).then(
         (response) => {
           if (response.status == 200) {
             this.patients = response.data.data;

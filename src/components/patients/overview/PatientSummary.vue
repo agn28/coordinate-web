@@ -141,9 +141,9 @@
                    <td width="5%" class="text-center">:</td>
                   <td width="65%"></td>
                 </tr>
-                <tr class="mt-3">
+                <!-- <tr class="mt-3">
                   <td colspan="3" class="text-center mt-3"><a href="javascript:void(0)" class="btn btn-cust w-100">See Details</a></td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>
@@ -373,24 +373,22 @@
       <div class="col-md-6">
         <div class="card mb-3 tab-card card-blue-header">
           <div class="card-header">Last Care plan generated</div>
-          <div class="pt-2 table-responsive">
-            <table class="table  table-borderless">
+            <div class="table-responsive" v-if="lastReports">
+              <table class="table table-borderless mt-2">
+                <tbody>
+                  <tr v-for="(report, index) in lastReports" :key="index">
+                    <td width="30%" >{{ report.meta.generated_by.name }}</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="60%">{{ moment(report.meta.created_at).format('DD-MM-YYYY')  }}</td>
+                    <td width="5%">
+                      <!-- <a href="javascript:void(0)">View</a> -->
+                      <router-link :to="{name: 'carePlanSummary', params:{ carePlanId: report.id, patientId: patientId}}">View</router-link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-              <tbody>
-                <!-- <tr>
-                  <td class="pt-2" >Dr. Jahanginr Kabir</td>
-                  <td class="pt-2">15 Mar 2021</td>
-                  <td>
-                    <button class="btn btn-primary btn-sm">
-                      View
-                    </button>
-                  </td>
-                </tr> -->
-
-              </tbody>
-            </table>
-
-            <div class="text-secondary text-center">
+            <div v-if="lastReports.length == 0" class="text-secondary text-center">
               No data available
             </div>
           </div>
@@ -601,10 +599,25 @@ export default {
       note: null,
       patientNotes : [],
       generatedCareplan: null,
-      pendingInvestigations: []
+      pendingInvestigations: [],
+      lastReports: []
     };
   },
   methods: {
+
+    getGeneratedCareplans() {
+      this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
+        (response) => {
+          console.log('Last: ', response);
+          if (response.status == 200) {
+            if(response.data.data) {
+              this.lastReports = response.data.data.slice(0, 3);
+            }
+          }
+        },
+        (error) => {}
+      );
+    },
 
     getBmi() {
       
@@ -1322,6 +1335,7 @@ export default {
     this.getLastEncounter();
     this.getNote();
     this.getCarePlanReport();
+    this.getGeneratedCareplans();
   },
   computed: {
      user() {
