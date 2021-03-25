@@ -1,124 +1,233 @@
 <template>
-    <div class="content">
-        <div class="animated fadeIn">
-            <div class="col-md-12 d-flex justify-content-between mt-3">
-                <div class="header ml-3">
-                    <h4 class="font-weight-bold">
-                        Patients Pending Review
-                    </h4>
-                </div>
-            </div>
+  <div class="content patient-list-page">
+    <div class="animated fadeIn">
+      <TopNavBar heading="Pending Reviews"></TopNavBar>
 
-            <div class="col-md-12 d-flex justify-content-between mt-3 mb-5">
-                <div class="search-patient flex-grow-1 mr-3 ml-3">
-                    <div class="input-group md-form form-sm form-1 pl-0">
-                        <div class="input-group-prepend">
-            <span class="input-group-text lighten-3" id="basic-text1"><i class="fas fa-search"
-                                                                         aria-hidden="true"></i></span>
-                        </div>
-                        <input class="form-control my-0 py-1 border-left-0" type="text"
-                               placeholder="Patient Name, ID, NID" aria-label="Search">
-                    </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="patient-content">
+            <div class="title">Patient List</div>
+            <!-- <div class="right-side">
+              <div class="dropdown mr-3">
+                <button
+                  class="btn dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Import
+                </button>
+                <div
+                  class="dropdown-menu dropdown-menu-right"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <a class="dropdown-item" href="#">Upload CSV File</a>
+                  <a class="dropdown-item" href="#">Download CSV Template</a>
                 </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="patient-list-table ml-3 mr-3">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <label class="custom-control-label"></label>
-                                    </div>
-                                </th>
-                                <th scope="col">Name</th>
-                                <th scope="col">PID</th>
-                                <th scope="col">NID</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Gender</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="(patient, index) in patients" :key="index"
-                                @click="$router.push({ name: 'pendingReviewDetail', params: { reviewId: patient.review_id}})">
-                                <template v-if="patient.body && patient.body.first_name">
-                                    <th scope="row">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                    </th>
-                                    <td>{{ patient.body.first_name + " " + patient.body.last_name }}</td>
-                                    <!-- <td>{{ getId(patient.resource.identifier, 'usual') }}</td> -->
-
-                                    <td>{{ patient.body.pid }}</td>
-                                    <td>
-                                        {{ patient.body.nid }}
-                                    </td>
-                                    <td class="text-capitalize">{{ patient.body.age}}</td>
-                                    <td class="text-capitalize">{{ patient.body.gender }}</td>
-                                </template>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+              </div>
+              <div
+                class="register-patient"
+                @click="$router.push({ name: 'patientRegistration' })"
+              >
+                <button class="btn">
+                  <i class="fas fa-plus"></i>Register a New Patient
+                </button>
+              </div>
+            </div> -->
+          </div>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="patient-search">
+             <div class="search">
+              <div class="input-group md-form form-sm form-1 pl-0">
+                <div class="input-group-prepend">
+                  <span class="input-group-text lighten-3" id="basic-text1">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <input
+                  class="form-control my-0 py-1 border-left-0"
+                  type="text"
+                  placeholder="Patient Name, ID, NID"
+                  aria-label="Search"
+                  v-model="search"
+                />
+              </div>
+            </div> 
+
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      <!-- <div class="row">
+        <div class="col-lg-12">
+          <div class="pending-checkbox">
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="pending"
+                name="example1"
+              />
+              <label class="custom-control-label" for="pending"
+                >Pending Recommendations Only</label
+              >
+            </div>
+          </div>
+        </div>
+      </div> -->
+      
+      
+      <div class="row mt-3">
+        <div class="col-lg-12">
+          <div class="patient-list">
+            <div class="table-responsive">
+              <table class="table" v-if="patients.length > 0">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="" name="example1"
+                        />
+                        <label class="custom-control-label" for=""></label>
+                      </div>
+                    </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">NID</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Registration Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="pointer bg-white tr-border-bttom-grey"
+                    v-for="(patient, index) in filteredList"
+                    :key="index"
+                    @click="
+                      $router.push({
+                        name: 'patientOverview',
+                        params: { patientId: patient.id },
+                      })
+                    "
+                  >
+                    <template>
+                      <th scope="row">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id=""
+                            name="example1"
+                          />
+                          <label class="custom-control-label" for=""></label>
+                        </div>
+                      </th>
+                      <td>
+                        {{
+                          patient.body.first_name + " " + patient.body.last_name
+                        }}
+                      </td>
+
+                      <!-- <td>P2342343</td> -->
+                      <td>{{ patient.body.nid }}</td>
+                      <td>{{ patient.body.age }}</td>
+                      <td>{{ patient.body.gender.toUpperCase()
+                        }}</td>
+                      <td>{{ patient.body.registration_date }}
+                        <span class="pull-right"
+                          ><i class="fas fa-arrow-right"></i
+                        ></span>
+                      </td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
+  </div>
 </template>
 
 <script>
-    // @ is an alias to /src
-    import Vue from 'vue';
-    import {VuejsDatatableFactory} from 'vuejs-datatable';
+// @ is an alias to /src
+import Vue from "vue";
+import { VuejsDatatableFactory } from "vuejs-datatable";
+import TopNavBar from '../TopNavBar.vue';
+Vue.use(VuejsDatatableFactory);
 
-    Vue.use(VuejsDatatableFactory);
-
-    export default {
-        name: "patients",
-        components: {},
-        data() {
-            return {
-                fullPage: true,
-                patients: []
-            };
-        },
-        methods: {
-            getPatients() {
-                let loader = this.$loading.show();
-                this.$http.get("/reviews").then(response => {
-                        if (response.status == 200) {
-                            this.patients = response.data.data;
-                            loader.hide()
-                        }
-                    },
-                    error => {
-                        loader.hide();
-                    });
-            },
-
-            getId(identifier, type) {
-                if (!identifier) {
-                    return '';
-                }
-                let id = identifier.find(x => x.use === type);
-
-                if (id) {
-                    return id.value;
-                }
-                return '';
-            }
-        },
-        created() {
-            this.getPatients();
-        }
+export default {
+  name: "patients",
+  components: {TopNavBar},
+  data() {
+    return {
+      patients: [],
+      search: "",
     };
+  },
+  computed: {
+    filteredList() {
+      return this.patients.filter((patient) => {
+        return (
+          patient.body.first_name
+            .toLowerCase()
+            .includes(this.search.toLowerCase()) ||
+          patient.body.last_name
+            .toLowerCase()
+            .includes(this.search.toLowerCase()) ||
+          patient.body.nid.toString().includes(this.search.toLowerCase())
+        );
+      });
+    },
+  },
+  methods: {
+    getPatients() {
+      let loader = this.$loading.show();
+      let query = {
+          params: {
+              type: 'review_required'
+          }
+      }
+
+      //TODO: add query to request
+      this.$http.get("/patients").then(
+        (response) => {
+          if (response.status == 200) {
+            this.patients = response.data.data;
+            loader.hide();
+          }
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
+    },
+
+    getId(identifier, type) {
+      if (!identifier) {
+        return "";
+      }
+      let id = identifier.find((x) => x.use === type);
+
+      if (id) {
+        return id.value;
+      }
+      return "";
+    },
+  },
+  mounted() {
+    this.getPatients();
+  },
+};
 </script>
 
 <style lang="">

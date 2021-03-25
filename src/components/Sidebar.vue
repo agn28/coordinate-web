@@ -38,6 +38,12 @@
             </router-link>
         </li>
 
+        <li class="nav-item" :class="this.$route.path.includes('pending-reviews') ? 'active' : ''">
+            <router-link to="/pending-reviews/list" class="nav-link">
+                <i class="fas fa-fw fa-h-square"></i><span>Pending Review</span>
+            </router-link>
+        </li>
+
 
         <div v-if="user.role == 'admin'" class="menu-heading">
           <span>Administrator Tools</span>

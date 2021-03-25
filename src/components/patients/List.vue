@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <!--<div class="row">
+            <div class="row">
         <div class="col-lg-12">
           <div class="patient-search">
              <div class="search">
@@ -70,53 +70,9 @@
               </div>
             </div> 
 
-            <div class="thumbprint-button">
-              <button class="btn" v-b-modal.modal-findThumbprint>
-                <span><i class="fas fa-fingerprint"></i></span>Find using
-                Thumbprint
-              </button>
-              <b-modal id="modal-findThumbprint" class="modal-coordinate">
-                <div class="scan-thumbprint">
-                  <div class="scan">
-                    <i class="fas fa-fingerprint"></i>
-                  </div>
-                  <p>Ask patient to touch the fingerprint sensor</p>
-                </div>
-
-                <template v-slot:modal-footer>
-                  <div class="w-100">
-                    <b-button
-                      variant="link"
-                      size="md"
-                      class="float-right font-weight-bold p-0"
-                      @click="$bvModal.hide('modal-findThumbprint')"
-                    >
-                      Cancel
-                    </b-button>
-                  </div>
-                </template>
-              </b-modal>
-            </div> 
           </div>
         </div>
-      </div>-->
-      <!-- <div class="row">
-        <div class="col-lg-12">
-          <div class="pending-checkbox">
-            <div class="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="pending"
-                name="example1"
-              />
-              <label class="custom-control-label" for="pending"
-                >Pending Recommendations Only</label
-              >
-            </div>
-          </div>
-        </div>
-      </div> -->
+      </div>
       <div class="row mt-0">
         <div class="col-lg-12">
           <div class="patient-list">

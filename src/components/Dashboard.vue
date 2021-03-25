@@ -16,18 +16,17 @@
                   <form class="form-row sharp-input">
                     <div class="form-group mb-2 col">
                       <label for="staticEmail2" class="font-weight-bold">Date Range </label>
-                      <select id="" class="form-control">
-                        <option selected>Last 30</option>
-                        <option>Last 90</option>
-                        <option>Last Quarter</option>
-                        <option>Last Year</option>
+                      <select @change="filterSummary" v-model="selectedDateRange" id="" class="form-control">
+                        <option value="30">Last 30</option>
+                        <option value="90">Last 90</option>
+                        <option value="120">Last Quarter</option>
+                        <option value="365">Last Year</option>
                       </select>
                     </div>
                     <div class="form-group mx-sm-3 mb-2 col">
                       <label for="inputPassword2" class="font-weight-bold">Center</label>
-                      <select id="" class="form-control">
-                        <option selected>Center name</option>
-                        <option>...</option>
+                      <select @change="filterSummary" v-model="selectedCenter" id="" class="form-control">
+                        <option :value="center.id" v-for="center in centers" :key="center.id">{{ center.name }}</option>
                       </select>
                     </div>
                     <button type="submit" class="btn btn-primary mb-2 mt-auto h-fit src-btn">Go</button>
@@ -430,21 +429,40 @@ export default {
       total_pending_careplan_patients: 0,
       data: null,
       patients: null,
+      selectedDateRange: '',
+      selectedCenter: '',
+      centers: [],
     };
   },
   mounted() {
     this.getSummary();
+    this.getCenters();
   },
   methods: {
+    filterSummary() {
+      let query = {};
+      if (this.selectedDateRange) {
+        query.lastDays = this.selectedDateRange;
+      }
+      if (this.selectedCenter) {
+        query.center = this.selectedCenter;
+      }
+
+      if (query) {
+        this.getSummary(query);
+      }
+    },
     onTabClick() {
       if (this.$route.query.encounter || this.$route.query.assessment) {
         this.$router.replace({});
       }
     },
-    getSummary() {
+    getSummary(query) {
       console.log('hello')
       let loader = this.$loading.show();
-      this.$http.get("/stats/summary").then(
+      query = query || {};
+      //TODO: add query params to request
+      this.$http.get("/stats/summary",).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
@@ -456,6 +474,20 @@ export default {
         },
         (error) => {
           loader.hide();
+        }
+      );
+    },
+
+    getCenters() {
+      this.$http.get("/centers").then(
+        (response) => {
+          if (response.status == 200) {
+            this.centers = response.data.data;
+            console.log('centers ', this.centers);
+          }
+          
+        },
+        (error) => {
         }
       );
     },
