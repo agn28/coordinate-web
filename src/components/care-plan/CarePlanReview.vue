@@ -276,10 +276,9 @@ export default {
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
       this.allData.data.body.follow_up_date = this.followUpDate;
-      //let preparedData = this.prepareFinalData(this.allData);
+
       console.log('Final Data: ', this.allData);
-      //console.log('prepared: ', preparedData);
-      // this.saveObservationData();
+      this.saveObservationData();
       // loader.hide();
       // return;
 
@@ -289,7 +288,14 @@ export default {
         console.log('res: ', response.data)
         if (response.status == 200 ) {
           this.alert = response.data.message;
+          
           this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
+          
+          // let self = this;
+          // setTimeout(function() {
+           
+          //   self.$router.push({ name: 'patientOverview', params: { patientId: self.patientId } });
+          // }, 3000);
 
         } else {
           this.alert = 'error'
@@ -364,8 +370,8 @@ export default {
           "created_at": created_at,
         },
         "body": {
-          "type": 'doctor consultation',
-          "screening_type": 'doctor-consultation',
+          "type": 'care plan generated',
+          "screening_type": 'care-plan-generated',
           "comment": '',
           "performed_by": this.user.uid,
           "assessment_date": moment().format('YYYY-MM-DD'),
@@ -376,7 +382,7 @@ export default {
       
       this.$http.post("/assessments/except-oha", data).then(response => {
         if (response.status == 201) {
-          this.saveInvestigation(created_at, this.assessment_id);
+          // this.saveInvestigation(created_at, this.assessment_id);
           this.saveDiagonosis(created_at, this.assessment_id);
         }
       }).catch(error => { console.log(error) });
@@ -396,15 +402,87 @@ export default {
     },
     saveDiagonosis(created_at, assesment_id) {
       if (this.newDiagnosis.length > 0) {
-        for (let i = 0; i < this.newDiagnosis.length; i ++) {
-          let data = this.prepareTestData(this.user.uid, created_at, 'survey', this.newDiagnosis[i].name, '', '', this.newDiagnosis[i].comment, this.patientId, assesment_id);
-          console.log('diagonis '+ i +': ', data);
-          // this.$http.post("/observations", data).then(response => {
-          //   console.log('Observation response: ', response)
-          // }).catch(error => { console.log(error) });
-        }
+        // console.log('new diagonosis: ', this.newDiagnosis)
+        let data = this.prepareDiagnosisData(this.user.uid, created_at, 'survey', this.patientId, assesment_id);
+        //console.log('diagonis ', data);
+        this.$http.post("/observations", data).then(response => {
+          console.log('Diagonosis response: ', response)
+        }).catch(error => { console.log(error) });
+
       }
-    }
+    },
+    prepareDiagnosisData(collected_by, created_at, type, patientId, assessment_id) {
+     
+      let diabetes = '';
+      let stroke = '';
+      let heart_attack = '';
+      let asthma = '';
+      let kidney_disease ='';
+      let cancer = '';
+      let hypertension = '';
+      let lupus = '';  
+      let bronchitis = '';  
+      let ciliac = ''; 
+      let scleroderma = ''; 
+      let abulia=  ''; 
+      let agraphia = ''; 
+      let chorea = ''; 
+      let coma = ''
+      let i = 0;
+
+      for (i; i < this.newDiagnosis.length; i++) {
+        if (this.newDiagnosis[i].name == 'diabetes') { diabetes = 'yes'; }
+        if (this.newDiagnosis[i].name == 'stroke') { stroke = 'yes'; }
+        if (this.newDiagnosis[i].name == 'heart_attack') { heart_attack = 'yes'; }
+        if (this.newDiagnosis[i].name == 'asthma') { asthma = 'yes'; }
+        if (this.newDiagnosis[i].name == 'kidney_disease') { kidney_disease = 'yes'; }
+        if (this.newDiagnosis[i].name == 'cancer') { cancer = 'yes'; }
+        if (this.newDiagnosis[i].name == 'hypertension') { hypertension = 'yes'; }
+        if (this.newDiagnosis[i].name == 'bronchitis') { bronchitis = 'yes'; }
+        if (this.newDiagnosis[i].name == 'lupus') { lupus = 'yes'; }
+        if (this.newDiagnosis[i].name == 'Abulia') { abulia = 'yes'; }
+        if (this.newDiagnosis[i].name == 'Scleroderma') { scleroderma = 'yes'; }
+        if (this.newDiagnosis[i].name == 'Ciliac') { ciliac = 'yes'; }
+        if (this.newDiagnosis[i].name == 'Agraphia') { agraphia = 'yes'; }
+        if (this.newDiagnosis[i].name == 'Chorea') { chorea = 'yes'; }
+        if (this.newDiagnosis[i].name == 'Coma') { coma = 'yes'; }
+      }
+
+      let data = {
+        "meta": {
+          "collected_by": collected_by,
+          "device_id": '',
+          "created_at": created_at
+        },
+        "body": {
+          "type": type,
+          "data": {
+            'name': 'medical_history',
+            'diabetes': diabetes,
+            'stroke': stroke,
+            'heart_attack':heart_attack,
+            'asthma': asthma,
+            'kidney_disease': kidney_disease,
+            'cancer': cancer,
+            'hypertension': hypertension,
+            'lupus' : lupus,  
+            'bronchitis' : bronchitis,  
+            'ciliac' : ciliac, 
+            'scleroderma' :scleroderma, 
+            'abulia' : abulia, 
+            'agraphia' : agraphia, 
+            'chorea' : chorea, 
+            'coma' : coma
+          },
+          "patient_id": patientId,
+          'assessment_id' : assessment_id,
+          "comment": ''
+        },
+        id: this.$uuid.v4()
+      }
+
+      return data;
+    }, 
   },
   mounted() {
     this.followUpDate = localStorage.getItem('follow_up_date');

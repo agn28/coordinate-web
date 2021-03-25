@@ -463,33 +463,93 @@
         Update
       </router-link>
     </div>
-    <div class="row mb-3 d-none">
+    
+    <div class="row mb-3">
         <div class="col-md-12">
           <div class="card tab-card mb-3 card-blue-header">
-            <div class="card-header">
-              Complaints / Note
+            <div class="card-header mb-2">
+              Complain / Note
             </div>
-          <div class="table-responsive">
-            <table class="table table-borderless">
-              <tbody>
-                <tr class="td-border-bottom">
-                  <td class="td-grey p-2">Patient has regular fever every month of 39oC</td>
-                  <td class="td-grey p-2">Dr Ali Hussein</td>
-                  <td class="td-grey p-2">1 Jan 2021</td>
-                </tr>
-
-                <tr>
-                  <td class="td-grey p-2">Patient has regular fever every month of 39oC</td>
-                  <td class="td-grey p-2">Dr Ali Hussein</td>
-                  <td class="td-grey p-2">1 Jan 2021</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <a href="javascript:void(0)" class="btn btn-primary add-note"><i class="fa fa-plus"> Add</i></a>
+            <div class="table-responsive" v-if="patientNotes.length">
+              <table class="table table-borderless">
+                <tbody>
+                  <tr class="td-border-bottom" v-for="(note, index) in patientNotes" :key="index">
+                    <td class="td-grey p-2">{{ note.body.notes }}</td>
+                    <td class="td-grey p-2">{{ note.user.name }}</td>
+                    <td class="td-grey p-2">{{ moment(note.meta.created_at).format('DD MMM YYYY') }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <a href="javascript:void(0)" class="btn btn-primary add-note" data-toggle="modal" data-target="#modal-add-notes"><i class="fa fa-plus"> Add</i></a>
         </div>
       </div>
     </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <div class="card tab-card mb-3 card-blue-header">
+          <div class="card-header mb-2">
+            Investigations Pending
+          </div>
+          <div class="table-responsive" >
+            <table class="table table-borderless" v-if="pendingInvestigations.length">
+              <thead>
+                <tr class="td-border-bottom">
+                  <th class="p-2">Investigation required</th>
+                  <th class="p-2">Doctor</th>
+                  <th class="p-2">Date</th>
+                  <th class="p-2">Mark as complete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="td-border-bottom" v-for="(item, index) in pendingInvestigations" :key="index">
+                  <td class="td-grey p-2">{{ item.body.title }}</td>
+                  <td class="td-grey p-2">N/A</td>
+                  <td class="td-grey p-2">{{ getFormatedDate(item.meta.created_at._seconds) }}</td>
+                  <td class="td-grey p-2">
+                      <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="follow_up" value="complete"  class="custom-control-input" :id="'ir-'+index" v-model="pendingInvestigations[index].meta.status">
+                        <label class="custom-control-label" :for="'ir-'+index"></label>
+                      </div>
+                  </td>
+                </tr>
+             
+              </tbody>
+            </table>
+            <p v-else class="px-2 text-secondary text-center">No pending data available</p>
+          </div>
+          <a href="javascript:void(0)" @click="updateInvestigation" class="btn btn-primary add-note" v-if="pendingInvestigations.length" >Save</a>
+      </div>
+    </div>
+  </div>
+
+    <!-- add Complains/ Notes -->
+      <div class="modal fade" id="modal-add-notes" tabindex="-1" role="dialog" aria-labelledby="modal-add-notes" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content modal-blue-header p-0 radious-0">
+            <div class="modal-header py-2 px-3">
+              <h5 class="modal-title text-white">Add Complain / Note</h5>
+              <button type="button" ref="elCloseNoteModal" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form @submit.prevent="addNote">
+              <div class="modal-body p-3">
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom01">Enter Complain / Note</label>
+                        <textarea class="form-control" required v-model="note"></textarea>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer p-3">
+                <button type="submit" class="btn btn-primary radious-0">Confirm</button>
+              </div>
+             </form>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -538,13 +598,16 @@ export default {
       bpConditions: [],
       lastEncounter: null,
       details: {},
-
+      note: null,
+      patientNotes : [],
+      generatedCareplan: null,
+      pendingInvestigations: []
     };
   },
   methods: {
 
     getBmi() {
-      console.log('bmi ', this.details.height);
+      
 
       if (this.details.height && this.details.weight) {
         if (this.details.height.value && this.details.weight.value) {
@@ -555,7 +618,7 @@ export default {
     },
 
     getColor(value, condition) {
-      console.log('get color', value);
+      
       if (!value || value == 'N/A') {
         return '';
       }
@@ -568,7 +631,6 @@ export default {
     },
 
     getBpColor() {
-      console.log(this.details.blood_pressure);
       let color = '';
 
       if (this.details.blood_pressure) {
@@ -581,15 +643,12 @@ export default {
           if (condition.sbp) {
             
             if (sbp >= condition.sbp.from && sbp <= condition.sbp.to) {
-              console.log('condition ', condition);
-              console.log('sbp ', sbp);
               color = condition.sbp.color;
             }
           }
         });
       }
 
-      console.log('color ', color)
       return color;
     },
 
@@ -636,6 +695,13 @@ export default {
           .unix(history.created_at._seconds)
           .format("Do MMMM YYYY hh:mm:ss a");
       }
+      return date;
+    },
+    getFormatedDate(data) {
+        let date = moment
+          .unix(data)
+          .format("DD MMM YYYY");
+   
       return date;
     },
     getCollectedUser(userId) {
@@ -734,7 +800,7 @@ export default {
             loader.hide();
             if (response.status == 200) {
               this.report = response.data.data;
-              console.log(this.report, 'last report');
+              
             }
           },
           (error) => {
@@ -751,7 +817,7 @@ export default {
           if (response.status == 200) {
             // console.log(response, 'resp');
             this.reports = response.data.data;
-            console.log(this.reports, 'reports');
+            
             if (this.reports && this.reports.length > 0) {
               this.currentAssessment = this.reports[this.reports.length - 1];
             }
@@ -794,8 +860,6 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
-            console.log(this.patient)
-            // console.log(this.patient, 'patient')
           }
         },
         (error) => {
@@ -822,7 +886,6 @@ export default {
             this.encounters = response.data.data;
 
             if (this.encounters) {
-              console.log(this.encounters, 'encounters');
               this.encounters = this.encounters.sort(
               (a, b) =>
                 new Date(b.meta.created_at) - new Date(a.meta.created_at)
@@ -845,8 +908,7 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.observations = response.data.data;
-            // console.log('observations');
-            console.log(this.observations);
+            console.log('observations: ', this.observations);
 
             if (this.observations) {
               this.observations.forEach((obs) => {
@@ -976,7 +1038,6 @@ export default {
                 }
                 else if (observation.type == 'body_measurement') {
                   if (observation.data.name == 'height') {
-                    console.log('asdkjsakdj')
                     this.details.height = {
                       value: observation.data.value,
                       unit: observation.data.unit,
@@ -1161,7 +1222,94 @@ export default {
         
       }
       return medicalHistory;
-    }
+    },
+    addNote() {
+      let loader = this.$loading.show();
+      this.$refs.elCloseNoteModal.click();
+     
+      let data = {
+        "meta": {
+          "created_by": this.user.uid,
+          "created_at": new Date(),
+        },
+        "body": {
+          "patient_id": this.patientId,
+          "notes": this.note
+        }
+      };
+
+      this.$http.post("/patients/" + this.patientId + "/notes", data).then((response) => {
+          loader.hide();
+          if (response.status != 201) {
+            alert('Could not save complain / note');
+          } else {
+            this.getNote();
+          }
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
+    },
+    getNote() {
+
+      this.$http.get("/patients/" + this.patientId + "/notes").then((response) => {
+          if (response.data && response.data.error == false && response.data.data) {
+            this.patientNotes = response.data.data;
+          }
+        },
+        (error) => {
+          // loader.hide();
+        }
+      );
+    },
+    getCarePlanReport() {
+      this.$http.get("/care-plans/patient/" + this.patientId).then((response) => {
+          this.pendingInvestigations = [];
+          if (response.status == 200) {
+            console.log('cp: ', response.data)
+            if (response.data.data) {
+              response.data.data.filter(item => {
+                
+                if (item.body.category == 'investigation' && item.meta.status == 'pending') {
+                  item.meta.status = false;
+                  
+                  this.pendingInvestigations.push(item);
+                }
+              });
+            }
+          }
+
+        },
+        (error) => {}
+      );
+    },
+    updateInvestigation() {
+      
+      if (this.pendingInvestigations.length) {
+          let loader = this.$loading.show();
+          let completedItems = [];
+          completedItems = this.pendingInvestigations.filter(item =>  item.meta.status == true);
+          if (completedItems && completedItems.length > 0) {
+            console.log('hid')
+            let data = {
+              "status": "completed",
+              // "comment": '',
+              "completed_at": new Date()
+            }
+            completedItems.forEach(item => {
+              this.$http.put("/care-plans/" + item.id, data).then((response) => {
+                if (response.status == 200) {
+                  this.getCarePlanReport();
+                  loader.hide()
+                }
+              },
+              (error) => { loader.hide() }
+            );
+            });
+          } else { loader.hide() }
+      }
+    } 
   },
   created() {},
 
@@ -1172,7 +1320,14 @@ export default {
     this.prepareBpConditions();
     // this.getCarePlans();
     this.getLastEncounter();
+    this.getNote();
+    this.getCarePlanReport();
   },
+  computed: {
+     user() {
+      return this.$store.state.auth.user;
+    },
+  }
 };
 </script>
 

@@ -47,7 +47,7 @@
                   </div>
               </div>
             </div>
-
+           
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Last Care Plan Generated</div>
@@ -728,6 +728,7 @@ export default {
     getGeneratedCareplans() {
       this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
         (response) => {
+          console.log('Last: ', response);
           if (response.status == 200) {
             if(response.data.data) {
               this.lastReports = response.data.data.slice(0, 3);
