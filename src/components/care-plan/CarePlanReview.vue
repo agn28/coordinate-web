@@ -102,7 +102,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'medication'"> 
+                        <tr v-for="(item, index) in medications" :key="index"> 
                           <td>{{ item.title }}</td>
                           <td>{{ item.dosage ? item.dosage : '--'}}</td>
                           <td>{{ item.unit ? item.unit : '--'}}</td>
@@ -212,7 +212,8 @@ export default {
       investigations: [],
       reviewId: '',
       followUpDate: null,
-      assessment_id: null
+      assessment_id: null,
+      medications: []
     };
   },
   computed: {
@@ -282,12 +283,54 @@ export default {
       // loader.hide();
       // return;
 
+      //TODO: work from here
+
+      // this.medications.forEach(item => {
+        
+      //   let medicationData = {
+
+      //   }
+      //   medicationData.body = item;
+      //   medicationData.body.patient_id = this.patientId;
+      //   medicationData.meta = {
+      //     created_at: new Date()
+      //   }
+
+      //   // console.log('medication data ', medicationData);
+      //   // return;
+
+      //   this.$http.put('/patients/' + this.patientId, this.allData.data).then( response => {
+      //     this.isLoading = false
+      //     console.log('res: ', response.data)
+      //     if (response.status == 200 ) {
+
+      //     } else {
+      //       this.alert = 'error'
+      //     }
+          
+
+      //   }).catch(err => {
+      //     console.log(err.message)
+      //   })
+      // });
+
+      // return;
+
+
+
       this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
         loader.hide();
         this.isLoading = false
         console.log('res: ', response.data)
         if (response.status == 200 ) {
           this.alert = response.data.message;
+          localStorage.removeItem('report');
+          localStorage.removeItem('diagnosis');
+          localStorage.removeItem('investigations');
+          localStorage.removeItem('removedCounsellings');
+          localStorage.removeItem('medications');
+          localStorage.removeItem('selectedFollowup');
+          localStorage.getItem('follow_up_date')
           
           this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
           
@@ -333,9 +376,11 @@ export default {
       let localData = localStorage.getItem('report');
       let localDiagnosis = localStorage.getItem('diagnosis');
       let localInvestigations = localStorage.getItem('investigations');
+      let localMedications = localStorage.getItem('medications');
       this.previousData =  localData ? JSON.parse(localData) : null;
       this.newDiagnosis =  localDiagnosis ? JSON.parse(localDiagnosis) : [];
       this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
+      this.medications =  localMedications ? JSON.parse(localMedications) : [];
       this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
       this.getHealthReport();
     },

@@ -82,7 +82,7 @@
                 <tr>
                   <td width="30%" class="font-weight-bold">10 year CVD risk score</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize">n/a</td>
+                  <td width="65%" class="text-capitalize" :class="this.cvdRisk.tfl || ''">{{ this.cvdRisk.value || 'N/A' }}</td>
                 </tr>
 
               </tbody>
@@ -93,53 +93,53 @@
         <div class="card tab-card card-red-header">
           <div class="card-header">Risk Factors</div>
           <div class="table-responsive mt-2">
-            <table class="table table-borderless">
+            <table v-if="riskFactors && riskFactors.body &&riskFactors.body.data" class="table table-borderless">
 
               <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">Smoking status</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.smoking, false)">{{ this.details.smoking }}</td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.smoking, false)">{{ riskFactors.body.data.smoking || 'N/A' }}</td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Smokeless tobacco</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.smokeless_tobacco, false)">{{ this.details.smokeless_tobacco }}</td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.smokeless_tobacco, false)">{{ riskFactors.body.data.smokeless_tobacco || 'N/A' }}</td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Diet: Additional salt: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.extra_salt, false)">{{ this.details.extra_salt }}</td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.extra_salt, false)">{{ riskFactors.body.data.extra_salt || 'N/A' }}</td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Diet: Sugar intake: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.sugar, false)">{{ this.details.sugar }}</td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.sugary_drinks, false)">{{ riskFactors.body.data.sugary_drinks || 'N/A' }}</td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Diet: Processed food / red meat:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="this.details.processed_foods == 'yes' ? 'txt-red' : 'txt-success'">{{ this.details.processed_foods }}</td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.processed_foods, false)">{{ riskFactors.body.data.processed_foods || 'N/A' }}</td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Physical activity:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.physical_activity_moderate, true)">{{ this.details.physical_activity_moderate }}</td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.physical_activity_moderate, true)">{{ riskFactors.body.data.physical_activity_moderate || 'N/A' }}</td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Alcohol consumption:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.alcohol, false)">{{ this.details.alcohol }}</td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.alcohol, false)">{{ riskFactors.body.data.alcohol || 'N/A' }}</td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Family history of hypertension or diabetes: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%"></td>
+                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.family_diabetes, false)">{{ riskFactors.body.data.family_diabetes || 'N/A'}}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Last assessment:</td>
+                  <td width="30%" class="font-weight-bold">Last captured:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%"></td>
+                  <td width="65%">{{ riskFactors.assessment ? moment(riskFactors.assessment.meta.created_at).format('Do MMMM YYYY') : '' }}</td>
                 </tr>
                 <!-- <tr class="mt-3">
                   <td colspan="3" class="text-center mt-3"><a href="javascript:void(0)" class="btn btn-cust w-100">See Details</a></td>
@@ -152,7 +152,7 @@
     </div>
 
     <div class="row">
-         <div class="col-md-6">
+      <div class="col-md-6">
         <div class="card tab-card card-blue-header">
            <div class="card-header "> Disease history </div>
           <div class="table-responsive mt-2">
@@ -564,6 +564,7 @@ export default {
   data() {
     return {
       patientId: "",
+      cvdRisk: {},
       patient_history: {},
       fullPage: true,
       patient: null,
@@ -600,7 +601,8 @@ export default {
       patientNotes : [],
       generatedCareplan: null,
       pendingInvestigations: [],
-      lastReports: []
+      lastReports: [],
+      riskFactors: null,
     };
   },
   methods: {
@@ -807,12 +809,20 @@ export default {
     getLastReport() {
       let loader = this.$loading.show();
       this.$http
-        .get("/health-reports/patient/" + this.patientId + "?filter=last")
+        .get("/health-reports/patient/" + this.patientId + "/last")
         .then(
           (response) => {
             loader.hide();
             if (response.status == 200) {
-              this.report = response.data.data;
+              
+              console.log('last report data ', response.data);
+              if (response.data.data) {
+                this.report = response.data.data;
+                if (this.report.body && this.report.body.result.assessments && this.report.body.result.assessments.cvd) {
+                  this.cvdRisk = this.report.body.result.assessments.cvd;
+                }
+              }
+
               
             }
           },
@@ -1297,6 +1307,21 @@ export default {
         (error) => {}
       );
     },
+
+    getLastRiskFactors() {
+      this.$http.get("/observations/patient/" + this.patientId + '/last-risk-factors').then((response) => {
+          this.pendingInvestigations = [];
+          if (response.status == 200) {
+            console.log('cp: ', response.data)
+            if (response.data.data) {
+              this.riskFactors = response.data.data;                
+            }
+          }
+
+        },
+        (error) => {}
+      );
+    },
     updateInvestigation() {
       
       if (this.pendingInvestigations.length) {
@@ -1336,6 +1361,8 @@ export default {
     this.getNote();
     this.getCarePlanReport();
     this.getGeneratedCareplans();
+    this.getLastRiskFactors();
+    this.getLastReport();
   },
   computed: {
      user() {

@@ -77,6 +77,26 @@
 
 
         <div v-if="!missingData && !isLoading">
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card mb-3 tab-card card-blue-header">
+                <div class="card-header">CVD</div>
+                <div class="table-responsive mt-2">
+                  <table class="table table-borderless">
+
+                    <tbody>
+                      <tr>
+                        <td width="30%" class="font-weight-bold">10 year CVD risk score</td>
+                        <td width="5%" class="text-center">:</td>
+                        <td width="65%" class="text-capitalize" :class="this.cvdRisk.tfl || ''">{{ this.cvdRisk.value || 'N/A' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row mb-3">
             <div class="col-md-12">
                 <div class="card tab-card mb-3 card-blue-header">
@@ -116,7 +136,7 @@
                       <table class="table tbl-bordered-td">
                         <tbody>
                           <tr v-for="(item,index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication' && item.comments"> 
-                            <td>{{ item.comments.comment }}</td> 
+                            <td>{{ item.title }}</td> 
                           </tr>
                         </tbody>
                       </table>
@@ -201,7 +221,7 @@
                           <td class="align-middle">{{ item.title }}</td>
                           <td class="text-center align-middle">
                             <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" :id="'ncr-'+item.id" v-model="allData.careplan.activities[index].status">
+                              <input @change="onActionUpdate(index)" type="checkbox" class="custom-control-input" :id="'ncr-'+item.id" v-model="allData.careplan.activities[index].status">
                               <label class="custom-control-label " :for="'ncr-'+item.id"></label>
                             </div>
                           </td>
@@ -271,39 +291,36 @@
               <div class="col-md-6">
                 <div class="card tab-card mb-3 card-blue-header">
                   <div class="card-header">Follow Up</div>
-                    
-                    <div class="follow-up p-3">
-                      <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="radio" name="follow_up" value="1w"  class="custom-control-input" id="one-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                        <label class="custom-control-label" for="one-week">1 week</label>
+                  <div class="follow-up p-3">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="follow_up" value="1w" id="one-week" v-on:change="generateFollowUpDate" v-model="selectedFollowup">
+                        <label class="form-check-label" for="one-week">1 week</label>
                       </div>
-                      <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="radio" name="follow_up" value="2w"  class="custom-control-input" id="two-week" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                        <label class="custom-control-label" for="two-week">2 week</label>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="follow_up" value="2w" id="two-week" v-on:change="generateFollowUpDate" v-model="selectedFollowup">
+                        <label class="form-check-label" for="two-week">2 weeks</label>
                       </div>
-
-                      <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="radio" name="follow_up" value="1m"  class="custom-control-input" id="one-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                        <label class="custom-control-label" for="one-month">1 month</label>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="follow_up" value="1m" id="one-month" v-on:change="generateFollowUpDate" v-model="selectedFollowup">
+                        <label class="form-check-label" for="one-month">1 month</label>
                       </div>
-
-                      <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="radio" name="follow_up" value="3m"  class="custom-control-input" id="three-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                        <label class="custom-control-label" for="three-month">3 months</label>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="follow_up" value="3m" id="three-month" v-on:change="generateFollowUpDate" v-model="selectedFollowup">
+                        <label class="form-check-label" for="three-month">3 months</label>
                       </div>
-
-                      <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="radio" name="follow_up"  value="6m" class="custom-control-input" id="six-month" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                        <label class="custom-control-label" for="six-month">6 months</label>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="follow_up" value="6m" id="six-month" v-on:change="generateFollowUpDate" v-model="selectedFollowup">
+                        <label class="form-check-label" for="six-month">6 months</label>
                       </div>
-
-                      <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="radio" name="follow_up" value="1y" class="custom-control-input" id="one-year" v-on:change="generateFollowUpDate" v-model="folloUpDate">
-                        <label class="custom-control-label" for="one-year">1 year</label>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="follow_up" value="1y" id="one-year" v-on:change="generateFollowUpDate" v-model="selectedFollowup">
+                        <label class="form-check-label" for="one-year">1 year</label>
                       </div>
 
                       <div class="follow-up-date mt-3" v-if="folloUpDate"><b>Follow up date:</b> {{  moment(folloUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
                     </div>
+                </div>
+                    
                 </div>
               </div>
           </div>
@@ -469,12 +486,14 @@ export default {
   data() {
     return {
       missingData: false,
+      cvdRisk: {},
       patientId: '',
       isLoading: false,
       patient: null,
       drugs: [],
       medicationEnabled: false,
       medication: {},
+      medications: [],
       newMedication: [],
       activity: {},
       newActions: [],
@@ -590,10 +609,25 @@ export default {
       lastEncounter: null,
       lastReports: null,
       lastCareplans: [],
-      folloUpDate: null
+      folloUpDate: '',
+      selectedFollowup:  null,
+      removedCounsellings: [],
     };
   },
   methods: {
+    onActionUpdate(index) {
+      if (this.allData.careplan.activities[index].status) {
+        this.removedCounsellings.push(this.allData.careplan.activities[index]);
+        
+        console.log(this.removedCounsellings)
+      } else {
+        let existingCounselling = this.removedCounsellings.indexOf(this.allData.careplan.activities[index]);
+        this.removedCounsellings.splice(existingCounselling, 1)
+      }
+
+      console.log(this.removedCounsellings.length);
+      // console.log(this.allData.careplan.activities[index].status);
+    },
     getHealthReport() {
       // To do: remove below line
       // let pID = '13e781d8-702d-4f0f-ad6f-2e7d1cb1f013';
@@ -606,6 +640,11 @@ export default {
             console.log('hello')
             this.missingData = true;
             return;
+          }
+
+          if (response.data.assessments && response.data.assessments.cvd) {
+            this.cvdRisk = response.data.assessments.cvd;
+            console.log('this cvd', this.cvdRisk);
           }
           // if ()
           this.allData = response.data;
@@ -627,6 +666,21 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
+          }
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
+    },
+
+    getMedicationCareplanByPatient() {
+      let loader = this.$loading.show();
+      this.$http.get("/patient/" + this.patientId + "/medications").then(
+        (response) => {
+          loader.hide();
+          if (response.status == 200) {
+            this.medications = response.data.data;
           }
         },
         (error) => {
@@ -767,6 +821,16 @@ export default {
       );
     },
     proceed() {
+      if (!this.folloUpDate) {
+        this.$toast.open({
+          message: 'Please select a followup date',
+          type: 'error',
+          // all of other options may go here
+        });
+        return;
+      }
+
+      
       if (this.newMedication.length) {
         this.newMedication.forEach(item => {
           this.allData.careplan.activities.push(item);
@@ -777,12 +841,31 @@ export default {
         localStorage.setItem('follow_up_date', this.folloUpDate);
       }
 
+      console.log('alldata ', this.allData.careplan.activities);
+      console.log('removed ', this.removedCounsellings);
+
+      this.allData.careplan.activities = this.allData.careplan.activities
+
+      this.removedCounsellings.forEach(item => {
+        let index = this.allData.careplan.activities.indexOf(item);
+        if (index > -1) {
+          this.allData.careplan.activities.splice(index, 1)
+        }
+      })
+      // return;
+
       // console.log('Final:' , this.allData);
       // return;
 
+      console.log('new medications ', this.newMedication);
+
       localStorage.setItem('report', JSON.stringify(this.allData));
+      localStorage.setItem('selectedFollowup', this.selectedFollowup);
+      localStorage.setItem('removedCounsellings', JSON.stringify(this.removedCounsellings));
+      localStorage.setItem('patientId', this.patientId);
       localStorage.setItem('investigations', JSON.stringify(this.investigations));
       localStorage.setItem('diagnosis', JSON.stringify(this.newDiagnosis));
+      localStorage.setItem('medications', JSON.stringify(this.newMedication));
       this.$router.push({ name: 'carePlanReview', params: { patientId: this.patientId } } );
     },
     getLastEncounter() {
@@ -806,10 +889,11 @@ export default {
       return date;
     },
     generateFollowUpDate() {
-      if (this.folloUpDate) {
+      console.log(this.folloUpDate);
+      if (this.selectedFollowup) {
         let days = '';
 
-        let dateStr = this.folloUpDate.split(/(\d+)/).filter(Boolean);
+        let dateStr = this.selectedFollowup.split(/(\d+)/).filter(Boolean);
         if (dateStr[1] == 'w') {
           days = parseInt(dateStr[0]) * 7;
         }
@@ -823,17 +907,63 @@ export default {
         } 
         this.folloUpDate =  moment().add(days, 'days').format('YYYY-MM-DD');
       };
+    },
+
+    prepareData() {
+      this.getDrugs();
+      this.getPatients();
+      this.getLastEncounter();
+      this.getGeneratedCareplans();
+      this.lastGeneratedCareplans();
+      
+      if (this.patientId == localStorage.getItem('patientId')) {
+        let localData = localStorage.getItem('report');
+        let localDiagnosis = localStorage.getItem('diagnosis');
+        let removedCounsellings = localStorage.getItem('removedCounsellings');
+        let localInvestigations = localStorage.getItem('investigations');
+        this.folloUpDate = localStorage.getItem('follow_up_date');
+        this.selectedFollowup = localStorage.getItem('selectedFollowup');
+        let localMedications = localStorage.getItem('medications');
+
+        if (localData) {
+          this.allData = JSON.parse(localData);
+          this.cvdRisk = this.allData.assessments.cvd;
+        }
+        if (removedCounsellings) {
+          this.removedCounsellings = JSON.parse(removedCounsellings);
+          this.removedCounsellings.forEach(item => {
+            this.allData.careplan.activities.push(item);
+          })
+        }
+
+        if (localDiagnosis) {
+          this.newDiagnosis = JSON.parse(localDiagnosis);
+        }
+        if (localMedications) {
+          this.newMedication = JSON.parse(localMedications);
+        }
+        if (localInvestigations) {
+          this.investigations =  JSON.parse(localInvestigations);
+        }
+
+        this.reviewId = this.allData.report_id ? this.allData.report_id : null;
+
+        
+        
+        
+      }
+      else {
+        this.getHealthReport();
+        
+      }
     }
 
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
-    this.getHealthReport();
-    this.getPatients();
-    this.getDrugs();
-    this.getLastEncounter();
-    this.getGeneratedCareplans();
-    this.lastGeneratedCareplans();
+
+    this.prepareData();
+    
   },
   
   created() {},
