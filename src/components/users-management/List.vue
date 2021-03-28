@@ -46,9 +46,10 @@
                 </button>
               </div>
 
-              <b-modal id="modal-user" class="modal-header">
+              <b-modal @hide="onModalUserClose" id="modal-user" class="modal-header">
                 <template v-slot:modal-header>
-                  <span class="title">Create User</span>
+                  <span v-if="isEdit" class="title">Update User</span>
+                  <span v-else class="title">Create User</span>
                 </template>
                 <div class="form-group">
                   <label for="name">Name</label>
@@ -92,6 +93,66 @@
                     >{{ role.name }}</option>
                   </select>
                 </div>
+
+
+                <div>
+                  <strong>Address</strong>
+                  <hr>
+                </div>
+
+                <div class="form-group">
+                  <label for="name">Village</label>
+                  <input
+                    type="text"
+                    id="village"
+                    v-model="newUser.address.village"
+                    class="form-control form-coordinate height-input"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="name">Union</label>
+                  <input
+                    type="text"
+                    id="union"
+                    v-model="newUser.address.union"
+                    class="form-control form-coordinate height-input"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="userRoles">Select Upazila</label>
+                  <select
+                    name="userRoles"
+                    id="userRoles"
+                    class="form-control"
+                    v-model="newUser.address.upazila"
+                  >
+                    <option
+                      v-for="(upazila, index) in upazilas"
+                      :key="index"
+                      :value="upazila.name"
+                    >{{ upazila.name }}</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="userRoles">Select District</label>
+                  <select
+                    @change="onDistrictSelect"
+                    name="userRoles"
+                    id="userRoles"
+                    class="form-control"
+                    v-model="newUser.address.district"
+                  >
+                    <option
+                      v-for="(district, index) in districts"
+                      :key="index"
+                      :value="district.name"
+                    >{{ district.name }}</option>
+                  </select>
+                </div>
+                
 
                 <template v-slot:modal-footer>
                   <div class="w-100">
@@ -208,9 +269,11 @@
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
+
 export default {
   name: "users",
-  components: {},
+  components: { Multiselect },
   data() {
     return {
       isEdit: false,
@@ -218,14 +281,29 @@ export default {
         name: null,
         password: null,
         email: null,
-        role: null
+        role: null,
+        address: {}
       },
       users: [],
-      roles: []
+      roles: [],
+      districts: [],
+      upazilas: []
     };
   },
   computed: {},
   methods: {
+    onModalUserClose () {
+      // this.newUser.address = {};
+      // this.$forceUpdate();
+    },
+    onDistrictSelect() {
+      let selectedDistrict = this.districts.find(item => item.name == this.newUser.address.district);
+
+      if (selectedDistrict) {
+        this.upazilas = selectedDistrict.thanas;
+      }
+      // console.log(this.newUser.address.district);
+    },
     validateForm() {
       if (this.isEdit) {
         return this.newUser.name && this.newUser.email && this.newUser.role
@@ -244,6 +322,24 @@ export default {
         },
         error => {
           loader.hide();
+        }
+      );
+    },
+
+    getLocations() {
+      this.$http.get("/locations").then(
+        response => {
+          if (response.status == 200) {
+            // console.log('locations ', response.data.data);
+            if (response.data.data) {
+              this.districts = response.data.data[0]['districts'];
+              console.log('districts ', this.districts)
+            }
+            // this.users = response.data;
+          }
+        },
+        error => {
+
         }
       );
     },
@@ -270,13 +366,16 @@ export default {
         name: null,
         password: null,
         email: null,
-        role: null
+        role: null,
+        address: {}
       }
       this.isEdit = false;
       this.$bvModal.show("modal-user");
     },
 
     updateUser() {
+      // console.log(this.newUser);
+      // return;
       let loader = this.$loading.show();
       this.$http
         .put("/users/" + this.newUser.uid, this.newUser)
@@ -333,6 +432,23 @@ export default {
       this.isEdit = true;
       this.$bvModal.show("modal-user");
       this.newUser = user;
+
+      //TODO: remove this
+
+      this.prepareAddress();
+      
+    },
+
+    prepareAddress() {
+      console.log('this.newUser ', this.newUser);
+      this.newUser.address = this.newUser.address || {};
+      if (this.newUser.address.district) {
+        let selectedDistrict = this.districts.find(item => item.name == this.newUser.address.district);
+
+        if (selectedDistrict) {
+          this.upazilas = selectedDistrict.thanas;
+        }
+      }
     },
 
     deleteUser(user) {
@@ -354,6 +470,7 @@ export default {
   mounted() {
     this.getUsers();
     this.getRoles();
+    this.getLocations();
   }
 };
 </script>

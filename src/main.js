@@ -13,6 +13,7 @@ import Loading from 'vue-loading-overlay';
 import VeeValidate from "vee-validate";
 import { Validator } from 'vee-validate';
 import VueSweetalert2 from 'vue-sweetalert2';
+import VueToast from 'vue-toast-notification';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -24,6 +25,7 @@ import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import 'vue-toast-notification/dist/theme-sugar.css';
  
 import store from "./store/store";
 import interceptor from "./interceptor"
@@ -42,6 +44,7 @@ Vue.use(VueEllipseProgress);
 
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
+Vue.use(VueToast);
 
 Vue.component('apexchart', VueApexCharts)
 
