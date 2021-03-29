@@ -103,11 +103,11 @@
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in medications" :key="index"> 
-                          <td>{{ item.title }}</td>
-                          <td>{{ item.dosage ? item.dosage : '--'}}</td>
-                          <td>{{ item.unit ? item.unit : '--'}}</td>
-                          <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
-                          <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td>
+                          <td>{{ item.body.title }}</td>
+                          <td>{{ item.body.dosage ? item.body.dosage : '--'}}</td>
+                          <td>{{ item.body.unit ? item.body.unit : '--'}}</td>
+                          <td>{{ item.body.activityDuration.repeat.frequency }} {{ item.body.activityDuration.repeat.periodUnit }}</td> 
+                          <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -213,13 +213,22 @@ export default {
       reviewId: '',
       followUpDate: null,
       assessment_id: null,
-      medications: []
+      medications: [],
+      newMedications: []
     };
   },
   computed: {
     user() {
       return this.$store.state.auth.user;
     },
+    filteredMedications() {
+      console.log('filter medication ', this.medications.filter(item => {
+        return (item.body);
+      }))
+      return this.medications.filter(item => {
+        return item.body;
+      });
+    }
       
   },
   methods: {
@@ -264,8 +273,10 @@ export default {
       })
     },
     updateReviewData() {
+      //TODO: comment remove
       let loader = this.$loading.show();
       this.isLoading = true;
+
       // var data = this.calculateDuration(this.allData.data);
       // console.log('generate careplan: ', JSON.stringify(data));
       // return data;
@@ -285,38 +296,6 @@ export default {
 
       //TODO: work from here
 
-      // this.medications.forEach(item => {
-        
-      //   let medicationData = {
-
-      //   }
-      //   medicationData.body = item;
-      //   medicationData.body.patient_id = this.patientId;
-      //   medicationData.meta = {
-      //     created_at: new Date()
-      //   }
-
-      //   // console.log('medication data ', medicationData);
-      //   // return;
-
-      //   this.$http.put('/patients/' + this.patientId, this.allData.data).then( response => {
-      //     this.isLoading = false
-      //     console.log('res: ', response.data)
-      //     if (response.status == 200 ) {
-
-      //     } else {
-      //       this.alert = 'error'
-      //     }
-          
-
-      //   }).catch(err => {
-      //     console.log(err.message)
-      //   })
-      // });
-
-      // return;
-
-
 
       this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
         loader.hide();
@@ -324,13 +303,44 @@ export default {
         console.log('res: ', response.data)
         if (response.status == 200 ) {
           this.alert = response.data.message;
+          let careplan_id = response.data.data ? response.data.data.careplan_id : '';
+
+          this.newMedications.forEach(item => {
+        
+            let medicationData = {};
+            medicationData.body = item.body;
+            medicationData.body.careplan_id = careplan_id;
+            medicationData.body.patient_id = this.patientId;
+            medicationData.meta = {
+              created_at: new Date()
+            }
+
+            console.log('medication data ', medicationData);
+            // return;
+
+            this.$http.post('/patients/' + this.patientId + "/medications", medicationData).then( response => {
+              this.isLoading = false
+              console.log('res: ', response.data)
+              if (response.status == 200 ) {
+
+              } else {
+                this.alert = 'error'
+              }
+              
+            }).catch(err => {
+              console.log(err.message)
+            })
+          });
+          
           localStorage.removeItem('report');
           localStorage.removeItem('diagnosis');
           localStorage.removeItem('investigations');
           localStorage.removeItem('removedCounsellings');
           localStorage.removeItem('medications');
+          localStorage.removeItem('newMedications');
           localStorage.removeItem('selectedFollowup');
-          localStorage.getItem('follow_up_date')
+          localStorage.removeItem('follow_up_date')
+          localStorage.removeItem('patientId');
           
           this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
           
@@ -357,11 +367,11 @@ export default {
         if (item.status) {
           item.status == item.status == true ? 'completed' : 'pending';
         }
-        if( item.activityDuration.start  == '' || item.activityDuration.start  == null) {
+        if (item.activityDuration.start  == '' || item.activityDuration.start  == null) {
           item.activityDuration.start = '2021-03-01';
         }
 
-        if( item.activityDuration.endDate  == '' || item.activityDuration.endDate  == null) {
+        if (item.activityDuration.endDate  == '' || item.activityDuration.endDate  == null) {
           item.activityDuration.end = '2021-03-20';
         }
         
@@ -377,11 +387,17 @@ export default {
       let localDiagnosis = localStorage.getItem('diagnosis');
       let localInvestigations = localStorage.getItem('investigations');
       let localMedications = localStorage.getItem('medications');
+      let localNewMedications = localStorage.getItem('newMedications');
       this.previousData =  localData ? JSON.parse(localData) : null;
       this.newDiagnosis =  localDiagnosis ? JSON.parse(localDiagnosis) : [];
       this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
       this.medications =  localMedications ? JSON.parse(localMedications) : [];
       this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
+
+      if (localNewMedications) {
+        this.newMedications = JSON.parse(localNewMedications);
+        this.medications = this.medications.concat(this.newMedications);
+      }
       this.getHealthReport();
     },
 

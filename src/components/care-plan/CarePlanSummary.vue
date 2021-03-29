@@ -1,6 +1,6 @@
 <template>
   <div class="content patient-overview">
-    <TopNavBar heading="Care Plan Confirmation"></TopNavBar>
+    <TopNavBar heading="Care Plan Summary"></TopNavBar>
 
     <div class="patient-summary  pl-4 pr-4">
       <!-- <form id="body-measurements" class="form-sharp-corner" @submit.prevent="createInvestigations"> -->
@@ -103,11 +103,11 @@
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in medications" :key="index"> 
-                          <td>{{ item.title }}</td>
-                          <td>{{ item.dosage ? item.dosage : '--'}}</td>
-                          <td>{{ item.unit ? item.unit : '--'}}</td>
-                          <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
-                          <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td>
+                          <td>{{ item.body.title }}</td>
+                          <td>{{ item.body.dosage ? item.body.dosage : '--'}}</td>
+                          <td>{{ item.body.unit ? item.body.unit : '--'}}</td>
+                          <td>{{ item.body.activityDuration.repeat.frequency }} {{ item.body.activityDuration.repeat.periodUnit }}</td> 
+                          <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -226,6 +226,23 @@ export default {
       );
     },
 
+    getMedicationsByCareplan() {
+      let loader = this.$loading.show();
+      this.$http.get("/generated-care-plans/" + this.generatedCarePlanId + "/medications").then(
+        (response) => {
+          loader.hide();
+          if (response.status == 200) {
+            console.log('data ', response.data.data);
+            this.medications = response.data.data;
+            // console.log(this.patient, 'patient')
+          }
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
+    },
+
     getGeneratedCarePlan() {
       let loader = this.$loading.show();
       this.$http.get("/generated-care-plans/" + this.generatedCarePlanId).then(
@@ -237,10 +254,11 @@ export default {
             this.generatedCarePlan.body.care_plans.filter((carePlan) => {
               if (carePlan.category == 'survey') {
                 this.counsellingInterventions.push(carePlan);
-              } else if (carePlan.category == 'medication') {
-                console.log('action ', carePlan);
-                this.medications.push(carePlan);
-              }
+              } 
+              // else if (carePlan.category == 'medication') {
+              //   console.log('action ', carePlan);
+              //   this.medications.push(carePlan);
+              // }
             });
             console.log('care plan ', this.generatedCarePlan)
             // console.log(this.patient, 'patient')
@@ -427,6 +445,7 @@ export default {
     this.prepareData();
     this.getPatients();
     this.getGeneratedCarePlan();
+    this.getMedicationsByCareplan();
   },
   
   created() {},
