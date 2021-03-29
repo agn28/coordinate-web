@@ -29,7 +29,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="random_blood_sugar_unit" v-model="random_blood_sugar_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="random_blood_sugar_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL">mg/dL</option>
                         </select>
@@ -42,7 +41,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="fasting_blood_sugar_unit" v-model="fasting_blood_sugar_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="fasting_blood_sugar_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="fasting_blood_sugar_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -55,7 +53,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="2habf_unit" v-model="habf_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="habf_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="habf_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -82,7 +79,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="cholesterol_unit" v-model="cholesterol_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="cholesterol_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="cholesterol_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -95,7 +91,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="hdl_unit" v-model="hdl_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="hdl_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="hdl_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -108,7 +103,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="ldl_unit" v-model="ldl_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="ldl_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="ldl_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -121,7 +115,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="triglycerides_unit" v-model="triglycerides_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="triglycerides_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="triglycerides_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -137,7 +130,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="creatinine_unit" v-model="creatinine_unit">
-                            <option value="">Choose.....</option>
                              <option value="mmol/L" :selected="creatinine_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="creatinine_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -150,7 +142,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="sodium_unit" v-model="sodium_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="sodium_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="sodium_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -163,7 +154,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="potassium_unit" v-model="potassium_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="potassium_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="potassium_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -176,7 +166,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="ketones_unit" v-model="ketones_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="ketones_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="ketones_unit == 'mg/dL'">mg/dL</option>
                         </select>
@@ -189,7 +178,6 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Unit</label>
                         <select class="form-control" name="ketones_unit" v-model="protein_unit">
-                            <option value="">Choose.....</option>
                             <option value="mmol/L" :selected="protein_unit == 'mmol/L'">mmol/L</option>
                             <option value="mg/dL" :selected="protein_unit == 'mg/dL'">mg/dL</option>
                         </select>
