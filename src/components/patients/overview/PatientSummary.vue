@@ -1264,6 +1264,7 @@ export default {
       this.$http.post("/patients/" + this.patientId + "/notes", data).then((response) => {
           loader.hide();
           if (response.status != 201) {
+            this.note = '';
             alert('Could not save complain / note');
           } else {
             this.getNote();
