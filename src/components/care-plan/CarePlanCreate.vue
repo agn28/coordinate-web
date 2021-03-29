@@ -144,7 +144,7 @@
                     <p class="px-2" v-else>Not available</p>
 
                     <h5 class="px-2">Current Medication</h5>
-                    <div class="table-responsive  mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
+                    <div class="table-responsive  mb-3" v-if="medications && medications.length > 0">
                       <table class="table tbl-bordered-td">
                         <thead>
                           <tr>
@@ -157,24 +157,25 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(item, index) in allData.careplan.activities" :key="index" v-if="item.category == 'medication'"> 
-                            <td>{{ item.title }}</td>
-                            <td>{{ item.dosage ? item.dosage : '--'}}</td>
-                            <td>{{ item.unit ? item.unit : '--'}}</td>
-                            <td>{{ item.activityDuration.repeat.frequency }} {{ item.activityDuration.repeat.periodUnit }}</td> 
-                            <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }}</td> 
+                          <tr v-for="(item, index) in medications" :key="index"> 
+                            <!-- <td>{{ item.body.title }}</td> -->
+                            <td>{{ item.body.title }}</td>
+                            <td>{{ item.body.dosage ? item.body.dosage : '--'}}</td>
+                            <td>{{ item.body.unit ? item.body.unit : '--'}}</td>
+                            <td>{{ item.body.activityDuration.repeat.frequency }} {{ item.body.activityDuration.repeat.periodUnit }}</td> 
+                            <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }}</td> 
                             <td>
-                              <a href="javascript:void(0)" @click="removeMedication(item.id)" class="btn btn-sm btn-warning">
+                              <a href="javascript:void(0)" @click="removeMedication(index)" class="btn btn-sm btn-warning">
                                   <i class="fa fa-times text-white"></i>
                               </a>
-                              </td> 
+                            </td> 
                           </tr>
                         </tbody>
                       </table>
                     </div>
-                    <p class="px-2" v-else>Not available</p>
+                    <p class="px-2" v-if="medications.length == 0">Not available</p>
 
-                    <h5 class="px-2">New Medication</h5>
+                    <h5 class="px-2 mt-4">New Medication</h5>
                     <div class="table-responsive  mb-3" v-if="newMedication.length">
                       <table class="table tbl-bordered-td">
                         <thead>
@@ -188,11 +189,16 @@
                         </thead>
                         <tbody>
                           <tr v-for="(item, index) in newMedication" :key="index" >
-                            <td>{{ item.title }}</td>
-                            <td>{{ item.dosage }}</td>
-                            <td>{{ item.unit }}</td>
-                            <td>{{ item.activityDuration.repeat.frequency }}  {{ item.activityDuration.repeat.periodUnit }}</td>
-                            <td>{{ item.activityDuration.review.period }} {{ item.activityDuration.review.periodUnit }} </td>
+                            <td>{{ item.body.title }}</td>
+                            <td>{{ item.body.dosage }}</td>
+                            <td>{{ item.body.unit }}</td>
+                            <td>{{ item.body.activityDuration.repeat.frequency }}  {{ item.body.activityDuration.repeat.periodUnit }}</td>
+                            <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }} </td>
+                            <td>
+                              <a href="javascript:void(0)" @click="newMedication.splice(index, 1)" class="btn btn-sm btn-warning">
+                                  <i class="fa fa-times text-white"></i>
+                              </a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -674,13 +680,18 @@ export default {
       );
     },
 
-    getMedicationCareplanByPatient() {
+    getMedicationsByPatient() {
       let loader = this.$loading.show();
-      this.$http.get("/patient/" + this.patientId + "/medications").then(
+      this.$http.get("/patients/" + this.patientId + "/medications").then(
         (response) => {
           loader.hide();
-          if (response.status == 200) {
-            this.medications = response.data.data;
+          console.log('medications sadas ', response);
+          if (response.status == 201) {
+            if (response.data.data) {
+              this.medications = response.data.data;
+              console.log('medications ', this.medications);
+            }
+            
           }
         },
         (error) => {
@@ -744,7 +755,7 @@ export default {
         }
       }
 
-      this.newMedication.push(activity);
+      this.newMedication.push({body: activity});
       this.medication = {};
       this.$refs.elCloseMedication.click();
     },
@@ -755,16 +766,22 @@ export default {
       this.investigation = '';
     },
 
-    removeMedication(id) {
+    removeMedication(index) {
       let findIndex = null;
       
-      this.allData.careplan.activities.forEach((element, index) => {
-         if (element.id == id) { findIndex = index };
-      });
-      
-      if (findIndex) {
-        this.allData.careplan.activities.splice(findIndex, 1)
-      }
+      this.$http.delete('/patients/' + this.patientId + "/medications/" + this.medications[index].id).then( response => {
+        this.isLoading = false
+
+        if (response.status == 201) {
+          this.medications.splice(index, 1);
+        } else {
+          this.alert = 'error'
+        }
+        
+
+      }).catch(err => {
+        console.log(err.message)
+      })
     },
 
     addDiagnosis() {
@@ -831,11 +848,11 @@ export default {
       }
 
       
-      if (this.newMedication.length) {
-        this.newMedication.forEach(item => {
-          this.allData.careplan.activities.push(item);
-        })
-      }
+      // if (this.newMedication.length) {
+      //   this.newMedication.forEach(item => {
+      //     this.allData.careplan.activities.push(item);
+      //   })
+      // }
 
       if (this.folloUpDate) {
         localStorage.setItem('follow_up_date', this.folloUpDate);
@@ -865,7 +882,8 @@ export default {
       localStorage.setItem('patientId', this.patientId);
       localStorage.setItem('investigations', JSON.stringify(this.investigations));
       localStorage.setItem('diagnosis', JSON.stringify(this.newDiagnosis));
-      localStorage.setItem('medications', JSON.stringify(this.newMedication));
+      localStorage.setItem('medications', JSON.stringify(this.medications));
+      localStorage.setItem('newMedications', JSON.stringify(this.newMedication));
       this.$router.push({ name: 'carePlanReview', params: { patientId: this.patientId } } );
     },
     getLastEncounter() {
@@ -915,6 +933,7 @@ export default {
       this.getLastEncounter();
       this.getGeneratedCareplans();
       this.lastGeneratedCareplans();
+      this.getMedicationsByPatient();
       
       if (this.patientId == localStorage.getItem('patientId')) {
         let localData = localStorage.getItem('report');
@@ -924,6 +943,7 @@ export default {
         this.folloUpDate = localStorage.getItem('follow_up_date');
         this.selectedFollowup = localStorage.getItem('selectedFollowup');
         let localMedications = localStorage.getItem('medications');
+        let localNewMedications = localStorage.getItem('newMedications');
 
         if (localData) {
           this.allData = JSON.parse(localData);
@@ -940,7 +960,10 @@ export default {
           this.newDiagnosis = JSON.parse(localDiagnosis);
         }
         if (localMedications) {
-          this.newMedication = JSON.parse(localMedications);
+          this.medications = JSON.parse(localMedications);
+        }
+        if (localNewMedications) {
+          this.newMedication = JSON.parse(localNewMedications);
         }
         if (localInvestigations) {
           this.investigations =  JSON.parse(localInvestigations);
