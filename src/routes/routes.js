@@ -5,6 +5,7 @@ import HealthList from '../components/health-records/List'
 import HealthDetail from '../components/health-records/Show'
 import Assessments from '../components/health-records/assessments/Show'
 import Patients from '../components/patients/List'
+import PrescriptionList from '../components/prescriptions/List'
 import PatientsOverview from '../components/patients/overview/Overview'
 import PatientCarePlans from '../components/patients/CarePlans'
 import PatientCreate from '../components/patients/Create'
@@ -287,6 +288,11 @@ const routes = [
     path: '/patients/new-registration',
     name: 'patientRegistration',
     component: PatientRegistration
+  },
+  {
+    path: '/prescriptions/list',
+    name: 'prescriptionsList',
+    component: PrescriptionList,
   },
   {
     path: '/patients/edit-patient/:patientId',

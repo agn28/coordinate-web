@@ -43,6 +43,11 @@
                 <i class="fas fa-fw fa-h-square"></i><span>Pending Review</span>
             </router-link>
         </li>
+        <li class="nav-item" :class="this.$route.path.includes('prescriptions') ? 'active' : ''">
+            <router-link to="/prescriptions/list" class="nav-link">
+                <i class="fas fa-fw fa-h-square"></i><span>Prescriptions List</span>
+            </router-link>
+        </li>
 
 
         <div v-if="user.role == 'admin'" class="menu-heading">

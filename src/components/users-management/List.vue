@@ -195,16 +195,26 @@
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Role</th>
+                    <th scope="col">Village</th>
+                    <th scope="col">Union</th>
+                    <th scope="col">Upazila</th>
+                    <th scope="col">District</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(user, index) in users" :key="index">
                     <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
                     <td>
                       <span class="badge badge-secondary text-capitalize mr-2">{{ user.role }}</span>
                     </td>
+                    <td>{{ user.address ? user.address.village : '' }}</td>
+                    <td>{{ user.address ? user.address.union : '' }}</td>
+                    <td>{{ user.address ? user.address.upazila : '' }}</td>
+                    <td>{{ user.address ? user.address.district : '' }}</td>
                     <td>
                       <!-- <a class="btn btn-sm btn-primary mr-2" href>
                         <i class="fas fa-pencil-alt"></i>

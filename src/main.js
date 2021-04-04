@@ -14,6 +14,8 @@ import VeeValidate from "vee-validate";
 import { Validator } from 'vee-validate';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueToast from 'vue-toast-notification';
+import VueHtml2Canvas from 'vue-html2canvas';
+ 
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -45,6 +47,7 @@ Vue.use(VueEllipseProgress);
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
 Vue.use(VueToast);
+Vue.use(VueHtml2Canvas);
 
 Vue.component('apexchart', VueApexCharts)
 

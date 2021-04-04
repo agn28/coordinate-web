@@ -194,16 +194,18 @@
 import moment from "moment";
 import VueJsonPretty from "vue-json-pretty";
 import TopNavBar from "../TopNavBar";
+import html2canvas from 'html2canvas';
 
 export default {
   name: "CarePlanCreate",
   components: {
     VueJsonPretty,
-    TopNavBar,
+    TopNavBar
   },
   // props: ["patientId"],
   data() {
     return {
+      pdfImage: null,
       patientId: '',
       patient: null,
       previousData: null,
@@ -214,7 +216,8 @@ export default {
       followUpDate: null,
       assessment_id: null,
       medications: [],
-      newMedications: []
+      newMedications: [],
+      removedCounsellings: [],
     };
   },
   computed: {
@@ -232,6 +235,15 @@ export default {
       
   },
   methods: {
+    hasGenerated (event) {
+
+    },
+    onProgress(event) {
+
+    },
+    hasStartedGeneration() {
+
+    },
     getPatients() {
       let loader = this.$loading.show();
       this.$http.get("/patients/" + this.patientId).then(
@@ -272,8 +284,8 @@ export default {
         }
       })
     },
-    updateReviewData() {
-      //TODO: comment remove
+    async updateReviewData() {
+
       let loader = this.$loading.show();
       this.isLoading = true;
 
@@ -288,6 +300,8 @@ export default {
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
       this.allData.data.body.follow_up_date = this.followUpDate;
+      this.allData.data.body.medications = this.newMedications;
+      this.allData.data.body.removed_counsellings = this.removedCounsellings;
 
       console.log('Final Data: ', this.allData);
       this.saveObservationData();
@@ -384,6 +398,7 @@ export default {
     prepareData() {
       this.patientId = this.$route.params.patientId;
       let localData = localStorage.getItem('report');
+      let localRemovedCounsellings = localStorage.getItem('removedCounsellings');
       let localDiagnosis = localStorage.getItem('diagnosis');
       let localInvestigations = localStorage.getItem('investigations');
       let localMedications = localStorage.getItem('medications');
@@ -392,6 +407,7 @@ export default {
       this.newDiagnosis =  localDiagnosis ? JSON.parse(localDiagnosis) : [];
       this.investigations =  localInvestigations ? JSON.parse(localInvestigations) : [];
       this.medications =  localMedications ? JSON.parse(localMedications) : [];
+      this.removedCounsellings =  localRemovedCounsellings ? JSON.parse(localRemovedCounsellings) : [];
       this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
 
       if (localNewMedications) {
@@ -436,6 +452,7 @@ export default {
           "comment": '',
           "performed_by": this.user.uid,
           "assessment_date": moment().format('YYYY-MM-DD'),
+          "next_visit_date": this.followUpDate,
           "patient_id": this.patientId
         },
         id: this.assessment_id
@@ -556,6 +573,31 @@ export default {
 </script>
 
 <style lang="scss">
+.prescription-section {
+  position: relative;
+}
+#pdf-image {
+  width: 300px;
+  border: 2px solid #999;
+  margin: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.prescripton-wrapper {
+  opacity: 0;
+  border: 1px solid grey;
+  width: 800px;
+  height: 1132px;
+  // height: 0px;
+  // display: none;
+  // position: relative;
+}
+#prescription {
+  background-color: #f2f2f2;
+  height: 100%;
+  // position: absolute;
+}
 .patient-overview {
   .patient-history {
     .timeline-wrapper {
