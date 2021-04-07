@@ -76,7 +76,7 @@
                         {{ patient.body.prescription ? getGeneratedby(patient.body.prescription.generated_by) : ''}}
                       </td>
                       <td>
-                        <a :href="patient.body.prescription.url" class="btn btn-primary btn-sm">View</a>
+                        <a :href="patient.body.prescription.url" target="blank" class="btn btn-primary btn-sm">View</a>
                         <!-- {{ patient.body.prescription ? getGeneratedby(patient.body.prescription.generated_by) : ''}} -->
                       </td>
                     </template>
