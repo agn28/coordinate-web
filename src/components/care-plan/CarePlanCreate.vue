@@ -361,6 +361,8 @@
                             :allow-empty="false"
                             :searchable="true"
                           ></multiselect>
+                          
+                          <input v-if="medication.title && medication.title.name == 'other'" type="text" class="form-control mt-2" name="other_drug" placeholder="Enter Drug Name" v-model="other_drug_name" required />
                       </div>
                       <div class="col-md-4 mb-3">
                           <label for="validationCustom01">Dosage</label>
@@ -470,8 +472,6 @@
         </div>
       </div>
       <!-- end popups -->
-
-            <!-- add Investigations -->
     </div>
   </div>
 </template>
@@ -618,6 +618,7 @@ export default {
       folloUpDate: '',
       selectedFollowup:  null,
       removedCounsellings: [],
+      other_drug_name: null
     };
   },
   methods: {
@@ -704,6 +705,8 @@ export default {
       this.$http.get('/drugs').then(response => {
         if (response.status == 200 && !response.data.error && response.data.error === false) {
           this.drugs = response.data.data;
+          console.log('drugs: ', this.drugs);
+          this.drugs.push({id: 'id_other', name: 'other'});
           this.isLoading = false
           this.dataReady = true
         }
@@ -714,7 +717,14 @@ export default {
       let startDate = new Date()
       let endDate = new Date()
       let period = this.medication.period.split(/(\d+)/).filter(Boolean);
-      let review = this.medication.review.split(/(\d+)/).filter(Boolean)
+      let review = this.medication.review.split(/(\d+)/).filter(Boolean);
+      
+      if (this.medication.title.name == 'other' && this.other_drug_name == '') {
+        alert('Enter drug name');
+        return;
+      }
+
+      let medicineTitle = this.medication.title.name != 'other' ? this.medication.title.name: this.other_drug_name;
      
       if (review[1] == 'w') {
         endDate = endDate.addDays(review[0] * 7)
@@ -724,12 +734,11 @@ export default {
         endDate = endDate.addDays(review[0])
       }
 
-
       let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
       let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
       let activity = {
         category: "medication",
-        title: this.medication.title.name,
+        title: medicineTitle,
         description: this.medication.title.name,
         dosage: this.medication.dosage,
         unit: this.medication.unit,
@@ -979,7 +988,7 @@ export default {
         this.getHealthReport();
         
       }
-    }
+    },
 
   },
   mounted() {

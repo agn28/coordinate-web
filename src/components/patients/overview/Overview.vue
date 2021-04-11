@@ -9,19 +9,12 @@
           </div>
         </div>
 
-        <div class="col-lg-6 text-right">
+        <!-- <div class="col-lg-6 text-right">
           <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary mr-3 radious-0">
             <span>Proceed To Care Plan </span>
           </router-link>
-        </div>
+        </div> -->
       </div>
-
-      <!-- <div v-if="patient" class="row">
-        <div class="col-lg-6">
-          <PatientSummary></PatientSummary>
-          
-        </div>
-      </div> -->
      <PatientSummary></PatientSummary>
   </div>
 </template>

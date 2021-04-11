@@ -97,53 +97,50 @@
 
               <tbody>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Smoking status</td>
+                  <td width="65%" class="font-weight-bold">Smoking status</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.smoking, false)">{{ riskFactors.body.data.smoking || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.smoking, false)">{{ riskFactors.body.data.smoking || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Smokeless tobacco</td>
+                  <td width="65%" class="font-weight-bold">Smokeless tobacco</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.smokeless_tobacco, false)">{{ riskFactors.body.data.smokeless_tobacco || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.smokeless_tobacco, false)">{{ riskFactors.body.data.smokeless_tobacco || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Diet: Additional salt: </td>
+                  <td width="65%" class="font-weight-bold">Diet: Additional salt: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.extra_salt, false)">{{ riskFactors.body.data.extra_salt || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.extra_salt, false)">{{ riskFactors.body.data.extra_salt || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Diet: Sugar intake: </td>
+                  <td width="65%" class="font-weight-bold">Diet: Sugar intake: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.sugary_drinks, false)">{{ riskFactors.body.data.sugary_drinks || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.sugary_drinks, false)">{{ riskFactors.body.data.sugary_drinks || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Diet: Processed food / red meat:</td>
+                  <td width="65%" class="font-weight-bold">Diet: Processed food / red meat:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.processed_foods, false)">{{ riskFactors.body.data.processed_foods || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.processed_foods, false)">{{ riskFactors.body.data.processed_foods || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Physical activity:</td>
+                  <td width="65%" class="font-weight-bold">Physical activity:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.physical_activity_moderate, true)">{{ riskFactors.body.data.physical_activity_moderate || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.physical_activity_moderate, true)">{{ riskFactors.body.data.physical_activity_moderate || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Alcohol consumption:</td>
+                  <td width="65%" class="font-weight-bold">Alcohol consumption:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.alcohol, false)">{{ riskFactors.body.data.alcohol || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.alcohol, false)">{{ riskFactors.body.data.alcohol || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Family history of hypertension or diabetes: </td>
+                  <td width="65%" class="font-weight-bold">Family history of hypertension or diabetes: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.family_diabetes, false)">{{ riskFactors.body.data.family_diabetes || 'N/A'}}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.family_diabetes, false)">{{ riskFactors.body.data.family_diabetes || 'N/A'}}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Last captured:</td>
+                  <td width="65%" class="font-weight-bold">Last captured:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ riskFactors.assessment ? moment(riskFactors.assessment.meta.created_at).format('Do MMMM YYYY') : '' }}</td>
+                  <td width="30%">{{ riskFactors.assessment ? moment(riskFactors.assessment.meta.created_at).format('Do MMMM YYYY') : '' }}</td>
                 </tr>
-                <!-- <tr class="mt-3">
-                  <td colspan="3" class="text-center mt-3"><a href="javascript:void(0)" class="btn btn-cust w-100">See Details</a></td>
-                </tr> -->
               </tbody>
             </table>
           </div>
@@ -455,8 +452,11 @@
         </div>
       </div>
     </div>
-    <div class="text-center m-3 mb-5" >
-        <!-- <a href="patients/13e781d8-702d-4f0f-ad6f-2e7d1cb1f013/investigations/create" >Update</a> -->
+    <div class="text-center mt-3 mb-5" >
+      <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary radious-0 mb-3 d-block">
+          <span>Proceed To Care Plan </span>
+      </router-link>
+
       <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-primary px-4 radious-0">
         Update
       </router-link>

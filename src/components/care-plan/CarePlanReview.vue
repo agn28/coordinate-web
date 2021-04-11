@@ -356,7 +356,7 @@ export default {
           localStorage.removeItem('follow_up_date')
           localStorage.removeItem('patientId');
           
-          this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
+          this.$router.push({ name: 'patients'});
           
           // let self = this;
           // setTimeout(function() {

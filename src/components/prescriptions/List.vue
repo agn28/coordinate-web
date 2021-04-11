@@ -150,6 +150,7 @@ export default {
         (response) => {
           if (response.status == 200) {
             this.patients = response.data.data;
+            console.log('prestcibed patients: ', this.patients)
             loader.hide();
           }
         },
