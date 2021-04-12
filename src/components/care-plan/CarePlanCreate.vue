@@ -248,8 +248,8 @@
                 <div class="card tab-card mb-3 card-blue-header">
                   <div class="card-header">Add Investigation</div>
                     <button type="submit" class="btn btn-primary right px-3 m-2 ml-auto radious-0" data-toggle="modal" data-target="#modal-add-investigations"><i class="fa fa-plus"></i> Add</button>
-                    <div class="table-responsive">
-                      <table class="table tbl-bordered-td" v-if="investigations.length">
+                    <div class="table-responsive" v-if="investigations.length">
+                      <table class="table tbl-bordered-td">
                         <thead>
                           <tr>
                             <th class="border-top-0" colspan="2">Investigation Name</th>
@@ -257,10 +257,10 @@
                         </thead>
                         <tbody>
                           <tr v-for="(item, index) in investigations" :key="index">
-                            <td>{{ item }}</td>
-                            <td>
-                              <!-- <i class="fa fa-times" @click="removeInvestigation(index)"></i> -->
-                              </td>
+                            <td >{{ item }}</td>
+                            <td class="text-right">
+                              <a href="javascript:void(0)" class="btn btn-sm btn-warning" @click="removeData(index, 'investigation')"><i class="fa fa-times text-white"></i></a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -278,12 +278,16 @@
                           <tr>
                             <th class="border-top-0">Diagnosis</th>
                             <th class="border-top-0">Comments</th>
+                            <th class="border-top-0">&nbsp;</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="(item, index) in newDiagnosis" :key="index">
-                            <td>{{ item.name }}</td>
+                            <td class="text-capitalize">{{ item.name }}</td>
                             <td>{{ item.comment }}</td>
+                            <td class="text-right">
+                              <a href="javascript:void(0)" class="btn btn-sm btn-warning" @click="removeData(index, 'diagnosis')"><i class="fa fa-times text-white"></i></a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -331,8 +335,7 @@
               </div>
           </div>
 
-          <div class="text-center py-3 mb-3">
-              <!-- <router-link :to="{name: 'carePlanReview', params: {patientId: patientId}}" class="btn btn-primary px-5 radious-0">Proceed To Confirmation</router-link> -->
+          <div class="text-center py-3 mb-3" v-if="!missingData && !isLoading">
               <button class="btn btn-primary px-5 radious-0" @click="proceed">Proceed To Confirmation</button>
           </div>
         </div>
@@ -399,7 +402,6 @@
                   </div>
                 </div>
                 <div class="modal-footer p-3">
-                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                   <button type="submit" class="btn btn-primary radious-0" >Confirm</button>
                 </div>
             </form>
@@ -625,37 +627,26 @@ export default {
     onActionUpdate(index) {
       if (this.allData.careplan.activities[index].status) {
         this.removedCounsellings.push(this.allData.careplan.activities[index]);
-        
-        console.log(this.removedCounsellings)
       } else {
         let existingCounselling = this.removedCounsellings.indexOf(this.allData.careplan.activities[index]);
         this.removedCounsellings.splice(existingCounselling, 1)
       }
-
-      console.log(this.removedCounsellings.length);
-      // console.log(this.allData.careplan.activities[index].status);
     },
     getHealthReport() {
-      // To do: remove below line
-      // let pID = '13e781d8-702d-4f0f-ad6f-2e7d1cb1f013';
       this.isLoading = true;
       this.$http.post('/health-reports/generate/' + this.patientId).then(response => {
         this.isLoading = false;
         if (response.status == 200) {
-          console.log('health report ', response.data);
           if (!response.data || response.data == {} || !response.data.careplan) {
-            console.log('hello')
             this.missingData = true;
             return;
           }
 
           if (response.data.assessments && response.data.assessments.cvd) {
             this.cvdRisk = response.data.assessments.cvd;
-            console.log('this cvd', this.cvdRisk);
           }
-          // if ()
+
           this.allData = response.data;
-          console.log('Report: ', this.allData);
         } else {
           this.missingData = true;
           console.log('error ');
@@ -686,11 +677,9 @@ export default {
       this.$http.get("/patients/" + this.patientId + "/medications").then(
         (response) => {
           loader.hide();
-          console.log('medications sadas ', response);
           if (response.status == 201) {
             if (response.data.data) {
               this.medications = response.data.data;
-              console.log('medications ', this.medications);
             }
             
           }
@@ -705,7 +694,6 @@ export default {
       this.$http.get('/drugs').then(response => {
         if (response.status == 200 && !response.data.error && response.data.error === false) {
           this.drugs = response.data.data;
-          console.log('drugs: ', this.drugs);
           this.drugs.push({id: 'id_other', name: 'other'});
           this.isLoading = false
           this.dataReady = true
@@ -714,17 +702,27 @@ export default {
     },
 
     addMedication() {
+      let isMedicineExists =  false;
+      //check if custom name entered
+      if (this.medication.title.name == 'other' && this.other_drug_name == '') {
+        this.$toast.open({ message: 'Enter Drug Name', type: 'error'});
+        return;
+      }
+
+      let medicineTitle = this.medication.title.name != 'other' ? this.medication.title.name.toLowerCase() : this.other_drug_name.toLowerCase();
+      //check if medicine exists
+      if (this.newMedication.length) {
+        isMedicineExists =  this.newMedication.some(data => { return data.body.title == medicineTitle });
+        if (isMedicineExists) {
+          this.$toast.open({ message: 'Medicine already added', type: 'error'});
+          return;
+        }
+      }
+
       let startDate = new Date()
       let endDate = new Date()
       let period = this.medication.period.split(/(\d+)/).filter(Boolean);
       let review = this.medication.review.split(/(\d+)/).filter(Boolean);
-      
-      if (this.medication.title.name == 'other' && this.other_drug_name == '') {
-        alert('Enter drug name');
-        return;
-      }
-
-      let medicineTitle = this.medication.title.name != 'other' ? this.medication.title.name: this.other_drug_name;
      
       if (review[1] == 'w') {
         endDate = endDate.addDays(review[0] * 7)
@@ -766,10 +764,19 @@ export default {
 
       this.newMedication.push({body: activity});
       this.medication = {};
+      this.other_drug_name = null;
       this.$refs.elCloseMedication.click();
     },
 
     addInvestigation() {
+      let isExists = this.investigations.some(data => { return data == this.investigation });
+      if (isExists) {
+        this.$toast.open({
+          message: 'Investigation already added',
+          type: 'error',
+        });
+        return;
+      }
       this.investigations.push(this.investigation);
       this.$refs.elCloseInvestigation.click();
       this.investigation = '';
@@ -794,21 +801,25 @@ export default {
     },
 
     addDiagnosis() {
+      let isExists = this.newDiagnosis.some(data => { return data.name == this.diagnosis.name });
+      if (isExists) {
+        this.$toast.open({
+          message: 'Diagnosis already added',
+          type: 'error',
+        });
+        return;
+      }
       let data = {
         name: this.diagnosis.name,
         comment: this.diagnosis.comment
       };
-      
       this.newDiagnosis.push(data);
       this.diagnosis = {};
-
       this.$refs.elCloseDiagnosis.click();
-
     },
     getGeneratedCareplans() {
       this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
         (response) => {
-          console.log('Last: ', response);
           if (response.status == 200) {
             if(response.data.data) {
               this.lastReports = response.data.data.slice(0, 3);
@@ -856,19 +867,9 @@ export default {
         return;
       }
 
-      
-      // if (this.newMedication.length) {
-      //   this.newMedication.forEach(item => {
-      //     this.allData.careplan.activities.push(item);
-      //   })
-      // }
-
       if (this.folloUpDate) {
         localStorage.setItem('follow_up_date', this.folloUpDate);
       }
-
-      console.log('alldata ', this.allData.careplan.activities);
-      console.log('removed ', this.removedCounsellings);
 
       this.allData.careplan.activities = this.allData.careplan.activities
 
@@ -878,12 +879,6 @@ export default {
           this.allData.careplan.activities.splice(index, 1)
         }
       })
-      // return;
-
-      // console.log('Final:' , this.allData);
-      // return;
-
-      console.log('new medications ', this.newMedication);
 
       localStorage.setItem('report', JSON.stringify(this.allData));
       localStorage.setItem('selectedFollowup', this.selectedFollowup);
@@ -916,7 +911,6 @@ export default {
       return date;
     },
     generateFollowUpDate() {
-      console.log(this.folloUpDate);
       if (this.selectedFollowup) {
         let days = '';
 
@@ -979,16 +973,25 @@ export default {
         }
 
         this.reviewId = this.allData.report_id ? this.allData.report_id : null;
-
-        
-        
-        
       }
       else {
         this.getHealthReport();
         
       }
     },
+    removeData(index, type) {
+      if (type == 'investigation') {
+        if(this.investigations[index]) { 
+          this.investigations.splice(index, 1);
+        }
+      }
+
+      if (type == 'diagnosis') {
+        if(this.newDiagnosis[index]) { 
+          this.newDiagnosis.splice(index, 1);
+        }
+      }
+    }
 
   },
   mounted() {

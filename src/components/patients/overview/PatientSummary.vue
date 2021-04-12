@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <div class="card tab-card  card-blue-header">
           <div class="card-header "> Patient Information
-            <div class="text-xs pt-2 float-right" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
+            <div class="text-xs pt-2 float-right last-encounter" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
           </div>
           <div class="table-responsive">
             <table v-if="patient" class="table table-patient table-borderless mt-2">
@@ -293,10 +293,8 @@
         </div>
 
         <div class="card tab-card mb-3 card-blue-header">
-          <div class="card-header ">Investigations
-            <!-- <h4 class="custom-title font-weight-bold p-0">Investigations</h4> -->
-            </div>
-            <span class="sub-title">Blood Sugar</span>
+          <div class="card-header ">Investigations</div>
+          <span class="sub-title">Blood Sugar</span>
           <div class="table-responsive">
             <table class="table table-borderless">
               <thead>
@@ -479,6 +477,7 @@
                 </tbody>
               </table>
             </div>
+            <div class="text-muted text-center" v-if="!isComplainAvailable">No complain / note found </div>
             <a href="javascript:void(0)" class="btn btn-primary add-note" data-toggle="modal" data-target="#modal-add-notes"><i class="fa fa-plus"> Add</i></a>
         </div>
       </div>
@@ -603,6 +602,7 @@ export default {
       pendingInvestigations: [],
       lastReports: [],
       riskFactors: null,
+      isComplainAvailable: true
     };
   },
   methods: {
@@ -610,7 +610,6 @@ export default {
     getGeneratedCareplans() {
       this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
         (response) => {
-          console.log('Last: ', response);
           if (response.status == 200) {
             if(response.data.data) {
               this.lastReports = response.data.data.slice(0, 3);
@@ -815,7 +814,6 @@ export default {
             loader.hide();
             if (response.status == 200) {
               
-              console.log('last report data ', response.data);
               if (response.data.data) {
                 this.report = response.data.data;
                 if (this.report.body && this.report.body.result.assessments && this.report.body.result.assessments.cvd) {
@@ -931,7 +929,6 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.observations = response.data.data;
-            console.log('observations: ', this.observations);
 
             if (this.observations) {
               this.observations.forEach((obs) => {
@@ -1214,7 +1211,6 @@ export default {
         response => {
             if (response.status == 200) {
             this.followups = response.data.data.length ? response.data.data[response.data.data.length-1]: null;
-            console.log(this.followups, 'follow')
             }
         },
         error => {
@@ -1280,10 +1276,13 @@ export default {
       this.$http.get("/patients/" + this.patientId + "/notes").then((response) => {
           if (response.data && response.data.error == false && response.data.data) {
             this.patientNotes = response.data.data;
+            return;
           }
+          this.isComplainAvailable = false;
         },
         (error) => {
-          // loader.hide();
+          loader.hide();
+          console.log(error);
         }
       );
     },
@@ -1291,7 +1290,6 @@ export default {
       this.$http.get("/care-plans/patient/" + this.patientId).then((response) => {
           this.pendingInvestigations = [];
           if (response.status == 200) {
-            console.log('cp: ', response.data)
             if (response.data.data) {
               response.data.data.filter(item => {
                 
@@ -1313,9 +1311,8 @@ export default {
       this.$http.get("/observations/patient/" + this.patientId + '/last-risk-factors').then((response) => {
           this.pendingInvestigations = [];
           if (response.status == 200) {
-            console.log('cp: ', response.data)
             if (response.data.data) {
-              this.riskFactors = response.data.data;                
+              this.riskFactors = response.data.data;
             }
           }
 
@@ -1330,7 +1327,6 @@ export default {
           let completedItems = [];
           completedItems = this.pendingInvestigations.filter(item =>  item.meta.status == true);
           if (completedItems && completedItems.length > 0) {
-            console.log('hid')
             let data = {
               "status": "completed",
               // "comment": '',

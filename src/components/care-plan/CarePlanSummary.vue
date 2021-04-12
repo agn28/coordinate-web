@@ -130,14 +130,10 @@
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in generatedCarePlan.body.investigations" :key="index">
-                          <td>{{ item }}</td>
-                          <td>
-                            <!-- <i class="fa fa-times" @click="removeInvestigation(index)"></i> -->
-                            </td>
+                          <td class="text-capitalize">{{ item }}</td>
                         </tr>
                       </tbody>
                     </table>
-                    <!-- <div v-if="investigations.length == 0" class="text-center mt-2">No investigation added</div> -->
                   </div>
               </div>
             </div>
@@ -154,12 +150,11 @@
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in generatedCarePlan.body.diagnosis" :key="index">
-                          <td>{{ item.name }}</td>
+                          <td class="text-capitalize">{{ item.name }}</td>
                           <td>{{ item.comment }}</td>
                         </tr>
                       </tbody>
                     </table>
-                    <!-- <div v-if="newDiagnosis.length == 0" class="text-center mt-2">No diagnosis added</div> -->
                   </div>
               </div>
             </div>
@@ -184,7 +179,6 @@ export default {
     VueJsonPretty,
     TopNavBar,
   },
-  // props: ["patientId"],
   data() {
     return {
       patientId: '',
@@ -216,8 +210,6 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
-            console.log(this.patient)
-            // console.log(this.patient, 'patient')
           }
         },
         (error) => {
