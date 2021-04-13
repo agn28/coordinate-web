@@ -134,3 +134,20 @@ a {
     }
   } 
 }
+
+button.page-link {
+  display: inline-block;
+  color: #012d52;
+  &:focus{ outline: none; }
+  &:visited{ outline: none; }
+  &:hover{color: #012d51}
+  &[disabled] {
+    background: #e9ecef;
+    color: #012d51;
+  }
+}
+
+.offset {
+  width: 500px !important;
+  margin: 20px auto;
+}

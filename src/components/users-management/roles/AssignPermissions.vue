@@ -1,16 +1,8 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <div class="row">
-        <div class="col-lg-12 d-flex breadcrumb-wrap">
-          <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
-          <div class>
-            <h4>Assign Permissions</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
+      <TopNavBar heading="Assign Permissions"></TopNavBar>
+      <div class="row mt-0">
         <div class="col-lg-12">
           <div class="patient-list">
             <div class="card mt-5">
@@ -66,9 +58,10 @@
 </template>
 
 <script>
+import TopNavBar from '../../TopNavBar.vue';
 export default {
   name: "assign-permissions",
-  components: {},
+  components: { TopNavBar },
   data() {
     return {
       newRole: null,

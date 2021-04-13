@@ -290,8 +290,6 @@ export default {
       this.allData.data.body.follow_up_date = this.followUpDate;
       this.allData.data.body.medications = this.newMedications;
       this.allData.data.body.removed_counsellings = this.removedCounsellings;
-
-      console.log('Final Data: ', this.allData);
       this.saveObservationData();
 
       //TODO: work from here
@@ -448,7 +446,6 @@ export default {
       if (this.newDiagnosis.length > 0) {
         let data = this.prepareDiagnosisData(this.user.uid, created_at, 'survey', this.patientId, assesment_id);
         this.$http.post("/observations", data).then(response => {
-          console.log('Diagonosis response: ', response)
         }).catch(error => { console.log(error) });
 
       }

@@ -7,7 +7,6 @@
         <div class="col-lg-12">
           <div class="patient-content">
             <div class="title">Patient List</div>
-
           </div>
         </div>
       </div>
@@ -17,18 +16,18 @@
           <div class="patient-search">
              <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
-                <div class="input-group-prepend">
-                  <span class="input-group-text lighten-3" id="basic-text1">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                </div>
                 <input
-                  class="form-control my-0 py-1 border-left-0"
+                  class="form-control my-0 py-1 border-right-0"
                   type="text"
                   placeholder="Patient Name, ID, NID"
                   aria-label="Search"
                   v-model="search"
                 />
+                 <div class="input-group-prepend">
+                  <a href="javascript:void(0)" @click="getPatients" class="input-group-text lighten-3 text-decoration-none" id="basic-text1">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                  </a>
+                </div>
               </div>
             </div> 
 
@@ -37,9 +36,9 @@
       </div>
       <div class="row mt-0">
         <div class="col-lg-12">
-          <div class="patient-list">
+          <div class="patient-list" v-if="patients.length > 0">
             <div class="table-responsive">
-              <table class="table" v-if="patients.length > 0">
+              <table class="table" >
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
@@ -63,8 +62,6 @@
                           patient.body.first_name + " " + patient.body.last_name
                         }}
                       </td>
-
-                      <!-- <td>P2342343</td> -->
                       <td>{{ patient.body.nid }}</td>
                       <td>{{ patient.body.age }}</td>
                       <td>{{ patient.body.gender.toUpperCase()
@@ -84,6 +81,21 @@
                 </tbody>
               </table>
             </div>
+
+            <nav aria-label="Page navigation" class="d-none">
+              <ul class="pagination mt-3 mb-5">
+                <li class="page-item">
+                  <button type="button" class="page-link" v-if="paginationOptions.currentPage != 1" @click="paginationOptions.currentPage--"> Previous </button>
+                </li>
+                <li class="page-item">
+                  <button type="button" class="page-link" v-for="(pageNumber, index) in paginationOptions.pages.slice(paginationOptions.currentPage - 1, paginationOptions.currentPage + 10)" @click="paginationOptions.currentPage = pageNumber" :key="index" :disabled="paginationOptions.currentPage == pageNumber ? true : false" > {{ pageNumber }} </button>
+                </li>
+                <li class="page-item">
+                  <button type="button" @click="paginationOptions.currentPage++" v-if="paginationOptions.currentPage < paginationOptions.pages.length" class="page-link"> Next </button>
+                </li>
+              </ul>
+            </nav>
+
           </div>
         </div>
       </div>
@@ -106,7 +118,13 @@ export default {
     return {
       patients: [],
       search: "",
-      users: []
+      users: [],
+      paginationOptions: {
+        currentPage: 1,
+        perPage: 10,
+        totalItems: 500,
+        pages: []
+      }
     };
   },
   computed: {
@@ -146,6 +164,7 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
+      this.setPages();
       this.$http.get("/patients/prescriptions").then(
         (response) => {
           if (response.status == 200) {
@@ -171,6 +190,19 @@ export default {
       }
       return "";
     },
+    setPages() {
+      let numberOfPages = Math.ceil(this.paginationOptions.totalItems / this.paginationOptions.perPage);
+			for (let index = 1; index <= numberOfPages; index ++) {
+				this.paginationOptions.pages.push(index);
+			}
+    },
+  },
+  watch: {
+  	'paginationOptions.currentPage': function(newVal, oldVal) {
+    	console.log('newpage: ', newVal);
+    	console.log('old page: ', oldVal);
+      this.getPatients();
+    }
   },
   mounted() {
     this.getPatients();

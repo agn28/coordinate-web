@@ -224,9 +224,7 @@ export default {
         (response) => {
           loader.hide();
           if (response.status == 200) {
-            console.log('data ', response.data.data);
             this.medications = response.data.data;
-            // console.log(this.patient, 'patient')
           }
         },
         (error) => {
@@ -252,7 +250,6 @@ export default {
               //   this.medications.push(carePlan);
               // }
             });
-            console.log('care plan ', this.generatedCarePlan)
             // console.log(this.patient, 'patient')
           }
         },
@@ -290,12 +287,7 @@ export default {
     updateReviewData() {
       let loader = this.$loading.show();
       this.isLoading = true;
-      // var data = this.calculateDuration(this.allData.data);
-      // console.log('generate careplan: ', JSON.stringify(data));
-      // return data;
-
-      console.log('all data: ', this.allData);
-      console.log('Previous: ', this.previousData);
+      
 
       this.allData.data.body.result.careplan = this.previousData.careplan;
       this.allData.data.body.investigations = this.investigations;

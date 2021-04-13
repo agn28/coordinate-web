@@ -1,14 +1,7 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <div class="row">
-        <div class="col-lg-12 d-flex breadcrumb-wrap">
-          <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
-          <div class>
-            <h4>Patients asd</h4>
-          </div>
-        </div>
-      </div>
+      <TopNavBar heading="Patients asd"></TopNavBar>
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-content">
@@ -99,10 +92,11 @@
 
 <script>
 import moment from 'moment';
+import TopNavBar from '../../TopNavBar';
 
 export default {
   name: "worklistPatient",
-  components: {},
+  components: { TopNavBar },
   data() {
     return {
       patients: [],

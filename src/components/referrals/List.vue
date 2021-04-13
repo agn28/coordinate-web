@@ -1,17 +1,7 @@
 <template>
     <div class="content patient-list-page">
         <div class="animated fadeIn">
-           <div class="row">
-               <div class="col-lg-12 d-flex breadcrumb-wrap">
-                   <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
-                   <div class="">
-                       <h4>Referrals</h4>
-                   </div>
-               </div>
-           </div>
-
-
-
+            <TopNavBar heading="Referrals"></TopNavBar>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="patient-list">
@@ -19,14 +9,7 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th scope="col">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="" name="example1">
-                                            <label class="custom-control-label" for=""></label>
-                                        </div>
-                                    </th>
                                     <th scope="col">Name</th>
-                                    <!-- <th scope="col">PID</th> -->
                                     <th scope="col">Age</th>
                                     <th scope="col">Gender</th>
                                     <th scope="col">Generated At</th>
@@ -36,16 +19,7 @@
                                 <tbody>
                                 <tr class="pointer" v-for="(patient, index) in followupPatients" :key="index" >
                                     <template>
-                                        <th scope="row">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="" name="example1">
-                                                <label class="custom-control-label" for=""></label>
-                                            </div>
-                                        </th>
                                         <td>{{ patient.body.first_name + ' ' + patient.body.last_name}}</td>
-
-
-                                        <!-- <td>P2342343</td> -->
                                         <td>{{ patient.body.age }} </td>
                                         <td>{{ patient.body.gender.toUpperCase() }}<span class="pull-right"><i class="fas fa-arrow-right"></i></span>
                                         </td>
@@ -86,12 +60,12 @@
     import Vue from 'vue';
     import moment from 'moment';
     import {VuejsDatatableFactory} from 'vuejs-datatable';
-
+    import TopNavBar from '../TopNavBar';
     Vue.use(VuejsDatatableFactory);
 
     export default {
         name: "patients",
-        components: {},
+        components: { TopNavBar },
         data() {
             return {
                 patients: [],
@@ -168,12 +142,9 @@
             prepareData() {
                 let patients = [];
                 this.followups.forEach( followup => {
-                    console.log(patients)
                     let patientExists =  patients.find( patient => patient.id == followup.meta.patient_id)
                     if (!patientExists) {
-                        console.log('hello')
-                        let patient = this.patients.find( patient => patient.id == followup.meta.patient_id)
-                        console.log(patient);   
+                        let patient = this.patients.find( patient => patient.id == followup.meta.patient_id); 
                         if (patient) {
                             patients.push(patient)
                         }

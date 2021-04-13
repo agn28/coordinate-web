@@ -1,14 +1,7 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <div class="row">
-        <div class="col-lg-12 d-flex breadcrumb-wrap">
-          <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
-          <div class>
-            <h4>Users</h4>
-          </div>
-        </div>
-      </div>
+      <TopNavBar heading="Users"></TopNavBar>
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-content">
@@ -280,10 +273,11 @@
 
 <script>
 import Multiselect from "vue-multiselect";
+import TopNavBar from '../TopNavBar.vue';
 
 export default {
   name: "users",
-  components: { Multiselect },
+  components: { Multiselect, TopNavBar },
   data() {
     return {
       isEdit: false,

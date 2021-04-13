@@ -62,7 +62,7 @@
                 <tr>
                   <td colspan="3" class="">
                     <div class="d-flex align-items-center patient-summary__action mt-3">
-                      <a href="javascript:void(0)" class="btn btn-cust">See Details</a>
+                      <a href="javascript:void(0)" class="btn btn-cust" data-toggle="modal" data-target="#modal-patient-details">See Details</a>
                       <router-link :to="{ name: 'encounters', params: { patientId: patientId }}" tag="a" class="btn btn-cust">See History</router-link>
                     </div>
                   </td>
@@ -132,7 +132,7 @@
                   <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.alcohol, false)">{{ riskFactors.body.data.alcohol || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Family history of hypertension or diabetes: </td>
+                  <td width="65%" class="font-weight-bold">Family history of HTN or diabetes: </td>
                    <td width="5%" class="text-center">:</td>
                   <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.family_diabetes, false)">{{ riskFactors.body.data.family_diabetes || 'N/A'}}</td>
                 </tr>
@@ -451,11 +451,11 @@
       </div>
     </div>
     <div class="text-center mt-3 mb-5" >
-      <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary radious-0 mb-3 d-block">
+      <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary radious-0 mb-3 d-block btn-proceed">
           <span>Proceed To Care Plan </span>
       </router-link>
 
-      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-primary px-4 radious-0">
+      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-xs btn-info px-2 py-1 radious-0">
         Update
       </router-link>
     </div>
@@ -522,31 +522,142 @@
   </div>
 
     <!-- add Complains/ Notes -->
-      <div class="modal fade" id="modal-add-notes" tabindex="-1" role="dialog" aria-labelledby="modal-add-notes" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="modal-add-notes" tabindex="-1" role="dialog" aria-labelledby="modal-add-notes" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-blue-header p-0 radious-0">
+          <div class="modal-header py-2 px-3">
+            <h5 class="modal-title text-white">Add Complain / Note</h5>
+            <button type="button" ref="elCloseNoteModal" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form @submit.prevent="addNote">
+            <div class="modal-body p-3">
+              <div class="form-row">
+                  <div class="col-md-12 mb-3">
+                      <label for="validationCustom01">Enter Complain / Note</label>
+                      <textarea class="form-control" required v-model="note"></textarea>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer p-3">
+              <button type="submit" class="btn btn-primary radious-0">Confirm</button>
+            </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient details -->
+    <div class="modal fade" id="modal-patient-details" tabindex="-1" role="dialog" aria-labelledby="modal-patient-details" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content modal-blue-header p-0 radious-0">
             <div class="modal-header py-2 px-3">
-              <h5 class="modal-title text-white">Add Complain / Note</h5>
-              <button type="button" ref="elCloseNoteModal" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <h5 class="modal-title text-white">Patient Details</h5>
+              <button type="button" ref="elCloseInvestigation" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form @submit.prevent="addNote">
-              <div class="modal-body p-3">
-                <div class="form-row">
-                    <div class="col-md-12 mb-3">
-                        <label for="validationCustom01">Enter Complain / Note</label>
-                        <textarea class="form-control" required v-model="note"></textarea>
-                    </div>
-                </div>
+            <div class="modal-body p-3">
+              <div class="table-responsive">
+                <table v-if="patient" class="table table-patient table-borderless mt-2">
+                  <tbody>
+                    <tr>
+                      <td width="30%" class="font-weight-bold">Patient ID</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.pid }}</td>
+                    </tr>
+                    <tr>
+                      <td width="30%" class="font-weight-bold">Name</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.first_name + ' ' + patient.body.last_name }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Guardian Name</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.father_name ||  patient.body.husband_name}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Date Of Birth</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.birth_date }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Age</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.age }} years</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Gender</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.gender }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Village</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.village : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Union</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.union : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td width="30%" class="font-weight-bold">Upazila</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.upazila : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">District</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.district : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Patient NID</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.nid ? patient.body.nid : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Centre Assigned</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.center ? patient.body.center.name : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Religion</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.religion }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Education</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.education }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Occupation</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.occupation }}</td>
+                    </tr>
+                    <!-- <tr>
+                      <td  width="30%" class="font-weight-bold">Ethnicity</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.ethnicity }}</td>
+                    </tr> -->
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Monthly Income</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.monthly_income }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="modal-footer p-3">
-                <button type="submit" class="btn btn-primary radious-0">Confirm</button>
-              </div>
-             </form>
+              
+            </div>
+            <!-- <div class="modal-footer p-3">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> -->
           </div>
-        </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -602,7 +713,14 @@ export default {
       pendingInvestigations: [],
       lastReports: [],
       riskFactors: null,
-      isComplainAvailable: true
+      isComplainAvailable: true,
+      patientAdditionalInfo: {
+        monthly_income : '',
+        religion : '',
+        education : '',
+        occupation : '',
+        ethnicity : ''
+      }
     };
   },
   methods: {
@@ -955,6 +1073,23 @@ export default {
                   else if (observation.data.name == 'medication') {
                     this.details.hypertension_medication = observation.data.hypertension_medication;
                     this.details.hypertension_medication_regular = observation.data.hypertension_medication_regular || 'N/A';
+                  }
+                  else if (observation.data.name == 'relative_problems') {
+                    if (observation.data.monthly_income ) {
+                        this.patientAdditionalInfo.monthly_income = observation.data.monthly_income;
+                    }
+                    if (observation.data.religion ) {
+                      this.patientAdditionalInfo.religion = observation.data.religion;
+                    }
+                    if (observation.data.education ) {
+                      this.patientAdditionalInfo.education = observation.data.education;
+                    }
+                    if (observation.data.occupation ) {
+                       this.patientAdditionalInfo.occupation = observation.data.occupation;
+                    }
+                    if (observation.data.ethnicity ) {
+                       this.patientAdditionalInfo.ethnicity = observation.data.ethnicity;
+                    }
                   }
                 }
                 else if (observation.type == 'blood_pressure') {
@@ -1475,6 +1610,10 @@ export default {
   }
   .table-patient {
     height: 429px;
+  }
+  .btn-proceed{
+    max-width: 200px;
+    margin: 0 auto;
   }
 }
 </style>
