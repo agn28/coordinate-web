@@ -288,7 +288,14 @@ export default {
       this.allData.data.body.diagnosis = this.newDiagnosis;
       this.allData.data.body.follow_up_date = this.followUpDate;
       this.allData.data.body.medications = this.newMedications;
-      this.allData.data.body.removed_counsellings = this.removedCounsellings;
+
+      let counsellings = this.previousData.careplan.activities.filter((item => {
+        if (item.category == 'survey') {
+          return item;
+        }
+      }));
+      this.allData.data.body.removed_counsellings = this.removedCounsellings.concat(counsellings);
+
       this.saveObservationData();
 
       //TODO: work from here
