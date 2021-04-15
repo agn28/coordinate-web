@@ -43,16 +43,21 @@
                             </table>
                             <p v-if="this.followupPatients.length == 0" class="text-center mt-5">No referrals found</p>
                         </div>
+                         <nav aria-label="Page navigation pull-right" v-if="this.followupPatients.length">
+                            <ul class="pagination my-3">
+                                <li class="page-item">
+                                <button type="button" class="page-link"  @click="nextPrevPage('prev')" :disabled="disablePrevButton"> Previous </button>
+                                </li>
+                                <li class="page-item">
+                                <button type="button" @click="nextPrevPage('next')"  class="page-link" :disabled="disableNextButton"> Next </button>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
-
 </template>
 
 <script>
@@ -73,11 +78,16 @@
                 followupPatients: [],
                 selectedPatient: {},
                 selectedStatus: '',
+                lastItemId: '',
+                disablePrevButton: false,
+                disableNextButton: false,
+                paginationOptions: {
+                    currentPage: 1,
+                    perPage: 20,
+                },
             };
         },
         methods: {
-            
-
             updatePatientReferral(patient) {
 
                 patient.meta.referral_required = false;
@@ -115,9 +125,10 @@
                     });
             },
 
-            getPatients() {
+            getPatients(lastItemId = '', queryItemkey = 'last_item') {
                 let loader = this.$loading.show();
-                this.$http.get("/patients").then(response => {
+                this.$http.get("/patients?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId).then(response => {
+                    console.log(response)
                     if (response.status == 200) {
                         loader.hide()
                         this.patients = response.data.data;
@@ -126,12 +137,27 @@
                         if (this.patients.length > 0 ) {
                             this.prepareData()
                         }
-                        
                     }
                 },
                 error => {
                     loader.hide();
                 });
+            },
+            nextPrevPage(type) {
+                let dataLength = this.patients.length;
+
+                if (type == 'next') {
+                    let lastItemId = '';
+                    if ( dataLength > 0) {
+                    lastItemId = this.patients[dataLength - 1].id;
+                    }
+                    this.getPatients(lastItemId, 'last_item');
+                }
+
+                if (type == 'prev') {
+                    let firstItemId = dataLength > 0 ? this.patients[0].id : '';
+                    this.getPatients(firstItemId, 'first_item');
+                }
             },
 
             getDate(date) {

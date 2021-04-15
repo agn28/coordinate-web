@@ -50,7 +50,7 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Date</div>
-                <p class="p-3 mb-0">14 Mar 2021</p>
+                <p class="p-3 mb-0">{{ moment().format('DD MMM YYYY') }}</p>
               </div>
                <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Doctor</div>
@@ -76,7 +76,6 @@
                         <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'survey'">
                           <td class="align-middle">{{ item.title }}</td>
                           <td class="text-center align-middle">
-                            
                           </td>
                         </tr>
                       </tbody>

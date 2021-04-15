@@ -36,7 +36,7 @@
       <div class="row mt-0">
         <div class="col-lg-12">
           <div class="patient-list" v-if="patients.length > 0">
-            <div class="table-responsive">
+            <div class="table-responsive" >
               <table class="table" >
                 <thead>
                   <tr>
@@ -92,7 +92,7 @@
               </ul>
             </nav>	 -->
 
-            <nav aria-label="Page navigation pull-right" >
+            <nav aria-label="Page navigation" >
               <ul class="pagination my-3">
                 <li class="page-item">
                   <button type="button" class="page-link"  @click="nextPrevPage('prev')" :disabled="disablePrevButton"> Previous </button>
@@ -126,7 +126,7 @@ export default {
       paginationOptions: {
         currentPage: 1,
         perPage: 20,
-        totalItems: 500,
+        // totalItems: 500,
         pages: []
       },
       lastItemId: '',
@@ -153,15 +153,24 @@ export default {
   methods: {
     getPatients(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
+      let searchKey = '';
       this.disablePrevButton = false;
       this.disableNextButton = false;
-      this.$http.get("/patients?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + '&key=' + this.search).then(
+      
+      if(this.search) {
+        if(isNaN(this.search)) {
+          searchKey = '&name=' + this.search;
+        } else {
+          searchKey = '&nid=' + this.search;
+        }
+      }
+      this.$http.get("/patients?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
         (response) => {
-          console.log(response.data);
           if (response.status == 200) {
             loader.hide();
             if (response.data.error == true) {
-              let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
+              // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
+              let msg = 'No record found';
               if ( queryItemkey == 'last_item') {
                 this.disableNextButton = true;
               } 
@@ -169,7 +178,9 @@ export default {
               if ( queryItemkey == 'first_item') {
                 this.disablePrevButton = true;
               }
+              this.search = '';
               this.$toast.open({ message: msg, type: 'error'});
+              // this.patients = [];
               return;
             }
 
@@ -184,7 +195,6 @@ export default {
       );
     },
     nextPrevPage(type) {
-      console.log('type: ', type);
       let dataLength = this.patients.length;
 
       if (type == 'next') {
@@ -219,11 +229,6 @@ export default {
     },
     scrollToTop() {
         window.scrollTo(0,0);
-    }
-  },
-  watch: {
-  	'paginationOptions.currentPage': function(newVal, oldVal) {
-      this.getPatients();
     }
   },
   mounted() {

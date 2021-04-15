@@ -24,7 +24,7 @@
                   v-model="search"
                 />
                  <div class="input-group-prepend">
-                  <a href="javascript:void(0)" @click="getPatients" class="input-group-text lighten-3 text-decoration-none" id="basic-text1">
+                  <a href="javascript:void(0)" @click="getPatients('', 'last_item')" class="input-group-text lighten-3 text-decoration-none" id="basic-text1">
                     <i class="fas fa-search" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -53,7 +53,7 @@
                 <tbody>
                   <tr
                     class="pointer bg-white tr-border-bttom-grey"
-                    v-for="(patient, index) in filteredList"
+                    v-for="(patient, index) in patients"
                     :key="index"
                   >
                     <template>
@@ -82,20 +82,16 @@
               </table>
             </div>
 
-            <nav aria-label="Page navigation" class="d-none">
-              <ul class="pagination mt-3 mb-5">
+            <nav aria-label="Page navigation">
+              <ul class="pagination my-3">
                 <li class="page-item">
-                  <button type="button" class="page-link" v-if="paginationOptions.currentPage != 1" @click="paginationOptions.currentPage--"> Previous </button>
+                  <button type="button" class="page-link"  @click="nextPrevPage('prev')" :disabled="disablePrevButton"> Previous </button>
                 </li>
                 <li class="page-item">
-                  <button type="button" class="page-link" v-for="(pageNumber, index) in paginationOptions.pages.slice(paginationOptions.currentPage - 1, paginationOptions.currentPage + 10)" @click="paginationOptions.currentPage = pageNumber" :key="index" :disabled="paginationOptions.currentPage == pageNumber ? true : false" > {{ pageNumber }} </button>
-                </li>
-                <li class="page-item">
-                  <button type="button" @click="paginationOptions.currentPage++" v-if="paginationOptions.currentPage < paginationOptions.pages.length" class="page-link"> Next </button>
+                  <button type="button" @click="nextPrevPage('next')"  class="page-link" :disabled="disableNextButton"> Next </button>
                 </li>
               </ul>
             </nav>
-
           </div>
         </div>
       </div>
@@ -121,10 +117,11 @@ export default {
       users: [],
       paginationOptions: {
         currentPage: 1,
-        perPage: 10,
-        totalItems: 500,
-        pages: []
-      }
+        perPage: 20
+      },
+      lastItemId: '',
+      disablePrevButton: false,
+      disableNextButton: false,
     };
   },
   computed: {
@@ -162,15 +159,42 @@ export default {
         }
       );
     },
-    getPatients() {
+    getPatients(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
-      this.setPages();
-      this.$http.get("/patients/prescriptions").then(
+        let searchKey = '';
+        this.disablePrevButton = false;
+        this.disableNextButton = false;
+        if(this.search) {
+          if(isNaN(this.search)) {
+            searchKey = '&name=' + this.search;
+          } else {
+            searchKey = '&nid=' + this.search;
+        }
+      }
+
+      this.$http.get("/patients/prescriptions?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId  + searchKey).then(
         (response) => {
+          console.log(response);
           if (response.status == 200) {
+              loader.hide();
+              if (response.data.error == true) {
+              // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
+              let msg = 'No record found';
+              if ( queryItemkey == 'last_item') {
+                this.disableNextButton = true;
+              } 
+
+              if ( queryItemkey == 'first_item') {
+                this.disablePrevButton = true;
+              }
+              this.search = '';
+              this.$toast.open({ message: msg, type: 'error'});
+              // this.patients = [];
+              return;
+            }
+
             this.patients = response.data.data;
-            console.log('prestcibed patients: ', this.patients)
-            loader.hide();
+            
           }
         },
         (error) => {
@@ -178,7 +202,22 @@ export default {
         }
       );
     },
+    nextPrevPage(type) {
+      let dataLength = this.patients.length;
 
+      if (type == 'next') {
+        let lastItemId = '';
+        if ( dataLength > 0) {
+          lastItemId = this.patients[dataLength - 1].id;
+        }
+        this.getPatients(lastItemId, 'last_item');
+      }
+
+      if (type == 'prev') {
+         let firstItemId = dataLength > 0 ? this.patients[0].id : '';
+        this.getPatients(firstItemId, 'first_item');
+      }
+    },
     getId(identifier, type) {
       if (!identifier) {
         return "";
@@ -199,8 +238,6 @@ export default {
   },
   watch: {
   	'paginationOptions.currentPage': function(newVal, oldVal) {
-    	console.log('newpage: ', newVal);
-    	console.log('old page: ', oldVal);
       this.getPatients();
     }
   },
