@@ -92,13 +92,13 @@
               <table class="table" v-if="patients.length > 0">
                 <thead>
                   <tr>
-                    <th scope="col">
+                    <!-- <th scope="col">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="" name="example1"
                         />
                         <label class="custom-control-label" for=""></label>
                       </div>
-                    </th>
+                    </th> -->
                     <th scope="col">Name</th>
                     <th scope="col">NID</th>
                     <th scope="col">Age</th>
@@ -119,7 +119,7 @@
                     "
                   >
                     <template>
-                      <th scope="row">
+                      <!-- <th scope="row">
                         <div class="custom-control custom-checkbox">
                           <input
                             type="checkbox"
@@ -129,7 +129,7 @@
                           />
                           <label class="custom-control-label" for=""></label>
                         </div>
-                      </th>
+                      </th> -->
                       <td>
                         {{
                           patient.body.first_name + " " + patient.body.last_name

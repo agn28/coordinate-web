@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <div class="card tab-card  card-blue-header">
           <div class="card-header "> Patient Information
-            <div class="text-xs pt-2 float-right" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
+            <div class="text-xs pt-2 float-right last-encounter" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
           </div>
           <div class="table-responsive">
             <table v-if="patient" class="table table-patient table-borderless mt-2">
@@ -62,7 +62,7 @@
                 <tr>
                   <td colspan="3" class="">
                     <div class="d-flex align-items-center patient-summary__action mt-3">
-                      <a href="javascript:void(0)" class="btn btn-cust">See Details</a>
+                      <a href="javascript:void(0)" class="btn btn-cust" data-toggle="modal" data-target="#modal-patient-details">See Details</a>
                       <router-link :to="{ name: 'encounters', params: { patientId: patientId }}" tag="a" class="btn btn-cust">See History</router-link>
                     </div>
                   </td>
@@ -97,53 +97,50 @@
 
               <tbody>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Smoking status</td>
+                  <td width="65%" class="font-weight-bold">Smoking status</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.smoking, false)">{{ riskFactors.body.data.smoking || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.smoking, false)">{{ riskFactors.body.data.smoking || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Smokeless tobacco</td>
+                  <td width="65%" class="font-weight-bold">Smokeless tobacco</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.smokeless_tobacco, false)">{{ riskFactors.body.data.smokeless_tobacco || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.smokeless_tobacco, false)">{{ riskFactors.body.data.smokeless_tobacco || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Diet: Additional salt: </td>
+                  <td width="65%" class="font-weight-bold">Diet: Additional salt: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.extra_salt, false)">{{ riskFactors.body.data.extra_salt || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.extra_salt, false)">{{ riskFactors.body.data.extra_salt || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Diet: Sugar intake: </td>
+                  <td width="65%" class="font-weight-bold">Diet: Sugar intake: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.sugary_drinks, false)">{{ riskFactors.body.data.sugary_drinks || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.sugary_drinks, false)">{{ riskFactors.body.data.sugary_drinks || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Diet: Processed food / red meat:</td>
+                  <td width="65%" class="font-weight-bold">Diet: Processed food / red meat:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.processed_foods, false)">{{ riskFactors.body.data.processed_foods || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.processed_foods, false)">{{ riskFactors.body.data.processed_foods || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Physical activity:</td>
+                  <td width="65%" class="font-weight-bold">Physical activity:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.physical_activity_moderate, true)">{{ riskFactors.body.data.physical_activity_moderate || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.physical_activity_moderate, true)">{{ riskFactors.body.data.physical_activity_moderate || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Alcohol consumption:</td>
+                  <td width="65%" class="font-weight-bold">Alcohol consumption:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.alcohol, false)">{{ riskFactors.body.data.alcohol || 'N/A' }}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.alcohol, false)">{{ riskFactors.body.data.alcohol || 'N/A' }}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Family history of hypertension or diabetes: </td>
+                  <td width="65%" class="font-weight-bold">Family history of HTN or diabetes: </td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(riskFactors.body.data.family_diabetes, false)">{{ riskFactors.body.data.family_diabetes || 'N/A'}}</td>
+                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.family_diabetes, false)">{{ riskFactors.body.data.family_diabetes || 'N/A'}}</td>
                 </tr>
                 <tr>
-                  <td width="30%" class="font-weight-bold">Last captured:</td>
+                  <td width="65%" class="font-weight-bold">Last captured:</td>
                    <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ riskFactors.assessment ? moment(riskFactors.assessment.meta.created_at).format('Do MMMM YYYY') : '' }}</td>
+                  <td width="30%">{{ riskFactors.assessment ? moment(riskFactors.assessment.meta.created_at).format('Do MMMM YYYY') : '' }}</td>
                 </tr>
-                <!-- <tr class="mt-3">
-                  <td colspan="3" class="text-center mt-3"><a href="javascript:void(0)" class="btn btn-cust w-100">See Details</a></td>
-                </tr> -->
               </tbody>
             </table>
           </div>
@@ -296,10 +293,8 @@
         </div>
 
         <div class="card tab-card mb-3 card-blue-header">
-          <div class="card-header ">Investigations
-            <!-- <h4 class="custom-title font-weight-bold p-0">Investigations</h4> -->
-            </div>
-            <span class="sub-title">Blood Sugar</span>
+          <div class="card-header ">Investigations</div>
+          <span class="sub-title">Blood Sugar</span>
           <div class="table-responsive">
             <table class="table table-borderless">
               <thead>
@@ -455,9 +450,12 @@
         </div>
       </div>
     </div>
-    <div class="text-center m-3 mb-5" >
-        <!-- <a href="patients/13e781d8-702d-4f0f-ad6f-2e7d1cb1f013/investigations/create" >Update</a> -->
-      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-primary px-4 radious-0">
+    <div class="text-center mt-3 mb-5" >
+      <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary radious-0 mb-3 d-block btn-proceed">
+          <span>Proceed To Care Plan </span>
+      </router-link>
+
+      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-xs btn-info px-2 py-1 radious-0">
         Update
       </router-link>
     </div>
@@ -479,6 +477,7 @@
                 </tbody>
               </table>
             </div>
+            <div class="text-muted text-center" v-if="!isComplainAvailable">No complain / note found </div>
             <a href="javascript:void(0)" class="btn btn-primary add-note" data-toggle="modal" data-target="#modal-add-notes"><i class="fa fa-plus"> Add</i></a>
         </div>
       </div>
@@ -523,31 +522,142 @@
   </div>
 
     <!-- add Complains/ Notes -->
-      <div class="modal fade" id="modal-add-notes" tabindex="-1" role="dialog" aria-labelledby="modal-add-notes" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="modal-add-notes" tabindex="-1" role="dialog" aria-labelledby="modal-add-notes" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-blue-header p-0 radious-0">
+          <div class="modal-header py-2 px-3">
+            <h5 class="modal-title text-white">Add Complain / Note</h5>
+            <button type="button" ref="elCloseNoteModal" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form @submit.prevent="addNote">
+            <div class="modal-body p-3">
+              <div class="form-row">
+                  <div class="col-md-12 mb-3">
+                      <label for="validationCustom01">Enter Complain / Note</label>
+                      <textarea class="form-control" required v-model="note"></textarea>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer p-3">
+              <button type="submit" class="btn btn-primary radious-0">Confirm</button>
+            </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient details -->
+    <div class="modal fade" id="modal-patient-details" tabindex="-1" role="dialog" aria-labelledby="modal-patient-details" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content modal-blue-header p-0 radious-0">
             <div class="modal-header py-2 px-3">
-              <h5 class="modal-title text-white">Add Complain / Note</h5>
-              <button type="button" ref="elCloseNoteModal" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <h5 class="modal-title text-white">Patient Details</h5>
+              <button type="button" ref="elCloseInvestigation" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form @submit.prevent="addNote">
-              <div class="modal-body p-3">
-                <div class="form-row">
-                    <div class="col-md-12 mb-3">
-                        <label for="validationCustom01">Enter Complain / Note</label>
-                        <textarea class="form-control" required v-model="note"></textarea>
-                    </div>
-                </div>
+            <div class="modal-body p-3">
+              <div class="table-responsive">
+                <table v-if="patient" class="table table-patient table-borderless mt-2">
+                  <tbody>
+                    <tr>
+                      <td width="30%" class="font-weight-bold">Patient ID</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.pid }}</td>
+                    </tr>
+                    <tr>
+                      <td width="30%" class="font-weight-bold">Name</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.first_name + ' ' + patient.body.last_name }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Guardian Name</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.father_name ||  patient.body.husband_name}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Date Of Birth</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.birth_date }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Age</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.age }} years</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Gender</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.gender }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Village</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.village : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Union</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.union : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td width="30%" class="font-weight-bold">Upazila</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.upazila : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">District</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.address ? patient.body.address.district : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Patient NID</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.nid ? patient.body.nid : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Centre Assigned</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patient.body.center ? patient.body.center.name : ''}}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Religion</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.religion }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Education</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.education }}</td>
+                    </tr>
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Occupation</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.occupation }}</td>
+                    </tr>
+                    <!-- <tr>
+                      <td  width="30%" class="font-weight-bold">Ethnicity</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.ethnicity }}</td>
+                    </tr> -->
+                    <tr>
+                      <td  width="30%" class="font-weight-bold">Monthly Income</td>
+                      <td width="5%" class="text-center">:</td>
+                      <td width="65%">{{ patientAdditionalInfo.monthly_income }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="modal-footer p-3">
-                <button type="submit" class="btn btn-primary radious-0">Confirm</button>
-              </div>
-             </form>
+              
+            </div>
+            <!-- <div class="modal-footer p-3">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> -->
           </div>
-        </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -603,6 +713,14 @@ export default {
       pendingInvestigations: [],
       lastReports: [],
       riskFactors: null,
+      isComplainAvailable: true,
+      patientAdditionalInfo: {
+        monthly_income : '',
+        religion : '',
+        education : '',
+        occupation : '',
+        ethnicity : ''
+      }
     };
   },
   methods: {
@@ -610,7 +728,6 @@ export default {
     getGeneratedCareplans() {
       this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
         (response) => {
-          console.log('Last: ', response);
           if (response.status == 200) {
             if(response.data.data) {
               this.lastReports = response.data.data.slice(0, 3);
@@ -815,7 +932,6 @@ export default {
             loader.hide();
             if (response.status == 200) {
               
-              console.log('last report data ', response.data);
               if (response.data.data) {
                 this.report = response.data.data;
                 if (this.report.body && this.report.body.result.assessments && this.report.body.result.assessments.cvd) {
@@ -931,7 +1047,6 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.observations = response.data.data;
-            console.log('observations: ', this.observations);
 
             if (this.observations) {
               this.observations.forEach((obs) => {
@@ -958,6 +1073,23 @@ export default {
                   else if (observation.data.name == 'medication') {
                     this.details.hypertension_medication = observation.data.hypertension_medication;
                     this.details.hypertension_medication_regular = observation.data.hypertension_medication_regular || 'N/A';
+                  }
+                  else if (observation.data.name == 'relative_problems') {
+                    if (observation.data.monthly_income ) {
+                        this.patientAdditionalInfo.monthly_income = observation.data.monthly_income;
+                    }
+                    if (observation.data.religion ) {
+                      this.patientAdditionalInfo.religion = observation.data.religion;
+                    }
+                    if (observation.data.education ) {
+                      this.patientAdditionalInfo.education = observation.data.education;
+                    }
+                    if (observation.data.occupation ) {
+                       this.patientAdditionalInfo.occupation = observation.data.occupation;
+                    }
+                    if (observation.data.ethnicity ) {
+                       this.patientAdditionalInfo.ethnicity = observation.data.ethnicity;
+                    }
                   }
                 }
                 else if (observation.type == 'blood_pressure') {
@@ -1214,7 +1346,6 @@ export default {
         response => {
             if (response.status == 200) {
             this.followups = response.data.data.length ? response.data.data[response.data.data.length-1]: null;
-            console.log(this.followups, 'follow')
             }
         },
         error => {
@@ -1280,10 +1411,13 @@ export default {
       this.$http.get("/patients/" + this.patientId + "/notes").then((response) => {
           if (response.data && response.data.error == false && response.data.data) {
             this.patientNotes = response.data.data;
+            return;
           }
+          this.isComplainAvailable = false;
         },
         (error) => {
-          // loader.hide();
+          loader.hide();
+          console.log(error);
         }
       );
     },
@@ -1291,7 +1425,6 @@ export default {
       this.$http.get("/care-plans/patient/" + this.patientId).then((response) => {
           this.pendingInvestigations = [];
           if (response.status == 200) {
-            console.log('cp: ', response.data)
             if (response.data.data) {
               response.data.data.filter(item => {
                 
@@ -1313,9 +1446,8 @@ export default {
       this.$http.get("/observations/patient/" + this.patientId + '/last-risk-factors').then((response) => {
           this.pendingInvestigations = [];
           if (response.status == 200) {
-            console.log('cp: ', response.data)
             if (response.data.data) {
-              this.riskFactors = response.data.data;                
+              this.riskFactors = response.data.data;
             }
           }
 
@@ -1330,7 +1462,6 @@ export default {
           let completedItems = [];
           completedItems = this.pendingInvestigations.filter(item =>  item.meta.status == true);
           if (completedItems && completedItems.length > 0) {
-            console.log('hid')
             let data = {
               "status": "completed",
               // "comment": '',
@@ -1479,6 +1610,10 @@ export default {
   }
   .table-patient {
     height: 429px;
+  }
+  .btn-proceed{
+    max-width: 200px;
+    margin: 0 auto;
   }
 }
 </style>

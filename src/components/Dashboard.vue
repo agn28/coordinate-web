@@ -29,7 +29,7 @@
                         <option :value="center.id" v-for="center in centers" :key="center.id">{{ center.name }}</option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2 mt-auto h-fit src-btn">Go</button>
+                    <button type="submit" class="btn btn-primary mb-2 mt-auto h-fit rounded-0">Go</button>
                   </form>
                 </div>
                 <div class="col-lg-4 exportbtn-container">
@@ -37,7 +37,7 @@
                 </div>
               </div>
 
-              <div class="mt-5">
+              <div class="mt-5" v-if="summary">
                 <a class="metrics-title" href="javascript:void(0)">Operational Metrics</a>
               </div>
 
@@ -132,13 +132,13 @@
                 </div>
               </div>
 
-              <div class="mt-5">
+              <div class="mt-5" v-if="summary">
                 <a class="metrics-title" href="javascript:void(0)">Outcome Metrics </a>
               </div>
 
               <div class="row summery-tables mt-0">
                 <div class="col-md-12">
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="summary">
                     <table class="w-100">
                       <tbody>
                         <tr>
@@ -190,13 +190,13 @@
               </div>
 
 
-              <div class="mt-5">
+              <div class="mt-5" v-if="summary">
                 <a class="metrics-title" href="javascript:void(0)">Additional Metrics </a>
               </div>
 
               <div class="row summery-tables mt-0">
                 <div class="col-md-12">
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="summary">
                     <table class="w-100">
                       <tbody>
                         <tr>
@@ -223,13 +223,13 @@
               </div>
 
 
-              <div class="mt-5">
+              <div class="mt-5" v-if="summary">
                 <a class="metrics-title" href="javascript:void(0)">Age Breakdown of patients </a>
               </div>
 
               <div class="row summery-tables mt-0">
                 <div class="col-md-12">
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="summary">
                     <table class="w-100">
                       <tbody>
                         <tr>
@@ -296,13 +296,13 @@
               </div>
 
 
-              <div class="mt-5">
+              <div class="mt-5" v-if="summary">
                 <a class="metrics-title" href="javascript:void(0)">Intervention Metrices</a>
               </div>
 
               <div class="row summery-tables mt-0">
                 <div class="col-md-12">
-                  <div class="table-responsive">
+                  <div class="table-responsive" v-if="summary">
                     <table class="w-100">
                       <tbody>
                         <tr>
@@ -402,7 +402,7 @@ export default {
   data() {
     return {
       search: "",
-      summary: {},
+      summary: null,
       patientStat: {
         total_patient: 0,
         male_patients: 0,
@@ -458,10 +458,8 @@ export default {
       }
     },
     getSummary(query) {
-      console.log('hello')
       let loader = this.$loading.show();
       query = query || {};
-      console.log('query ', query);
       //TODO: add query params to request
       this.$http.get("/stats/summary", { params: query}).then(
         (response) => {
@@ -469,7 +467,6 @@ export default {
           if (response.status == 200) {
             
             this.summary = response.data.data.summary || {};
-            console.log(this.summary);
           }
           
         },
@@ -484,7 +481,6 @@ export default {
         (response) => {
           if (response.status == 200) {
             this.centers = response.data.data;
-            console.log('centers ', this.centers);
           }
           
         },

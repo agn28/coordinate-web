@@ -9,19 +9,12 @@
           </div>
         </div>
 
-        <div class="col-lg-6 text-right">
+        <!-- <div class="col-lg-6 text-right">
           <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary mr-3 radious-0">
             <span>Proceed To Care Plan </span>
           </router-link>
-        </div>
+        </div> -->
       </div>
-
-      <!-- <div v-if="patient" class="row">
-        <div class="col-lg-6">
-          <PatientSummary></PatientSummary>
-          
-        </div>
-      </div> -->
      <PatientSummary></PatientSummary>
   </div>
 </template>
@@ -177,7 +170,6 @@ export default {
             loader.hide();
             if (response.status == 200) {
               this.report = response.data.data;
-              console.log(this.report, 'last report');
             }
           },
           (error) => {
@@ -194,7 +186,6 @@ export default {
           if (response.status == 200) {
             // console.log(response, 'resp');
             this.reports = response.data.data;
-            console.log(this.reports, 'reports');
             if (this.reports && this.reports.length > 0) {
               this.currentAssessment = this.reports[this.reports.length - 1];
             }
@@ -237,7 +228,6 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
-            console.log(this.patient, 'patient')
           }
         },
         (error) => {
@@ -266,7 +256,6 @@ export default {
             this.encounters = response.data.data;
 
             if (this.encounters) {
-              console.log(this.encounters, 'encounters');
               this.encounters = this.encounters.sort(
               (a, b) =>
                 new Date(b.meta.created_at) - new Date(a.meta.created_at)
@@ -427,7 +416,6 @@ export default {
         response => {
             if (response.status == 200) {
             this.followups = response.data.data.length ? response.data.data[response.data.data.length-1]: null;
-            console.log(this.followups, 'follow')
             }
         },
         error => {

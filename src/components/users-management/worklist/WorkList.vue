@@ -1,15 +1,15 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-lg-12 d-flex breadcrumb-wrap">
           <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
           <div class>
             <h4>Worklists</h4>
           </div>
         </div>
-      </div>
-
+      </div> -->
+      <TopNavBar heading="Worklists"></TopNavBar>
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-search">
@@ -110,12 +110,13 @@
 // @ is an alias to /src
 import Vue from "vue";
 import { VuejsDatatableFactory } from "vuejs-datatable";
+import TopNavBar from '../../TopNavBar';
 
 Vue.use(VuejsDatatableFactory);
 
 export default {
   name: "nurse-list",
-  components: {},
+  components: { TopNavBar },
   data() {
     return {
       worklists: [],

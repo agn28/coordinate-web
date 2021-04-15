@@ -50,7 +50,7 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Date</div>
-                <p class="p-3 mb-0">14 Mar 2021</p>
+                <p class="p-3 mb-0">{{ moment().format('DD MMM YYYY') }}</p>
               </div>
                <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Doctor</div>
@@ -76,7 +76,6 @@
                         <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'survey'">
                           <td class="align-middle">{{ item.title }}</td>
                           <td class="text-center align-middle">
-                            
                           </td>
                         </tr>
                       </tbody>
@@ -130,10 +129,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in investigations" :key="index">
-                          <td>{{ item }}</td>
-                          <td>
-                            <!-- <i class="fa fa-times" @click="removeInvestigation(index)"></i> -->
-                            </td>
+                          <td class="text-capitalize">{{ item }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -154,7 +150,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in newDiagnosis" :key="index">
-                          <td>{{ item.name }}</td>
+                          <td class="text-capitalize" >{{ item.name }}</td>
                           <td>{{ item.comment }}</td>
                         </tr>
                       </tbody>
@@ -251,8 +247,6 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
-            console.log(this.patient)
-            // console.log(this.patient, 'patient')
           }
         },
         (error) => {
@@ -289,13 +283,6 @@ export default {
       let loader = this.$loading.show();
       this.isLoading = true;
 
-      // var data = this.calculateDuration(this.allData.data);
-      // console.log('generate careplan: ', JSON.stringify(data));
-      // return data;
-
-      console.log('all data: ', this.allData);
-      console.log('Previous: ', this.previousData);
-
       this.allData.data.body.result.careplan = this.previousData.careplan;
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
@@ -308,22 +295,15 @@ export default {
         }
       }));
       this.allData.data.body.removed_counsellings = this.removedCounsellings.concat(counsellings);
-      console.log('removed counsellings ', this.removedCounsellings)
-      console.log('counsellings ', counsellings)
-      // return;
 
-      console.log('Final Data: ', this.allData);
       this.saveObservationData();
-      // loader.hide();
-      // return;
 
       //TODO: work from here
 
 
       this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
         loader.hide();
-        this.isLoading = false
-        console.log('res: ', response.data)
+        this.isLoading = false;
         if (response.status == 200 ) {
           this.alert = response.data.message;
           let careplan_id = response.data.data ? response.data.data.careplan_id : '';
@@ -338,12 +318,8 @@ export default {
               created_at: new Date()
             }
 
-            console.log('medication data ', medicationData);
-            // return;
-
             this.$http.post('/patients/' + this.patientId + "/medications", medicationData).then( response => {
-              this.isLoading = false
-              console.log('res: ', response.data)
+              this.isLoading = false;
               if (response.status == 200 ) {
 
               } else {
@@ -365,19 +341,10 @@ export default {
           localStorage.removeItem('follow_up_date')
           localStorage.removeItem('patientId');
           
-          this.$router.push({ name: 'patientOverview', params: {patientId: this.patientId}});
-          
-          // let self = this;
-          // setTimeout(function() {
-           
-          //   self.$router.push({ name: 'patientOverview', params: { patientId: self.patientId } });
-          // }, 3000);
-
+          this.$router.push({ name: 'patients'});
         } else {
           this.alert = 'error'
         }
-        
-
       }).catch(err => {
         console.log(err.message)
         loader.hide();
@@ -401,7 +368,6 @@ export default {
       }
 
       return data;
-
     },
 
     prepareData() {
@@ -478,22 +444,14 @@ export default {
       if (this.investigations.length > 0) {
         for (let i = 0; i < this.investigations.length; i ++) {
           let dataKey = this.investigations[i].replace("", "_");
-          console.log('kk', dataKey)
           let data = this.prepareTestData(this.user.uid, created_at, 'survey', dataKey, 'yes', this.patientId, assesment_id);
-          console.log('investigations '+ i +': ', data);
-          // this.$http.post("/observations", data).then(response => {
-          //   console.log('Observation response: ', response)
-          // }).catch(error => { console.log(error) });
         }
       }
     },
     saveDiagonosis(created_at, assesment_id) {
       if (this.newDiagnosis.length > 0) {
-        // console.log('new diagonosis: ', this.newDiagnosis)
         let data = this.prepareDiagnosisData(this.user.uid, created_at, 'survey', this.patientId, assesment_id);
-        //console.log('diagonis ', data);
         this.$http.post("/observations", data).then(response => {
-          console.log('Diagonosis response: ', response)
         }).catch(error => { console.log(error) });
 
       }

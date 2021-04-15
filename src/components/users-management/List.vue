@@ -1,14 +1,7 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <div class="row">
-        <div class="col-lg-12 d-flex breadcrumb-wrap">
-          <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
-          <div class>
-            <h4>Users</h4>
-          </div>
-        </div>
-      </div>
+      <TopNavBar heading="Users"></TopNavBar>
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-content">
@@ -30,6 +23,7 @@
                 <input
                   class="form-control my-0 py-1 border-left-0"
                   type="text"
+                  v-model="search"
                   placeholder="User name"
                   aria-label="Search"
                 />
@@ -205,7 +199,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(user, index) in users" :key="index">
+                  <tr v-for="(user, index) in filteredList" :key="index">
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
                     <td>
@@ -216,12 +210,6 @@
                     <td>{{ user.address ? user.address.upazila : '' }}</td>
                     <td>{{ user.address ? user.address.district : '' }}</td>
                     <td>
-                      <!-- <a class="btn btn-sm btn-primary mr-2" href>
-                        <i class="fas fa-pencil-alt"></i>
-                      </a>
-                      <a class="btn btn-sm btn-info mr-2" href>
-                        <i class="fas fa-eye"></i>
-                      </a>-->
                       <a
                         class="btn btn-sm btn-danger mr-2"
                         href="#"
@@ -280,13 +268,15 @@
 
 <script>
 import Multiselect from "vue-multiselect";
+import TopNavBar from '../TopNavBar.vue';
 
 export default {
   name: "users",
-  components: { Multiselect },
+  components: { Multiselect, TopNavBar },
   data() {
     return {
       isEdit: false,
+      search: '',
       newUser: {
         name: null,
         password: null,
@@ -300,7 +290,15 @@ export default {
       upazilas: []
     };
   },
-  computed: {},
+  computed: {
+    filteredList() {
+      return this.users.filter((user) => {
+        return (
+          user.name && user.name .toLowerCase().includes(this.search.toLowerCase())
+        );
+      });
+    },
+  },
   methods: {
     onModalUserClose () {
       // this.newUser.address = {};
@@ -325,6 +323,7 @@ export default {
       let loader = this.$loading.show();
       this.$http.get("/users").then(
         response => {
+          console.log(response)
           if (response.status == 200) {
             this.users = response.data;
             loader.hide();

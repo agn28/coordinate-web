@@ -1,17 +1,7 @@
 <template>
     <div class="content patient-list-page">
         <div class="animated fadeIn">
-           <div class="row">
-               <div class="col-lg-12 d-flex breadcrumb-wrap">
-                   <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)"></i>
-                   <div class="">
-                       <h4>Referrals</h4>
-                   </div>
-               </div>
-           </div>
-
-
-
+            <TopNavBar heading="Referrals"></TopNavBar>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="patient-list">
@@ -19,14 +9,7 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th scope="col">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="" name="example1">
-                                            <label class="custom-control-label" for=""></label>
-                                        </div>
-                                    </th>
                                     <th scope="col">Name</th>
-                                    <!-- <th scope="col">PID</th> -->
                                     <th scope="col">Age</th>
                                     <th scope="col">Gender</th>
                                     <th scope="col">Generated At</th>
@@ -36,16 +19,7 @@
                                 <tbody>
                                 <tr class="pointer" v-for="(patient, index) in followupPatients" :key="index" >
                                     <template>
-                                        <th scope="row">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="" name="example1">
-                                                <label class="custom-control-label" for=""></label>
-                                            </div>
-                                        </th>
                                         <td>{{ patient.body.first_name + ' ' + patient.body.last_name}}</td>
-
-
-                                        <!-- <td>P2342343</td> -->
                                         <td>{{ patient.body.age }} </td>
                                         <td>{{ patient.body.gender.toUpperCase() }}<span class="pull-right"><i class="fas fa-arrow-right"></i></span>
                                         </td>
@@ -69,16 +43,21 @@
                             </table>
                             <p v-if="this.followupPatients.length == 0" class="text-center mt-5">No referrals found</p>
                         </div>
+                         <nav aria-label="Page navigation pull-right" v-if="this.followupPatients.length">
+                            <ul class="pagination my-3">
+                                <li class="page-item">
+                                <button type="button" class="page-link"  @click="nextPrevPage('prev')" :disabled="disablePrevButton"> Previous </button>
+                                </li>
+                                <li class="page-item">
+                                <button type="button" @click="nextPrevPage('next')"  class="page-link" :disabled="disableNextButton"> Next </button>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
-
 </template>
 
 <script>
@@ -86,12 +65,12 @@
     import Vue from 'vue';
     import moment from 'moment';
     import {VuejsDatatableFactory} from 'vuejs-datatable';
-
+    import TopNavBar from '../TopNavBar';
     Vue.use(VuejsDatatableFactory);
 
     export default {
         name: "patients",
-        components: {},
+        components: { TopNavBar },
         data() {
             return {
                 patients: [],
@@ -99,11 +78,16 @@
                 followupPatients: [],
                 selectedPatient: {},
                 selectedStatus: '',
+                lastItemId: '',
+                disablePrevButton: false,
+                disableNextButton: false,
+                paginationOptions: {
+                    currentPage: 1,
+                    perPage: 20,
+                },
             };
         },
         methods: {
-            
-
             updatePatientReferral(patient) {
 
                 patient.meta.referral_required = false;
@@ -141,9 +125,10 @@
                     });
             },
 
-            getPatients() {
+            getPatients(lastItemId = '', queryItemkey = 'last_item') {
                 let loader = this.$loading.show();
-                this.$http.get("/patients").then(response => {
+                this.$http.get("/patients?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId).then(response => {
+                    console.log(response)
                     if (response.status == 200) {
                         loader.hide()
                         this.patients = response.data.data;
@@ -152,12 +137,27 @@
                         if (this.patients.length > 0 ) {
                             this.prepareData()
                         }
-                        
                     }
                 },
                 error => {
                     loader.hide();
                 });
+            },
+            nextPrevPage(type) {
+                let dataLength = this.patients.length;
+
+                if (type == 'next') {
+                    let lastItemId = '';
+                    if ( dataLength > 0) {
+                    lastItemId = this.patients[dataLength - 1].id;
+                    }
+                    this.getPatients(lastItemId, 'last_item');
+                }
+
+                if (type == 'prev') {
+                    let firstItemId = dataLength > 0 ? this.patients[0].id : '';
+                    this.getPatients(firstItemId, 'first_item');
+                }
             },
 
             getDate(date) {
@@ -168,12 +168,9 @@
             prepareData() {
                 let patients = [];
                 this.followups.forEach( followup => {
-                    console.log(patients)
                     let patientExists =  patients.find( patient => patient.id == followup.meta.patient_id)
                     if (!patientExists) {
-                        console.log('hello')
-                        let patient = this.patients.find( patient => patient.id == followup.meta.patient_id)
-                        console.log(patient);   
+                        let patient = this.patients.find( patient => patient.id == followup.meta.patient_id); 
                         if (patient) {
                             patients.push(patient)
                         }
