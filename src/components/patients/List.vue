@@ -178,7 +178,6 @@ export default {
               if ( queryItemkey == 'first_item') {
                 this.disablePrevButton = true;
               }
-              this.search = '';
               this.$toast.open({ message: msg, type: 'error'});
               // this.patients = [];
               return;
@@ -232,6 +231,9 @@ export default {
     }
   },
   mounted() {
+    if(this.$route.query.search && this.$route.query.search != undefined){
+      this.search = this.$route.query.search;
+    }
     this.getPatients();
   },
 };

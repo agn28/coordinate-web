@@ -7,35 +7,6 @@
         <div class="col-lg-12">
           <div class="patient-content">
             <div class="title">Patient List</div>
-            <!-- <div class="right-side">
-              <div class="dropdown mr-3">
-                <button
-                  class="btn dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Import
-                </button>
-                <div
-                  class="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="dropdownMenuButton"
-                >
-                  <a class="dropdown-item" href="#">Upload CSV File</a>
-                  <a class="dropdown-item" href="#">Download CSV Template</a>
-                </div>
-              </div>
-              <div
-                class="register-patient"
-                @click="$router.push({ name: 'patientRegistration' })"
-              >
-                <button class="btn">
-                  <i class="fas fa-plus"></i>Register a New Patient
-                </button>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -45,60 +16,31 @@
           <div class="patient-search">
              <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
-                <div class="input-group-prepend">
-                  <span class="input-group-text lighten-3" id="basic-text1">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                </div>
                 <input
-                  class="form-control my-0 py-1 border-left-0"
+                  class="form-control my-0 py-1 border-right-0"
                   type="text"
                   placeholder="Patient Name, ID, NID"
                   aria-label="Search"
                   v-model="search"
                 />
+                <div class="input-group-prepend">
+                  <a href="javascript:void(0)" @click="getPatients('', 'last_item')" class="input-group-text lighten-3 text-decoration-none" id="basic-text1">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                  </a>
+                </div>
               </div>
             </div> 
-
           </div>
         </div>
       </div>
       
-      
-      
-      <!-- <div class="row">
-        <div class="col-lg-12">
-          <div class="pending-checkbox">
-            <div class="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="pending"
-                name="example1"
-              />
-              <label class="custom-control-label" for="pending"
-                >Pending Recommendations Only</label
-              >
-            </div>
-          </div>
-        </div>
-      </div> -->
-      
-      
       <div class="row mt-3">
         <div class="col-lg-12">
-          <div class="patient-list">
+          <div class="patient-list" v-if="patients.length > 0">
             <div class="table-responsive">
-              <table class="table" v-if="patients.length > 0">
+              <table class="table">
                 <thead>
                   <tr>
-                    <!-- <th scope="col">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="" name="example1"
-                        />
-                        <label class="custom-control-label" for=""></label>
-                      </div>
-                    </th> -->
                     <th scope="col">Name</th>
                     <th scope="col">NID</th>
                     <th scope="col">Age</th>
@@ -109,7 +51,7 @@
                 <tbody>
                   <tr
                     class="pointer bg-white tr-border-bttom-grey"
-                    v-for="(patient, index) in filteredList"
+                    v-for="(patient, index) in patients"
                     :key="index"
                     @click="
                       $router.push({
@@ -119,24 +61,11 @@
                     "
                   >
                     <template>
-                      <!-- <th scope="row">
-                        <div class="custom-control custom-checkbox">
-                          <input
-                            type="checkbox"
-                            class="custom-control-input"
-                            id=""
-                            name="example1"
-                          />
-                          <label class="custom-control-label" for=""></label>
-                        </div>
-                      </th> -->
                       <td>
                         {{
                           patient.body.first_name + " " + patient.body.last_name
                         }}
                       </td>
-
-                      <!-- <td>P2342343</td> -->
                       <td>{{ patient.body.nid }}</td>
                       <td>{{ patient.body.age }}</td>
                       <td>{{ patient.body.gender.toUpperCase()
@@ -151,6 +80,16 @@
                 </tbody>
               </table>
             </div>
+            <nav aria-label="Page navigation" >
+              <ul class="pagination my-3">
+                <li class="page-item">
+                  <button type="button" class="page-link"  @click="nextPrevPage('prev')" :disabled="disablePrevButton"> Previous </button>
+                </li>
+                <li class="page-item">
+                  <button type="button" @click="nextPrevPage('next')"  class="page-link" :disabled="disableNextButton"> Next </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -172,6 +111,15 @@ export default {
     return {
       patients: [],
       search: "",
+      paginationOptions: {
+        currentPage: 1,
+        perPage: 20,
+        // totalItems: 500,
+        pages: []
+      },
+      lastItemId: '',
+      disablePrevButton: false,
+      disableNextButton: false,
     };
   },
   computed: {
@@ -190,20 +138,41 @@ export default {
     },
   },
   methods: {
-    getPatients() {
+    getPatients(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
-      let query = {
-          params: {
-              type: 'review_required'
-          }
+      this.disablePrevButton = false;
+      this.disableNextButton = false;
+      let searchKey = '';
+      if(this.search) {
+        if(isNaN(this.search)) {
+          searchKey = '&name=' + this.search;
+        } else {
+          searchKey = '&nid=' + this.search;
+        }
       }
+      let query = "?type=review_required&per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey;
 
       //TODO: add query to request
-      this.$http.get("/patients", query).then(
+      this.$http.get("/patients" + query).then(
         (response) => {
           if (response.status == 200) {
-            this.patients = response.data.data;
+           
             loader.hide();
+            if (response.data.error == true) {
+              // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
+              let msg = 'No record found';
+              if ( queryItemkey == 'last_item') {
+                this.disableNextButton = true;
+              } 
+
+              if ( queryItemkey == 'first_item') {
+                this.disablePrevButton = true;
+              }
+              this.$toast.open({ message: msg, type: 'error'});
+              // this.patients = [];
+              return;
+            }
+            this.patients = response.data.data;
           }
         },
         (error) => {
@@ -211,7 +180,22 @@ export default {
         }
       );
     },
+    nextPrevPage(type) {
+      let dataLength = this.patients.length;
 
+      if (type == 'next') {
+        let lastItemId = '';
+        if ( dataLength > 0) {
+          lastItemId = this.patients[dataLength - 1].id;
+        }
+        this.getPatients(lastItemId, 'last_item');
+      }
+
+      if (type == 'prev') {
+         let firstItemId = dataLength > 0 ? this.patients[0].id : '';
+        this.getPatients(firstItemId, 'first_item');
+      }
+    },
     getId(identifier, type) {
       if (!identifier) {
         return "";
@@ -225,7 +209,7 @@ export default {
     },
   },
   mounted() {
-    this.getPatients();
+    this.getPatients('', 'last_item');
   },
 };
 </script>

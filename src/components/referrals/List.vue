@@ -83,7 +83,7 @@
                 disableNextButton: false,
                 paginationOptions: {
                     currentPage: 1,
-                    perPage: 20,
+                    perPage: 30,
                 },
             };
         },

@@ -15,17 +15,18 @@
           <div class="patient-search">
             <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
-                <div class="input-group-prepend">
-                  <span class="input-group-text lighten-3" id="basic-text1">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                </div>
                 <input
-                  class="form-control my-0 py-1 border-left-0"
+                  class="form-control my-0 py-1 border-right-0"
                   type="text"
                   placeholder="Medication name"
                   aria-label="Search"
+                  v-model="search"
                 />
+                 <div class="input-group-prepend">
+                  <a href="javascript:void(0)" @click="getMedications('', 'last_item')" class="input-group-text lighten-3 text-decoration-none" id="basic-text1">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -83,8 +84,8 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <div class="patient-list">
-            <div class>
+          <div class="patient-list" v-if="medications">
+            <div class="" >
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -108,6 +109,16 @@
                 </tbody>
               </table>
             </div>
+            <nav aria-label="Page navigation" >
+              <ul class="pagination my-3">
+                <li class="page-item">
+                  <button type="button" class="page-link"  @click="nextPrevPage('prev')" :disabled="disablePrevButton"> Previous </button>
+                </li>
+                <li class="page-item">
+                  <button type="button" @click="nextPrevPage('next')"  class="page-link" :disabled="disableNextButton"> Next </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -123,18 +134,54 @@ export default {
   data() {
     return {
       newMedication: null,
-      medications: []
+      search: '',
+      medications: [],
+       paginationOptions: {
+        currentPage: 1,
+        perPage: 20,
+        // totalItems: 500,
+        pages: []
+      },
+      lastItemId: '',
+      disablePrevButton: false,
+      disableNextButton: false,
     };
   },
   
   methods: {
-    getMedications() {
+    getMedications(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
-      this.$http.get("/drugs").then(
+      let searchKey = '';
+      this.disablePrevButton = false;
+      this.disableNextButton = false;
+      
+      if(this.search) {
+        if(isNaN(this.search)) {
+          searchKey = '&name=' + this.search;
+        } else {
+          searchKey = '&nid=' + this.search;
+        }
+      }
+
+      this.$http.get("/drugs?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
         response => {
           if (response.status == 200) {
-            this.medications = response.data.data;
             loader.hide();
+            if (response.data.error == true) {
+              // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
+              let msg = 'No record found';
+              if ( queryItemkey == 'last_item') {
+                this.disableNextButton = true;
+              } 
+
+              if ( queryItemkey == 'first_item') {
+                this.disablePrevButton = true;
+              }
+              this.$toast.open({ message: msg, type: 'error'});
+              return;
+            }
+
+            this.medications = response.data.data;
           }
         },
         error => {
@@ -142,7 +189,22 @@ export default {
         }
       );
     },
+    nextPrevPage(type) {
+      let dataLength = this.medications.length;
 
+      if (type == 'next') {
+        let lastItemId = '';
+        if ( dataLength > 0) {
+          lastItemId = this.medications[dataLength - 1].id;
+        }
+        this.getMedications(lastItemId, 'last_item');
+      }
+
+      if (type == 'prev') {
+        let firstItemId = dataLength > 0 ? this.medications[0].id : '';
+        this.getMedications(firstItemId, 'first_item');
+      }
+    },
     createMedication() {
       if (!this.newMedication) {
         return;
@@ -153,10 +215,7 @@ export default {
         response => {
           loader.hide();
           if (response.status == 201) {
-            this.medications.push({
-              name: response.data.name,
-              id: response.data.id
-            });
+            this.getMedications('', 'last_item');
             this.$bvModal.hide("modal-medication");
             this.newMedication = "";
           }
