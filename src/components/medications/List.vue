@@ -156,11 +156,7 @@ export default {
       this.disableNextButton = false;
       
       if(this.search) {
-        if(isNaN(this.search)) {
-          searchKey = '&name=' + this.search;
-        } else {
-          searchKey = '&nid=' + this.search;
-        }
+        searchKey = '&name=' + this.search;
       }
 
       this.$http.get("/drugs?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(

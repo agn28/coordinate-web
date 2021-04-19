@@ -155,13 +155,9 @@ export default {
       this.disablePrevButton = false;
       this.disableNextButton = false;
       
-      // if (this.search) {
-      //   if(isNaN(this.search)) {
-      //     searchKey = '&name=' + this.search;
-      //   } else {
-      //     searchKey = '&nid=' + this.search;
-      //   }
-      // }
+      if (this.search) {
+        searchKey = '&name=' + this.search;
+      }
 
       this.$http.get("/devices?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
         response => {

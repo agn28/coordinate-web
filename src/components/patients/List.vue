@@ -168,6 +168,7 @@ export default {
         (response) => {
           if (response.status == 200) {
             loader.hide();
+            console.log(response.data.data);
             if (response.data.error == true) {
               // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
               let msg = 'No record found';
