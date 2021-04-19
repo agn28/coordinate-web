@@ -9,7 +9,7 @@
         <div class=""> <h4> <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)" ></i> {{ heading }}</h4></div>
       
       <!-- Topbar Search -->
-      <form class="d-none d-sm-inline-block form-inline ml-auto  my-2 my-md-0 mw-100 navbar-search" >
+      <form action="/patients/list" method="get" class="d-none d-sm-inline-block form-inline ml-auto  my-2 my-md-0 mw-100 navbar-search" >
         <div class="input-group">
           <input
             type="text"
@@ -17,9 +17,10 @@
             placeholder="Search for..."
             aria-label="Search"
             aria-describedby="basic-addon2"
+            name="search"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary top-search" type="button">
+            <button class="btn btn-primary top-search" type="submit">
               <i class="fas fa-search fa-sm"></i>
             </button>
           </div>

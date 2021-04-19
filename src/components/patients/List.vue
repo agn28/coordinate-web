@@ -168,6 +168,7 @@ export default {
         (response) => {
           if (response.status == 200) {
             loader.hide();
+            console.log(response.data.data);
             if (response.data.error == true) {
               // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
               let msg = 'No record found';
@@ -178,7 +179,6 @@ export default {
               if ( queryItemkey == 'first_item') {
                 this.disablePrevButton = true;
               }
-              this.search = '';
               this.$toast.open({ message: msg, type: 'error'});
               // this.patients = [];
               return;
@@ -232,6 +232,9 @@ export default {
     }
   },
   mounted() {
+    if(this.$route.query.search && this.$route.query.search != undefined){
+      this.search = this.$route.query.search;
+    }
     this.getPatients();
   },
 };
