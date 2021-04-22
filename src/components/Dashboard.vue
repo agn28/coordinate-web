@@ -3,7 +3,7 @@
   <div id="content">
 
     <!-- Top Nav Bar -->
-    <TopNavBar heading="Dashboard"></TopNavBar>
+    <TopNavBar heading="Dashboard" hideBackIcon="true"></TopNavBar>
 
     <div class="row">
       <div class="col-lg-12">
