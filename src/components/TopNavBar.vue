@@ -6,8 +6,10 @@
         <i class="fa fa-bars"></i>
       </button> --> 
 
-        <div class=""> <h4> <i class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)" ></i> {{ heading }}</h4></div>
-      
+        <div class=""> 
+          <h4> <i v-if="!hideBackIcon" class="fa fa-arrow-left text-secondary back-icon" @click="$router.go(-1)" ></i> {{ heading }}</h4>
+        </div>
+     
       <!-- Topbar Search -->
       <form action="/patients/list" method="get" class="d-none d-sm-inline-block form-inline ml-auto  my-2 my-md-0 mw-100 navbar-search" >
         <div class="input-group">
@@ -277,7 +279,7 @@ export default {
       },
       
     },
-    props: ['heading'],
+    props: ['heading', 'hideBackIcon'],
     methods: {
       signOut() {
         this.$store.dispatch('auth/logout');

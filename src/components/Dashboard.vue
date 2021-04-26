@@ -3,7 +3,7 @@
   <div id="content">
 
     <!-- Top Nav Bar -->
-    <TopNavBar heading="Dashboard"></TopNavBar>
+    <TopNavBar heading="Dashboard" hideBackIcon="true"></TopNavBar>
 
     <div class="row">
       <div class="col-lg-12">
@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <form class="form-row sharp-input">
-                    <div class="form-group mb-2 col">
+                    <!-- <div class="form-group mb-2 col">
                       <label for="staticEmail2" class="font-weight-bold">Date Range </label>
                       <select @change="filterSummary" v-model="selectedDateRange" id="" class="form-control">
                         <option value="30">Last 30</option>
@@ -22,14 +22,23 @@
                         <option value="120">Last Quarter</option>
                         <option value="365">Last Year</option>
                       </select>
+                    </div> -->
+                    <div class="form-group mb-2 col">
+                      <label for="staticEmail2" class="font-weight-bold">From</label>
+                      <input type="date" @change="filterSummary" v-model="fromDate" class="form-control" :max="maxDate" />
+                    </div>
+                    <div class="form-group mb-2 col">
+                      <label for="staticEmail2" class="font-weight-bold">To</label>
+                      <input type="date" @change="filterSummary" v-model="toDate" class="form-control" :max="maxDate" />
                     </div>
                     <div class="form-group mx-sm-3 mb-2 col">
                       <label for="inputPassword2" class="font-weight-bold">Center</label>
-                      <select @change="filterSummary" v-model="selectedCenter" id="" class="form-control">
+                      <select @change="filterSummary" v-model="selectedCenter" class="form-control">
                         <option :value="center.id" v-for="center in centers" :key="center.id">{{ center.name }}</option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2 mt-auto h-fit rounded-0">Go</button>
+                    <button type="button" @click="filterSummary" class="btn btn-primary mb-2 mt-auto h-fit rounded-0">Go</button>
+                    <button type="button" @click="resetFilter" class="btn btn-primary mb-2 mt-auto h-fit rounded-0 ml-2"> <i class="fas fa-redo-alt"></i></button>
                   </form>
                 </div>
                 <div class="col-lg-4 exportbtn-container">
@@ -383,9 +392,10 @@ import BarChart from "./utils/BarChart.vue";
 import DateRangePicker from "vue2-daterange-picker";
 import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
 import Analysis from "./dashboard/Analysis";
-import Summary from "./dashboard/Summery";
 import Topbar from './Topbar.vue';
 import TopNavBar from './TopNavBar.vue';
+import moment from "moment";
+
 export default {
   components: {
     BarChart,
@@ -432,20 +442,36 @@ export default {
       selectedDateRange: '',
       selectedCenter: '',
       centers: [],
+      fromDate: '',
+      toDate: '',
+      maxDate: ''
     };
   },
   mounted() {
     this.getSummary();
     this.getCenters();
+    this.maxDate = moment().format('YYYY-MM-DD');
   },
   methods: {
     filterSummary() {
       let query = {};
-      if (this.selectedDateRange) {
-        query.lastDays = this.selectedDateRange;
+      // if (this.selectedDateRange) {
+      //   query.lastDays = this.selectedDateRange;
+      // }
+      if (this.fromDate && this.toDate) {
+        if (this.fromDate > this.toDate) {
+           this.$toast.open({ message: 'Invalid Date Range Selected', type: 'error'});
+           return;
+        }
       }
       if (this.selectedCenter) {
         query.center = this.selectedCenter;
+      }
+      if (this.fromDate) {
+        query.fromDate = this.fromDate;
+      }
+      if (this.toDate) {
+        query.toDate = this.toDate;
       }
 
       if (query) {
@@ -465,7 +491,6 @@ export default {
         (response) => {
           loader.hide();
           if (response.status == 200) {
-            
             this.summary = response.data.data.summary || {};
           }
           
@@ -475,7 +500,12 @@ export default {
         }
       );
     },
-
+    resetFilter() {
+      this.selectedCenter = '';
+      this.fromDate = '';
+      this.toDate = '';
+      this.filterSummary();
+    },
     getCenters() {
       this.$http.get("/centers").then(
         (response) => {

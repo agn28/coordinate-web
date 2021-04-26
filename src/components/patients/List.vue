@@ -21,6 +21,7 @@
                   placeholder="Patient Name, ID, NID"
                   aria-label="Search"
                   v-model="search"
+                  @keyup.enter="getPatients('', 'last_item')"
                 />
                 <div class="input-group-prepend">
                   <a href="javascript:void(0)" @click="getPatients('', 'last_item')" class="input-group-text lighten-3 text-decoration-none" id="btn-search">
@@ -41,6 +42,7 @@
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
+                    <th scope="col">Center</th>
                     <th scope="col">NID</th>
                     <th scope="col">Age</th>
                     <th scope="col">Gender</th>
@@ -63,6 +65,7 @@
                       <td> {{
                           patient.body.first_name + " " + patient.body.last_name }}
                       </td>
+                      <td>{{ patient.body.center.name }}</td>
                       <td>{{ patient.body.nid }}</td>
                       <td>{{ patient.body.age }}</td>
                       <td>{{ patient.body.gender.toUpperCase()
@@ -168,7 +171,7 @@ export default {
         (response) => {
           if (response.status == 200) {
             loader.hide();
-            console.log(response.data.data);
+            console.log('patients: ', response.data);
             if (response.data.error == true) {
               // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
               let msg = 'No record found';

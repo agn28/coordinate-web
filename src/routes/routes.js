@@ -98,6 +98,8 @@ import QuestionnaireSection from "../components/questionnaires/Section";
 
 import AddPatientInvestigations from '../components/patients/AddPatientInvestigations';
 
+import Centers from '../components/centers/List';
+
 import VueRouter from "vue-router";
 const routes = [
   {
@@ -234,11 +236,18 @@ const routes = [
       role: 'admin'
     }
   },
-
   {
     path: '/settings/medications',
     name: 'medications',
     component: Medications,
+    meta: {
+      role: 'admin'
+    }
+  },
+  {
+    path: '/settings/centers',
+    name: 'centers',
+    component: Centers,
     meta: {
       role: 'admin'
     }
