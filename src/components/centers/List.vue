@@ -185,7 +185,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(center, index) in filteredList" :key="index">
+                  <tr v-for="(center, index) in centers" :key="index">
                     <td>{{ center.name }}</td>
                     <td>{{ center.incharge_data ? center.incharge_data.name : '' }}</td>
                     <td>{{ center.address ? center.address.village : '' }}</td>
@@ -411,6 +411,7 @@ export default {
 
           this.$bvModal.hide("modal-center");
           loader.hide();
+          this.getCenters();
         })
         .catch(error => {
           this.$swal({
@@ -427,7 +428,6 @@ export default {
       this.$http
         .post("/centers", this.newCenter)
         .then(response => {
-            console.log('center resp: ', response)
           if (response.status == 201) {
             this.centers.push(this.newCenter);
           }
@@ -441,6 +441,7 @@ export default {
             description: ''
           };
           loader.hide();
+          this.getCenters();
         })
         .catch(error => {
             console.log('error: ', error)
