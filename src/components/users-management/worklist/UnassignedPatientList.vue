@@ -324,7 +324,7 @@ export default {
     filterPatients() {
         this.patients = this.patients.filter(patient => {
           if (this.carePlans) {
-            let hasCarePlan = this.carePlans.find(plan =>  plan.body.patient_id == patient.id && plan.meta.assigned_to == "");
+            let hasCarePlan = this.carePlans.find(plan =>  plan.body.patient_id == patient.id && (!("assigned_to" in plan.meta) || plan.meta.assigned_to == ""));
             if (hasCarePlan){
               this.getNearestChw(patient);
               return patient;
