@@ -53,6 +53,11 @@
         <div v-if="user.role == 'admin'" class="menu-heading">
           <span>Administrator Tools</span>
         </div>
+        <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('unassigned-patients') ? 'active' : ''">
+            <router-link class="nav-link" :to="{ name: 'unassignedPatientList' }">
+              <i class="fas fa-fw fa-list"></i><span>Unassigned Patients</span>
+            </router-link>
+        </li>
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('work-lists') ? 'active' : ''">
             <router-link class="nav-link" :to="{ name: 'worklistPatient' }">
               <i class="fas fa-fw fa-list"></i><span>Work list</span>
