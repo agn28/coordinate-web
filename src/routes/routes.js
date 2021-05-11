@@ -90,6 +90,7 @@ import Devices from "../components/devices/List";
 
 import WorkList from "../components/users-management/worklist/WorkList";
 import WorklistPatient from "../components/users-management/worklist/PatientList";
+import UnassignedPatientList from "../components/users-management/worklist/UnassignedPatientList";
 
 import Symptoms from "../components/users-management/symptoms/List";
 import Questionnaires from "../components/questionnaires/List";
@@ -173,6 +174,14 @@ const routes = [
     path: '/work-lists',
     name: 'worklistPatient',
     component: WorklistPatient,
+    meta: {
+      role: 'admin'
+    }
+  },
+  {
+    path: '/unassigned-patients',
+    name: 'unassignedPatientList',
+    component: UnassignedPatientList,
     meta: {
       role: 'admin'
     }
