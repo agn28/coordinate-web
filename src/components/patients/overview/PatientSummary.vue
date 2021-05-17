@@ -724,7 +724,9 @@ export default {
     };
   },
   methods: {
-
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getGeneratedCareplans() {
       this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
         (response) => {
@@ -1495,6 +1497,7 @@ export default {
     this.getGeneratedCareplans();
     this.getLastRiskFactors();
     this.getLastReport();
+    this.scrollToTop();
   },
   computed: {
      user() {

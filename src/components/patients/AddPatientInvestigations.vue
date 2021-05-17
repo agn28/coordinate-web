@@ -322,6 +322,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     onEncounterCreate() {
       this.createEncounter();
     },
@@ -570,6 +573,7 @@ export default {
 
   mounted() { 
     this.patientId = this.$route.params.patientId;
+    this.scrollToTop();
    },
   computed: {
     user() {

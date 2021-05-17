@@ -57,6 +57,9 @@ export default {
   },
 
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     updateQuestionsList(question) {
       const questionIndex = this.questionsList.findIndex(
         x => x.id === question.id
@@ -98,6 +101,7 @@ export default {
         this.updateQuestionsList(q);
       }
     });
+    this.scrollToTop();
   }
 };
 </script>

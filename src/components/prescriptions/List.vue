@@ -140,7 +140,9 @@ export default {
     },
   },
   methods: {
-
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getGeneratedby(id) {
       let matchedUser = this.users.find(usr => usr.uid == id);
       return matchedUser ? matchedUser.name : '';
@@ -244,6 +246,7 @@ export default {
   mounted() {
     this.getPatients();
     this.getUsers();
+    this.scrollToTop();
   },
 };
 </script>

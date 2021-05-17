@@ -203,6 +203,9 @@ export default {
       
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getPatients() {
       let loader = this.$loading.show();
       this.$http.get("/patients/" + this.patientId).then(
@@ -430,6 +433,7 @@ export default {
     this.getPatients();
     this.getGeneratedCarePlan();
     this.getMedicationsByCareplan();
+    this.scrollToTop();
   },
   
   created() {},

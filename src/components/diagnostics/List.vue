@@ -63,6 +63,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getDiagnostics() {
       this.$http
         .get(
@@ -100,6 +103,7 @@ export default {
     this.patientId = this.$route.params.patientId;
     this.encounterId = this.$route.params.encounterId;
     this.getDiagnostics();
+    this.scrollToTop();
   }
 };
 </script>

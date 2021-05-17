@@ -239,6 +239,9 @@
       };
     },
     methods: {
+      scrollToTop() {
+        window.scrollTo(0,0);
+      },
       getPatient() {
         let loader = this.$loading.show();
         this.$http.get("/patients/" + this.patientId).then(response => {
@@ -334,7 +337,7 @@
       }
     },
     mounted() {
-
+      this.scrollToTop();
     },
     created() {
       this.patientId = this.$route.params.patientId;

@@ -57,6 +57,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getEncounters() {
       this.$http
         .get("/patients/" + this.participantId + "/assessments")
@@ -86,6 +89,7 @@ export default {
     console.log('hello')
     this.participantId = this.$route.params.participantId;
     this.getEncounters();
+    this.scrollToTop();
   }
 };
 </script>

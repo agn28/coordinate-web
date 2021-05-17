@@ -89,6 +89,9 @@
     },
 
     methods: {
+      scrollToTop() {
+        window.scrollTo(0,0);
+      },
       getPatientInfo() {
         this.$http.get("/patients/" + this.patientId).then(response => {
             this.loader.hide();
@@ -173,7 +176,8 @@
     mounted() {
       this.assessmentId = this.$route.params.assessmentId;
       this.getAssessmentDetails()
-      this.getObservation()
+      this.getObservation();
+      this.scrollToTop();
     }
   }
 </script>

@@ -145,6 +145,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     assessmentDetails(report) {
       console.log('report');
       console.log(report);
@@ -213,7 +216,7 @@ export default {
   
   },
   mounted() {
-
+    this.scrollToTop();
   },
 };
 </script>

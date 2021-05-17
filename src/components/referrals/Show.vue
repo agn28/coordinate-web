@@ -99,7 +99,9 @@
       };
     },
     methods: {
-
+        scrollToTop() {
+            window.scrollTo(0,0);
+        },
         getTitle(title) {
             return title.replace('_', ' ');
         },
@@ -160,6 +162,7 @@
       this.patientId = this.$route.params.patientId;
       this.getPatients();
       this.getFollowups();
+      this.scrollToTop();
     }
   };
 </script>

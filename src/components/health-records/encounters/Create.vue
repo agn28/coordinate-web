@@ -50,6 +50,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     save() {
       var path = "/patients/" + this.patientId + "/encounters";
       this.$http.post(path, this.encounter).then(response => {
@@ -61,6 +64,7 @@ export default {
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
+    this.scrollToTop();
   }
 };
 </script>

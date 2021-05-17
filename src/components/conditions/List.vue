@@ -69,6 +69,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getConditions() {
       this.$http
         .get(
@@ -107,6 +110,7 @@ export default {
     this.patientId = this.$route.params.patientId;
     this.encounterId = this.$route.params.encounterId;
     this.getConditions();
+    this.scrollToTop();
   }
 };
 </script>

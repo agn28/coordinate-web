@@ -316,6 +316,7 @@
       }
     },
     created() {
+      this.scrollToTop();
       this.patientId = this.$route.params.patientId;
       this.userId = this.$store.state.auth.user.uid
       this.getPatient()
@@ -336,6 +337,9 @@
       }
     },
     methods: {
+    scrollToTop() {
+        window.scrollTo(0,0);
+    },
       saveHeight() {
         this.$bvModal.hide('modal-height')
         this.prepareData(this.height)

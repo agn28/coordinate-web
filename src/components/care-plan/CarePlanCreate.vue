@@ -624,6 +624,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     onActionUpdate(index) {
       if (this.allData.careplan.activities[index].status) {
         this.removedCounsellings.push(this.allData.careplan.activities[index]);
@@ -998,7 +1001,7 @@ export default {
     this.patientId = this.$route.params.patientId;
 
     this.prepareData();
-    
+    this.scrollToTop();
   },
   
   created() {},

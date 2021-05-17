@@ -95,7 +95,9 @@
       };
     },
     methods: {
-        
+      scrollToTop() {
+        window.scrollTo(0,0);
+      },
       getPatients() {
         let loader = this.$loading.show();
         this.$http.get("/patients").then(response => {
@@ -159,7 +161,7 @@
     },
     mounted() {
       this.getCarePlans();
-      
+      this.scrollToTop();
     }
   };
 </script>

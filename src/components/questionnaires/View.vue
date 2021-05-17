@@ -129,6 +129,9 @@ export default {
   },
 
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getSections() {
       let loader = this.$loading.show();
       this.$http.get(`sections?questionnaire_id=${this.$route.params.id}`).then(
@@ -165,6 +168,7 @@ export default {
   mounted() {
     this.questionnaireID = this.$route.params.id;
     this.getSections();
+    this.scrollToTop();
   }
 };
 </script>

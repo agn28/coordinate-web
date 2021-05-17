@@ -346,6 +346,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getHealthRecords() {
       this.$http
         .get('patients/' + this.participantId + '/encounters/' + this.encounterId + '/assessments')
@@ -368,6 +371,7 @@ export default {
     this.participantId = this.$route.params.participantId;
     this.encounterId = this.$route.params.encounterId;
     this.getHealthRecords();
+    this.scrollToTop();
   }
 };
 </script>

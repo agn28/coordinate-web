@@ -698,9 +698,13 @@
     created() {
       this.userId = this.$store.state.auth.user.uid
       this.patientId = this.$route.params.patientId;
-      this.getPatient()
+      this.getPatient();
+      this.scrollToTop();
     },
     methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
       previewImage: function(event) {
         // Reference to the DOM input element
         var input = event.target;

@@ -1,7 +1,7 @@
 <template>
   <div class="content patient-list-page">
     <div class="animated fadeIn">
-      <TopNavBar heading="Patients asd"></TopNavBar>
+      <TopNavBar heading="Patients"></TopNavBar>
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-content">
@@ -51,10 +51,14 @@
                 <thead>
                   <tr>
                     <th scope="col">Patient Name</th>
-                    <th scope="col">Date of Birth</th>
+                    <th scope="col">Upazila</th>
+                    <th scope="col">District</th>
+                    <th scope="col">Next Visit Date</th>
+                    <th scope="col">Assigned To</th>
+                    <!-- <th scope="col">Date of Birth</th>
                     <th scope="col">NID</th>
                     <th scope="col">Assigned To</th>
-                    <th scope="col">Next Visit Date</th>
+                    <th scope="col">Next Visit Date</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -66,18 +70,15 @@
                   >
                     <template>
                       <td>{{ patient.body.first_name + ' ' + patient.body.last_name}}</td>
-                      <td>{{ patient.body.birth_date }}</td>
+                      <td>{{ patient.body.address.upazila }}</td>
                       <td>
-                        {{ patient.body.nid }}
-                        <span class="pull-right">
-                          <i class="fas fa-arrow-right"></i>
-                        </span>
+                        {{ patient.body.address.district }}
                       </td>
+                      <td>{{ getNextVisitDate(patient) }}</td>
                       <td>
                         <div v-if="!hasAssignee(patient)" class="badge badge-danger">Not Assigned</div>
                         <div v-else>{{ getAssignee(patient) }}</div>
                       </td>
-                      <td>{{ getNextVisitDate(patient) }}</td>
                     </template>
                   </tr>
                 </tbody>
@@ -124,6 +125,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     filterByPractioner(assignee) {
       if (assignee == 'none') {
         this.selectedAssignee = '',
@@ -197,6 +201,7 @@ export default {
         response => {
           if (response.status == 200) {
             this.patients = response.data.data;
+            console.log(this.patients, 'patients list')
             this.filterPatients();
             this.allPatients = this.patients;
             loader.hide();
@@ -250,6 +255,7 @@ export default {
   mounted() {
     this.getUsers();
     this.getCarePlans();
+    this.scrollToTop();
   }
 };
 </script>

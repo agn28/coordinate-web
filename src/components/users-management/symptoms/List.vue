@@ -126,6 +126,7 @@ export default {
   },
   mounted() {
     this.getSymptoms();
+    this.scrollToTop();
   },
   computed: {
     filteredList() {
@@ -135,6 +136,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getSymptoms() {
       let loader = this.$loading.show();
       this.$http.get("/medications").then(

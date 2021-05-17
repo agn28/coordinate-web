@@ -300,6 +300,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     onModalUserClose () {
       // this.newUser.address = {};
       // this.$forceUpdate();
@@ -480,6 +483,7 @@ export default {
     this.getUsers();
     this.getRoles();
     this.getLocations();
+    this.scrollToTop();
   }
 };
 </script>

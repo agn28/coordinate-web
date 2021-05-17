@@ -71,6 +71,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getRole() {
       let loader = this.$loading.show();
       this.$http.get(`/roles/${this.$route.params.roleId}`).then(
@@ -142,7 +145,7 @@ export default {
   },
   mounted() {
     this.getPermisions();
-    
+    this.scrollToTop();
   }
 };
 </script>

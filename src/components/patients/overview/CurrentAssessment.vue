@@ -1072,6 +1072,9 @@ export default {
 
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     test() {
       console.log(this.currentEncounterParent.id)
     },
@@ -1138,7 +1141,7 @@ export default {
   },
   mounted() {
     console.log('mounted');
-
+    this.scrollToTop();
   },
 };
 </script>

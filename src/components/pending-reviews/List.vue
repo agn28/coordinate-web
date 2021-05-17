@@ -138,6 +138,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getPatients(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
       this.disablePrevButton = false;
@@ -210,6 +213,7 @@ export default {
   },
   mounted() {
     this.getPatients('', 'last_item');
+    this.scrollToTop();
   },
 };
 </script>

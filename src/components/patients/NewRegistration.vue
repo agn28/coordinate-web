@@ -751,7 +751,8 @@
       }
     },
     created() {
-      this.userId = this.$store.state.auth.user.uid
+      this.userId = this.$store.state.auth.user.uid;
+      this.scrollToTop();
     },
     computed: {
         isComplete () {
@@ -765,6 +766,9 @@
         }
     },
     methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     nextTab(props){
         console.log(props);
         if (this.activeTab == 0) {

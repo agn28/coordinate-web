@@ -94,6 +94,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     save() {
       var path = "/patients/" + this.patientId + "/family_member_histories";
       this.family_member.condition_age = parseFloat(
@@ -111,6 +114,7 @@ export default {
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
+    this.scrollToTop();
   }
 };
 </script>

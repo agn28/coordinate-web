@@ -136,6 +136,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getRoles() {
       let loader = this.$loading.show();
       this.$http.get("/roles").then(
@@ -208,6 +211,7 @@ export default {
   },
   mounted() {
     this.getRoles();
+    this.scrollToTop();
   }
 };
 </script>
