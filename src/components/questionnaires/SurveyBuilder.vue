@@ -150,12 +150,16 @@ export default {
     this.question.type = this.question.type ? this.question.type : 'DEFAULT';
     this.selectedType = this.question.type;
     window.console.log(this.question, this.selectedType);
+    this.scrollToTop();
   },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   destroyed() {},
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     /**
      * @desc {String} type
      * @param {String} type

@@ -62,6 +62,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getSpecimen() {
       this.$http
         .get("/patients/" + this.patientId + "/specimen")
@@ -92,6 +95,7 @@ export default {
   mounted() {
     this.patientId = this.$route.params.patientId;
     this.getSpecimen();
+    this.scrollToTop();
   }
 };
 </script>

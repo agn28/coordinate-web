@@ -132,6 +132,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
      showFHIR(id) {
       let loader = this.$loading.show();
       this.$http.get("/observations/fhir/" + this.encounterId).then(
@@ -239,6 +242,7 @@ export default {
     this.patientId = this.$route.params.patientId;
     this.encounterId = this.$route.params.encounterId;
     this.getObservations();
+    this.scrollToTop();
   }
 };
 </script>

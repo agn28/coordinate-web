@@ -142,6 +142,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getHealthRecords() {
       this.$http
         .get('assessments/' + this.participantId)
@@ -216,6 +219,7 @@ export default {
     this.findPatient();
     let today = new Date(); 
     this.assessment_date = moment().format('DD-MM-YYYY');
+    this.scrollToTop();
   }
 };
 </script>

@@ -116,6 +116,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     save() {
       var path =
         "/patients/" +
@@ -139,6 +142,7 @@ export default {
   mounted() {
     this.patientId = this.$route.params.patientId;
     this.encounterId = this.$route.params.encounterId;
+    this.scrollToTop();
   }
 };
 </script>

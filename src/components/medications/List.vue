@@ -149,6 +149,9 @@ export default {
   },
   
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getMedications(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
       let searchKey = '';
@@ -257,6 +260,7 @@ export default {
   },
   mounted() {
     this.getMedications();
+    this.scrollToTop();
   }
 };
 </script>

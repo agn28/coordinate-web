@@ -154,6 +154,9 @@ export default {
   },
  
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getPatients(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
       let searchKey = '';
@@ -239,6 +242,7 @@ export default {
       this.search = this.$route.query.search;
     }
     this.getPatients();
+    this.scrollToTop();
   },
 };
 </script>

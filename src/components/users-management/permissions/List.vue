@@ -136,6 +136,9 @@ export default {
   },
   
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getPermissions() {
       let loader = this.$loading.show();
       this.$http.get("/permissions").then(
@@ -210,6 +213,7 @@ export default {
   },
   mounted() {
     this.getPermissions();
+    this.scrollToTop();
   }
 };
 </script>

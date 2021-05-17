@@ -151,6 +151,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getWorklists() {
       let loader = this.$loading.show();
       this.$http.get("care-plans/work-list?patient_id=" + this.patientId).then(
@@ -256,6 +259,7 @@ export default {
   mounted() {
     this.getUsers();
     this.getWorklists();
+    this.scrollToTop();
   },
   created() {
     this.patientId = this.$route.params.patientId;

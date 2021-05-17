@@ -231,6 +231,9 @@ export default {
       
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     hasGenerated (event) {
 
     },
@@ -533,6 +536,7 @@ export default {
     this.followUpDate = localStorage.getItem('follow_up_date');
     this.prepareData();
     this.getPatients();
+    this.scrollToTop();
   },
   
   created() {},

@@ -450,7 +450,9 @@ export default {
     };
   },
   methods: {
-
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getColor(value, condition) {
       // console.log('get color', value);
       if (!value || value == 'N/A') {
@@ -1073,6 +1075,7 @@ export default {
     this.getEncounter();
     this.getObservations();
     this.prepareBpConditions();
+    this.scrollToTop();
     // this.getCarePlans();
     // this.getLastEncounter();
   },

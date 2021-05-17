@@ -1279,7 +1279,7 @@ export default {
     };
   },
   mounted() {
-    
+    this.scrollToTop();
   },
   created() {
     if (this.$route.params.reviewId) {
@@ -1288,6 +1288,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     updatePatientHealthRecord() {
       let loader = this.$loading.show();
       this.$http

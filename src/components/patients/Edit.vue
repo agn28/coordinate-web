@@ -54,6 +54,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     save() {
       var path = "/patients/" + this.patientId + "/specimen";
       this.specimen.note = [this.specimen.note];
@@ -69,6 +72,7 @@ export default {
   },
   mounted() {
     this.patientId = this.$route.params.patientId;
+    this.scrollToTop();
   }
 };
 </script>

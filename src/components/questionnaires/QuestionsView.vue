@@ -92,10 +92,14 @@ export default {
       window.console.log(obj);
       this.selectedQuestion = { id: null };
     });
+    this.scrollToTop();
   },
   computed: {},
   watch: {},
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     editQuestion(question, index) {
       this.selectedQuestion = JSON.parse(JSON.stringify(question));
       this.selectedQuestion.questionNumber = index + 1;

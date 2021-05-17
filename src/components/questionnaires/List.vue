@@ -156,6 +156,9 @@ export default {
   },
 
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getMedications() {
       let loader = this.$loading.show();
       this.$http.get("/questionnaires").then(
@@ -229,6 +232,7 @@ export default {
   },
   mounted() {
     this.getMedications();
+    this.scrollToTop();
   }
 };
 </script>

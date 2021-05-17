@@ -115,8 +115,12 @@
             this.patientId = this.$route.params.patientId;
             this.getCarePlans();
             this.getPatient();
+            this.scrollToTop();
         },
         methods: {
+            scrollToTop() {
+                window.scrollTo(0,0);
+            },
             getCarePlans() {
                 let loader = this.$loading.show();
                 this.$http.get("/care-plans/patient/" + this.patientId, ).then(

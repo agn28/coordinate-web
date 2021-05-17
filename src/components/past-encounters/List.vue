@@ -114,6 +114,9 @@
     },
 
     methods: {
+      scrollToTop() {
+        window.scrollTo(0,0);
+      },
       getPatientInfo() {
         let loader = this.$loading.show();
         this.$http.get("/patients/" + this.patientId).then(response => {
@@ -144,6 +147,7 @@
       this.patientId = this.$route.params.patientId;
       this.getPatientInfo();
       this.getAssessments();
+      this.scrollToTop();
     },
     created() {
 

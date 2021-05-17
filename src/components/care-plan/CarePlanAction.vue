@@ -184,8 +184,12 @@ export default {
     this.carePlanId = this.$route.params.carePlanId;
     this.getCarePlan();
     this.getUsers();
+    this.scrollToTop();
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getCarePlan() {
       let loader = this.$loading.show();
       this.$http.get("/care-plans/" + this.carePlanId).then(

@@ -237,8 +237,9 @@
             };
         },
         methods: {
-            
-
+            scrollToTop() {
+                window.scrollTo(0,0);
+            },
             updatePatientReferral(patient) {
 
                 patient.meta.referral_required = false;
@@ -349,7 +350,7 @@
         },
         mounted() {
             this.fillData();
-            
+            this.scrollToTop();
         }
     };
 </script>

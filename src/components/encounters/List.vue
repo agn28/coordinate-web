@@ -197,6 +197,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getEncounters() {
       let loader = this.$loading.show();
       this.$http.get(`/patients/${this.patientId}/assessments`).then(
@@ -228,6 +231,7 @@ export default {
   mounted() {
     this.patientId = this.$route.params.patientId;
     this.getEncounters();
+    this.scrollToTop();
   },
 };
 </script>

@@ -65,6 +65,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     save() {
       this.$http.post("/patients", this.patient).then(response => {
         if (response.status == 200) {
@@ -75,6 +78,7 @@ export default {
   },
   mounted() {
     // this.getPatients();
+    this.scrollToTop();
   }
 };
 </script>

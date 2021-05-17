@@ -383,6 +383,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     isObservationAvailable(encounter, observation) {
       // console.log('encounter.body.observations');
       // console.log(encounter.body.observations);
@@ -724,6 +727,7 @@ export default {
   mounted() {
     this.generateBPChart();
     this.initializeBodyMeasurement();
+    this.scrollToTop();
   },
 };
 </script>

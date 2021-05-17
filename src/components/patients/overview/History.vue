@@ -57,6 +57,9 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     getDate(history) {
       let date = "";
       if (history.created_at) {
@@ -72,11 +75,10 @@ export default {
     }
   },
   created() {
-    
   },
 
   mounted() {
-    
+    this.scrollToTop();
   },
 };
 </script>

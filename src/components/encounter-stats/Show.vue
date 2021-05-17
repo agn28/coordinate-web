@@ -97,7 +97,9 @@ import moment from 'moment';
       };
     },
     methods: {
-
+        scrollToTop() {
+            window.scrollTo(0,0);
+        },
         getTitle(title) {
             return title.replace('_', ' ');
         },
@@ -158,6 +160,7 @@ import moment from 'moment';
       this.patientId = this.$route.params.patientId;
       this.getPatients();
       this.getFollowups();
+      this.scrollToTop();
     }
   };
 </script>

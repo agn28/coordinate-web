@@ -268,6 +268,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     onInchargeSelect() {
         console.log('change incharge', this.newCenter)
     },
@@ -510,6 +513,7 @@ export default {
     this.getUsers();
     this.getLocations();
     this.getCenters();
+    this.scrollToTop();
   }
 };
 </script>

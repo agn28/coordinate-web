@@ -177,6 +177,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     filterByPractioner(assignee) {
       if (assignee == 'none') {
         this.selectedAssignee = '',
@@ -376,6 +379,7 @@ export default {
     // this.getCarePlans();
     // this.getUsers();
     this.initialData();
+    this.scrollToTop();
   }
 };
 </script>

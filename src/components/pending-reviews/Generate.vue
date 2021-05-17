@@ -494,6 +494,9 @@ import Multiselect from "vue-multiselect";
       };
     },
     methods: {
+      scrollToTop() {
+        window.scrollTo(0,0);
+      },
       addDiagnosis() {
         // this.$bvModal.hide('modal-diagnosis');
       },
@@ -700,7 +703,7 @@ import Multiselect from "vue-multiselect";
       }
     },
     mounted() {
-
+      this.scrollToTop();
 
     }
   };

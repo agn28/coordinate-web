@@ -451,8 +451,12 @@ export default {
     this.getSummary();
     this.getCenters();
     this.maxDate = moment().format('YYYY-MM-DD');
+    this.scrollToTop();
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     filterSummary() {
       let query = {};
       // if (this.selectedDateRange) {

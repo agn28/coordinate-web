@@ -81,6 +81,9 @@ export default {
   },
   computed: {},
   methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     onTabClick() {
       if (this.$route.query.encounter || this.$route.query.assessment) {
         this.$router.replace({});
@@ -458,6 +461,7 @@ export default {
     // this.getReports();
     // this.getHistory();
     // this.getFollowups();
+    this.scrollToTop();
     
   },
   created() {
