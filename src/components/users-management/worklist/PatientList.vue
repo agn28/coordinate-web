@@ -55,10 +55,6 @@
                     <th scope="col">District</th>
                     <th scope="col">Next Visit Date</th>
                     <th scope="col">Assigned To</th>
-                    <!-- <th scope="col">Date of Birth</th>
-                    <th scope="col">NID</th>
-                    <th scope="col">Assigned To</th>
-                    <th scope="col">Next Visit Date</th> -->
                   </tr>
                 </thead>
                 <tbody>

@@ -287,6 +287,11 @@ export default {
       this.isLoading = true;
 
       this.allData.data.body.result.careplan = this.previousData.careplan;
+      this.allData.data.body.result.careplan.activities = this.allData.data.body.result.careplan.activities.filter((item => {
+        if (item.category == 'survey') {
+          return item;
+        }
+      }));
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
       this.allData.data.body.follow_up_date = this.followUpDate;
