@@ -5,7 +5,9 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-content">
-            <div class="title">Patients</div>
+            <div class="title">Patients 
+              <b-badge variant="primary">{{ patients.length }}</b-badge>
+            </div>
           </div>
         </div>
       </div>
@@ -55,6 +57,7 @@
                     <th scope="col">District</th>
                     <th scope="col">Next Visit Date</th>
                     <th scope="col">Suggested CHW</th>
+                    <th scope="col">Task Created</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -74,6 +77,8 @@
                         <!-- <div v-if="!hasAssignee(patient)" class="badge badge-danger">Not Assigned</div> -->
                         <div>{{ patient.selected_user.name }}</div>
                       </td>
+                      <td>{{ getCreatedDate(patient) }}</td>
+
                       <td>
                         <div>
                           <button @click="assignUser(patient.selected_user, patient)" class="btn btn-success btn-sm">Confirm</button>
@@ -265,6 +270,13 @@ export default {
       }
       return date;
     },
+    getCreatedDate(patient) {
+      let date = '';
+      if (typeof patient.taskCreatedDate != 'undefined') {
+        date = moment(patient.taskCreatedDate).format("DD MMM YYYY")
+      }
+      return date;
+    },
     getAssignee(patient) {
       let users = '';
       patient.body.assignees.forEach(assignee => {
@@ -330,6 +342,7 @@ export default {
             let hasCarePlan = this.carePlans.find(plan =>  plan.body.patient_id == patient.id && (!("assigned_to" in plan.meta) || plan.meta.assigned_to == ""));
             if (hasCarePlan){
               this.getNearestChw(patient);
+              patient.taskCreatedDate = hasCarePlan.meta.created_at;
               return patient;
             }
           }
