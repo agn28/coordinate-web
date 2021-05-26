@@ -10,13 +10,13 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="from">From</label>
-                                    <input class="form-control" id="from" type="date">
+                                    <input v-model="fromDate" @change="doFilter()" class="form-control" id="from" type="date">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="to">To</label>
-                                    <input class="form-control" id="to" type="date">
+                                    <input v-model="toDate" @change="doFilter()" class="form-control" id="to" type="date">
                                 </div>
                             </div>
                         </div>
@@ -25,19 +25,19 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Division</label>
                             <multiselect v-model="division" :options="divisions" open-direction="bottom"></multiselect>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-3">
                     <div class="filter-item">
                         <div class="form-group" v-if="districts">
                             <label for="division">District</label>
-                            <multiselect v-model="district" :options="districts" open-direction="bottom" label="name" track-by="name" @input="onDistrictSelect()"></multiselect>
+                            <multiselect v-model="district" :options="districts" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Upazila</label>
-                            <multiselect v-model="upazila" :options="upazilas" open-direction="bottom" label="name" track-by="name"></multiselect>
+                            <multiselect v-model="upazila" :options="upazilas" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Center</label>
-                            <multiselect v-model="center" :options="centers" open-direction="bottom" label="name" track-by="name"></multiselect>
+                            <multiselect v-model="center" :options="centers" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Healthcare Worker</label>
-                            <multiselect v-model="healthWorker" :options="healthWorkers" :multiple="true" open-direction="bottom" label="name" track-by="name"></multiselect>
+                            <multiselect v-model="healthWorker" :options="healthWorkers" :multiple="true" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,17 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Refferal Status</label>
-                            <multiselect v-model="status" :options="statusList" open-direction="bottom"></multiselect>
+                            <multiselect v-model="status" :options="statusList" open-direction="bottom" @input="doFilter()"></multiselect>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="clear-filter">
+                        <div class="form-group">
+                            <label for=""></label>
+                            <button @click="clearFilter()" class="d-block mt-2 btn btn-primary">
+                                Clear Filter
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -99,9 +109,9 @@
                                         <td>{{ patient.body.first_name + ' ' + patient.body.last_name}}</td>
                                         <td>{{ patient.body.age }} </td>
                                         <td>{{ patient.body.mobile }} </td>
-                                        <td>{{ patient.body.age }} </td>
+                                        <td> </td>
                                         <td>{{ getDate(patient.body.registration_date) }} </td>
-                                        <td>{{ getDate(patient.followup.meta.created_at) }} </td>
+                                        <td>{{ moment(new Date(patient.followup.meta.created_at._seconds*1000)).format('DD MMM YYYY') }} </td>
                                         <td>{{ patient.followup.meta.status.toUpperCase() }}<span class="pull-right"><i class="fas fa-arrow-right"></i></span>
                                         </td>
                                         <td>{{ patient.followup.body.reason }} </td>
@@ -150,6 +160,7 @@
                 patients: [],
                 followups: [],
                 followupPatients: [],
+                copyFollowupPatients: [],
                 users: [],
                 selectedPatient: {},
                 selectedStatus: '',
@@ -169,9 +180,11 @@
                 district: '',
                 upazila: '',
                 center: '',
-                healthWorker: '',
+                healthWorker: [],
                 status: '',
-                statusList: ['All', 'Completed', 'Pending', 'Missed']
+                statusList: ['All', 'Completed', 'Pending', 'Missed'],
+                fromDate: '',
+                toDate: ''
             };
         },
         methods: {
@@ -218,7 +231,6 @@
             getPatients(lastItemId = '', queryItemkey = 'last_item') {
                 let loader = this.$loading.show();
                 this.$http.get("/patients?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId).then(response => {
-                    console.log(response)
                     if (response.status == 200) {
                         loader.hide()
                         this.patients = response.data.data;
@@ -274,7 +286,7 @@
                     
                 })
                 this.followupPatients = patients;
-                console.log(this.followupPatients, 'ppp')
+                this.copyFollowupPatients = [...patients];
             },
 
             getId(identifier, type) {
@@ -303,7 +315,6 @@
             getCenters () {
                 let loader = this.$loading.show();
                 this.$http.get("/centers").then(response => {
-                    console.log(response, 'reps')
                     if (response.status == 200) {
                         loader.hide()
                         this.centers = response.data.data;
@@ -316,7 +327,6 @@
             getHealthWorkers () {
                 let loader = this.$loading.show();
                 this.$http.get("/users?role=chw").then(response => {
-                    console.log(response, 'reps')
                     if (response.status == 200) {
                         loader.hide()
                         this.healthWorkers = response.data;
@@ -338,16 +348,65 @@
                     loader.hide();
                 });
             },
-            onDistrictSelect() {
-                if (this.district) {
-                    this.upazilas = this.district.thanas;
-                }
-                console.log(this.district, 'dist')
-            },
             getReferredUser(referredId) {
                 let referredUser = this.users.find(user => user.uid == referredId);
                 return referredUser.name;
-            }
+            },
+            doFilter() {
+                this.followupPatients = [...this.copyFollowupPatients];
+                if (this.fromDate && this.toDate) {
+                    this.followupPatients = this.followupPatients.filter(item => {
+                        let followupDate = moment(new Date(item.followup.meta.created_at._seconds*1000));
+                        return (followupDate.isSame(this.fromDate) || followupDate.isAfter(this.fromDate)) && (followupDate.isSame(this.toDate) || followupDate.isBefore(this.toDate))
+                    });
+                }
+                if (this.district) {
+                    this.upazilas = this.district.thanas;
+                    this.followupPatients = this.followupPatients.filter(item => item.body.address.district == this.district.name);
+                }
+                if (this.upazila) {
+                    this.followupPatients = this.followupPatients.filter(item => item.body.address.upazila == this.upazila.name);
+                }
+                if (this.center) {
+                    this.followupPatients = this.followupPatients.filter(item => item.followup.body.location.clinic_name == this.center.name);
+                }
+                if (this.status) {
+                    this.followupPatients = this.followupPatients.filter(item => item.followup.meta.status == this.status.toLowerCase());
+                }
+                if (this.healthWorker.length) {
+                    let filteredPatients = [];
+                    this.healthWorker.forEach(item => {
+                        let patients = [];
+                        this.followupPatients.forEach(patient => {
+                            if (patient.followup.meta.collected_by == item.uid) {
+                                patients.push(patient);
+                            }
+                        })
+                        filteredPatients = [...filteredPatients, ...patients];
+                    })
+                    this.followupPatients = [...filteredPatients];
+                }
+            },
+            clearFilter() {
+                this.fromDate = '';
+                this.toDate = '';
+                this.district = '';
+                this.upazilas = [];
+                this.upazila = '';
+                this.status = '';
+                this.followupPatients = this.copyFollowupPatients;
+            },
+            // getCVD(patientId) {
+            //     this.$http.get("/health-reports/patient/" + patientId + '?filter=last').then(response => {
+            //         if (response.status == 200) {
+            //             if (!response.data.error) {
+            //             console.log(response, 'cvd')
+
+            //                 return "hello";
+            //             }
+            //         }
+            //     });
+            // }
         },
         mounted() {
             this.getFollowups();
