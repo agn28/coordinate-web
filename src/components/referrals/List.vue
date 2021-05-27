@@ -368,7 +368,7 @@
                     this.followupPatients = this.followupPatients.filter(item => item.body.address.upazila == this.upazila.name);
                 }
                 if (this.center) {
-                    this.followupPatients = this.followupPatients.filter(item => item.followup.body.location.clinic_name == this.center.name);
+                    this.followupPatients = this.followupPatients.filter(item => item.followup.body.location.clinic_type == this.center.name);
                 }
                 if (this.status) {
                     this.followupPatients = this.followupPatients.filter(item => item.followup.meta.status == this.status.toLowerCase());
