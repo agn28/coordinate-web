@@ -638,6 +638,7 @@ export default {
     getHealthReport() {
       this.isLoading = true;
       this.$http.post('/health-reports/generate/' + this.patientId).then(response => {
+        console.log(response, 'health response')
         this.isLoading = false;
         if (response.status == 200) {
           if (!response.data || response.data == {} || !response.data.careplan) {

@@ -87,7 +87,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="patient-list">
-                        <h5>List <b-badge variant="primary">{{ followupPatients.length }}</b-badge></h5>
+                        <h5>Patients <b-badge variant="primary">{{ followupPatients.length }}</b-badge></h5>
                         <div class="table-responsive table-referrals">
                             <table class="table">
                                 <thead>
