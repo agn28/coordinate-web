@@ -210,16 +210,16 @@
                     <td>{{ user.address ? user.address.upazila : '' }}</td>
                     <td>{{ user.address ? user.address.district : '' }}</td>
                     <td>
+                      
+                      <a class="btn btn-sm btn-primary mr-2" href="#" @click.prevent="editUser(user)">
+                        <i class="fas fa-pencil-alt"></i>
+                      </a>
                       <a
                         class="btn btn-sm btn-danger mr-2"
                         href="#"
                         @click.prevent="deleteUser(user)"
                       >
                         <i class="fas fa-trash"></i>
-                      </a>
-
-                      <a class="btn btn-sm btn-primary mr-2" href="#" @click.prevent="editUser(user)">
-                        <i class="fas fa-pencil-alt"></i>
                       </a>
                       <!-- <button
                         v-b-modal.modal-assign-role
