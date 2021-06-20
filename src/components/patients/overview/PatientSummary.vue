@@ -3,11 +3,20 @@
     <div class="row">
       <div class="col-md-6">
         <div class="card tab-card  card-blue-header">
-          <div class="card-header "> Patient Information
-            <div class="text-xs pt-2 float-right last-encounter" v-if="lastEncounter">Last Encounter Date: {{ getDate(lastEncounter) }}</div>
+          <div class="card-header ">
+            Patient Information
+            <div
+              class="text-xs pt-2 float-right last-encounter"
+              v-if="lastEncounter"
+            >
+              Last Encounter Date: {{ getDate(lastEncounter) }}
+            </div>
           </div>
           <div class="table-responsive">
-            <table v-if="patient" class="table table-patient table-borderless mt-2">
+            <table
+              v-if="patient"
+              class="table table-patient table-borderless mt-2"
+            >
               <tbody>
                 <tr>
                   <td width="30%" class="font-weight-bold">Patient ID</td>
@@ -17,53 +26,87 @@
                 <tr>
                   <td width="30%" class="font-weight-bold">Name</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ patient.body.first_name + ' ' + patient.body.last_name }}</td>
+                  <td width="65%">
+                    {{ patient.body.first_name + " " + patient.body.last_name }}
+                  </td>
                 </tr>
                 <tr>
-                  <td  width="30%" class="font-weight-bold">Guardian Name</td>
+                  <td width="30%" class="font-weight-bold">Guardian Name</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ patient.body.father_name ||  patient.body.husband_name}}</td>
+                  <td width="65%">
+                    {{ patient.body.father_name || patient.body.husband_name }}
+                  </td>
                 </tr>
                 <tr>
-                  <td  width="30%" class="font-weight-bold">Date Of Birth</td>
+                  <td width="30%" class="font-weight-bold">Date Of Birth</td>
                   <td width="5%" class="text-center">:</td>
                   <td width="65%">{{ patient.body.birth_date }}</td>
                 </tr>
                 <tr>
-                  <td  width="30%" class="font-weight-bold">Age</td>
+                  <td width="30%" class="font-weight-bold">Age</td>
                   <td width="5%" class="text-center">:</td>
                   <td width="65%">{{ patient.body.age }} years</td>
                 </tr>
                 <tr>
-                  <td  width="30%" class="font-weight-bold">Gender</td>
+                  <td width="30%" class="font-weight-bold">Gender</td>
                   <td width="5%" class="text-center">:</td>
                   <td width="65%">{{ patient.body.gender }}</td>
                 </tr>
                 <tr>
-                  <td  width="30%" class="font-weight-bold">Village</td>
+                  <td width="30%" class="font-weight-bold">Village</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ patient.body.address ? patient.body.address.village : ''}}</td>
+                  <td width="65%">
+                    {{
+                      patient.body.address ? patient.body.address.village : ""
+                    }}
+                  </td>
                 </tr>
                 <tr>
-                  <td  width="30%" class="font-weight-bold">Union</td>
+                  <td width="30%" class="font-weight-bold">Union</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ patient.body.address ? patient.body.address.union : ''}}</td>
+                  <td width="65%">
+                    {{ patient.body.address ? patient.body.address.union : "" }}
+                  </td>
                 </tr>
                 <tr>
                   <td width="30%" class="font-weight-bold">Upazila</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ patient.body.address ? patient.body.address.upazila : ''}}</td>
+                  <td width="65%">
+                    {{
+                      patient.body.address ? patient.body.address.upazila : ""
+                    }}
+                  </td>
                 </tr>
                 <tr>
-                  <td  width="30%" class="font-weight-bold">District</td>
+                  <td width="30%" class="font-weight-bold">District</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%">{{ patient.body.address ? patient.body.address.district : ''}}</td>
+                  <td width="65%">
+                    {{
+                      patient.body.address ? patient.body.address.district : ""
+                    }}
+                  </td>
                 </tr>
                 <tr>
                   <td colspan="3" class="">
-                    <div class="d-flex align-items-center patient-summary__action mt-3">
-                      <a href="javascript:void(0)" class="btn btn-cust" data-toggle="modal" data-target="#modal-patient-details">See Details</a>
-                      <router-link :to="{ name: 'encounters', params: { patientId: patientId }}" tag="a" class="btn btn-cust">See History</router-link>
+                    <div
+                      class="d-flex align-items-center patient-summary__action mt-3"
+                    >
+                      <a
+                        href="javascript:void(0)"
+                        class="btn btn-cust"
+                        data-toggle="modal"
+                        data-target="#modal-patient-details"
+                        >See Details</a
+                      >
+                      <router-link
+                        :to="{
+                          name: 'encounters',
+                          params: { patientId: patientId },
+                        }"
+                        tag="a"
+                        class="btn btn-cust"
+                        >See History</router-link
+                      >
                     </div>
                   </td>
                 </tr>
@@ -77,14 +120,20 @@
           <div class="card-header">CVD</div>
           <div class="table-responsive mt-2">
             <table class="table table-borderless">
-
               <tbody>
                 <tr>
-                  <td width="30%" class="font-weight-bold">10 year CVD risk score</td>
+                  <td width="30%" class="font-weight-bold">
+                    10 year CVD risk score
+                  </td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="this.cvdRisk.tfl || ''">{{ this.cvdRisk.value || 'N/A' }}</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="this.cvdRisk.tfl || ''"
+                  >
+                    {{ this.cvdRisk.value || "N/A" }}
+                  </td>
                 </tr>
-
               </tbody>
             </table>
           </div>
@@ -93,53 +142,140 @@
         <div class="card tab-card card-red-header">
           <div class="card-header">Risk Factors</div>
           <div class="table-responsive mt-2">
-            <table v-if="riskFactors && riskFactors.body &&riskFactors.body.data" class="table table-borderless">
-
+            <table
+              v-if="riskFactors && riskFactors.body && riskFactors.body.data"
+              class="table table-borderless"
+            >
               <tbody>
                 <tr>
                   <td width="65%" class="font-weight-bold">Smoking status</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.smoking, false)">{{ riskFactors.body.data.smoking || 'N/A' }}</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="getColor(riskFactors.body.data.smoking, false)"
+                  >
+                    {{ riskFactors.body.data.smoking || "N/A" }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Smokeless tobacco</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.smokeless_tobacco, false)">{{ riskFactors.body.data.smokeless_tobacco || 'N/A' }}</td>
+                  <td width="65%" class="font-weight-bold">
+                    Smokeless tobacco
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.smokeless_tobacco, false)
+                    "
+                  >
+                    {{ riskFactors.body.data.smokeless_tobacco || "N/A" }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Diet: Additional salt: </td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.extra_salt, false)">{{ riskFactors.body.data.extra_salt || 'N/A' }}</td>
+                  <td width="65%" class="font-weight-bold">
+                    Diet: Additional salt:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="getColor(riskFactors.body.data.extra_salt, false)"
+                  >
+                    {{ riskFactors.body.data.extra_salt || "N/A" }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Diet: Sugar intake: </td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.sugary_drinks, false)">{{ riskFactors.body.data.sugary_drinks || 'N/A' }}</td>
+                  <td width="65%" class="font-weight-bold">
+                    Diet: Sugar intake:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.sugary_drinks, false)
+                    "
+                  >
+                    {{ riskFactors.body.data.sugary_drinks || "N/A" }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Diet: Processed food / red meat:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.processed_foods, false)">{{ riskFactors.body.data.processed_foods || 'N/A' }}</td>
+                  <td width="65%" class="font-weight-bold">
+                    Diet: Processed food / red meat:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.processed_foods, false)
+                    "
+                  >
+                    {{ riskFactors.body.data.processed_foods || "N/A" }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Physical activity:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.physical_activity_moderate, true)">{{ riskFactors.body.data.physical_activity_moderate || 'N/A' }}</td>
+                  <td width="65%" class="font-weight-bold">
+                    Physical activity:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(
+                        riskFactors.body.data.physical_activity_moderate,
+                        true
+                      )
+                    "
+                  >
+                    {{
+                      riskFactors.body.data.physical_activity_moderate || "N/A"
+                    }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Alcohol consumption:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.alcohol, false)">{{ riskFactors.body.data.alcohol || 'N/A' }}</td>
+                  <td width="65%" class="font-weight-bold">
+                    Alcohol consumption:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="getColor(riskFactors.body.data.alcohol, false)"
+                  >
+                    {{ riskFactors.body.data.alcohol || "N/A" }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="65%" class="font-weight-bold">Family history of HTN or diabetes: </td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%" class="text-capitalize" :class="getColor(riskFactors.body.data.family_diabetes, false)">{{ riskFactors.body.data.family_diabetes || 'N/A'}}</td>
+                  <td width="65%" class="font-weight-bold">
+                    Family history of HTN or diabetes:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.family_diabetes, false)
+                    "
+                  >
+                    {{ riskFactors.body.data.family_diabetes || "N/A" }}
+                  </td>
                 </tr>
                 <tr>
                   <td width="65%" class="font-weight-bold">Last captured:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="30%">{{ riskFactors.assessment ? moment(riskFactors.assessment.meta.created_at).format('Do MMMM YYYY') : '' }}</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td width="30%">
+                    {{
+                      riskFactors.assessment
+                        ? moment(riskFactors.assessment.meta.created_at).format(
+                            "Do MMMM YYYY"
+                          )
+                        : ""
+                    }}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -151,68 +287,121 @@
     <div class="row">
       <div class="col-md-6">
         <div class="card tab-card card-blue-header">
-           <div class="card-header "> Disease history </div>
+          <div class="card-header ">Disease history</div>
           <div class="table-responsive mt-2">
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td > Diabetes mellitus:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.diabetes, false)">{{ details.diabetes }}</td>
+                  <td>Diabetes mellitus:</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.diabetes, false)"
+                  >
+                    {{ details.diabetes }}
+                  </td>
                 </tr>
                 <tr>
                   <td width="30%">Hypertension:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.hypertension, false)">{{ details.hypertension }}</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.hypertension, false)"
+                  >
+                    {{ details.hypertension }}
+                  </td>
                 </tr>
                 <tr>
-                  <td > Stroke:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.stroke, false)">{{ details.stroke }}</td>
+                  <td>Stroke:</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.stroke, false)"
+                  >
+                    {{ details.stroke }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="30%"> Heart attack:</td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.heart_attack, false)">{{ details.heart_attack }}</td>
+                  <td width="30%">Heart attack:</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.heart_attack, false)"
+                  >
+                    {{ details.heart_attack }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="30%"> Asthma / COPD: </td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.asthma, false)">{{ details.asthma }}</td>
+                  <td width="30%">Asthma / COPD:</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.asthma, false)"
+                  >
+                    {{ details.asthma }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="30%"> Cancer: </td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.cancer, false)">{{ details.cancer }}</td>
+                  <td width="30%">Cancer:</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.cancer, false)"
+                  >
+                    {{ details.cancer }}
+                  </td>
                 </tr>
                 <tr>
-                  <td width="30%"> Chronic kidney disease: </td>
-                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.kidney_disease, false)">{{ details.kidney_disease }}</td>
+                  <td width="30%">Chronic kidney disease:</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.kidney_disease, false)"
+                  >
+                    {{ details.kidney_disease }}
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-      </div>  
-      
+      </div>
+
       <div class="col-md-6">
         <div class="card tab-card card-blue-header mb-3">
-          <div class="card-header "> Diagnosed conditions </div>
+          <div class="card-header ">Diagnosed conditions</div>
           <div class="table-responsive mt-2">
             <table class="table table-borderless">
               <tbody>
                 <tr>
                   <td width="30%">Diabetes mellitus:</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.diabetes, false)">{{ details.diabetes }}</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.diabetes, false)"
+                  >
+                    {{ details.diabetes }}
+                  </td>
                 </tr>
                 <tr>
                   <td width="30%">Hypertension:</td>
                   <td width="5%" class="text-center">:</td>
-                  <td width="65%" class="text-capitalize" :class="getColor(details.hypertension, false)">{{ details.hypertension }}</td>
+                  <td
+                    width="65%"
+                    class="text-capitalize"
+                    :class="getColor(details.hypertension, false)"
+                  >
+                    {{ details.hypertension }}
+                  </td>
                 </tr>
-                
               </tbody>
             </table>
           </div>
@@ -220,7 +409,6 @@
         <div class="card tab-card mt-1 card-blue-header">
           <div class="card-header">Medication:</div>
           <div class="table-responsive">
-           
             <table class="table table-borderless">
               <thead>
                 <tr>
@@ -228,16 +416,13 @@
                   <th scope="col" class="mb-2">Drug Name:</th>
                   <th scope="col" class="mb-2">Dosage:</th>
                   <th scope="col" class="mb-2">Duration:</th>
-
                 </tr>
               </thead>
-              <tbody>
-
-              </tbody>
+              <tbody></tbody>
             </table>
-              <div class="text-secondary text-center">
-                  No Data found
-                </div>
+            <div class="text-secondary text-center">
+              No Data found
+            </div>
           </div>
         </div>
       </div>
@@ -245,45 +430,52 @@
 
     <!-- body measurements 
      -->
-     <div class="row mb-3">
-        <div class="col-md-6">
-
+    <div class="row mb-3">
+      <div class="col-md-6">
         <div class="card tab-card mb-3 card-blue-header">
           <div class="card-header">Body measurements</div>
           <div class="table-responsive">
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col" class="mb-2">Measurement: </th>
-                  <th scope="col" class="mb-2">Reading: </th>
-                  <th scope="col" class="mb-2">Unit: </th>
-                  <th scope="col" class="mb-2">Date: </th>
+                  <th scope="col" class="mb-2">Measurement:</th>
+                  <th scope="col" class="mb-2">Reading:</th>
+                  <th scope="col" class="mb-2">Unit:</th>
+                  <th scope="col" class="mb-2">Date:</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td > Blood pressure:</td>
-                  <td :class="getBpColor()">{{ details.blood_pressure ? details.blood_pressure.value : '' }}</td>
-                  <td>{{ details.blood_pressure ? 'mmHg' : '' }}</td>
-                  <td>{{ details.blood_pressure ? details.blood_pressure.date : '' }}</td>
+                  <td>Blood pressure:</td>
+                  <td :class="getBpColor()">
+                    {{
+                      details.blood_pressure ? details.blood_pressure.value : ""
+                    }}
+                  </td>
+                  <td>{{ details.blood_pressure ? "mmHg" : "" }}</td>
+                  <td>
+                    {{
+                      details.blood_pressure ? details.blood_pressure.date : ""
+                    }}
+                  </td>
                 </tr>
                 <tr>
-                  <td >Height:</td>
-                  <td>{{ details.height ? details.height.value : '' }}</td>
-                  <td>{{ details.height ? details.height.unit : '' }}</td>
-                  <td>{{ details.height ? details.height.date : '' }}</td>
+                  <td>Height:</td>
+                  <td>{{ details.height ? details.height.value : "" }}</td>
+                  <td>{{ details.height ? details.height.unit : "" }}</td>
+                  <td>{{ details.height ? details.height.date : "" }}</td>
                 </tr>
 
                 <tr>
-                  <td >Weight:</td>
-                  <td>{{ details.weight ? details.weight.value : '' }}</td>
-                  <td>{{ details.weight ? details.weight.unit : '' }}</td>
-                  <td>{{ details.weight ? details.weight.date : '' }}</td>
+                  <td>Weight:</td>
+                  <td>{{ details.weight ? details.weight.value : "" }}</td>
+                  <td>{{ details.weight ? details.weight.unit : "" }}</td>
+                  <td>{{ details.weight ? details.weight.date : "" }}</td>
                 </tr>
                 <tr>
-                  <td >BMI:</td>
+                  <td>BMI:</td>
                   <!-- //TODO: Calculate BMI -->
-                  <td>{{ getBmi()}}</td>
+                  <td>{{ getBmi() }}</td>
                   <td>kg/m2</td>
                   <td></td>
                 </tr>
@@ -299,62 +491,98 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col" class="mb-2">Measurement: </th>
-                  <th scope="col" class="mb-2">Reading: </th>
-                  <th scope="col" class="mb-2">Unit: </th>
-                  <th scope="col" class="mb-2">Date: </th>
+                  <th scope="col" class="mb-2">Measurement:</th>
+                  <th scope="col" class="mb-2">Reading:</th>
+                  <th scope="col" class="mb-2">Unit:</th>
+                  <th scope="col" class="mb-2">Date:</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Random blood sugar:</td>
-                  <td>{{ details.random_blood_sugar ? details.random_blood_sugar.value : '' }}</td>
-                  <td>{{ details.random_blood_sugar ? details.random_blood_sugar.unit : '' }}</td>
-                  <td>{{ details.random_blood_sugar ? details.random_blood_sugar.date : '' }}</td>
+                  <td>
+                    {{
+                      details.random_blood_sugar
+                        ? details.random_blood_sugar.value
+                        : ""
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      details.random_blood_sugar
+                        ? details.random_blood_sugar.unit
+                        : ""
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      details.random_blood_sugar
+                        ? details.random_blood_sugar.date
+                        : ""
+                    }}
+                  </td>
                 </tr>
                 <tr>
-                  <td >Fasting blood sugar:</td>
-                  <td>{{ details.fasting_blood_sugar ? details.fasting_blood_sugar.value : '' }}</td>
-                  <td>{{ details.fasting_blood_sugar ? details.fasting_blood_sugar.unit : '' }}</td>
-                  <td>{{ details.fasting_blood_sugar ? details.fasting_blood_sugar.date : '' }}</td>
+                  <td>Fasting blood sugar:</td>
+                  <td>
+                    {{
+                      details.fasting_blood_sugar
+                        ? details.fasting_blood_sugar.value
+                        : ""
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      details.fasting_blood_sugar
+                        ? details.fasting_blood_sugar.unit
+                        : ""
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      details.fasting_blood_sugar
+                        ? details.fasting_blood_sugar.date
+                        : ""
+                    }}
+                  </td>
                 </tr>
 
                 <tr>
-                  <td >2HABF:</td>
-                  <td>{{ details.habf ? details.habf.value : '' }}</td>
-                  <td>{{ details.habf ? details.habf.unit : '' }}</td>
-                  <td>{{ details.habf ? details.habf.date : '' }}</td>
+                  <td>2HABF:</td>
+                  <td>{{ details.habf ? details.habf.value : "" }}</td>
+                  <td>{{ details.habf ? details.habf.unit : "" }}</td>
+                  <td>{{ details.habf ? details.habf.date : "" }}</td>
                 </tr>
                 <tr>
-                  <td >HbA1c:</td>
-                  <td>{{ details.a1c ? details.a1c.value : '' }}</td>
+                  <td>HbA1c:</td>
+                  <td>{{ details.a1c ? details.a1c.value : "" }}</td>
                   <td>%</td>
-                  <td>{{ details.a1c ? details.a1c.date : '' }}</td>
+                  <td>{{ details.a1c ? details.a1c.date : "" }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-           <span class="sub-title">Urine</span>
-               <div class="table-responsive">
+          <span class="sub-title">Urine</span>
+          <div class="table-responsive">
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col"  class="mb-2">Measurement: </th>
-                  <th scope="col"  class="mb-2">Reading: </th>
-                  <th scope="col" class="mb-2">Unit: </th>
-                  <th scope="col"  class="mb-2">Date: </th>
+                  <th scope="col" class="mb-2">Measurement:</th>
+                  <th scope="col" class="mb-2">Reading:</th>
+                  <th scope="col" class="mb-2">Unit:</th>
+                  <th scope="col" class="mb-2">Date:</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td >Urinary ketone:</td>
+                  <td>Urinary ketone:</td>
                   <td>N/A</td>
                   <td>mmol/L</td>
                   <td></td>
                 </tr>
                 <tr>
-                  <td >Urinary protein:</td>
+                  <td>Urinary protein:</td>
                   <td>N/A</td>
                   <td>mmol/L</td>
                   <td></td>
@@ -363,27 +591,38 @@
             </table>
           </div>
         </div>
-      </div>  
-      
+      </div>
+
       <div class="col-md-6">
         <div class="card mb-3 tab-card card-blue-header">
           <div class="card-header">Last Care plan generated</div>
-            <div class="table-responsive" v-if="lastReports">
-              <table class="table table-borderless mt-2">
-                <tbody>
-                  <tr v-for="(report, index) in lastReports" :key="index">
-                    <td width="30%" >{{ report.meta.generated_by.name }}</td>
-                    <td width="5%" class="text-center">:</td>
-                    <td width="60%">{{ moment(report.meta.created_at).format('DD-MM-YYYY')  }}</td>
-                    <td width="5%">
-                      <!-- <a href="javascript:void(0)">View</a> -->
-                      <router-link :to="{name: 'carePlanSummary', params:{ carePlanId: report.id, patientId: patientId}}">View</router-link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="table-responsive" v-if="lastReports">
+            <table class="table table-borderless mt-2">
+              <tbody>
+                <tr v-for="(report, index) in lastReports" :key="index">
+                  <td width="30%">{{ report.meta.generated_by.name }}</td>
+                  <td width="5%" class="text-center">:</td>
+                  <td width="60%">
+                    {{ moment(report.meta.created_at).format("DD-MM-YYYY") }}
+                  </td>
+                  <td width="5%">
+                    <!-- <a href="javascript:void(0)">View</a> -->
+                    <router-link
+                      :to="{
+                        name: 'carePlanSummary',
+                        params: { carePlanId: report.id, patientId: patientId },
+                      }"
+                      >View</router-link
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-            <div v-if="lastReports.length == 0" class="text-secondary text-center">
+            <div
+              v-if="lastReports.length == 0"
+              class="text-secondary text-center"
+            >
               No data available
             </div>
           </div>
@@ -395,54 +634,62 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col"  class="mb-2">Measurement: </th>
-                  <th scope="col"  class="mb-2">Reading: </th>
-                  <th scope="col" class="mb-2">Unit: </th>
-                  <th scope="col"  class="mb-2">Date: </th>
+                  <th scope="col" class="mb-2">Measurement:</th>
+                  <th scope="col" class="mb-2">Reading:</th>
+                  <th scope="col" class="mb-2">Unit:</th>
+                  <th scope="col" class="mb-2">Date:</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td >Serum cholesterol:</td>
-                  <td>{{ details.serum ? details.serum.value : 'N/A' }}</td>
-                  <td>{{ details.serum ? details.serum.unit : '' }}</td>
-                  <td>{{ details.serum ? details.serum.date : '' }}</td>
+                  <td>Serum cholesterol:</td>
+                  <td>{{ details.serum ? details.serum.value : "N/A" }}</td>
+                  <td>{{ details.serum ? details.serum.unit : "" }}</td>
+                  <td>{{ details.serum ? details.serum.date : "" }}</td>
                 </tr>
                 <tr>
-                  <td >Triglycerides:</td>
-                  <td>{{ details.tg ? details.tg.value : 'N/A' }}</td>
-                  <td>{{ details.tg ? details.tg.unit : '' }}</td>
-                  <td>{{ details.tg ? details.tg.date : '' }}</td>
+                  <td>Triglycerides:</td>
+                  <td>{{ details.tg ? details.tg.value : "N/A" }}</td>
+                  <td>{{ details.tg ? details.tg.unit : "" }}</td>
+                  <td>{{ details.tg ? details.tg.date : "" }}</td>
                 </tr>
                 <tr>
-                  <td >HDL:</td>
-                  <td>{{ details.hdl ? details.hdl.value : 'N/A' }}</td>
-                  <td>{{ details.hdl ? details.hdl.unit : '' }}</td>
-                  <td>{{ details.hdl ? details.hdl.date : '' }}</td>
+                  <td>HDL:</td>
+                  <td>{{ details.hdl ? details.hdl.value : "N/A" }}</td>
+                  <td>{{ details.hdl ? details.hdl.unit : "" }}</td>
+                  <td>{{ details.hdl ? details.hdl.date : "" }}</td>
                 </tr>
                 <tr>
-                  <td >LDL:</td>
-                  <td>{{ details.ldl ? details.ldl.value : 'N/A' }}</td>
-                  <td>{{ details.ldl ? details.ldl.unit : '' }}</td>
-                  <td>{{ details.ldl ? details.ldl.date : '' }}</td>
+                  <td>LDL:</td>
+                  <td>{{ details.ldl ? details.ldl.value : "N/A" }}</td>
+                  <td>{{ details.ldl ? details.ldl.unit : "" }}</td>
+                  <td>{{ details.ldl ? details.ldl.date : "" }}</td>
                 </tr>
                 <tr>
-                  <td >Serum Creatinine:</td>
-                  <td>{{ details.creatinine ? details.creatinine.value : 'N/A' }}</td>
-                  <td>{{ details.creatinine ? details.creatinine.unit : '' }}</td>
-                  <td>{{ details.creatinine ? details.creatinine.date : '' }}</td>
+                  <td>Serum Creatinine:</td>
+                  <td>
+                    {{ details.creatinine ? details.creatinine.value : "N/A" }}
+                  </td>
+                  <td>
+                    {{ details.creatinine ? details.creatinine.unit : "" }}
+                  </td>
+                  <td>
+                    {{ details.creatinine ? details.creatinine.date : "" }}
+                  </td>
                 </tr>
                 <tr>
-                  <td >Serum Na+:</td>
-                  <td>{{ details.sodium ? details.sodium.value : 'N/A' }}</td>
-                  <td>{{ details.sodium ? details.sodium.unit : '' }}</td>
-                  <td>{{ details.sodium ? details.sodium.date : '' }}</td>
+                  <td>Serum Na+:</td>
+                  <td>{{ details.sodium ? details.sodium.value : "N/A" }}</td>
+                  <td>{{ details.sodium ? details.sodium.unit : "" }}</td>
+                  <td>{{ details.sodium ? details.sodium.date : "" }}</td>
                 </tr>
                 <tr>
-                  <td >Serum K+:</td>
-                  <td>{{ details.potassium ? details.potassium.value : 'N/A' }}</td>
-                  <td>{{ details.potassium ? details.potassium.unit : '' }}</td>
-                  <td>{{ details.potassium ? details.potassium.date : '' }}</td>
+                  <td>Serum K+:</td>
+                  <td>
+                    {{ details.potassium ? details.potassium.value : "N/A" }}
+                  </td>
+                  <td>{{ details.potassium ? details.potassium.unit : "" }}</td>
+                  <td>{{ details.potassium ? details.potassium.date : "" }}</td>
                 </tr>
               </tbody>
             </table>
@@ -450,35 +697,69 @@
         </div>
       </div>
     </div>
-    <div class="text-center mt-3 mb-5" >
-      <router-link :to="{name: 'carePlanCreate', params: {patientId: patientId}}" class="btn btn-primary radious-0 mb-3 d-block btn-proceed">
-          <span>Proceed To Care Plan </span>
+    <div class="text-center mt-3 mb-5">
+      <div
+        v-if="!patient.meta.is_synced"
+        class="alert alert-danger"
+        role="alert"
+      >
+        This patient's data is syncing, you can not generate care plan now.
+        <!-- <a href="#" @click.prevent="$router.go(-1)">Go Back</a> -->
+      </div>
+      <router-link
+        :to="{ name: 'carePlanCreate', params: { patientId: patientId } }"
+        class="btn btn-primary radious-0 mb-3 d-block btn-proceed"
+        :disabled="!patient.meta.is_synced"
+        :event="patient.meta.is_synced ? 'click' : ''"
+        tag="button"
+      >
+        <span>Proceed To Care Plan </span>
       </router-link>
 
-      <router-link :to="{name: 'addPatientInvestigations', params: {patientId: patientId}}" class="btn btn-xs btn-info px-2 py-1 radious-0">
+      <router-link
+        :to="{
+          name: 'addPatientInvestigations',
+          params: { patientId: patientId },
+        }"
+        class="btn btn-xs btn-info px-2 py-1 radious-0"
+      >
         Update
       </router-link>
     </div>
-    
+
     <div class="row mb-3">
-        <div class="col-md-12">
-          <div class="card tab-card mb-3 card-blue-header">
-            <div class="card-header mb-2">
-              Complain / Note
-            </div>
-            <div class="table-responsive" v-if="patientNotes.length">
-              <table class="table table-borderless">
-                <tbody>
-                  <tr class="td-border-bottom" v-for="(note, index) in patientNotes" :key="index">
-                    <td class="td-grey p-2">{{ note.body.notes }}</td>
-                    <td class="td-grey p-2">{{ note.user.name }}</td>
-                    <td class="td-grey p-2">{{ moment(note.meta.created_at).format('DD MMM YYYY') }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="text-muted text-center" v-if="!isComplainAvailable">No complain / note found </div>
-            <a href="javascript:void(0)" class="btn btn-primary add-note" data-toggle="modal" data-target="#modal-add-notes"><i class="fa fa-plus"> Add</i></a>
+      <div class="col-md-12">
+        <div class="card tab-card mb-3 card-blue-header">
+          <div class="card-header mb-2">
+            Complain / Note
+          </div>
+          <div class="table-responsive" v-if="patientNotes.length">
+            <table class="table table-borderless">
+              <tbody>
+                <tr
+                  class="td-border-bottom"
+                  v-for="(note, index) in patientNotes"
+                  :key="index"
+                >
+                  <td class="td-grey p-2">{{ note.body.notes }}</td>
+                  <td class="td-grey p-2">{{ note.user.name }}</td>
+                  <td class="td-grey p-2">
+                    {{ moment(note.meta.created_at).format("DD MMM YYYY") }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-muted text-center" v-if="!isComplainAvailable">
+            No complain / note found
+          </div>
+          <a
+            href="javascript:void(0)"
+            class="btn btn-primary add-note"
+            data-toggle="modal"
+            data-target="#modal-add-notes"
+            ><i class="fa fa-plus"> Add</i></a
+          >
         </div>
       </div>
     </div>
@@ -489,8 +770,11 @@
           <div class="card-header mb-2">
             Investigations Pending
           </div>
-          <div class="table-responsive" >
-            <table class="table table-borderless" v-if="pendingInvestigations.length">
+          <div class="table-responsive">
+            <table
+              class="table table-borderless"
+              v-if="pendingInvestigations.length"
+            >
               <thead>
                 <tr class="td-border-bottom">
                   <th class="p-2">Investigation required</th>
@@ -500,162 +784,255 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="td-border-bottom" v-for="(item, index) in pendingInvestigations" :key="index">
+                <tr
+                  class="td-border-bottom"
+                  v-for="(item, index) in pendingInvestigations"
+                  :key="index"
+                >
                   <td class="td-grey p-2">{{ item.body.title }}</td>
                   <td class="td-grey p-2">N/A</td>
-                  <td class="td-grey p-2">{{ getFormatedDate(item.meta.created_at._seconds) }}</td>
                   <td class="td-grey p-2">
-                      <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" name="follow_up" value="complete"  class="custom-control-input" :id="'ir-'+index" v-model="pendingInvestigations[index].meta.status">
-                        <label class="custom-control-label" :for="'ir-'+index"></label>
-                      </div>
+                    {{ getFormatedDate(item.meta.created_at._seconds) }}
+                  </td>
+                  <td class="td-grey p-2">
+                    <div
+                      class="custom-control custom-checkbox custom-control-inline"
+                    >
+                      <input
+                        type="checkbox"
+                        name="follow_up"
+                        value="complete"
+                        class="custom-control-input"
+                        :id="'ir-' + index"
+                        v-model="pendingInvestigations[index].meta.status"
+                      />
+                      <label
+                        class="custom-control-label"
+                        :for="'ir-' + index"
+                      ></label>
+                    </div>
                   </td>
                 </tr>
-             
               </tbody>
             </table>
-            <p v-else class="px-2 text-secondary text-center">No pending data available</p>
+            <p v-else class="px-2 text-secondary text-center">
+              No pending data available
+            </p>
           </div>
-          <a href="javascript:void(0)" @click="updateInvestigation" class="btn btn-primary add-note" v-if="pendingInvestigations.length" >Save</a>
+          <a
+            href="javascript:void(0)"
+            @click="updateInvestigation"
+            class="btn btn-primary add-note"
+            v-if="pendingInvestigations.length"
+            >Save</a
+          >
+        </div>
       </div>
     </div>
-  </div>
 
     <!-- add Complains/ Notes -->
-    <div class="modal fade" id="modal-add-notes" tabindex="-1" role="dialog" aria-labelledby="modal-add-notes" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="modal-add-notes"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modal-add-notes"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content modal-blue-header p-0 radious-0">
           <div class="modal-header py-2 px-3">
             <h5 class="modal-title text-white">Add Complain / Note</h5>
-            <button type="button" ref="elCloseNoteModal" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              ref="elCloseNoteModal"
+              class="close text-white"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <form @submit.prevent="addNote">
             <div class="modal-body p-3">
               <div class="form-row">
-                  <div class="col-md-12 mb-3">
-                      <label for="validationCustom01">Enter Complain / Note</label>
-                      <textarea class="form-control" required v-model="note"></textarea>
-                  </div>
+                <div class="col-md-12 mb-3">
+                  <label for="validationCustom01">Enter Complain / Note</label>
+                  <textarea
+                    class="form-control"
+                    required
+                    v-model="note"
+                  ></textarea>
+                </div>
               </div>
             </div>
             <div class="modal-footer p-3">
-              <button type="submit" class="btn btn-primary radious-0">Confirm</button>
+              <button type="submit" class="btn btn-primary radious-0">
+                Confirm
+              </button>
             </div>
-            </form>
+          </form>
         </div>
       </div>
     </div>
 
     <!-- Patient details -->
-    <div class="modal fade" id="modal-patient-details" tabindex="-1" role="dialog" aria-labelledby="modal-patient-details" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="modal-patient-details"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modal-patient-details"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content modal-blue-header p-0 radious-0">
-            <div class="modal-header py-2 px-3">
-              <h5 class="modal-title text-white">Patient Details</h5>
-              <button type="button" ref="elCloseInvestigation" class="close text-white" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body p-3">
-              <div class="table-responsive">
-                <table v-if="patient" class="table table-patient table-borderless mt-2">
-                  <tbody>
-                    <tr>
-                      <td width="30%" class="font-weight-bold">Patient ID</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.pid }}</td>
-                    </tr>
-                    <tr>
-                      <td width="30%" class="font-weight-bold">Name</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.first_name + ' ' + patient.body.last_name }}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Guardian Name</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.father_name ||  patient.body.husband_name}}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Date Of Birth</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.birth_date }}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Age</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.age }} years</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Gender</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.gender }}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Village</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.address ? patient.body.address.village : ''}}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Union</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.address ? patient.body.address.union : ''}}</td>
-                    </tr>
-                    <tr>
-                      <td width="30%" class="font-weight-bold">Upazila</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.address ? patient.body.address.upazila : ''}}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">District</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.address ? patient.body.address.district : ''}}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Patient NID</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.nid ? patient.body.nid : ''}}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Centre Assigned</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patient.body.center ? patient.body.center.name : ''}}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Religion</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patientAdditionalInfo.religion }}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Education</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patientAdditionalInfo.education }}</td>
-                    </tr>
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Occupation</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patientAdditionalInfo.occupation }}</td>
-                    </tr>
-                    <!-- <tr>
+        <div class="modal-content modal-blue-header p-0 radious-0">
+          <div class="modal-header py-2 px-3">
+            <h5 class="modal-title text-white">Patient Details</h5>
+            <button
+              type="button"
+              ref="elCloseInvestigation"
+              class="close text-white"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-3">
+            <div class="table-responsive">
+              <table
+                v-if="patient"
+                class="table table-patient table-borderless mt-2"
+              >
+                <tbody>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Patient ID</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">{{ patient.body.pid }}</td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Name</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{
+                        patient.body.first_name + " " + patient.body.last_name
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Guardian Name</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{
+                        patient.body.father_name || patient.body.husband_name
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Date Of Birth</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">{{ patient.body.birth_date }}</td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Age</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">{{ patient.body.age }} years</td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Gender</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">{{ patient.body.gender }}</td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Village</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{
+                        patient.body.address ? patient.body.address.village : ""
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Union</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{
+                        patient.body.address ? patient.body.address.union : ""
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Upazila</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{
+                        patient.body.address ? patient.body.address.upazila : ""
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">District</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{
+                        patient.body.address
+                          ? patient.body.address.district
+                          : ""
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Patient NID</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{ patient.body.nid ? patient.body.nid : "" }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">
+                      Centre Assigned
+                    </td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{ patient.body.center ? patient.body.center.name : "" }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Religion</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">{{ patientAdditionalInfo.religion }}</td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Education</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">{{ patientAdditionalInfo.education }}</td>
+                  </tr>
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Occupation</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">{{ patientAdditionalInfo.occupation }}</td>
+                  </tr>
+                  <!-- <tr>
                       <td  width="30%" class="font-weight-bold">Ethnicity</td>
                       <td width="5%" class="text-center">:</td>
                       <td width="65%">{{ patientAdditionalInfo.ethnicity }}</td>
                     </tr> -->
-                    <tr>
-                      <td  width="30%" class="font-weight-bold">Monthly Income</td>
-                      <td width="5%" class="text-center">:</td>
-                      <td width="65%">{{ patientAdditionalInfo.monthly_income }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
+                  <tr>
+                    <td width="30%" class="font-weight-bold">Monthly Income</td>
+                    <td width="5%" class="text-center">:</td>
+                    <td width="65%">
+                      {{ patientAdditionalInfo.monthly_income }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <!-- <div class="modal-footer p-3">
+          </div>
+          <!-- <div class="modal-footer p-3">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div> -->
-          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -708,30 +1085,30 @@ export default {
       lastEncounter: null,
       details: {},
       note: null,
-      patientNotes : [],
+      patientNotes: [],
       generatedCareplan: null,
       pendingInvestigations: [],
       lastReports: [],
       riskFactors: null,
       isComplainAvailable: true,
       patientAdditionalInfo: {
-        monthly_income : '',
-        religion : '',
-        education : '',
-        occupation : '',
-        ethnicity : ''
-      }
+        monthly_income: "",
+        religion: "",
+        education: "",
+        occupation: "",
+        ethnicity: "",
+      },
     };
   },
   methods: {
     scrollToTop() {
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     },
     getGeneratedCareplans() {
       this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
         (response) => {
           if (response.status == 200) {
-            if(response.data.data) {
+            if (response.data.data) {
               this.lastReports = response.data.data.slice(0, 3);
             }
           }
@@ -741,41 +1118,37 @@ export default {
     },
 
     getBmi() {
-      
-
       if (this.details.height && this.details.weight) {
         if (this.details.height.value && this.details.weight.value) {
-          return (this.details.weight.value / (this.details.height.value / 100)**2).toFixed(2);
+          return (
+            this.details.weight.value /
+            (this.details.height.value / 100) ** 2
+          ).toFixed(2);
         }
       }
-      return '';
+      return "";
     },
 
     getColor(value, condition) {
-      
-      if (!value || value == 'N/A') {
-        return '';
+      if (!value || value == "N/A") {
+        return "";
       }
       if (condition) {
-        return value == 'yes' ? 'txt-success' : 'txt-red'; 
+        return value == "yes" ? "txt-success" : "txt-red";
       }
-      return value == 'no' ? 'txt-success' : 'txt-red';
-      
-      
+      return value == "no" ? "txt-success" : "txt-red";
     },
 
     getBpColor() {
-      let color = '';
+      let color = "";
 
       if (this.details.blood_pressure) {
-        let data = this.details.blood_pressure.value.split('/');
+        let data = this.details.blood_pressure.value.split("/");
         let sbp = data[0];
         let dbp = data[1];
 
-        this.bpConditions.forEach(condition => {
-          
+        this.bpConditions.forEach((condition) => {
           if (condition.sbp) {
-            
             if (sbp >= condition.sbp.from && sbp <= condition.sbp.to) {
               color = condition.sbp.color;
             }
@@ -792,33 +1165,33 @@ export default {
           sbp: {
             from: 60,
             to: 89,
-            color: 'AMBER'
-          }
+            color: "AMBER",
+          },
         },
         {
           sbp: {
             from: 90,
             to: 120,
-            color: 'GREEN'
+            color: "GREEN",
           },
           dbp: {
             from: 60,
             to: 80,
-            color: 'GREEN'
-          }
+            color: "GREEN",
+          },
         },
         {
           sbp: {
             from: 121,
             to: 140,
-            color: 'AMBER'
+            color: "AMBER",
           },
           dbp: {
             from: 81,
             to: 90,
-            color: 'AMBER'
-          }
-        }
+            color: "AMBER",
+          },
+        },
       ];
     },
 
@@ -832,10 +1205,8 @@ export default {
       return date;
     },
     getFormatedDate(data) {
-        let date = moment
-          .unix(data)
-          .format("DD MMM YYYY");
-   
+      let date = moment.unix(data).format("DD MMM YYYY");
+
       return date;
     },
     getCollectedUser(userId) {
@@ -853,7 +1224,9 @@ export default {
     goToEncounterDetails(encounter) {
       this.currentEncounter = encounter;
 
-      this.previousEncounter = this.encounters[this.encounters.indexOf(encounter)];
+      this.previousEncounter = this.encounters[
+        this.encounters.indexOf(encounter)
+      ];
       // console.log('this.previousEncounter');
       // console.log(this.previousEncounter);
       // console.log(encounter.id)
@@ -897,10 +1270,10 @@ export default {
     isObservationAvailable(encounter, observation) {
       if (encounter) {
         let obs = encounter.body.observations.find((item) => {
-        if (item && item.body.type == observation) {
-          return item;
-        }
-      });
+          if (item && item.body.type == observation) {
+            return item;
+          }
+        });
       }
 
       return obs;
@@ -933,15 +1306,16 @@ export default {
           (response) => {
             loader.hide();
             if (response.status == 200) {
-              
               if (response.data.data) {
                 this.report = response.data.data;
-                if (this.report.body && this.report.body.result.assessments && this.report.body.result.assessments.cvd) {
+                if (
+                  this.report.body &&
+                  this.report.body.result.assessments &&
+                  this.report.body.result.assessments.cvd
+                ) {
                   this.cvdRisk = this.report.body.result.assessments.cvd;
                 }
               }
-
-              
             }
           },
           (error) => {
@@ -958,7 +1332,7 @@ export default {
           if (response.status == 200) {
             // console.log(response, 'resp');
             this.reports = response.data.data;
-            
+
             if (this.reports && this.reports.length > 0) {
               this.currentAssessment = this.reports[this.reports.length - 1];
             }
@@ -1028,13 +1402,12 @@ export default {
 
             if (this.encounters) {
               this.encounters = this.encounters.sort(
-              (a, b) =>
-                new Date(b.meta.created_at) - new Date(a.meta.created_at)
-            );
+                (a, b) =>
+                  new Date(b.meta.created_at) - new Date(a.meta.created_at)
+              );
 
-            this.getObservations();
+              this.getObservations();
             }
-            
           }
         },
         (error) => {}
@@ -1053,166 +1426,163 @@ export default {
             if (this.observations) {
               this.observations.forEach((obs) => {
                 let observation = obs.body;
-                if (observation.type == 'survey') {
-                  if (observation.data.name == 'medical_history') {
-                    this.details.diabetes = observation.data.diabetes || 'N/A';
-                    this.details.hypertension = observation.data.hypertension || 'N/A';
-                    this.details.stroke = observation.data.stroke || 'N/A';
-                    this.details.asthma = observation.data.asthma || 'N/A';
-                    this.details.heart_attack = observation.data.heart_attack || 'N/A';
-                    this.details.cancer = observation.data.cancer || 'N/A';
-                    this.details.kidney_disease = observation.data.kidney_disease || 'N/A';
+                if (observation.type == "survey") {
+                  if (observation.data.name == "medical_history") {
+                    this.details.diabetes = observation.data.diabetes || "N/A";
+                    this.details.hypertension =
+                      observation.data.hypertension || "N/A";
+                    this.details.stroke = observation.data.stroke || "N/A";
+                    this.details.asthma = observation.data.asthma || "N/A";
+                    this.details.heart_attack =
+                      observation.data.heart_attack || "N/A";
+                    this.details.cancer = observation.data.cancer || "N/A";
+                    this.details.kidney_disease =
+                      observation.data.kidney_disease || "N/A";
+                  } else if (observation.data.name == "risk_factors") {
+                    this.details.smoking = observation.data.smoking || "N/A";
+                    this.details.smokeles_tobacco =
+                      observation.data.smokeles_tobacco || "N/A";
+                    this.details.extra_salt =
+                      observation.data.extra_salt || "N/A";
+                    this.details.sugar =
+                      observation.data.sugary_drinks || "N/A";
+                    this.details.processed_foods =
+                      observation.data.processed_foods || "N/A";
+                    this.details.physical_activity_moderate =
+                      observation.data.physical_activity_moderate || "N/A";
+                    this.details.alcohol = observation.data.alcohol || "N/A";
+                  } else if (observation.data.name == "medication") {
+                    this.details.hypertension_medication =
+                      observation.data.hypertension_medication;
+                    this.details.hypertension_medication_regular =
+                      observation.data.hypertension_medication_regular || "N/A";
+                  } else if (observation.data.name == "relative_problems") {
+                    if (observation.data.monthly_income) {
+                      this.patientAdditionalInfo.monthly_income =
+                        observation.data.monthly_income;
+                    }
+                    if (observation.data.religion) {
+                      this.patientAdditionalInfo.religion =
+                        observation.data.religion;
+                    }
+                    if (observation.data.education) {
+                      this.patientAdditionalInfo.education =
+                        observation.data.education;
+                    }
+                    if (observation.data.occupation) {
+                      this.patientAdditionalInfo.occupation =
+                        observation.data.occupation;
+                    }
+                    if (observation.data.ethnicity) {
+                      this.patientAdditionalInfo.ethnicity =
+                        observation.data.ethnicity;
+                    }
                   }
-                  else if (observation.data.name == 'risk_factors') {
-                    this.details.smoking = observation.data.smoking || 'N/A';
-                    this.details.smokeles_tobacco = observation.data.smokeles_tobacco || 'N/A';
-                    this.details.extra_salt = observation.data.extra_salt || 'N/A';
-                    this.details.sugar = observation.data.sugary_drinks || 'N/A';
-                    this.details.processed_foods = observation.data.processed_foods || 'N/A';
-                    this.details.physical_activity_moderate = observation.data.physical_activity_moderate || 'N/A';
-                    this.details.alcohol = observation.data.alcohol || 'N/A';
-                  }
-                  else if (observation.data.name == 'medication') {
-                    this.details.hypertension_medication = observation.data.hypertension_medication;
-                    this.details.hypertension_medication_regular = observation.data.hypertension_medication_regular || 'N/A';
-                  }
-                  else if (observation.data.name == 'relative_problems') {
-                    if (observation.data.monthly_income ) {
-                        this.patientAdditionalInfo.monthly_income = observation.data.monthly_income;
-                    }
-                    if (observation.data.religion ) {
-                      this.patientAdditionalInfo.religion = observation.data.religion;
-                    }
-                    if (observation.data.education ) {
-                      this.patientAdditionalInfo.education = observation.data.education;
-                    }
-                    if (observation.data.occupation ) {
-                       this.patientAdditionalInfo.occupation = observation.data.occupation;
-                    }
-                    if (observation.data.ethnicity ) {
-                       this.patientAdditionalInfo.ethnicity = observation.data.ethnicity;
-                    }
-                  }
-                }
-                else if (observation.type == 'blood_pressure') {
+                } else if (observation.type == "blood_pressure") {
                   this.details.blood_pressure = {
-                    value: observation.data.systolic + '/' + observation.data.diastolic,
+                    value:
+                      observation.data.systolic +
+                      "/" +
+                      observation.data.diastolic,
                     // date: observation.meta.created_at
                   };
-                }
-                else if (observation.type == 'blood_test') {
-                  if (observation.data.name == 'blood_sugar') {
+                } else if (observation.type == "blood_test") {
+                  if (observation.data.name == "blood_sugar") {
                     this.details.random_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'blood_glucose') {
+                    };
+                  } else if (observation.data.name == "blood_glucose") {
                     this.details.fasting_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == '2habf') {
+                    };
+                  } else if (observation.data.name == "2habf") {
                     this.details.habf = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'a1c') {
+                    };
+                  } else if (observation.data.name == "a1c") {
                     this.details.a1c = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'serum') {
+                    };
+                  } else if (observation.data.name == "serum") {
                     this.details.serum = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'tg') {
+                    };
+                  } else if (observation.data.name == "tg") {
                     this.details.tg = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'hdl') {
+                    };
+                  } else if (observation.data.name == "hdl") {
                     this.details.hdl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'ldl') {
+                    };
+                  } else if (observation.data.name == "ldl") {
                     this.details.ldl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'hdl') {
+                    };
+                  } else if (observation.data.name == "hdl") {
                     this.details.hdl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'sodium') {
+                    };
+                  } else if (observation.data.name == "sodium") {
                     this.details.sodium = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'potassium') {
+                    };
+                  } else if (observation.data.name == "potassium") {
                     this.details.potassium = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'ketones') {
+                    };
+                  } else if (observation.data.name == "ketones") {
                     this.details.ketones = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'creatinine') {
+                    };
+                  } else if (observation.data.name == "creatinine") {
                     this.details.creatinine = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
+                    };
                   }
-                }
-                else if (observation.type == 'body_measurement') {
-                  if (observation.data.name == 'height') {
+                } else if (observation.type == "body_measurement") {
+                  if (observation.data.name == "height") {
                     this.details.height = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
-                  }
-                  else if (observation.data.name == 'weight') {
+                    };
+                  } else if (observation.data.name == "weight") {
                     this.details.weight = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
-                    }
+                    };
                   }
-                  
                 }
               });
             }
-
 
             this.$forceUpdate();
           }
@@ -1224,54 +1594,57 @@ export default {
     getObservationsForPatientDetails() {
       let loader = this.$loading.show();
       let encounters = this.encounters;
-      this.$http.get("/patients/" + this.patientId + "/observations/patient-details").then(
-        (response) => {
-          loader.hide();
-          if (response.status == 200) {
-            this.observations = response.data.data;
-            // console.log('observations');
-            // console.log(this.observations[0]);
-            // if (encounters && this.observations) {
-            
-          }
-
-          if (this.encounters.length > 0) {
-            this.currentEncounter = this.encounters[0];
-            if (this.encounters.length > 1) {
-              this.previousEncounter = this.encounters[1];
-            } else {
-              this.previousEncounter = this.currentEncounter;
+      this.$http
+        .get("/patients/" + this.patientId + "/observations/patient-details")
+        .then(
+          (response) => {
+            loader.hide();
+            if (response.status == 200) {
+              this.observations = response.data.data;
+              // console.log('observations');
+              // console.log(this.observations[0]);
+              // if (encounters && this.observations) {
             }
 
-            // console.log(this.$route);
-            if (this.$route.query.encounter) {
-              // this.currentEncounter = this.encounters[0];
-              let matchedEncounter = this.encounters.find(item => item.id == this.$route.query.encounter);
-              if (matchedEncounter) {
-                this.currentEncounter = matchedEncounter;
-                this.previousEncounter = this.encounters[this.encounters.indexOf(matchedEncounter) - 1];
-                // console.log(this.previousEncounter)
-                // if () {
-
-                // }
-                document.getElementById("three-tab").click();
+            if (this.encounters.length > 0) {
+              this.currentEncounter = this.encounters[0];
+              if (this.encounters.length > 1) {
+                this.previousEncounter = this.encounters[1];
+              } else {
+                this.previousEncounter = this.currentEncounter;
               }
 
+              // console.log(this.$route);
+              if (this.$route.query.encounter) {
+                // this.currentEncounter = this.encounters[0];
+                let matchedEncounter = this.encounters.find(
+                  (item) => item.id == this.$route.query.encounter
+                );
+                if (matchedEncounter) {
+                  this.currentEncounter = matchedEncounter;
+                  this.previousEncounter = this.encounters[
+                    this.encounters.indexOf(matchedEncounter) - 1
+                  ];
+                  // console.log(this.previousEncounter)
+                  // if () {
+
+                  // }
+                  document.getElementById("three-tab").click();
+                }
+              }
             }
-
-
-          }
-        },
-        (error) => {}
-      );
+          },
+          (error) => {}
+        );
     },
 
     getMedications() {
       let ob = this.observations.find((o) => {
         if (o) {
           return (
-          o.body.type === "survey" && o.body.data.name === "current_medication"
-        );
+            o.body.type === "survey" &&
+            o.body.data.name === "current_medication"
+          );
         }
       });
 
@@ -1284,12 +1657,11 @@ export default {
       let ob = this.observations.find((o) => {
         if (o) {
           return (
-          o.body.type === "survey" &&
-          o.body.data.name === "medical_history" &&
-          o.body.data.allergies === "yes"
-        );
+            o.body.type === "survey" &&
+            o.body.data.name === "medical_history" &&
+            o.body.data.allergies === "yes"
+          );
         }
-        
       });
 
       if (ob) {
@@ -1301,24 +1673,22 @@ export default {
       this.carePlans.forEach((item) => {
         if (item) {
           let existdCp = this.groupedCareplans.find(
-          (cp) => cp.id == item.body.goal.id
-        );
-        if (!existdCp) {
-          let items = [];
-          items.push(item);
-          this.groupedCareplans.push({
-            items: items,
-            title: item.body.goal.title,
-            id: item.body.goal.id,
-          });
-        } else {
-          this.groupedCareplans[
-            this.groupedCareplans.indexOf(existdCp)
-          ].items.push(item);
+            (cp) => cp.id == item.body.goal.id
+          );
+          if (!existdCp) {
+            let items = [];
+            items.push(item);
+            this.groupedCareplans.push({
+              items: items,
+              title: item.body.goal.title,
+              id: item.body.goal.id,
+            });
+          } else {
+            this.groupedCareplans[
+              this.groupedCareplans.indexOf(existdCp)
+            ].items.push(item);
+          }
         }
-        }
-        
-        
       });
     },
 
@@ -1344,18 +1714,19 @@ export default {
       );
     },
     getFollowups() {
-        this.$http.get("/patients/" + this.patientId + '/followups', ).then(
-        response => {
-            if (response.status == 200) {
-            this.followups = response.data.data.length ? response.data.data[response.data.data.length-1]: null;
-            }
+      this.$http.get("/patients/" + this.patientId + "/followups").then(
+        (response) => {
+          if (response.status == 200) {
+            this.followups = response.data.data.length
+              ? response.data.data[response.data.data.length - 1]
+              : null;
+          }
         },
-        error => {
-
-      });
+        (error) => {}
+      );
     },
     prepareSurveyData(observations) {
-      let medicalHistory = []
+      let medicalHistory = [];
       if (observations) {
         observations.forEach((obs) => {
           if (
@@ -1363,7 +1734,6 @@ export default {
             obs.body.patient_id == this.patientId &&
             obs.body.type == "survey"
           ) {
-            
             if (obs.body.data) {
               Object.keys(obs.body.data).forEach((key) => {
                 if (obs.body.data[key] == "yes") {
@@ -1375,30 +1745,30 @@ export default {
             }
           }
         });
-        
       }
       return medicalHistory;
     },
     addNote() {
       let loader = this.$loading.show();
       this.$refs.elCloseNoteModal.click();
-     
+
       let data = {
-        "meta": {
-          "created_by": this.user.uid,
-          "created_at": new Date(),
+        meta: {
+          created_by: this.user.uid,
+          created_at: new Date(),
         },
-        "body": {
-          "patient_id": this.patientId,
-          "notes": this.note
-        }
+        body: {
+          patient_id: this.patientId,
+          notes: this.note,
+        },
       };
 
-      this.$http.post("/patients/" + this.patientId + "/notes", data).then((response) => {
+      this.$http.post("/patients/" + this.patientId + "/notes", data).then(
+        (response) => {
           loader.hide();
           if (response.status != 201) {
-            this.note = '';
-            alert('Could not save complain / note');
+            this.note = "";
+            alert("Could not save complain / note");
           } else {
             this.getNote();
           }
@@ -1409,9 +1779,13 @@ export default {
       );
     },
     getNote() {
-
-      this.$http.get("/patients/" + this.patientId + "/notes").then((response) => {
-          if (response.data && response.data.error == false && response.data.data) {
+      this.$http.get("/patients/" + this.patientId + "/notes").then(
+        (response) => {
+          if (
+            response.data &&
+            response.data.error == false &&
+            response.data.data
+          ) {
             this.patientNotes = response.data.data;
             return;
           }
@@ -1424,64 +1798,74 @@ export default {
       );
     },
     getCarePlanReport() {
-      this.$http.get("/care-plans/patient/" + this.patientId).then((response) => {
+      this.$http.get("/care-plans/patient/" + this.patientId).then(
+        (response) => {
           this.pendingInvestigations = [];
           if (response.status == 200) {
             if (response.data.data) {
-              response.data.data.filter(item => {
-                
-                if (item.body.category == 'investigation' && item.meta.status == 'pending') {
+              response.data.data.filter((item) => {
+                if (
+                  item.body.category == "investigation" &&
+                  item.meta.status == "pending"
+                ) {
                   item.meta.status = false;
-                  
+
                   this.pendingInvestigations.push(item);
                 }
               });
             }
           }
-
         },
         (error) => {}
       );
     },
 
     getLastRiskFactors() {
-      this.$http.get("/observations/patient/" + this.patientId + '/last-risk-factors').then((response) => {
-          this.pendingInvestigations = [];
-          if (response.status == 200) {
-            if (response.data.data) {
-              this.riskFactors = response.data.data;
+      this.$http
+        .get("/observations/patient/" + this.patientId + "/last-risk-factors")
+        .then(
+          (response) => {
+            this.pendingInvestigations = [];
+            if (response.status == 200) {
+              if (response.data.data) {
+                this.riskFactors = response.data.data;
+              }
             }
-          }
-
-        },
-        (error) => {}
-      );
+          },
+          (error) => {}
+        );
     },
     updateInvestigation() {
-      
       if (this.pendingInvestigations.length) {
-          let loader = this.$loading.show();
-          let completedItems = [];
-          completedItems = this.pendingInvestigations.filter(item =>  item.meta.status == true);
-          if (completedItems && completedItems.length > 0) {
-            let data = {
-              "status": "completed",
-              // "comment": '',
-              "completed_at": new Date()
-            }
-            completedItems.forEach(item => {
-              this.$http.put("/care-plans/" + item.id, data).then((response) => {
+        let loader = this.$loading.show();
+        let completedItems = [];
+        completedItems = this.pendingInvestigations.filter(
+          (item) => item.meta.status == true
+        );
+        if (completedItems && completedItems.length > 0) {
+          let data = {
+            status: "completed",
+            // "comment": '',
+            completed_at: new Date(),
+          };
+          completedItems.forEach((item) => {
+            this.$http.put("/care-plans/" + item.id, data).then(
+              (response) => {
                 if (response.status == 200) {
                   this.getCarePlanReport();
-                  loader.hide()
+                  loader.hide();
                 }
               },
-              (error) => { loader.hide() }
+              (error) => {
+                loader.hide();
+              }
             );
-            });
-          } else { loader.hide() }
+          });
+        } else {
+          loader.hide();
+        }
       }
-    } 
+    },
   },
   created() {},
 
@@ -1500,10 +1884,10 @@ export default {
     this.scrollToTop();
   },
   computed: {
-     user() {
+    user() {
       return this.$store.state.auth.user;
     },
-  }
+  },
 };
 </script>
 
@@ -1532,69 +1916,79 @@ export default {
   }
 }
 .patient-summary {
-    .card {
+  .card {
     //   border-color: red;
-    border: 1px solid #C4C4C4;
+    border: 1px solid #c4c4c4;
     border-radius: 0;
-    th {font-size: 18px;}
+    th {
+      font-size: 18px;
+    }
 
-      .card-header {
-        border-radius:  0;
-        // height: 35px;
-        font-size: 20px;
-        padding: 5px 15px;
-        color: #fff;
-        &.patient-info {
-          background-color: #489CFC;
-        }
+    .card-header {
+      border-radius: 0;
+      // height: 35px;
+      font-size: 20px;
+      padding: 5px 15px;
+      color: #fff;
+      &.patient-info {
+        background-color: #489cfc;
       }
     }
-    .sub-title {
-      font-size: 16px;
-      background-color: #d2e1ff;
-      padding: 7px 15px;
-      width: fit-content;
-      margin: 10px 0 0 10px;
+  }
+  .sub-title {
+    font-size: 16px;
+    background-color: #d2e1ff;
+    padding: 7px 15px;
+    width: fit-content;
+    margin: 10px 0 0 10px;
+  }
+  .custom-title {
+    font-size: 20px;
+    padding: 0.75rem;
+    margin-bottom: 0;
+  }
+  .txt-red {
+    color: #f72b34;
+  }
+  .txt-success {
+    color: #00b0a6;
+  }
+  table {
+    td {
+      padding: 0.2rem 0.75rem;
     }
-    .custom-title {
-        font-size: 20px;
-        padding: 0.75rem;
-        margin-bottom: 0;
-    }
-    .txt-red{color: #f72b34}
-    .txt-success{color: #00b0a6}
-    table {
-        td {padding: 0.2rem .75rem}
-    }
-    .add-note{
-      border-radius: 0 !important;
-      text-align: right;
-      margin: 0 10px 10px auto;
-          padding: 5px 15px;
-    }
-    .td-grey {background: #e6e6e6;}
-    .td-border-bottom {
-        border: 4px solid white;
-    }
+  }
+  .add-note {
+    border-radius: 0 !important;
+    text-align: right;
+    margin: 0 10px 10px auto;
+    padding: 5px 15px;
+  }
+  .td-grey {
+    background: #e6e6e6;
+  }
+  .td-border-bottom {
+    border: 4px solid white;
+  }
   .card-red-header {
-    border-color: #FF5959 !important;
+    border-color: #ff5959 !important;
     .card-header {
-        background-color: #FF5959 !important;
-        color:  #fff;
-        &:first-child {
-          border-radius: 0;
-        }
+      background-color: #ff5959 !important;
+      color: #fff;
+      &:first-child {
+        border-radius: 0;
+      }
     }
   }
 
   .card-blue-header {
-    border-color: #489CFC !important;
+    border-color: #489cfc !important;
     .card-header {
-        background-color: #489CFC !important;
-        color:  #fff;
-        &:first-child {
-          border-radius: 0;
-        }
+      background-color: #489cfc !important;
+      color: #fff;
+      &:first-child {
+        border-radius: 0;
+      }
     }
   }
   .btn-cust {
@@ -1602,19 +1996,19 @@ export default {
     padding: 5px 15px;
     background-color: #d2e1ff;
     border: 1px solid #648dc3;
-    color: #01579B;
+    color: #01579b;
   }
   .patient-summary__action a:first-of-type {
     margin-right: 20px;
   }
- .patient-summary__action a {
+  .patient-summary__action a {
     display: block;
     width: 100%;
   }
   .table-patient {
     height: 429px;
   }
-  .btn-proceed{
+  .btn-proceed {
     max-width: 200px;
     margin: 0 auto;
   }
