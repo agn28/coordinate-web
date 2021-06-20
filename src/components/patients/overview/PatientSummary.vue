@@ -2012,5 +2012,8 @@ export default {
     max-width: 200px;
     margin: 0 auto;
   }
+  .btn-proceed:disabled {
+    cursor: not-allowed;
+  }
 }
 </style>
