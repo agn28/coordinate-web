@@ -699,7 +699,7 @@
     </div>
     <div class="text-center mt-3 mb-5">
       <div
-        v-if="!patient.meta.is_synced"
+        v-if="patient.meta.is_synced !== undefined && !patient.meta.is_synced"
         class="alert alert-danger"
         role="alert"
       >
@@ -709,8 +709,14 @@
       <router-link
         :to="{ name: 'carePlanCreate', params: { patientId: patientId } }"
         class="btn btn-primary radious-0 mb-3 d-block btn-proceed"
-        :disabled="!patient.meta.is_synced"
-        :event="patient.meta.is_synced ? 'click' : ''"
+        :disabled="
+          patient.meta.is_synced !== undefined && !patient.meta.is_synced
+        "
+        :event="
+          patient.meta.is_synced === undefined || patient.meta.is_synced
+            ? 'click'
+            : ''
+        "
         tag="button"
       >
         <span>Proceed To Care Plan </span>
