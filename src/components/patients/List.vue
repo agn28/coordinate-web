@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="patient-search">
-             <div class="search">
+            <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
                 <input
                   class="form-control my-0 py-1 border-right-0"
@@ -24,21 +24,25 @@
                   @keyup.enter="getPatients('', 'last_item')"
                 />
                 <div class="input-group-prepend">
-                  <a href="javascript:void(0)" @click="getPatients('', 'last_item')" class="input-group-text lighten-3 text-decoration-none" id="btn-search">
+                  <a
+                    href="javascript:void(0)"
+                    @click="getPatients('', 'last_item')"
+                    class="input-group-text lighten-3 text-decoration-none"
+                    id="btn-search"
+                  >
                     <i class="fas fa-search" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>
-            </div> 
-
+            </div>
           </div>
         </div>
       </div>
       <div class="row mt-0">
         <div class="col-lg-12">
           <div class="patient-list" v-if="patients.length > 0">
-            <div class="table-responsive" >
-              <table class="table" >
+            <div class="table-responsive">
+              <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
@@ -62,15 +66,20 @@
                     "
                   >
                     <template>
-                      <td> {{
-                          patient.body.first_name + " " + patient.body.last_name }}
+                      <td>
+                        {{
+                          patient.body.first_name + " " + patient.body.last_name
+                        }}
                       </td>
-                      <td>{{ patient.body.center.name }}</td>
+                      <td v-if="patient.body.center">
+                        {{ patient.body.center.name }}
+                      </td>
+                      <td v-else></td>
                       <td>{{ patient.body.nid }}</td>
                       <td>{{ patient.body.age }}</td>
-                      <td>{{ patient.body.gender.toUpperCase()
-                        }}</td>
-                      <td>{{ patient.body.registration_date }}
+                      <td>{{ patient.body.gender.toUpperCase() }}</td>
+                      <td>
+                        {{ patient.body.registration_date }}
                         <span class="pull-right"
                           ><i class="fas fa-arrow-right"></i
                         ></span>
@@ -95,13 +104,27 @@
               </ul>
             </nav>	 -->
 
-            <nav aria-label="Page navigation" >
+            <nav aria-label="Page navigation">
               <ul class="pagination my-3">
                 <li class="page-item">
-                  <button type="button" class="page-link"  @click="nextPrevPage('prev')" :disabled="disablePrevButton"> Previous </button>
+                  <button
+                    type="button"
+                    class="page-link"
+                    @click="nextPrevPage('prev')"
+                    :disabled="disablePrevButton"
+                  >
+                    Previous
+                  </button>
                 </li>
                 <li class="page-item">
-                  <button type="button" @click="nextPrevPage('next')"  class="page-link" :disabled="disableNextButton"> Next </button>
+                  <button
+                    type="button"
+                    @click="nextPrevPage('next')"
+                    class="page-link"
+                    :disabled="disableNextButton"
+                  >
+                    Next
+                  </button>
                 </li>
               </ul>
             </nav>
@@ -116,12 +139,12 @@
 // @ is an alias to /src
 import Vue from "vue";
 import { VuejsDatatableFactory } from "vuejs-datatable";
-import TopNavBar from '../TopNavBar.vue';
+import TopNavBar from "../TopNavBar.vue";
 Vue.use(VuejsDatatableFactory);
 
 export default {
   name: "patients",
-  components: {TopNavBar},
+  components: { TopNavBar },
   data() {
     return {
       patients: [],
@@ -130,9 +153,9 @@ export default {
         currentPage: 1,
         perPage: 20,
         // totalItems: 500,
-        pages: []
+        pages: [],
       },
-      lastItemId: '',
+      lastItemId: "",
       disablePrevButton: false,
       disableNextButton: false,
     };
@@ -152,75 +175,87 @@ export default {
       });
     },
   },
- 
+
   methods: {
     scrollToTop() {
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     },
-    getPatients(lastItemId = '', queryItemkey = 'last_item') {
+    getPatients(lastItemId = "", queryItemkey = "last_item") {
       let loader = this.$loading.show();
-      let searchKey = '';
+      let searchKey = "";
       this.disablePrevButton = false;
       this.disableNextButton = false;
-      
-      if(this.search) {
-        if(isNaN(this.search)) {
-          searchKey = '&name=' + this.search;
+
+      if (this.search) {
+        if (isNaN(this.search)) {
+          searchKey = "&name=" + this.search;
         } else {
-          searchKey = '&nid=' + this.search;
+          searchKey = "&nid=" + this.search;
         }
       }
-      this.$http.get("/patients?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
-        (response) => {
-          if (response.status == 200) {
-            loader.hide();
-            console.log('patients: ', response.data);
-            if (response.data.error == true) {
-              // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
-              let msg = 'No record found';
-              if ( queryItemkey == 'last_item') {
-                this.disableNextButton = true;
-              } 
+      this.$http
+        .get(
+          "/patients?per_page=" +
+            this.paginationOptions.perPage +
+            "&" +
+            queryItemkey +
+            "=" +
+            lastItemId +
+            searchKey
+        )
+        .then(
+          (response) => {
+            if (response.status == 200) {
+              loader.hide();
+              console.log("patients: ", response.data);
+              if (response.data.error == true) {
+                // let msg = queryItemkey == 'last_item' ? 'Reached Last Record' : 'Reached First Record';
+                let msg = "No record found";
+                if (queryItemkey == "last_item") {
+                  this.disableNextButton = true;
+                }
 
-              if ( queryItemkey == 'first_item') {
-                this.disablePrevButton = true;
+                if (queryItemkey == "first_item") {
+                  this.disablePrevButton = true;
+                }
+                this.$toast.open({ message: msg, type: "error" });
+                // this.patients = [];
+                return;
               }
-              this.$toast.open({ message: msg, type: 'error'});
-              // this.patients = [];
-              return;
-            }
 
-            this.patients = response.data.data;
-            this.scrollToTop();
+              this.patients = response.data.data;
+              this.scrollToTop();
+            }
+          },
+          (error) => {
+            console.log(error);
+            loader.hide();
           }
-        },
-        (error) => {
-          console.log(error)
-          loader.hide();
-        }
-      );
+        );
     },
     nextPrevPage(type) {
       let dataLength = this.patients.length;
 
-      if (type == 'next') {
-        let lastItemId = '';
-        if ( dataLength > 0) {
+      if (type == "next") {
+        let lastItemId = "";
+        if (dataLength > 0) {
           lastItemId = this.patients[dataLength - 1].id;
         }
-        this.getPatients(lastItemId, 'last_item');
+        this.getPatients(lastItemId, "last_item");
       }
 
-      if (type == 'prev') {
-         let firstItemId = dataLength > 0 ? this.patients[0].id : '';
-        this.getPatients(firstItemId, 'first_item');
+      if (type == "prev") {
+        let firstItemId = dataLength > 0 ? this.patients[0].id : "";
+        this.getPatients(firstItemId, "first_item");
       }
     },
     setPages() {
-      let numberOfPages = Math.ceil(this.paginationOptions.totalItems / this.paginationOptions.perPage);
-			for (let index = 1; index <= numberOfPages; index ++) {
-				this.paginationOptions.pages.push(index);
-			}
+      let numberOfPages = Math.ceil(
+        this.paginationOptions.totalItems / this.paginationOptions.perPage
+      );
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.paginationOptions.pages.push(index);
+      }
     },
     getId(identifier, type) {
       if (!identifier) {
@@ -234,11 +269,11 @@ export default {
       return "";
     },
     scrollToTop() {
-        window.scrollTo(0,0);
-    }
+      window.scrollTo(0, 0);
+    },
   },
   mounted() {
-    if(this.$route.query.search && this.$route.query.search != undefined){
+    if (this.$route.query.search && this.$route.query.search != undefined) {
       this.search = this.$route.query.search;
     }
     this.getPatients();
@@ -246,4 +281,3 @@ export default {
   },
 };
 </script>
-
