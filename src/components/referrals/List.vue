@@ -68,7 +68,7 @@
                 <div class="col-lg-3">
                     <div class="filter-item">
                         <div class="form-group">
-                            <label for="division">Refferal Status</label>
+                            <label for="division">Referral Status</label>
                             <multiselect v-model="status" :options="statusList" select-label="" open-direction="bottom" @input="doFilter()"></multiselect>
                         </div>
                     </div>

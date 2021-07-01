@@ -172,12 +172,13 @@
         </div>
 
         <div class="text-center  py-3">
-            
+            <!-- <a href="javascript:void(0)" @click="$router.go(-1)" class="text-secondary " > <i class="fa fa-arrow-left text-secondary" ></i> Back to reivew</a> -->
+            <button type="button" @click="$router.go(-1)" class="btn btn-primary px-5 radious-0 mx-2"> Back to reivew</button>
             <button type="button" @click.prevent="updateReviewData()" class="btn btn-primary px-5 radious-0 m-auto">Confirm New Care Plan</button>
         </div>
-        <div class="py-3 mb-3">
+        <!-- <div class="py-3 mb-3">
             <a href="javascript:void(0)" @click="$router.go(-1)" class="text-secondary " > <i class="fa fa-arrow-left text-secondary" ></i> Back to reivew</a>
-        </div>
+        </div> -->
       <!-- </form> -->
 
 
@@ -302,8 +303,9 @@ export default {
           return item;
         }
       }));
-      this.allData.data.body.removed_counsellings = this.removedCounsellings.concat(counsellings);
-
+      // this.allData.data.body.removed_counsellings = this.removedCounsellings.concat(counsellings);
+      this.allData.data.body.removed_counsellings = counsellings;
+      
       this.saveObservationData();
 
       //TODO: work from here

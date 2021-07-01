@@ -39,6 +39,7 @@
                         label="id"
                         track-by="id"
                         :multiple="true"
+                        select-label=""
                       ></multiselect>
                     </div>
 

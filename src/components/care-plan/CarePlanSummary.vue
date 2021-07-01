@@ -69,15 +69,15 @@
                       <thead>
                         <tr>
                           <th width="80%" class="border-top-0">Action</th>
-                          <th  width="20%" class="border-top-0">Date Added</th>
+                          <!-- <th  width="20%" class="border-top-0">Date Added</th> -->
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in counsellingInterventions" :key="index">
                           <td class="align-middle">{{ item.title }}</td>
-                          <td class="text-center align-middle">
+                          <!-- <td class="text-center align-middle">
                             
-                          </td>
+                          </td> -->
                         </tr>
                       </tbody>
                     </table>

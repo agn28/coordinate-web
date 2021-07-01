@@ -45,6 +45,7 @@
                         label="value"
                         track-by="key"
                         :multiple="true"
+                        select-label=""
                       ></multiselect>
                     </div>
 

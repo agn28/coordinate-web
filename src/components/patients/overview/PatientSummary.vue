@@ -175,6 +175,36 @@
                 </tr>
                 <tr>
                   <td width="65%" class="font-weight-bold">
+                    Betel Nut
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.betel_nut, false)
+                    "
+                  >
+                    {{ riskFactors.body.data.betel_nut || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Diet: Fruit & Vegetable Intake
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.fruits_vegetables_daily, true)
+                    "
+                  >
+                    {{ riskFactors.body.data.fruits_vegetables_daily || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
                     Diet: Additional salt:
                   </td>
                   <td width="5%" class="text-center">:</td>
@@ -184,6 +214,21 @@
                     :class="getColor(riskFactors.body.data.extra_salt, false)"
                   >
                     {{ riskFactors.body.data.extra_salt || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Diet: Salty Foods Intake
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.salty_foods, false)
+                    "
+                  >
+                    {{ riskFactors.body.data.salty_foods || "N/A" }}
                   </td>
                 </tr>
                 <tr>
@@ -203,7 +248,7 @@
                 </tr>
                 <tr>
                   <td width="65%" class="font-weight-bold">
-                    Diet: Processed food / red meat:
+                    Diet: Processed food:
                   </td>
                   <td width="5%" class="text-center">:</td>
                   <td
@@ -218,7 +263,37 @@
                 </tr>
                 <tr>
                   <td width="65%" class="font-weight-bold">
-                    Physical activity:
+                    Diet: Red Meat Intake
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.red_meat, false)
+                    "
+                  >
+                    {{ riskFactors.body.data.red_meat || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Physical activity high:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(riskFactors.body.data.physical_activity_high, true)
+                    "
+                  >
+                    {{ riskFactors.body.data.physical_activity_high || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Physical activity moderate:
                   </td>
                   <td width="5%" class="text-center">:</td>
                   <td
@@ -408,19 +483,29 @@
         </div>
         <div class="card tab-card mt-1 card-blue-header">
           <div class="card-header">Medication:</div>
-          <div class="table-responsive">
+          <div class="table-responsive" v-if="medications && medications.length > 0">
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col" class="mb-2">Drug added:</th>
-                  <th scope="col" class="mb-2">Drug Name:</th>
-                  <th scope="col" class="mb-2">Dosage:</th>
-                  <th scope="col" class="mb-2">Duration:</th>
+                  <th class="border-top-0">Drug Name</th>
+                  <th class="border-top-0">Dosage</th>
+                  <th class="border-top-0">Unit</th>
+                  <th class="border-top-0">Frequency</th>
+                  <th class="border-top-0">Duration</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                <tr v-for="(item, index) in medications" :key="index"> 
+                  <!-- <td>{{ item.body.title }}</td> -->
+                  <td>{{ item.body.title }}</td>
+                  <td>{{ item.body.dosage ? item.body.dosage : '--'}}</td>
+                  <td>{{ item.body.unit ? item.body.unit : '--'}}</td>
+                  <td>{{ item.body.activityDuration.repeat.frequency }} {{ item.body.activityDuration.repeat.periodUnit }}</td> 
+                  <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }}</td> 
+                </tr>
+              </tbody>
             </table>
-            <div class="text-secondary text-center">
+            <div class="text-secondary text-center"  v-if="medications.length == 0">
               No Data found
             </div>
           </div>
@@ -472,6 +557,21 @@
                   <td>{{ details.weight ? details.weight.unit : "" }}</td>
                   <td>{{ details.weight ? details.weight.date : "" }}</td>
                 </tr>
+
+                <tr>
+                  <td>Waist:</td>
+                  <td>{{ details.waist ? details.waist.value : "" }}</td>
+                  <td>{{ details.waist ? details.waist.unit : "" }}</td>
+                  <td>{{ details.waist ? details.waist.date : "" }}</td>
+                </tr>
+
+                <tr>
+                  <td>Hip:</td>
+                  <td>{{ details.hip ? details.hip.value : "" }}</td>
+                  <td>{{ details.hip ? details.hip.unit : "" }}</td>
+                  <td>{{ details.hip ? details.hip.date : "" }}</td>
+                </tr>
+
                 <tr>
                   <td>BMI:</td>
                   <!-- //TODO: Calculate BMI -->
@@ -556,7 +656,7 @@
                 <tr>
                   <td>HbA1c:</td>
                   <td>{{ details.a1c ? details.a1c.value : "" }}</td>
-                  <td>%</td>
+                  <td>{{ details.a1c ? details.a1c.unit : "" }}</td>
                   <td>{{ details.a1c ? details.a1c.date : "" }}</td>
                 </tr>
               </tbody>
@@ -576,16 +676,16 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Urinary ketone:</td>
-                  <td>N/A</td>
-                  <td>mmol/L</td>
-                  <td></td>
+                  <td>Urinary Ketone:</td>
+                  <td>{{ details.ketones? details.ketones.value : "" }}</td>
+                  <td>{{ details.ketones ? details.ketones.unit : "" }}</td>
+                  <td>{{ details.ketones ? details.ketones.date : "" }}</td>
                 </tr>
                 <tr>
                   <td>Urinary protein:</td>
-                  <td>N/A</td>
-                  <td>mmol/L</td>
-                  <td></td>
+                 <td>{{ details.protein? details.protein.value : "" }}</td>
+                  <td>{{ details.protein ? details.protein.unit : "" }}</td>
+                  <td>{{ details.protein ? details.protein.date : "" }}</td>
                 </tr>
               </tbody>
             </table>
@@ -643,15 +743,15 @@
               <tbody>
                 <tr>
                   <td>Serum cholesterol:</td>
-                  <td>{{ details.serum ? details.serum.value : "N/A" }}</td>
-                  <td>{{ details.serum ? details.serum.unit : "" }}</td>
-                  <td>{{ details.serum ? details.serum.date : "" }}</td>
+                  <td>{{ details.cholesterol ? details.cholesterol.value : "N/A" }}</td>
+                  <td>{{ details.cholesterol ? details.cholesterol.unit : "" }}</td>
+                  <td>{{ details.cholesterol ? details.cholesterol.date : "" }}</td>
                 </tr>
                 <tr>
                   <td>Triglycerides:</td>
-                  <td>{{ details.tg ? details.tg.value : "N/A" }}</td>
-                  <td>{{ details.tg ? details.tg.unit : "" }}</td>
-                  <td>{{ details.tg ? details.tg.date : "" }}</td>
+                  <td>{{ details.triglycerides ? details.triglycerides.value : "N/A" }}</td>
+                  <td>{{ details.triglycerides ? details.triglycerides.unit : "" }}</td>
+                  <td>{{ details.triglycerides ? details.triglycerides.date : "" }}</td>
                 </tr>
                 <tr>
                   <td>HDL:</td>
@@ -1104,6 +1204,7 @@ export default {
         occupation: "",
         ethnicity: "",
       },
+      medications: []
     };
   },
   methods: {
@@ -1163,6 +1264,24 @@ export default {
       }
 
       return color;
+    },
+
+    getMedicationsByPatient() {
+      let loader = this.$loading.show();
+      this.$http.get("/patients/" + this.patientId + "/medications").then(
+        (response) => {
+          loader.hide();
+          if (response.status == 201) {
+            if (response.data.data) {
+              this.medications = response.data.data;
+            }
+            
+          }
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
     },
 
     prepareBpConditions() {
@@ -1517,14 +1636,14 @@ export default {
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
                     };
-                  } else if (observation.data.name == "serum") {
-                    this.details.serum = {
+                  } else if (observation.data.name == "total_cholesterol") {
+                    this.details.cholesterol = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
                     };
-                  } else if (observation.data.name == "tg") {
-                    this.details.tg = {
+                  } else if (observation.data.name == "triglycerides") {
+                    this.details.triglycerides = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
@@ -1565,6 +1684,12 @@ export default {
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
                     };
+                  } else if (observation.data.name == "protein") {
+                    this.details.protein = {
+                      value: observation.data.value,
+                      unit: observation.data.unit,
+                      // date: observation.meta.created_at
+                    };
                   } else if (observation.data.name == "creatinine") {
                     this.details.creatinine = {
                       value: observation.data.value,
@@ -1581,6 +1706,18 @@ export default {
                     };
                   } else if (observation.data.name == "weight") {
                     this.details.weight = {
+                      value: observation.data.value,
+                      unit: observation.data.unit,
+                      // date: observation.meta.created_at
+                    };
+                  } else if (observation.data.name == "waist") {
+                    this.details.waist = {
+                      value: observation.data.value,
+                      unit: observation.data.unit,
+                      // date: observation.meta.created_at
+                    };
+                  } else if (observation.data.name == "hip") {
+                    this.details.hip = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       // date: observation.meta.created_at
@@ -1888,6 +2025,7 @@ export default {
     this.getLastRiskFactors();
     this.getLastReport();
     this.scrollToTop();
+    this.getMedicationsByPatient();
   },
   computed: {
     user() {

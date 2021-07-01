@@ -88,7 +88,7 @@
                       <td>
                         <div>
                           <button
-                            @click="assignUser(patient.selected_user, patient)"
+                            @click.prevent="assignUser(patient.selected_user, patient)"
                             class="btn btn-success btn-sm"
                           >
                             Confirm
@@ -162,7 +162,7 @@
         <template v-slot:modal-footer>
           <div class="w-100">
             <b-button
-              @click="
+              @click.prevent="
                 assignUser(selectedPatient.selected_user, selectedPatient)
               "
               variant="link"
@@ -270,18 +270,25 @@ export default {
       this.$bvModal.hide("modal-assign-user");
     },
     assignUser(user, patient) {
-      console.log("user ", user.uid);
-      console.log("patient", patient.id);
-      let loader = this.$loading.show();
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, confirm it!"
+      }).then(result => {
+        if (result.value) {
+            let loader = this.$loading.show();
       this.$http
         .post("care-plans/assign-user", {
           patient_id: patient.id,
           user_id: user.uid,
         })
-        .then(
-          (response) => {
-            loader.hide();
-            console.log(response);
+        .then(response => {
+          loader.hide();
+          if (response.status == 201) {
             if (this.patients.indexOf(patient) > -1) {
               this.patients.splice(this.patients.indexOf(patient), 1);
             }
@@ -289,11 +296,42 @@ export default {
             this.selectedUser = {};
             this.$bvModal.hide("modal-assign-user");
             this.$forceUpdate();
-          },
-          (error) => {
-            loader.hide();
+            this.$toast.open({ message: 'Patient assigned', type: 'success'})
+            return;
           }
-        );
+          
+          this.$toast.open({ message: 'Failed to assign patient', type: 'error'});
+        })
+        .catch(error => {
+            console.log('error: ', error)
+            loader.hide();
+        });
+        }
+      });
+      // console.log("user ", user.uid);
+      // console.log("patient", patient.id);
+      // let loader = this.$loading.show();
+      // this.$http
+      //   .post("care-plans/assign-user", {
+      //     patient_id: patient.id,
+      //     user_id: user.uid,
+      //   })
+      //   .then(
+      //     (response) => {
+      //       loader.hide();
+      //       console.log(response);
+      //       if (this.patients.indexOf(patient) > -1) {
+      //         this.patients.splice(this.patients.indexOf(patient), 1);
+      //       }
+      //       // careplan.meta.assigned_to = user.uid;
+      //       this.selectedUser = {};
+      //       this.$bvModal.hide("modal-assign-user");
+      //       this.$forceUpdate();
+      //     },
+      //     (error) => {
+      //       loader.hide();
+      //     }
+      //   );
     },
     hasAssignee(patient) {
       return patient.body.assignees.length > 0;

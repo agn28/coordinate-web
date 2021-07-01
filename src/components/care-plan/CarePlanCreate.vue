@@ -106,6 +106,25 @@
                         <thead>
                           <tr>
                             <th class="border-top-0">Action</th>
+                            <th class="border-top-0">Generated On</th>
+                            <th class="border-top-0">Assigned To</th>
+                            <th class="border-top-0">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(plan, index) in lastCareplans" :key="index">
+                            <td>{{ plan.body.title }}</td>
+                            <td>{{ getFormatedDate(plan.meta.created_at._seconds) }}</td>
+                            <!-- <td>{{ getFormatedDate(plan.meta.completed_at._seconds) }}</td> -->
+                            
+                            <td>{{ getUserName(plan.meta.assigned_to) }}</td>
+                            <!-- <td class="text-capitalize">{{ plan.body.comment }}</td> -->
+                            <td class="text-capitalize">{{ plan.meta.status }}</td>
+                          </tr>
+                        </tbody>
+                        <!-- <thead>
+                          <tr>
+                            <th class="border-top-0">Action</th>
                             <th class="border-top-0">Date Added</th>
                             <th class="border-top-0">Assigned To</th>
                             <th class="border-top-0">Completed</th>
@@ -118,7 +137,7 @@
                             <td>N/A</td>
                             <td class="text-capitalize">{{ plan.meta.status }}</td>
                           </tr>
-                        </tbody>
+                        </tbody> -->
                       </table>
                     </div>
                 </div>
@@ -363,6 +382,7 @@
                             track-by="name"
                             :allow-empty="false"
                             :searchable="true"
+                             select-label=""
                           ></multiselect>
                           
                           <input v-if="medication.title && medication.title.name == 'other'" type="text" class="form-control mt-2" name="other_drug" placeholder="Enter Drug Name" v-model="other_drug_name" required />
@@ -620,12 +640,29 @@ export default {
       folloUpDate: '',
       selectedFollowup:  null,
       removedCounsellings: [],
-      other_drug_name: null
+      other_drug_name: null,
+      users: []
     };
   },
   methods: {
     scrollToTop() {
       window.scrollTo(0,0);
+    },
+    getUserName(id) {
+      let matchedUser = this.users.find(usr => usr.uid == id);
+      return matchedUser ? matchedUser.name : '';
+    },
+    getUsers () {
+        let loader = this.$loading.show();
+        this.$http.get("/users").then(response => {
+            if (response.status == 200) {
+                loader.hide()
+                this.users = response.data;
+            }
+        },
+        error => {
+            loader.hide();
+        });
     },
     onActionUpdate(index) {
       if (this.allData.careplan.activities[index].status) {
@@ -845,13 +882,15 @@ export default {
               let responseData = response.data.data;
               for (let i = 0; i < responseData.length; i ++) {
                 if(responseData[i].body.category == 'survey') {
+                  console.log("assign");
+                  console.log(responseData[i].meta.assigned_to);
                   this.lastCareplans.push(responseData[i]);
                   count = 1 + count;
                 }
 
-                if(count == 3) {
-                  return;
-                }
+                // if(count == 3) {
+                //   return;
+                // }
               }
               
             }
@@ -1003,6 +1042,7 @@ export default {
 
     this.prepareData();
     this.scrollToTop();
+    this.getUsers();
   },
   
   created() {},
