@@ -113,23 +113,7 @@
                     class="form-control form-coordinate height-input"
                   />
                 </div>
-
-                <div class="form-group">
-                  <label for="userRoles">Select Upazila</label>
-                  <select
-                    name="userRoles"
-                    id="userRoles"
-                    class="form-control"
-                    v-model="newUser.address.upazila"
-                  >
-                    <option
-                      v-for="(upazila, index) in upazilas"
-                      :key="index"
-                      :value="upazila.name"
-                    >{{ upazila.name }}</option>
-                  </select>
-                </div>
-
+                
                 <div class="form-group">
                   <label for="userRoles">Select District</label>
                   <select
@@ -147,6 +131,21 @@
                   </select>
                 </div>
                 
+                <div class="form-group">
+                  <label for="userRoles">Select Upazila</label>
+                  <select
+                    name="userRoles"
+                    id="userRoles"
+                    class="form-control"
+                    v-model="newUser.address.upazila"
+                  >
+                    <option
+                      v-for="(upazila, index) in upazilas"
+                      :key="index"
+                      :value="upazila.name"
+                    >{{ upazila.name }}</option>
+                  </select>
+                </div>
 
                 <template v-slot:modal-footer>
                   <div class="w-100">

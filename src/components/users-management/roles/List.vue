@@ -105,13 +105,13 @@
                     </td>
 
                     <td>
-                      <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteRole(role)">
-                        <i class="fas fa-trash"></i>
-                      </a>
                       <router-link
                         class="btn btn-sm btn-secondary mr-2"
                         :to="{ name: 'assignPermissions', params: { roleId: role.id } }"
                       >Assign Permissions</router-link>
+                      <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteRole(role)">
+                        <i class="fas fa-trash"></i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
