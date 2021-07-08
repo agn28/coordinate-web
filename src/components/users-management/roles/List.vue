@@ -32,7 +32,7 @@
         </div>
         <div class="col-lg-6">
           <div class="patient-content float-right">
-            <div class="right-side">
+            <!-- <div class="right-side">
               <div class="register-patient">
                 <button class="btn" v-b-modal.modal-role>
                   <i class="fas fa-plus"></i>Create Role
@@ -74,7 +74,7 @@
                   </div>
                 </template>
               </b-modal>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -109,9 +109,9 @@
                         class="btn btn-sm btn-secondary mr-2"
                         :to="{ name: 'assignPermissions', params: { roleId: role.id } }"
                       >Assign Permissions</router-link>
-                      <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteRole(role)">
+                      <!-- <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="deleteRole(role)">
                         <i class="fas fa-trash"></i>
-                      </a>
+                      </a> -->
                     </td>
                   </tr>
                 </tbody>

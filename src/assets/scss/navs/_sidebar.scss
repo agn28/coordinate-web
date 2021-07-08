@@ -48,10 +48,11 @@
     .collapse,
     .collapsing {
       .collapse-inner {
-        padding: .5rem 0;
+        padding: .5rem 0 .5rem 1.5rem;
         min-width: 10rem;
         font-size: $dropdown-font-size;
         margin: 0 0 1rem 0;
+        background-color: transparent;
         .collapse-header {
           margin: 0;
           white-space: nowrap;
@@ -65,18 +66,20 @@
           padding: 0.5rem 1rem;
           margin: 0 0.5rem;
           display: block;
-          color: $gray-900;
+          color: $white;
           text-decoration: none;
           border-radius: $border-radius;
           white-space: nowrap;
           &:hover {
-            background-color: $gray-200;
+            color: $primary;
+            background-color: $gray-300;
           }
           &:active {
             background-color: $gray-300;
           }
           &.active {
             color: $primary;
+            background-color: $gray-300;
             font-weight: 500;
           }
         }

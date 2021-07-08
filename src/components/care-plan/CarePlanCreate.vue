@@ -108,18 +108,19 @@
                             <th class="border-top-0">Action</th>
                             <th class="border-top-0">Generated On</th>
                             <th class="border-top-0">Assigned To</th>
+                            <th class="border-top-0">Completed At</th>
                             <th class="border-top-0">Status</th>
+                            <th class="border-top-0">Outcome</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr v-for="(plan, index) in lastCareplans" :key="index">
-                            <td>{{ plan.body.title }}</td>
-                            <td>{{ getFormatedDate(plan.meta.created_at._seconds) }}</td>
-                            <!-- <td>{{ getFormatedDate(plan.meta.completed_at._seconds) }}</td> -->
-                            
-                            <td>{{ getUserName(plan.meta.assigned_to) }}</td>
-                            <!-- <td class="text-capitalize">{{ plan.body.comment }}</td> -->
-                            <td class="text-capitalize">{{ plan.meta.status }}</td>
+                        <tbody> 
+                          <tr v-for="(item, index) in lastCareplans" :key="index">
+                            <td>{{ item.body.title }}</td>
+                            <td class="text-center align-middle">{{ item.meta ? (item.meta.created_at ? getFormatedDate(item.meta.created_at._seconds) : 'N/A') : 'N/A'}}</td>
+                            <td>{{ item.meta ? (item.meta.assigned_to ? getUserName(item.meta.assigned_to) : 'N/A') : 'N/A'}}</td>
+                            <td class="text-center align-middle">{{ item.meta ? (item.meta.completed_at ? getFormatedDate(item.meta.completed_at._seconds) : 'N/A') : 'N/A'}}</td>
+                            <td class="text-capitalize">{{ item.meta ? (item.meta.status ? item.meta.status : 'N/A') : 'N/A'}}</td>
+                            <td> {{ item.body ? (item.body.comment ? item.body.comment : 'N/A') : 'N/A' }}</td>
                           </tr>
                         </tbody>
                         <!-- <thead>
@@ -383,6 +384,7 @@
                             :allow-empty="false"
                             :searchable="true"
                              select-label=""
+                             deselect-label=""
                           ></multiselect>
                           
                           <input v-if="medication.title && medication.title.name == 'other'" type="text" class="form-control mt-2" name="other_drug" placeholder="Enter Drug Name" v-model="other_drug_name" required />
@@ -664,6 +666,13 @@ export default {
             loader.hide();
         });
     },
+    getFormatedDate(data) {
+        let date = moment
+          .unix(data)
+          .format("DD MMM YYYY");
+   
+      return date;
+    },
     onActionUpdate(index) {
       if (this.allData.careplan.activities[index].status) {
         this.removedCounsellings.push(this.allData.careplan.activities[index]);
@@ -688,6 +697,8 @@ export default {
           }
 
           this.allData = response.data;
+
+
         } else {
           this.missingData = true;
           console.log('error ');
@@ -915,6 +926,16 @@ export default {
       }
 
       this.allData.careplan.activities = this.allData.careplan.activities
+      
+      this.allData.careplan.activities.forEach(activity => {
+        // let index = this.lastCareplans.indexOf(item);
+        let careplan = this.lastCareplans.find( careplan => careplan.body.id == activity.id)
+        if (careplan) {
+          activity.meta = careplan.meta;
+        }
+        console.log('activity');
+        console.log(activity);
+      })
 
       this.removedCounsellings.forEach(item => {
         let index = this.allData.careplan.activities.indexOf(item);
@@ -944,14 +965,6 @@ export default {
         },
         (error) => {}
       );
-    },
-
-    getFormatedDate(data) {
-        let date = moment
-          .unix(data)
-          .format("DD MMM YYYY");
-   
-      return date;
     },
     generateFollowUpDate() {
       if (this.selectedFollowup) {
@@ -992,6 +1005,8 @@ export default {
         let localNewMedications = localStorage.getItem('newMedications');
 
         if (localData) {
+          console.log('localData');
+          console.log(localData);
           this.allData = JSON.parse(localData);
           this.cvdRisk = this.allData.assessments.cvd;
         }
@@ -1018,6 +1033,7 @@ export default {
         this.reviewId = this.allData.report_id ? this.allData.report_id : null;
       }
       else {
+        console.log('getHealthReport');
         this.getHealthReport();
         
       }

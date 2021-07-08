@@ -76,7 +76,7 @@
             <span>User Management</span>
             </a>
             <div id="collapseTwo" class="collapse" :class="this.$route.path.includes('management') ? 'show' : ''" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-              <div class="bg-white py-2 collapse-inner rounded">
+              <div class="py-2 collapse-inner rounded">
                   <router-link class="collapse-item" :class="this.$route.path.includes('management/users') ? 'active' : ''" :to="{ name: 'users' }">Users</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('management/roles') ? 'active' : ''" :to="{ name: 'roles' }">Roles</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('management/permissions') ? 'active' : ''" :to="{ name: 'permissions' }">Permissions</router-link>

@@ -132,7 +132,7 @@
                                                           v-model="medication.title"
                                                           :options="drugs"
                                                           label="name"
-                                                          track-by="name" select-label=""
+                                                          track-by="name" select-label="" deselect-label=""
                                                         ></multiselect>
                                                     </div>
                                                 </div>
@@ -248,6 +248,7 @@
                                                   label=""
                                                   track-by=""
                                                   select-label=""
+                                                  deselect-label=""
                                                 ></multiselect>
                                             </div>
 

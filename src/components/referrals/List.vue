@@ -37,7 +37,7 @@
                     <div class="filter-item">
                         <div class="form-group" v-if="districts">
                             <label for="division">District</label>
-                            <multiselect v-model="district" :options="districts" select-label="" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
+                            <multiselect v-model="district" :options="districts" select-label="" deselect-label="" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Upazila</label>
-                            <multiselect v-model="upazila" :options="upazilas" select-label="" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
+                            <multiselect v-model="upazila" :options="upazilas" select-label="" deselect-label="" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Center</label>
-                            <multiselect v-model="center" :options="centers" select-label="" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
+                            <multiselect v-model="center" :options="centers" select-label="" deselect-label="" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Healthcare Worker</label>
-                            <multiselect v-model="healthWorker" :options="healthWorkers" select-label="" :multiple="true" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
+                            <multiselect v-model="healthWorker" :options="healthWorkers" select-label="" deselect-label="" :multiple="true" open-direction="bottom" label="name" track-by="name" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <div class="filter-item">
                         <div class="form-group">
                             <label for="division">Referral Status</label>
-                            <multiselect v-model="status" :options="statusList" select-label="" open-direction="bottom" @input="doFilter()"></multiselect>
+                            <multiselect v-model="status" :options="statusList" select-label="" deselect-label="" open-direction="bottom" @input="doFilter()"></multiselect>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                                     <th scope="col">Follow-up Date</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Reason for Referral</th>
-                                    <th scope="col">Reffered By</th>
+                                    <th scope="col">Referred By</th>
                                 </tr>
                                 </thead>
                                 <tbody>

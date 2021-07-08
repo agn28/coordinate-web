@@ -68,15 +68,22 @@
                     <table class="table tbl-bordered-td mt-2">
                       <thead>
                         <tr>
-                          <th width="80%" class="border-top-0">Action</th>
-                          <th  width="20%" class="border-top-0">Date Added</th>
+                          <th class="border-top-0">Action</th>
+                          <th class="border-top-0">Generated On</th>
+                          <th class="border-top-0">Assigned To</th>
+                          <th class="border-top-0">Completed At</th>
+                          <th class="border-top-0">Status</th>
+                          <th class="border-top-0">Outcome</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'survey'">
                           <td class="align-middle">{{ item.title }}</td>
-                          <td class="text-center align-middle">
-                          </td>
+                          <td class="text-center align-middle">{{ item.meta ? (item.meta.created_at ? getFormatedDate(item.meta.created_at._seconds) : 'N/A') : 'N/A'}}</td>
+                          <td>{{ item.meta ? (item.meta.assigned_to ? getUserName(item.meta.assigned_to) : 'N/A') : 'N/A'}}</td>
+                          <td class="text-center align-middle">{{ item.meta ? (item.meta.completed_at ? getFormatedDate(item.meta.completed_at._seconds) : 'N/A') : 'N/A'}}</td>
+                          <td class="text-capitalize">{{ item.meta ? (item.meta.status ? item.meta.status : 'N/A') : 'N/A'}}</td>
+                          <td> {{ item.body ? (item.body.comment ? item.body.comment : 'N/A') : 'N/A' }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -215,6 +222,7 @@ export default {
       medications: [],
       newMedications: [],
       removedCounsellings: [],
+      users: []
     };
   },
   computed: {
@@ -234,6 +242,22 @@ export default {
   methods: {
     scrollToTop() {
       window.scrollTo(0,0);
+    },
+    getUserName(id) {
+      let matchedUser = this.users.find(usr => usr.uid == id);
+      return matchedUser ? matchedUser.name : '';
+    },
+    getUsers() {
+        let loader = this.$loading.show();
+        this.$http.get("/users").then(response => {
+            if (response.status == 200) {
+                loader.hide()
+                this.users = response.data;
+            }
+        },
+        error => {
+            loader.hide();
+        });
     },
     hasGenerated (event) {
 
@@ -258,7 +282,13 @@ export default {
         }
       );
     },
-
+    getFormatedDate(data) {
+        let date = moment
+          .unix(data)
+          .format("DD MMM YYYY");
+   
+      return date;
+    },
     getHealthReport() {
       this.$http.get('/health-reports/' + this.reviewId).then(response => {
         if (response.status == 200) {
@@ -395,6 +425,8 @@ export default {
       this.removedCounsellings =  localRemovedCounsellings ? JSON.parse(localRemovedCounsellings) : [];
       this.reviewId = this.previousData.report_id ? this.previousData.report_id : null;
 
+      console.log('previousData');
+      console.log(this.previousData);
       if (localNewMedications) {
         this.newMedications = JSON.parse(localNewMedications);
         this.medications = this.medications.concat(this.newMedications);
@@ -544,6 +576,7 @@ export default {
     this.prepareData();
     this.getPatients();
     this.scrollToTop();
+    this.getUsers();
   },
   
   created() {},

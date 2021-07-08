@@ -68,16 +68,23 @@
                     <table class="table tbl-bordered-td mt-2">
                       <thead>
                         <tr>
-                          <th width="80%" class="border-top-0">Action</th>
-                          <!-- <th  width="20%" class="border-top-0">Date Added</th> -->
+                          <th class="border-top-0">Action</th>
+                            <th class="border-top-0">Generated On</th>
+                            <th class="border-top-0">Assigned To</th>
+                            <th class="border-top-0">Completed At</th>
+                            <th class="border-top-0">Status</th>
+                            <th class="border-top-0">Outcome</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in counsellingInterventions" :key="index">
-                          <td class="align-middle">{{ item.title }}</td>
-                          <!-- <td class="text-center align-middle">
-                            
-                          </td> -->
+                        <!-- <tr v-for="(item, index) in counsellingInterventions" :key="index"> -->
+                        <tr v-for="(item, index) in lastCareplans" :key="index">
+                          <td class="align-middle">{{ item.body.title }}</td>
+                            <td class="text-center align-middle">{{ item.meta ? (item.meta.created_at ? getFormatedDate(item.meta.created_at._seconds) : 'N/A') : 'N/A'}}</td>
+                            <td>{{ item.meta ? (item.meta.assigned_to ? getUserName(item.meta.assigned_to) : 'N/A') : 'N/A'}}</td>
+                            <td class="text-center align-middle">{{ item.meta ? (item.meta.completed_at ? getFormatedDate(item.meta.completed_at._seconds) : 'N/A') : 'N/A'}}</td>
+                            <td class="text-capitalize">{{ item.meta ? (item.meta.status ? item.meta.status : 'N/A') : 'N/A'}}</td>
+                            <td> {{ item.body ? (item.body.comment ? item.body.comment : 'N/A') : 'N/A' }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -194,6 +201,8 @@ export default {
       generatedCarePlan: null,
       counsellingInterventions: [],
       medications: [],
+      lastCareplans:[],
+      users: []
     };
   },
   computed: {
@@ -205,6 +214,61 @@ export default {
   methods: {
     scrollToTop() {
       window.scrollTo(0,0);
+    },
+    getUserName(id) {
+      let matchedUser = this.users.find(usr => usr.uid == id);
+      return matchedUser ? matchedUser.name : '';
+    },
+    getUsers() {
+        let loader = this.$loading.show();
+        this.$http.get("/users").then(response => {
+            if (response.status == 200) {
+                loader.hide()
+                this.users = response.data;
+            }
+        },
+        error => {
+            loader.hide();
+        });
+    },
+    lastGeneratedCareplans() {
+      let loader = this.$loading.show();
+      this.$http.get("/care-plans/patient/" + this.patientId).then(
+        (response) => {
+          loader.hide();
+          if (response.status == 200) {
+
+            if (response.data.data) {
+              let count = 0;
+              let responseData = response.data.data;
+              for (let i = 0; i < responseData.length; i ++) {
+                //check gcpid too
+                if(responseData[i].body.category == 'survey') {
+                  console.log("assign");
+                  console.log(responseData[i]);
+                  this.lastCareplans.push(responseData[i]);
+                  count = 1 + count;
+                }
+
+                // if(count == 3) {
+                //   return;
+                // }
+              }
+            }
+          }
+
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
+    },
+    getFormatedDate(data) {
+        let date = moment
+          .unix(data)
+          .format("DD MMM YYYY");
+   
+      return date;
     },
     getPatients() {
       let loader = this.$loading.show();
@@ -434,6 +498,8 @@ export default {
     this.getGeneratedCarePlan();
     this.getMedicationsByCareplan();
     this.scrollToTop();
+    this.getUsers();
+    this.lastGeneratedCareplans();
   },
   
   created() {},
