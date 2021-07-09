@@ -90,7 +90,7 @@
               <span>Settings</span>
             </a>
             <div id="collapseThree" class="collapse" :class="this.$route.path.includes('settings') ? 'show' : ''" aria-labelledby="headingThree" data-parent="#accordionSidebar" style="">
-              <div class="bg-white py-2 collapse-inner rounded">
+              <div class="py-2 collapse-inner rounded">
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/symptoms') ? 'active' : ''" :to="{ name: 'symptoms' }">Symptoms</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/medications') ? 'active' : ''" :to="{ name: 'medications' }">Medications</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/devices') ? 'active' : ''" :to="{ name: 'devices' }">Devices</router-link>
