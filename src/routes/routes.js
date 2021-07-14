@@ -6,6 +6,7 @@ import HealthDetail from '../components/health-records/Show'
 import Assessments from '../components/health-records/assessments/Show'
 import Patients from '../components/patients/List'
 import PrescriptionList from '../components/prescriptions/List'
+import InvestigationList from '../components/investigations/List'
 import PatientsOverview from '../components/patients/overview/Overview'
 import PatientCarePlans from '../components/patients/CarePlans'
 import PatientCreate from '../components/patients/Create'
@@ -100,6 +101,7 @@ import QuestionnaireSection from "../components/questionnaires/Section";
 import AddPatientInvestigations from '../components/patients/AddPatientInvestigations';
 
 import Centers from '../components/centers/List';
+import Oha from '../components/oha/View';
 
 import VueRouter from "vue-router";
 const routes = [
@@ -262,6 +264,14 @@ const routes = [
     }
   },
   {
+    path: '/settings/oha',
+    name: 'oha',
+    component: Oha,
+    meta: {
+      role: 'admin'
+    }
+  },
+  {
     path: '/health-records/list',
     name: 'healthList',
     component: HealthList,
@@ -311,6 +321,11 @@ const routes = [
     path: '/prescriptions/list',
     name: 'prescriptionsList',
     component: PrescriptionList,
+  },
+  {
+    path: '/investigations/list',
+    name: 'investigationsList',
+    component: InvestigationList,
   },
   {
     path: '/patients/edit-patient/:patientId',

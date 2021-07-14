@@ -14,6 +14,7 @@ import VueFormWizard from 'vue-form-wizard';
 import 'vue-form-wizard/dist/vue-form-wizard.min.css';
 import VueHtml2Canvas from 'vue-html2canvas';
 import JsonExcel from "vue-json-excel";
+import { VueCsvImport } from 'vue-csv-import';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import VueProgress from 'vue-progress-path';
@@ -51,8 +52,8 @@ Vue.use(VueHtml2Canvas);
 
 Vue.component('apexchart', VueApexCharts)
 
- 
 Vue.component("downloadExcel", JsonExcel);
+Vue.component("vue-csv-import", VueCsvImport);
 
 Vue.use(UUID);
 Vue.use( VuejsDatatableFactory );

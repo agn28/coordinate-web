@@ -48,6 +48,11 @@
                 <i class="fas fa-fw fa-h-square"></i><span>Prescriptions List</span>
             </router-link>
         </li>
+        <li class="nav-item" :class="this.$route.path.includes('investigations') ? 'active' : ''">
+            <router-link to="/investigations/list" class="nav-link">
+                <i class="fas fa-fw fa-h-square"></i><span>Investigations List</span>
+            </router-link>
+        </li>
 
 
         <div v-if="user.role == 'admin'" class="menu-heading">
@@ -96,6 +101,7 @@
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/devices') ? 'active' : ''" :to="{ name: 'devices' }">Devices</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/questionnaires') ? 'active' : ''" :to="{ name: 'questionnaires' }">Questionnaires</router-link>
                   <router-link class="collapse-item" :class="this.$route.path.includes('settings/centers') ? 'active' : ''" :to="{ name: 'centers' }">Centers</router-link>
+                  <router-link class="collapse-item" :class="this.$route.path.includes('settings/oha') ? 'active' : ''" :to="{ name: 'oha' }">OHA</router-link>
               </div>
             </div>
         </li>   

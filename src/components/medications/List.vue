@@ -34,6 +34,52 @@
         <div class="col-lg-6">
           <div class="patient-content float-right">
             <div class="right-side">
+              <div class="px-2 register-patient">
+                <button class="btn" v-b-modal.modal-import-medication>
+                  <i class="fas fa-plus"></i>Import Medication
+                </button>
+              </div>
+
+              <b-modal id="modal-import-medication" class="modal-role">
+                <template v-slot:modal-header>
+                  <span class="title">Import Medication</span>
+                </template>
+                <div class="d-flex align-items-center row">
+                  <div class="form-group col-md-12">
+                    <vue-csv-import
+                      v-model="csv"
+                      :map-fields="{name: 'Medicnine name'}" :autoMatchFields="true" :autoMatchIgnoreCase="true">
+                      <!-- <template slot="next" slot-scope="{load}">
+                          <button @click.prevent="load">load!</button>
+                      </template> -->
+<!-- 
+                      <template slot="submit" slot-scope="{submit}">
+                          <button @click.prevent="submit">send!</button>
+                      </template> -->
+                    </vue-csv-import>
+                    
+                    <!-- <button @click="getCsv()">send!</button> -->
+                  </div>
+                </div>
+
+                <template v-slot:modal-footer>
+                  <div class="w-100">
+                    <b-button
+                      type="button"
+                      @click="getCsv()"
+                      variant="link"
+                      size="md"
+                      class="float-right font-weight-bold p-0 pl-4 pr-1"
+                    >Save</b-button>
+
+                    <button
+                      class="btn btn-link float-right font-weight-bold p-0"
+                      @click="$bvModal.hide('modal-import-medication')"
+                    >Cancel</button>
+                  </div>
+                </template>
+              </b-modal>
+              
               <div class="register-patient">
                 <button class="btn" v-b-modal.modal-medication>
                   <i class="fas fa-plus"></i>Create Medication
@@ -145,12 +191,35 @@ export default {
       lastItemId: '',
       disablePrevButton: false,
       disableNextButton: false,
+      csv: null
     };
   },
   
   methods: {
     scrollToTop() {
       window.scrollTo(0,0);
+    },
+    getCsv() {
+      console.log('here');
+      console.log(this.csv);
+      // for(var i=0; i<this.csv.length; i++) {
+        
+        // console.log(this.csv[i].name);
+        //TODO: new api for bulk upload
+        let loader = this.$loading.show();
+        this.$http.post("/drugs/batch", this.csv).then(
+          response => {
+            loader.hide();
+            if (response.status == 201) {
+              this.getMedications('', 'last_item');
+            }
+          },
+          error => {
+            loader.hide();
+          }
+        );
+      // }
+      this.$bvModal.hide("modal-import-medication");
     },
     getMedications(lastItemId = '', queryItemkey = 'last_item') {
       let loader = this.$loading.show();
