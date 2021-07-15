@@ -48,11 +48,6 @@
                 <i class="fas fa-fw fa-h-square"></i><span>Prescriptions List</span>
             </router-link>
         </li>
-        <li class="nav-item" :class="this.$route.path.includes('investigations') ? 'active' : ''">
-            <router-link to="/investigations/list" class="nav-link">
-                <i class="fas fa-fw fa-h-square"></i><span>Investigations List</span>
-            </router-link>
-        </li>
 
 
         <div v-if="user.role == 'admin'" class="menu-heading">
@@ -75,6 +70,12 @@
             </router-link>
         </li>
 
+        <li class="nav-item" :class="this.$route.path.includes('investigations') ? 'active' : ''">
+            <router-link to="/investigations/list" class="nav-link">
+                <i class="fas fa-fw fa-h-square"></i><span>Investigations List</span>
+            </router-link>
+        </li>
+        
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('management') ? 'active' : ''">
             <a class="nav-link" :class="this.$route.path.includes('management') ? '' : 'collapsed'" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-user"></i>

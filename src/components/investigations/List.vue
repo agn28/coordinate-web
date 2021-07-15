@@ -196,7 +196,7 @@ export default {
     },
     getCarePlans() {
       let loader = this.$loading.show();
-      this.$http.get("/care-plans").then(
+      this.$http.get("/care-plans/all").then(
         response => {
           if (response.status == 200) {
             this.carePlans = response.data.data;
@@ -233,9 +233,9 @@ export default {
           .then(response => {
             loader.hide();
             if (response.status == 200) {
-              if (this.investigations.indexOf(investigation) > -1) {
-                this.investigations.splice(this.investigations.indexOf(investigation), 1);
-              }
+              // if (this.investigations.indexOf(investigation) > -1) {
+              //   this.investigations.splice(this.investigations.indexOf(investigation), 1);
+              // }
               this.selectedInvestigation = {};
               this.$bvModal.hide("modal-edit-investigation");
               this.$forceUpdate();
