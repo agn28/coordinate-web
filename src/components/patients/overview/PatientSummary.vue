@@ -326,17 +326,92 @@
                 </tr>
                 <tr>
                   <td width="65%" class="font-weight-bold">
-                    Family history of HTN or diabetes:
+                    Family history of Stroke:
                   </td>
                   <td width="5%" class="text-center">:</td>
                   <td
                     width="30%"
                     class="text-capitalize"
                     :class="
-                      getColor(riskFactors.body.data.family_diabetes, false)
+                      getColor(patientFamilyHistory.stroke, false)
                     "
                   >
-                    {{ riskFactors.body.data.family_diabetes || "N/A" }}
+                    {{ patientFamilyHistory.stroke || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Family history of Heart Attack:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(patientFamilyHistory.heart_attack, false)
+                    "
+                  >
+                    {{ patientFamilyHistory.heart_attack || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Family history of HTN:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(patientFamilyHistory.high_blood_pressure, false)
+                    "
+                  >
+                    {{ patientFamilyHistory.high_blood_pressure || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Family history of Diabetes:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(patientFamilyHistory.diabetes, false)
+                    "
+                  >
+                    {{ patientFamilyHistory.diabetes || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Family history of Asthma:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(patientFamilyHistory.asthma, false)
+                    "
+                  >
+                    {{ patientFamilyHistory.asthma || "N/A" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td width="65%" class="font-weight-bold">
+                    Family history of Cancer:
+                  </td>
+                  <td width="5%" class="text-center">:</td>
+                  <td
+                    width="30%"
+                    class="text-capitalize"
+                    :class="
+                      getColor(patientFamilyHistory.cancer, false)
+                    "
+                  >
+                    {{ patientFamilyHistory.cancer || "N/A" }}
                   </td>
                 </tr>
                 <tr>
@@ -1204,6 +1279,7 @@ export default {
         occupation: "",
         ethnicity: "",
       },
+      patientFamilyHistory: {},
       medications: []
     };
   },
@@ -1582,6 +1658,12 @@ export default {
                     this.details.hypertension_medication_regular =
                       observation.data.hypertension_medication_regular || "N/A";
                   } else if (observation.data.name == "relative_problems") {
+                    this.patientFamilyHistory.stroke = observation.data.stroke;
+                    this.patientFamilyHistory.heart_attack = observation.data.heart_attack;
+                    this.patientFamilyHistory.high_blood_pressure = observation.data.high_blood_pressure;
+                    this.patientFamilyHistory.diabetes = observation.data.diabetes;
+                    this.patientFamilyHistory.asthma = observation.data.asthma;
+                    this.patientFamilyHistory.cancer = observation.data.cancer;
                     if (observation.data.monthly_income) {
                       this.patientAdditionalInfo.monthly_income =
                         observation.data.monthly_income;
