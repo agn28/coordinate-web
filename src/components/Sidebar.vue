@@ -75,7 +75,7 @@
                 <i class="fas fa-fw fa-h-square"></i><span>Investigations List</span>
             </router-link>
         </li>
-        
+
         <li v-if="user.role == 'admin'" class="nav-item" :class="this.$route.path.includes('management') ? 'active' : ''">
             <a class="nav-link" :class="this.$route.path.includes('management') ? '' : 'collapsed'" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-user"></i>
@@ -115,7 +115,7 @@
         </li>
 
 
-        <div class="account-info d-flex justify-content-between align-items-center">
+        <!-- <div class="account-info d-flex justify-content-between align-items-center">
             <div class="account-item d-flex">
                 <img src="/images/avatar/avatar.svg" alt="">
                 <div class="ml-3">
@@ -129,7 +129,7 @@
                     <i class="large material-icons bg-icon">exit_to_app</i>
                 </a>
             </div>
-        </div>
+        </div> -->
         <!--     Sidebar Toggler (Sidebar)-->
         <div class="bottom">
             <button class="border-0" id="sidebarToggle"></button>
