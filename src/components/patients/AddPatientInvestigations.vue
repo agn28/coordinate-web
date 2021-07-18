@@ -334,7 +334,7 @@ export default {
       let data = {
         "meta": {
           "collected_by": collected_by,
-          "created_at": new Date(),
+          "created_at": moment(),
         },
         "body": {
           "type": 'doctor consultation',
@@ -371,7 +371,7 @@ export default {
         let data = {
           "meta": {
             "collected_by": this.user.uid,
-            "created_at": new Date()
+            "created_at": moment()
           },
           "body": {
             "type": "blood_pressure",
@@ -402,7 +402,7 @@ export default {
       }
     },
     addBodyMeasurement() {
-      let created_at  = new Date();
+      let created_at  = moment();
      
       //create height
       if (this.height && this.height_unit) {
@@ -438,7 +438,7 @@ export default {
       }
     },
     addBloodTest() {
-      let created_at = new Date();
+      let created_at = moment();
 
       //colesterol
       if (this.cholesterol && this.cholesterol_unit) {
