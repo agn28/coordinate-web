@@ -441,7 +441,7 @@ export default {
       return data;
     }, 
     saveObservationData() {
-      let created_at = new Date();
+      let created_at = moment();
       this.assessment_id = this.$uuid.v4();
       let data = {
         "meta": {

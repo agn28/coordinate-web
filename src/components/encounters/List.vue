@@ -145,7 +145,7 @@
                       <td class="text-capitalize">{{ encounter.body.type }}</td>
 
                       <!-- <td>P2342343</td> -->
-                      <td>{{ encounter.body.assessment_date }}</td>
+                      <td>{{ moment(new Date(encounter.meta.created_at)) }}</td>
                       <td> <div class="text-capitalize badge badge-secondary">{{ encounter.body.status }}</div> 
                         <span class="pull-right"
                           ><i class="fas fa-arrow-right"></i
