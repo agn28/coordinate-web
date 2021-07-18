@@ -131,9 +131,9 @@
             </div>
         </div> -->
         <!--     Sidebar Toggler (Sidebar)-->
-        <div class="bottom">
+        <!-- <div class="bottom">
             <button class="border-0" id="sidebarToggle"></button>
-        </div>
+        </div> -->
 
     </ul>
     <!-- End of Sidebar -->
