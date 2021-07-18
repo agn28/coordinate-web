@@ -258,7 +258,7 @@
               Activity Log
             </a> -->
             <div class="dropdown-divider"></div>
-            <a
+            <a href="#"
               class="dropdown-item"
               @click.prevent="signOut()"
             >
