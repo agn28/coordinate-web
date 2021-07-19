@@ -355,7 +355,7 @@ export default {
             medicationData.body.careplan_id = careplan_id;
             medicationData.body.patient_id = this.patientId;
             medicationData.meta = {
-              created_at: new Date()
+              created_at: moment()
             }
 
             this.$http.post('/patients/' + this.patientId + "/medications", medicationData).then( response => {
@@ -456,7 +456,7 @@ export default {
       return data;
     }, 
     saveObservationData() {
-      let created_at = new Date();
+      let created_at = moment();
       this.assessment_id = this.$uuid.v4();
       let data = {
         "meta": {

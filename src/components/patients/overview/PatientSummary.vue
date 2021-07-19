@@ -949,7 +949,7 @@
       <div class="col-md-12">
         <div class="card tab-card mb-3 card-blue-header">
           <div class="card-header mb-2">
-            Investigations Pending
+            Investigations
           </div>
           <div class="table-responsive">
             <table
@@ -958,9 +958,12 @@
             >
               <thead>
                 <tr class="td-border-bottom">
-                  <th class="p-2">Investigation required</th>
+                  <th class="p-2">Investigation</th>
+                  <th class="p-2">Created On</th>
                   <th class="p-2">Doctor</th>
-                  <th class="p-2">Date</th>
+                  <th class="p-2">Status</th>
+                  <th class="p-2">Last Updated</th>
+                  <th class="p-2">Updated By</th>
                   <th class="p-2">Mark as complete</th>
                 </tr>
               </thead>
@@ -971,13 +974,17 @@
                   :key="index"
                 >
                   <td class="td-grey p-2">{{ item.body.title }}</td>
-                  <td class="td-grey p-2">N/A</td>
+                  <td class="td-grey p-2">{{ getFormatedDate(item.meta.created_at._seconds) }}</td>
+                  <td class="td-grey p-2">{{ getCollectedUser(item.meta.collected_by) }}</td>
                   <td class="td-grey p-2">
-                    {{ getFormatedDate(item.meta.created_at._seconds) }}
+                    {{ item.meta.status }}
                   </td>
+                  <td class="td-grey p-2">{{ item.meta ? (item.meta.updated_at ? getFormatedDate(item.meta.updated_at._seconds) : 'N/A') : 'N/A' }}</td>
+                  <td class="td-grey p-2">{{ item.meta ? (item.meta.updated_by ? getCollectedUser(item.meta.updated_by) : 'N/A') : 'N/A' }}</td>
                   <td class="td-grey p-2">
                     <div
-                      class="custom-control custom-checkbox custom-control-inline"
+                      v-if="item.meta.status == 'pending'"
+                      class="custom-control custom-checkbox custom-control-inline ml-5"
                     >
                       <input
                         type="checkbox"
@@ -985,19 +992,22 @@
                         value="complete"
                         class="custom-control-input"
                         :id="'ir-' + index"
-                        v-model="pendingInvestigations[index].meta.status"
+                        v-model="pendingInvestigations[index].meta.statusBool"
                       />
                       <label
                         class="custom-control-label"
                         :for="'ir-' + index"
                       ></label>
                     </div>
+                    <div v-else>
+                      Completed
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
             <p v-else class="px-2 text-secondary text-center">
-              No pending data available
+              No investigation data available
             </p>
           </div>
           <a
@@ -1406,7 +1416,7 @@ export default {
       return date;
     },
     getFormatedDate(data) {
-      let date = moment.unix(data).format("DD MMM YYYY");
+      let date = moment.unix(data).format("DD MMM YYYY h:mm:ss a");
 
       return date;
     },
@@ -1980,7 +1990,7 @@ export default {
       let data = {
         meta: {
           created_by: this.user.uid,
-          created_at: new Date(),
+          created_at: moment(),
         },
         body: {
           patient_id: this.patientId,
@@ -2023,21 +2033,27 @@ export default {
       );
     },
     getCarePlanReport() {
-      this.$http.get("/care-plans/patient/" + this.patientId).then(
+      this.$http.get("/care-plans/patient/" + this.patientId + "/all").then(
         (response) => {
           this.pendingInvestigations = [];
           if (response.status == 200) {
             if (response.data.data) {
+              console.log(response.data.data, 'res data')
               response.data.data.filter((item) => {
                 if (
                   item.body.category == "investigation" &&
                   item.meta.status == "pending"
                 ) {
-                  item.meta.status = false;
+                  item.meta.statusBool = false;
 
                   this.pendingInvestigations.push(item);
                 }
+                else if (item.body.category == "investigation" && item.meta.status == "completed") {
+                  item.meta.statusBool = true;
+                  this.pendingInvestigations.push(item);
+                }
               });
+              console.log(this.pendingInvestigations, 'inv')
             }
           }
         },
@@ -2065,13 +2081,13 @@ export default {
         let loader = this.$loading.show();
         let completedItems = [];
         completedItems = this.pendingInvestigations.filter(
-          (item) => item.meta.status == true
+          (item) => item.meta.statusBool == true
         );
         if (completedItems && completedItems.length > 0) {
           let data = {
             status: "completed",
             // "comment": '',
-            completed_at: new Date(),
+            completed_at: moment()
           };
           completedItems.forEach((item) => {
             this.$http.put("/care-plans/" + item.id, data).then(
@@ -2108,6 +2124,7 @@ export default {
     this.getLastReport();
     this.scrollToTop();
     this.getMedicationsByPatient();
+    this.getUsers();
   },
   computed: {
     user() {
