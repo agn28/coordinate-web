@@ -355,7 +355,7 @@ export default {
             medicationData.body.careplan_id = careplan_id;
             medicationData.body.patient_id = this.patientId;
             medicationData.meta = {
-              created_at: moment()
+              created_at: new Date()
             }
 
             this.$http.post('/patients/' + this.patientId + "/medications", medicationData).then( response => {
@@ -456,7 +456,7 @@ export default {
       return data;
     }, 
     saveObservationData() {
-      let created_at = moment();
+      let created_at = new Date();
       this.assessment_id = this.$uuid.v4();
       let data = {
         "meta": {
@@ -468,7 +468,7 @@ export default {
           "screening_type": 'care-plan-generated',
           "comment": '',
           "performed_by": this.user.uid,
-          "assessment_date": moment().format('YYYY-MM-DD'),
+          "assessment_date": moment().format('YYYY-MM-DD hh:mm:ss a'),
           "next_visit_date": this.followUpDate,
           "patient_id": this.patientId
         },
