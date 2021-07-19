@@ -1691,92 +1691,92 @@ export default {
                       observation.data.systolic +
                       "/" +
                       observation.data.diastolic,
-                    // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                   };
                 } else if (observation.type == "blood_test") {
                   if (observation.data.name == "blood_sugar") {
                     this.details.random_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "blood_glucose") {
                     this.details.fasting_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "2habf") {
                     this.details.habf = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "a1c") {
                     this.details.a1c = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "total_cholesterol") {
                     this.details.cholesterol = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "triglycerides") {
                     this.details.triglycerides = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "hdl") {
                     this.details.hdl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "ldl") {
                     this.details.ldl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "hdl") {
                     this.details.hdl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "sodium") {
                     this.details.sodium = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "potassium") {
                     this.details.potassium = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "ketones") {
                     this.details.ketones = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "protein") {
                     this.details.protein = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "creatinine") {
                     this.details.creatinine = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   }
                 } else if (observation.type == "body_measurement") {
@@ -1784,25 +1784,25 @@ export default {
                     this.details.height = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "weight") {
                     this.details.weight = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "waist") {
                     this.details.waist = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   } else if (observation.data.name == "hip") {
                     this.details.hip = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
                   }
                 }

@@ -772,7 +772,7 @@ export default {
                   console.log(observation.data)
                   this.details.blood_pressure = {
                     value: observation.data.systolic + '/' + observation.data.diastolic,
-                    // date: observation.meta.created_at
+                    date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                   };
                   console.log(this.details.blood_pressure)
                 }
@@ -782,7 +782,7 @@ export default {
                     this.details.random_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'blood_glucose') {
@@ -790,91 +790,91 @@ export default {
                     this.details.fasting_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == '2habf') {
                     this.details.habf = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'a1c') {
                     this.details.a1c = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'total_cholesterol') {
                     this.details.serum = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'triglycerides') {
                     this.details.tg = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'hdl') {
                     this.details.hdl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'ldl') {
                     this.details.ldl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'hdl') {
                     this.details.hdl = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'sodium') {
                     this.details.sodium = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'potassium') {
                     this.details.potassium = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'ketones') {
                     this.details.ketones = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'protein') {
                     this.details.protein = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'creatinine') {
                     this.details.creatinine = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                 }
@@ -884,14 +884,14 @@ export default {
                     this.details.height = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   else if (observation.data.name == 'weight') {
                     this.details.weight = {
                       value: observation.data.value,
                       unit: observation.data.unit,
-                      // date: observation.meta.created_at
+                      date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
                   
