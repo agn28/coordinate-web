@@ -195,7 +195,8 @@ export default {
       newDiagnosis: [],
       investigations: [],
       reviewId: '',
-      followUpDate: null,
+      chwFollowUpDate: null,
+      ccFollowUpDate: null,
       assessment_id: null,
       generatedCarePlanId: '',
       generatedCarePlan: null,
@@ -359,7 +360,8 @@ export default {
       this.allData.data.body.result.careplan = this.previousData.careplan;
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
-      this.allData.data.body.follow_up_date = this.followUpDate;
+      this.allData.data.body.chw_follow_up_date = this.chwFollowUpDate;
+      this.allData.data.body.cc_follow_up_date = this.ccFollowUpDate;
       //let preparedData = this.prepareFinalData(this.allData);
       console.log('Final Data: ', this.allData);
       //console.log('prepared: ', preparedData);
@@ -492,7 +494,8 @@ export default {
     }
   },
   mounted() {
-    this.followUpDate = localStorage.getItem('follow_up_date');
+    this.chwFollowUpDate = localStorage.getItem('chw_follow_up_date');
+    this.ccFollowUpDate = localStorage.getItem('cc_follow_up_date');
     this.prepareData();
     this.getPatients();
     this.getGeneratedCarePlan();

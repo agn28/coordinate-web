@@ -168,12 +168,21 @@
             </div>
         </div>
 
-        <!-- follow up  -->
+        <!-- chw follow up  -->
         <div class="row mb-3">
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Next Follow Up Date</div>
-                  <div class="follow-up-date p-3" v-if="followUpDate">{{ moment(followUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                <div class="card-header">Next Community Follow Up by CHW</div>
+                  <div class="follow-up-date p-3" v-if="chwFollowUpDate">{{ moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+              </div>
+            </div>
+        </div>
+        <!-- cc follow up  -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="card tab-card mb-3 card-blue-header">
+                <div class="card-header">Next Community Clinic Follow Up Date</div>
+                  <div class="follow-up-date p-3" v-if="ccFollowUpDate">{{ moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
               </div>
             </div>
         </div>
@@ -217,7 +226,8 @@ export default {
       newDiagnosis: [],
       investigations: [],
       reviewId: '',
-      followUpDate: null,
+      chwFollowUpDate: null,
+      ccFollowUpDate: null,
       assessment_id: null,
       medications: [],
       newMedications: [],
@@ -325,7 +335,8 @@ export default {
       }));
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
-      this.allData.data.body.follow_up_date = this.followUpDate;
+      this.allData.data.body.chw_follow_up_date = this.chwFollowUpDate;
+      this.allData.data.body.cc_follow_up_date = this.ccFollowUpDate;
       this.allData.data.body.medications = this.newMedications;
 
       let counsellings = this.previousData.careplan.activities.filter((item => {
@@ -377,8 +388,10 @@ export default {
           localStorage.removeItem('removedCounsellings');
           localStorage.removeItem('medications');
           localStorage.removeItem('newMedications');
-          localStorage.removeItem('selectedFollowup');
-          localStorage.removeItem('follow_up_date')
+          localStorage.removeItem('chwSelectedFollowup');
+          localStorage.removeItem('ccSelectedFollowup');
+          localStorage.removeItem('chw_follow_up_date')
+          localStorage.removeItem('cc_follow_up_date');
           localStorage.removeItem('patientId');
           
           this.$router.push({ name: 'patients'});
@@ -469,7 +482,17 @@ export default {
           "comment": '',
           "performed_by": this.user.uid,
           "assessment_date": moment().format('YYYY-MM-DD hh:mm:ss a'),
-          "next_visit_date": this.followUpDate,
+          // "next_visit_date": this.followUpDate,
+          "follow_up_info":[
+            {
+              type: "chw",
+              date: this.chwFollowUpDate
+            },
+            {
+              type: "cc",
+              date: this.ccFollowUpDate
+            }
+          ],
           "patient_id": this.patientId
         },
         id: this.assessment_id
@@ -572,7 +595,8 @@ export default {
     }, 
   },
   mounted() {
-    this.followUpDate = localStorage.getItem('follow_up_date');
+    this.chwFollowUpDate = localStorage.getItem('chw_follow_up_date');
+    this.ccFollowUpDate = localStorage.getItem('cc_follow_up_date');
     this.prepareData();
     this.getPatients();
     this.scrollToTop();
