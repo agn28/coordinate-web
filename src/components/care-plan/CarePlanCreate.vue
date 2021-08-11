@@ -352,10 +352,8 @@
               </div>
                     
             </div>
-          </div>
 
-          <!-- follow up CC -->
-          <div class="row mb-3">
+            <!-- follow up CC -->
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Community Clinic Follow Up</div>

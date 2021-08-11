@@ -168,17 +168,15 @@
             </div>
         </div>
 
-        <!-- chw follow up  -->
         <div class="row mb-3">
+            <!-- chw follow up  -->
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Next Community Follow Up by CHW</div>
                   <div class="follow-up-date p-3" v-if="chwFollowUpDate">{{ moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
               </div>
             </div>
-        </div>
-        <!-- cc follow up  -->
-        <div class="row mb-3">
+            <!-- cc follow up  -->
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Next Community Clinic Follow Up Date</div>
@@ -335,8 +333,18 @@ export default {
       }));
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
-      this.allData.data.body.chw_follow_up_date = this.chwFollowUpDate;
-      this.allData.data.body.cc_follow_up_date = this.ccFollowUpDate;
+      // this.allData.data.body.chw_follow_up_date = this.chwFollowUpDate;
+      // this.allData.data.body.cc_follow_up_date = this.ccFollowUpDate;
+      this.allData.data.body.follow_up_info = [
+        {
+          type: "chw",
+          date: this.chwFollowUpDate
+        },
+        {
+          type: "cc",
+          date: this.ccFollowUpDate
+        }
+      ];
       this.allData.data.body.medications = this.newMedications;
 
       let counsellings = this.previousData.careplan.activities.filter((item => {
