@@ -323,31 +323,31 @@
                 <div class="card-header">Community Follow Up by CHW</div>
                 <div class="follow-up p-3">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="1w" id="one-week" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="chw_follow_up" value="1w" id="one-week" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
                       <label class="form-check-label" for="one-week">1 week</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="2w" id="two-week" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="chw_follow_up" value="2w" id="two-week" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
                       <label class="form-check-label" for="two-week">2 weeks</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="1m" id="one-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="chw_follow_up" value="1m" id="one-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
                       <label class="form-check-label" for="one-month">1 month</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="3m" id="three-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="chw_follow_up" value="3m" id="three-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
                       <label class="form-check-label" for="three-month">3 months</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="6m" id="six-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="chw_follow_up" value="6m" id="six-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
                       <label class="form-check-label" for="six-month">6 months</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="1y" id="one-year" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="chw_follow_up" value="1y" id="one-year" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
                       <label class="form-check-label" for="one-year">1 year</label>
                     </div>
 
-                    <div class="follow-up-date mt-3" v-if="chwFollowUpDate"><b>Follow up date:</b> {{  moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                    <div class="chw-follow-up-date mt-3" v-if="chwFollowUpDate"><b>Follow up date:</b> {{  moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
                   </div>
               </div>
                     
@@ -359,31 +359,31 @@
                 <div class="card-header">Community Clinic Follow Up</div>
                 <div class="follow-up p-3">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="1w" id="one-week" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="cc_follow_up" value="1w" id="one-week" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
                       <label class="form-check-label" for="one-week">1 week</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="2w" id="two-week" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="cc_follow_up" value="2w" id="two-week" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
                       <label class="form-check-label" for="two-week">2 weeks</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="1m" id="one-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="cc_follow_up" value="1m" id="one-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
                       <label class="form-check-label" for="one-month">1 month</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="3m" id="three-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="cc_follow_up" value="3m" id="three-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
                       <label class="form-check-label" for="three-month">3 months</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="6m" id="six-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="cc_follow_up" value="6m" id="six-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
                       <label class="form-check-label" for="six-month">6 months</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="follow_up" value="1y" id="one-year" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
+                      <input class="form-check-input" type="radio" name="cc_follow_up" value="1y" id="one-year" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
                       <label class="form-check-label" for="one-year">1 year</label>
                     </div>
 
-                    <div class="follow-up-date mt-3" v-if="ccFollowUpDate"><b>Follow up date:</b> {{  moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                    <div class="cc-follow-up-date mt-3" v-if="ccFollowUpDate"><b>Follow up date:</b> {{  moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
                   </div>
               </div>
                     

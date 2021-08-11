@@ -173,14 +173,14 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Next Community Follow Up by CHW</div>
-                  <div class="follow-up-date p-3" v-if="chwFollowUpDate">{{ moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                  <div class="chw-follow-up-date p-3" v-if="chwFollowUpDate">{{ moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
               </div>
             </div>
             <!-- cc follow up  -->
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Next Community Clinic Follow Up Date</div>
-                  <div class="follow-up-date p-3" v-if="ccFollowUpDate">{{ moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                  <div class="cc-follow-up-date p-3" v-if="ccFollowUpDate">{{ moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
               </div>
             </div>
         </div>
