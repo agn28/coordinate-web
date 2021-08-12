@@ -350,6 +350,10 @@
                     </div>
 
                     <div class="chw-follow-up-date mt-3" v-if="chwFollowUpDate"><b>Follow up date:</b> {{  moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                    <div class="mt-3">
+                        <label for="place">Place</label>
+                        <input type="text" class="form-control" name="place" placeholder="Place" v-model="chwFollowUpPlace" required/>
+                    </div>
                   </div>
               </div>
                     
@@ -386,6 +390,10 @@
                     </div>
 
                     <div class="cc-follow-up-date mt-3" v-if="ccFollowUpDate"><b>Follow up date:</b> {{  moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+                    <div class="mt-3">
+                        <label for="place">Place</label>
+                        <input type="text" class="form-control" name="place" placeholder="Place" v-model="ccFollowUpPlace" required/>
+                    </div>
                   </div>
               </div>
                     
@@ -680,6 +688,8 @@ export default {
       ccFollowUpDate: '',
       chwSelectedFollowup:  null,
       ccSelectedFollowup:  null,
+      chwFollowUpPlace: '',
+      ccFollowUpPlace: '',
       removedCounsellings: [],
       other_drug_name: null,
       users: []
@@ -951,9 +961,9 @@ export default {
       );
     },
     proceed() {
-      if (!this.chwFollowUpDate || !this.ccFollowUpDate) {
+      if (!this.chwFollowUpDate || !this.ccFollowUpDate || !this.chwFollowUpPlace || !this.ccFollowUpPlace) {
         this.$toast.open({
-          message: 'Please select followup dates',
+          message: 'Please select followup dates & places',
           type: 'error',
           // all of other options may go here
         });
@@ -965,6 +975,12 @@ export default {
       }
       if (this.ccFollowUpDate) {
         localStorage.setItem('cc_follow_up_date', this.ccFollowUpDate);
+      }
+      if (this.chwFollowUpPlace) {
+        localStorage.setItem('chw_follow_up_place', this.chwFollowUpPlace);
+      }
+      if (this.ccFollowUpPlace) {
+        localStorage.setItem('cc_follow_up_place', this.ccFollowUpPlace);
       }
 
       this.allData.careplan.activities = this.allData.careplan.activities
@@ -1065,6 +1081,8 @@ export default {
         this.ccFollowUpDate = localStorage.getItem('cc_follow_up_date');
         this.chwSelectedFollowup = localStorage.getItem('chwSelectedFollowup');
         this.ccSelectedFollowup = localStorage.getItem('ccSelectedFollowup');
+        this.chwFollowUpPlace = localStorage.getItem('chw_follow_up_place');
+        this.ccFollowUpPlace = localStorage.getItem('cc_follow_up_place');
         let localMedications = localStorage.getItem('medications');
         let localNewMedications = localStorage.getItem('newMedications');
 

@@ -199,6 +199,8 @@ export default {
       reviewId: '',
       chwFollowUpDate: null,
       ccFollowUpDate: null,
+      chwFollowUpPlace: null,
+      ccFollowUpPlace: null,
       assessment_id: null,
       generatedCarePlanId: '',
       generatedCarePlan: null,
@@ -362,8 +364,20 @@ export default {
       this.allData.data.body.result.careplan = this.previousData.careplan;
       this.allData.data.body.investigations = this.investigations;
       this.allData.data.body.diagnosis = this.newDiagnosis;
-      this.allData.data.body.chw_follow_up_date = this.chwFollowUpDate;
-      this.allData.data.body.cc_follow_up_date = this.ccFollowUpDate;
+      // this.allData.data.body.chw_follow_up_date = this.chwFollowUpDate;
+      // this.allData.data.body.cc_follow_up_date = this.ccFollowUpDate;
+      this.allData.data.body.follow_up_info = [
+        {
+          type: "chw",
+          date: this.chwFollowUpDate,
+          place: this.chwFollowUpPlace
+        },
+        {
+          type: "cc",
+          date: this.ccFollowUpDate,
+          place: this.ccFollowUpPlace
+        }
+      ];
       //let preparedData = this.prepareFinalData(this.allData);
       console.log('Final Data: ', this.allData);
       //console.log('prepared: ', preparedData);
@@ -498,6 +512,8 @@ export default {
   mounted() {
     this.chwFollowUpDate = localStorage.getItem('chw_follow_up_date');
     this.ccFollowUpDate = localStorage.getItem('cc_follow_up_date');
+    this.chwFollowUpPlace = localStorage.getItem('chw_follow_up_place');
+    this.ccFollowUpPlace = localStorage.getItem('cc_follow_up_place');
     this.prepareData();
     this.getPatients();
     this.getGeneratedCarePlan();
