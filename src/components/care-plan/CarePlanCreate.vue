@@ -173,6 +173,7 @@
                             <th class="border-top-0">Unit</th>
                             <th class="border-top-0">Frequency</th>
                             <th class="border-top-0">Duration</th>
+                            <th class="border-top-0">Dispensed</th>
                             <th class="border-top-0"></th>
                           </tr>
                         </thead>
@@ -184,6 +185,7 @@
                             <td>{{ item.body.unit ? item.body.unit : '--'}}</td>
                             <td>{{ item.body.activityDuration.repeat.frequency }} {{ item.body.activityDuration.repeat.periodUnit }}</td> 
                             <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }}</td> 
+                            <td>{{ item.body.dispense ? item.body.dispense : '0' }}</td>
                             <td>
                               <a href="javascript:void(0)" @click="removeMedication(index)" class="btn btn-sm btn-warning">
                                   <i class="fa fa-times text-white"></i>

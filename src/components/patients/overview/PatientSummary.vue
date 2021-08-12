@@ -567,6 +567,7 @@
                   <th class="border-top-0">Unit</th>
                   <th class="border-top-0">Frequency</th>
                   <th class="border-top-0">Duration</th>
+                  <th class="border-top-0">Dispensed</th>
                 </tr>
               </thead>
               <tbody>
@@ -577,6 +578,7 @@
                   <td>{{ item.body.unit ? item.body.unit : '--'}}</td>
                   <td>{{ item.body.activityDuration.repeat.frequency }} {{ item.body.activityDuration.repeat.periodUnit }}</td> 
                   <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }}</td> 
+                  <td>{{ item.body.dispense ? item.body.dispense : '0' }}</td>
                 </tr>
               </tbody>
             </table>
