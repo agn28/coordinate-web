@@ -322,7 +322,7 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Community Follow Up by CHW</div>
+                <div class="card-header">Community Center Follow Up</div>
                 <div class="follow-up p-3">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="chw_follow_up" value="1w" id="one-week" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
@@ -362,7 +362,7 @@
             <!-- follow up CC -->
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Community Clinic Follow Up</div>
+                <div class="card-header">NCD Center Follow up</div>
                 <div class="follow-up p-3">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="cc_follow_up" value="1w" id="one-week" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">

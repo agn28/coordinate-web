@@ -174,7 +174,7 @@
             <!-- chw follow up  -->
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Next Community Follow Up by CHW</div>
+                <div class="card-header">Next Community Center Follow Up</div>
                   <div class="chw-follow-up-date p-3" v-if="chwFollowUpDate">Date: {{ moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
                   <div class="chw-follow-up-place p-3" v-if="chwFollowUpPlace">Place: {{chwFollowUpPlace}} </div>
               </div>
@@ -182,7 +182,7 @@
             <!-- cc follow up  -->
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
-                <div class="card-header">Next Community Clinic Follow Up Date</div>
+                <div class="card-header">Next NCD Center Follow up</div>
                   <div class="cc-follow-up-date p-3" v-if="ccFollowUpDate">Date: {{ moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
                   <div class="cc-follow-up-place p-3" v-if="ccFollowUpPlace">Place: {{ccFollowUpPlace}} </div>
               </div>
