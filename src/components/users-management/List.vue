@@ -397,6 +397,7 @@ export default {
           }
 
           this.$bvModal.hide("modal-user");
+          this.$forceUpdate();
           loader.hide();
         })
         .catch(error => {
@@ -419,7 +420,8 @@ export default {
           }
 
           this.$bvModal.hide("modal-user");
-
+          
+          this.$forceUpdate();
           this.newUser = {
             name: null,
             password: null,
