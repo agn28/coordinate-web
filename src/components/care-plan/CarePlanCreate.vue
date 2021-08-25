@@ -411,7 +411,7 @@
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content modal-blue-header p-0 radious-0">
             <div class="modal-header py-2 px-3">
-              <h5 class="modal-title text-white">Add Medication</h5>
+              <h5 class="modal-title text-white">Add Medications</h5>
               <button type="button" ref="elCloseMedication" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -457,6 +457,29 @@
                             <option selected value="">Please select one</option>
                             <option v-for="type in frequencyType"  :key="type.id" v-bind:value="type.value">{{type.title}}</option>
                           </select>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                          <label for="validationCustom01">Time</label>
+                          <!-- <select class="form-control" required v-model="medication.time">
+                              <option selected value="">Please select one</option> -->
+                              <!-- <option v-for="duration in durations" :key="duration.id" v-bind:value="duration.value">{{duration.title }}
+                              </option> -->
+                              <!-- <option value="morning">Morning</option> -->
+                              <!-- <option value="afternoon">Afternoon</option>
+                              <option value="evening">Evening</option>
+                              <option value="night">Night</option>
+                              <option value="before_meal">Before Meal</option>
+                              <option value="after_meal">After Meal</option>
+                          </select> -->
+                          <multiselect
+                            v-model="medication.time"
+                            :options="times"
+                            :multiple="true"
+                            :allow-empty="false"
+                            :searchable="true"
+                             select-label=""
+                             deselect-label=""
+                          ></multiselect>
                       </div>
                       <div class="col-md-4 mb-3">
                           <label for="validationCustom01">Duration</label>
@@ -630,6 +653,9 @@ export default {
           "title": "3 Month",
           "value": "3m",
         },
+      ],
+      times: [
+        "Morning", "Evening", "Night", "Before Meal", "After Meal"
       ],
       types: [
         {
@@ -841,6 +867,7 @@ export default {
         description: this.medication.title.name,
         dosage: this.medication.dosage,
         unit: this.medication.unit,
+        time: this.medication.time,
         id: '',
         roles: ['doctor'],
         component: {},
@@ -867,6 +894,7 @@ export default {
       this.medication = {};
       this.other_drug_name = null;
       this.$refs.elCloseMedication.click();
+      console.log('this.newMedication',this.newMedication);
     },
 
     addInvestigation() {
