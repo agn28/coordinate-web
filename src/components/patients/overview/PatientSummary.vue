@@ -1627,6 +1627,12 @@ export default {
       );
     },
 
+    sortObservations(observations) {
+      return observations.sort((a, b) => {
+        return new Date(a.meta.created_at) - new Date(b.meta.created_at)
+      })
+    },
+
     getObservations() {
       let loader = this.$loading.show();
       let encounters = this.encounters;
@@ -1634,7 +1640,7 @@ export default {
         (response) => {
           loader.hide();
           if (response.status == 200) {
-            this.observations = response.data.data;
+            this.observations = this.sortObservations(response.data.data);
 
             if (this.observations) {
               this.observations.forEach((obs) => {
@@ -1820,6 +1826,8 @@ export default {
                 }
               });
             }
+
+
 
             this.$forceUpdate();
           }
