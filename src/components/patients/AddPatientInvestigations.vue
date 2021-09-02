@@ -349,7 +349,7 @@ export default {
       
       this.$http.post("/assessments/except-oha", data).then(response => { 
         let loader = this.$loading.show();
-        if (response.status == 200) {
+        if (response.status == 201) {
           this.addBloodPressure();
           this.addBodyMeasurement();
           this.addBloodTest();
