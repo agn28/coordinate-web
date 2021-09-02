@@ -778,14 +778,14 @@ export default {
                 }
                 else if (observation.type == 'blood_test') {
                   console.log('blood_test')
-                  if (observation.data.name == 'blood_sugar') {
+                  if (observation.data.name == 'blood_sugar' && observation.data.type != 'fasting') {
                     this.details.random_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
-                  else if (observation.data.name == 'blood_glucose') {
+                  else if (observation.data.name == 'blood_sugar' && observation.data.type == 'fasting') {
                     
                     this.details.fasting_blood_sugar = {
                       value: observation.data.value,

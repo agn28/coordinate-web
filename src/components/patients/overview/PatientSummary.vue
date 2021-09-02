@@ -876,7 +876,7 @@
     </div>
     <div class="text-center mt-3 mb-5">
       <div
-        v-if="patient.meta.is_synced !== undefined && !patient.meta.is_synced"
+        v-if="patient && patient.meta.is_synced !== undefined && !patient.meta.is_synced"
         class="alert alert-danger"
         role="alert"
       >
@@ -887,10 +887,10 @@
         :to="{ name: 'carePlanCreate', params: { patientId: patientId } }"
         class="btn btn-primary radious-0 mb-3 d-block btn-proceed"
         :disabled="
-          patient.meta.is_synced !== undefined && !patient.meta.is_synced
+          patient && patient.meta.is_synced !== undefined && !patient.meta.is_synced
         "
         :event="
-          patient.meta.is_synced === undefined || patient.meta.is_synced
+          patient && (patient.meta.is_synced === undefined || patient.meta.is_synced)
             ? 'click'
             : ''
         "
@@ -1706,13 +1706,13 @@ export default {
                       date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                   };
                 } else if (observation.type == "blood_test") {
-                  if (observation.data.name == "blood_sugar") {
+                  if (observation.data.name == "blood_sugar" && observation.data.type != 'fasting') {
                     this.details.random_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
-                  } else if (observation.data.name == "blood_glucose") {
+                  } else if (observation.data.name == "blood_sugar" && observation.data.type == 'fasting') {
                     this.details.fasting_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,

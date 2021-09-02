@@ -349,7 +349,7 @@ export default {
       
       this.$http.post("/assessments/except-oha", data).then(response => { 
         let loader = this.$loading.show();
-        if (response.status == 201) {
+        if (response.status == 200) {
           this.addBloodPressure();
           this.addBodyMeasurement();
           this.addBloodTest();
@@ -367,6 +367,7 @@ export default {
       });
     },
     addBloodPressure() {
+      console.log('add blood pressure')
       if (this.systolic_blood_pressure && this.diastolic_blood_pressure && this.pulse_rate) {
         let data = {
           "meta": {
@@ -558,6 +559,11 @@ export default {
         'assessment_id' : assessment_id
         },
         id: this.$uuid.v4()
+      }
+
+      if (name == 'blood_glucose') {
+        data.body.data.name = 'blood_sugar'
+        data.body.data.type = 'fasting'
       }
 
       return data;
