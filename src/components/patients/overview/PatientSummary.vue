@@ -1718,7 +1718,7 @@ export default {
                       unit: observation.data.unit,
                       date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     };
-                  } else if (observation.data.name == "blood_sugar" && observation.data.type == 'fasting') {
+                  } else if ((observation.data.name == "blood_sugar" || observation.data.name == "blood_glucose") && observation.data.type == 'fasting') {
                     this.details.fasting_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
