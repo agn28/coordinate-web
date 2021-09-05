@@ -885,14 +885,7 @@
       <router-link
         :to="{ name: 'carePlanCreate', params: { patientId: patientId } }"
         class="btn btn-primary radious-0 mb-3 d-block btn-proceed"
-        :disabled="
-          patient && patient.meta.is_synced !== undefined && !patient.meta.is_synced
-        "
-        :event="
-          patient && (patient.meta.is_synced === undefined || patient.meta.is_synced)
-            ? 'click'
-            : ''
-        "
+        :event="click"
         tag="button"
       >
         <span>Proceed To Care Plan </span>
