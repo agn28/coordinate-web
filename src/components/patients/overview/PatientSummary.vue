@@ -875,14 +875,13 @@
       </div>
     </div>
     <div class="text-center mt-3 mb-5">
-      <div
+      <!-- <div
         v-if="patient && patient.meta.is_synced !== undefined && !patient.meta.is_synced"
         class="alert alert-danger"
         role="alert"
       >
         This patient's data is syncing, you can not generate care plan now.
-        <!-- <a href="#" @click.prevent="$router.go(-1)">Go Back</a> -->
-      </div>
+      </div> -->
       <router-link
         :to="{ name: 'carePlanCreate', params: { patientId: patientId } }"
         class="btn btn-primary radious-0 mb-3 d-block btn-proceed"
