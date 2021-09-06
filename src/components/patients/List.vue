@@ -11,7 +11,7 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-10">
           <div class="patient-search">
             <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
@@ -37,6 +37,24 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-2">
+          <div class="mx-4">
+            <button type="submit" class="btn btn-primary float-right">
+              <download-excel
+                :fetch="getExportData"
+                :export-fields="exportFields"
+                header="Summery of Patient Data"
+                name="patients.xls"
+              >
+                Export
+                <img
+                  src="../../assets/images/export-icon.png"
+                  alt="Export"
+                />
+              </download-excel>
+            </button>
+          </div>
+        </div>
       </div>
       <div class="row mt-0">
         <div class="col-lg-12">
@@ -56,7 +74,7 @@
                 <tbody>
                   <tr
                     class="pointer bg-white tr-border-bttom-grey"
-                    v-for="(patient, index) in patients"
+                    v-for="(patient, index) in displayedPatients"
                     :key="index"
                     @click="
                       $router.push({
@@ -110,7 +128,7 @@
                   <button
                     type="button"
                     class="page-link"
-                    @click="nextPrevPage('prev')"
+                    v-if="paginationOptions.currentPage != 1" @click="paginationOptions.currentPage--"
                     :disabled="disablePrevButton"
                   >
                     Previous
@@ -119,7 +137,7 @@
                 <li class="page-item">
                   <button
                     type="button"
-                    @click="nextPrevPage('next')"
+                    @click="paginationOptions.currentPage++" v-if="paginationOptions.currentPage < paginationOptions.pages.length" 
                     class="page-link"
                     :disabled="disableNextButton"
                   >
@@ -140,6 +158,7 @@
 import Vue from "vue";
 import { VuejsDatatableFactory } from "vuejs-datatable";
 import TopNavBar from "../TopNavBar.vue";
+import moment from "moment";
 Vue.use(VuejsDatatableFactory);
 
 export default {
@@ -153,9 +172,78 @@ export default {
         currentPage: 1,
         perPage: 20,
         // totalItems: 500,
-        pages: [],
+        pages: []
       },
       lastItemId: "",
+      exportData: [],
+      exportFields: {
+        "Patient Name": "patient_name",
+        "Encounter": "assessment_name",
+        "Created Date": "assessment_created_at",
+        "Blood Pressure": "bp",
+        Height: "height",
+        Weight: "weight",
+        Waist: "waist",
+        Hip: "hip",
+        BMI: "bmi",
+        "Random Blood Sugar": "rbs",
+        "Fasting Blood Sugar": "fbs",
+        "2habf": "habf",
+        A1c: "a1c",
+        "Total Cholesterol": "total_cholesterol",
+        Ldl: "ldl",
+        Hdl: "hdl",
+        Triglycerides: "tg",
+        Creatinine: "creatinine",
+        Sodium: "sodium",
+        Potassium: "potassium",
+        Ketones: "ketones",
+        Protein: "protein",
+        "Medical History: Stroke": "stroke",
+        "Medical History: Heart Attack": "heart_attack",
+        "Medical History: Hypertension": "hypertension",
+        "Medical History: Diabetes": "diabetes",
+        "Medical History: Asthma": "asthma",
+        "Medical History: Cancer": "cancer",
+        "Medical History: Kidney Disease": "kidney_disease",
+        "Medication: aspirin": "aspirin_medicine",
+        "Medication: aspirin regular": "aspirin_regular_medicine",
+        "Medication: cholesterol medicine": "cholesterol_medicine",
+        "Medication: cholesterol regular medicine": "cholesterol_regular_medicine",
+        "Medication: diabetes medicine": "diabetes_medicine",
+        "Medication: diabetes regular medicine": "diabetes_regular_medicine",
+        "Medication: hypertension medicine": "hypertension_medicine",
+        "Medication: hypertension regular medicine": "hypertension_regular_medicine",
+        "Risk Factor: smoking": "smoking",
+        "Risk Factor: smokeless tobacco": "smokeless_tobacco",
+        "Risk Factor: betel nut": "betel_nut",
+        "Risk Factor: fruits vegetables daily": "fruits_vegetables_daily",
+        "Risk Factor: extra salt": "extra_salt",
+        "Risk Factor: salty foods": "salty_foods",
+        "Risk Factor: sugary drinks": "sugary_drinks",
+        "Risk Factor: processed foods": "processed_foods",
+        "Risk Factor: red meat": "red_meat",
+        "Risk Factor: physical activity moderate": "physical_activity_moderate",
+        "Risk Factor: physical activity high": "physical_activity_high",
+        "Risk Factor: alcohol": "alcohol",
+        "Relative: Stroke": "relative_stroke",
+        "Relative: Heart Attack": "relative_heart_attack",
+        "Relative: Hypertension": "relative_hypertension",
+        "Relative: Diabetes": "relative_diabetes",
+        "Relative: Asthma": "relative_asthma",
+        "Relative: Cancer": "relative_cancer",
+        "Counselling: smoking": "counselling_smoking",
+        "Counselling: smokeless tobacco": "counselling_smokeless_tobacco",
+        "Counselling: fruits vegetables daily": "counselling_fruits_vegetables_daily",
+        "Counselling: extra salt": "counselling_extra_salt",
+        "Counselling: sugary drinks": "counselling_sugary_drinks",
+        "Counselling: processed foods": "counselling_processed_foods",
+        "Counselling: red meat": "counselling_red_meat",
+        "Counselling: physical activity moderate": "physical_activity_moderate",
+        "Counselling: alcohol": "counselling_alcohol",
+        "Counselling: medical adherence": "counselling_medical_adherence",
+      },
+      preparedExportData:[],
       disablePrevButton: false,
       disableNextButton: false,
     };
@@ -174,11 +262,146 @@ export default {
         );
       });
     },
+    displayedPatients () {
+        return this.paginate(this.patients);
+    }
   },
-
+  watch: {
+    patients () {
+        this.setPages();
+    }
+  },
   methods: {
+    paginate (patients) {
+        let page = this.paginationOptions.currentPage;
+        let perPage = this.paginationOptions.perPage;
+        let from = (page * perPage) - perPage;
+        let to = (page * perPage);
+        return  patients.slice(from, to);
+    },
     scrollToTop() {
       window.scrollTo(0, 0);
+    },
+    async getExportData(lastItemId = "", queryItemkey = "last_item") {
+      this.preparedExportData = [];
+      let loader = this.$loading.show();
+      let searchKey = "";
+
+      if (this.search) {
+        if (isNaN(this.search)) {
+          searchKey = "&name=" + this.search;
+        } else {
+          searchKey = "&nid=" + this.search;
+        }
+      }
+      await this.$http.get("/exports/patients?"+ queryItemkey + "=" + lastItemId + searchKey)
+        .then(
+          (response) => {
+            if (response.status == 200) {
+              loader.hide();
+              if (response.data.error == false) {
+                this.exportData = response.data.data;
+                this.exportData.forEach(data => {
+                  // console.log('data', data);
+                  data.assessments.forEach((assessment, index) => {
+                    // console.log('observations', assessment.observations);
+                    let patient_name = index == 0 ? data.patient.body.first_name+' '+data.patient.body.last_name : '';
+                    let created_at = assessment.meta.created_at ? this.getFormatedDate(assessment.meta.created_at) : '';
+                    
+                    let rowData = {
+                      patient_name: patient_name,
+                      assessment_name: assessment.body.type,
+                      assessment_created_at: created_at,
+                      //measurements
+                      bp: assessment.observations.bp,
+                      height: assessment.observations.height,
+                      weight: assessment.observations.weight,
+                      waist: assessment.observations.waist,
+                      hip: assessment.observations.hip,
+                      bmi: assessment.observations.bmi,
+                      rbs: assessment.observations.blood_glucose,
+                      fbs: assessment.observations.blood_sugar,
+                      habf: assessment.observations.habf,
+                      a1c: assessment.observations.a1c,
+                      total_cholesterol: assessment.observations.total_cholesterol,
+                      ldl: assessment.observations.ldl,
+                      hdl: assessment.observations.hdl,
+                      tg: assessment.observations.tg,
+                      creatinine: assessment.observations.creatinine,
+                      sodium: assessment.observations.sodium,
+                      potassium: assessment.observations.potassium,
+                      ketones: assessment.observations.ketones,
+                      protein: assessment.observations.protein,
+                      //medical history
+                      stroke: assessment.observations.stroke,
+                      heart_attack: assessment.observations.heart_attack,
+                      hypertension: assessment.observations.hypertension,
+                      diabetes: assessment.observations.diabetes,
+                      asthma: assessment.observations.asthma,
+                      cancer: assessment.observations.cancer,
+                      kidney_disease: assessment.observations.kidney_disease,
+                      //medications
+                      aspirin_medicine: assessment.observations.aspirin_medicine,
+                      aspirin_regular_medicine: assessment.observations.aspirin_regular_medicine,
+                      cholesterol_medicine: assessment.observations.cholesterol_medicine,
+                      cholesterol_regular_medicine: assessment.observations.cholesterol_regular_medicine,
+                      diabetes_medicine: assessment.observations.diabetes_medicine,
+                      diabetes_regular_medicine: assessment.observations.diabetes_regular_medicine,
+                      hypertension_medicine: assessment.observations.hypertension_medicine,
+                      hypertension_regular_medicine: assessment.observations.hypertension_regular_medicine,
+                      //risk factors
+                      smoking: assessment.observations.smoking,
+                      smokeless_tobacco: assessment.observations.smokeless_tobacco,
+                      betel_nut: assessment.observations.betel_nut,
+                      fruits_vegetables_daily: assessment.observations.fruits_vegetables_daily,
+                      extra_salt: assessment.observations.extra_salt,
+                      salty_foods: assessment.observations.salty_foods,
+                      sugary_drinks: assessment.observations.sugary_drinks,
+                      processed_foods: assessment.observations.processed_foods,
+                      red_meat: assessment.observations.red_meat,
+                      physical_activity_moderate: assessment.observations.physical_activity_moderate,
+                      physical_activity_high: assessment.observations.physical_activity_high,
+                      alcohol: assessment.observations.alcohol,
+                      //counselling
+                      counselling_smoking: assessment.observations.counselling_smoking,
+                      counselling_smokeless_tobacco: assessment.observations.counselling_smokeless_tobacco,
+                      counselling_fruits_vegetables_daily: assessment.observations.counselling_fruits_vegetables_daily,
+                      counselling_extra_salt: assessment.observations.counselling_extra_salt,
+                      counselling_sugary_drinks: assessment.observations.counselling_sugary_drinks,
+                      counselling_processed_foods: assessment.observations.counselling_processed_foods,
+                      counselling_red_meat: assessment.observations.counselling_red_meat,
+                      counselling_physical_activity_moderate: assessment.observations.counselling_physical_activity_moderate,
+                      counselling_alcohol: assessment.observations.counselling_alcohol,
+                      counselling_medical_adherence: assessment.observations.counselling_medical_adherence,
+                      //relative problems
+                      stroke: assessment.observations.relative_stroke,
+                      heart_attack: assessment.observations.relative_heart_attack,
+                      hypertension: assessment.observations.relative_hypertension,
+                      diabetes: assessment.observations.relative_diabetes,
+                      asthma: assessment.observations.relative_asthma,
+                      cancer: assessment.observations.relative_cancer,
+                    };
+                    this.preparedExportData.push(rowData);
+                  });
+                });
+              }
+            }
+          },
+          (error) => {
+            console.log(error);
+            loader.hide();
+          }
+        );
+
+      console.log('preparedExportData', this.preparedExportData);
+      return this.preparedExportData;
+    },
+    getFormatedDate(date) {
+      if(typeof date == 'string') {
+        return moment(date).format("DD MMM YYYY");
+      } else {
+        return moment.unix(date._seconds).format("DD MMM YYYY");
+      }
     },
     getPatients(lastItemId = "", queryItemkey = "last_item") {
       let loader = this.$loading.show();
@@ -251,7 +474,7 @@ export default {
     },
     setPages() {
       let numberOfPages = Math.ceil(
-        this.paginationOptions.totalItems / this.paginationOptions.perPage
+        this.patients.length / this.paginationOptions.perPage
       );
       for (let index = 1; index <= numberOfPages; index++) {
         this.paginationOptions.pages.push(index);
