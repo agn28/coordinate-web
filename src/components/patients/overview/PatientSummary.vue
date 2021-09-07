@@ -885,7 +885,6 @@
       <router-link
         :to="{ name: 'carePlanCreate', params: { patientId: patientId } }"
         class="btn btn-primary radious-0 mb-3 d-block btn-proceed"
-        :event="click"
         tag="button"
       >
         <span>Proceed To Care Plan </span>
@@ -1633,7 +1632,7 @@ export default {
           loader.hide();
           if (response.status == 200) {
             this.observations = this.sortObservations(response.data.data);
-
+            
             if (this.observations) {
               this.observations.forEach((obs) => {
                 let observation = obs.body;

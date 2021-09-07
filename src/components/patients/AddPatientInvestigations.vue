@@ -551,7 +551,7 @@ export default {
           "data": {
           'name': name,
           'unit': unit,
-          'value': parseInt(value),
+          'value': value,
           'comment': comment,
           'device': '',
         },
