@@ -551,7 +551,7 @@ export default {
           "data": {
           'name': name,
           'unit': unit,
-          'value': value,
+          'value': parseFloat(value),
           'comment': comment,
           'device': '',
         },
