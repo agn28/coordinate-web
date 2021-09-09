@@ -1630,8 +1630,10 @@ export default {
       this.$http.get("/patients/" + this.patientId + "/observations").then(
         (response) => {
           loader.hide();
+
           if (response.status == 200) {
             this.observations = this.sortObservations(response.data.data);
+              console.log('body_measurement',response.data );
             
             if (this.observations) {
               this.observations.forEach((obs) => {

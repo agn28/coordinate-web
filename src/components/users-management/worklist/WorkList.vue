@@ -171,7 +171,7 @@ export default {
 
     getUsers() {
       let loader = this.$loading.show();
-      this.$http.get("/users?role=nurse,doctor,chw").then(
+      this.$http.get("/users?role=nurse,doctor,chw,chcp").then(
         response => {
           if (response.status == 200) {
             this.users = response.data;
