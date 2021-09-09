@@ -384,7 +384,7 @@ export default {
 
     async getUsers() {
       let loader = this.$loading.show();
-      await this.$http.get("/users?role=chw,chcp").then(
+      await this.$http.get("/users?role=chw").then(
         (response) => {
           if (response.status == 200) {
             this.users = response.data;
