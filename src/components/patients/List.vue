@@ -319,8 +319,8 @@ export default {
                       waist: assessment.observations.waist,
                       hip: assessment.observations.hip,
                       bmi: assessment.observations.bmi,
-                      rbs: assessment.observations.blood_glucose,
-                      fbs: assessment.observations.blood_sugar,
+                      rbs: assessment.observations.bs,
+                      fbs: assessment.observations.bg,
                       habf: assessment.observations.habf,
                       a1c: assessment.observations.a1c,
                       total_cholesterol: assessment.observations.total_cholesterol,
@@ -374,12 +374,12 @@ export default {
                       counselling_alcohol: assessment.observations.counselling_alcohol,
                       counselling_medical_adherence: assessment.observations.counselling_medical_adherence,
                       //relative problems
-                      stroke: assessment.observations.relative_stroke,
-                      heart_attack: assessment.observations.relative_heart_attack,
-                      hypertension: assessment.observations.relative_hypertension,
-                      diabetes: assessment.observations.relative_diabetes,
-                      asthma: assessment.observations.relative_asthma,
-                      cancer: assessment.observations.relative_cancer,
+                      relative_stroke: assessment.observations.relative_stroke,
+                      relative_heart_attack: assessment.observations.relative_heart_attack,
+                      relative_hypertension: assessment.observations.relative_hypertension,
+                      relative_diabetes: assessment.observations.relative_diabetes,
+                      relative_asthma: assessment.observations.relative_asthma,
+                      relative_cancer: assessment.observations.relative_cancer,
                     };
                     this.preparedExportData.push(rowData);
                   });

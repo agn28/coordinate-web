@@ -122,7 +122,7 @@
                     <td width="65%" class="text-capitalize" :class="getColor(details.sugar, false)">{{ this.details.sugar || 'N/A' }}</td>
                   </tr>
                   <tr>
-                    <td width="30%" class="font-weight-bold">Diet: Processed food / red meat:</td>
+                    <td width="30%" class="font-weight-bold">Diet: Processed food:</td>
                     <td width="5%" class="text-center">:</td>
                     <td width="65%" class="text-capitalize" :class="getColor(details.processed_foods, false)">{{ this.details.processed_foods || 'N/A' }}</td>
                   </tr>
@@ -754,7 +754,7 @@ export default {
                   else if (observation.data.name == 'risk_factors') {
                     console.log('risk_factors')
                     this.details.smoking = observation.data.smoking || 'N/A';
-                    this.details.smokeles_tobacco = observation.data.smokeles_tobacco || 'N/A';
+                    this.details.smokeless_tobacco = observation.data.smokeless_tobacco || 'N/A';
                     this.details.extra_salt = observation.data.extra_salt || 'N/A';
                     this.details.sugar = observation.data.sugary_drinks || 'N/A';
                     this.details.processed_foods = observation.data.processed_foods || 'N/A';
@@ -778,14 +778,14 @@ export default {
                 }
                 else if (observation.type == 'blood_test') {
                   console.log('blood_test')
-                  if (observation.data.name == 'blood_sugar' && observation.data.type != 'fasting') {
+                  if (observation.data.name == 'blood_sugar') {
                     this.details.random_blood_sugar = {
                       value: observation.data.value,
                       unit: observation.data.unit,
                       date: (moment(obs.meta.created_at).format('YYYY-MM-DD HH:mm:ss'))
                     }
                   }
-                  else if (observation.data.name == 'blood_sugar' && observation.data.type == 'fasting') {
+                  else if (observation.data.name == 'blood_glucose' && observation.data.type == 'fasting') {
                     
                     this.details.fasting_blood_sugar = {
                       value: observation.data.value,
