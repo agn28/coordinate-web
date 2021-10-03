@@ -176,73 +176,74 @@ export default {
       },
       lastItemId: "",
       exportData: [],
-      exportFields: {
-        "Patient Name": "patient_name",
-        "Encounter": "assessment_name",
-        "Created Date": "assessment_created_at",
-        "Blood Pressure": "bp",
-        Height: "height",
-        Weight: "weight",
-        Waist: "waist",
-        Hip: "hip",
-        BMI: "bmi",
-        "Random Blood Sugar": "rbs",
-        "Fasting Blood Sugar": "fbs",
-        "2habf": "habf",
-        A1c: "a1c",
-        "Total Cholesterol": "total_cholesterol",
-        Ldl: "ldl",
-        Hdl: "hdl",
-        Triglycerides: "tg",
-        Creatinine: "creatinine",
-        Sodium: "sodium",
-        Potassium: "potassium",
-        Ketones: "ketones",
-        Protein: "protein",
-        "Medical History: Stroke": "stroke",
-        "Medical History: Heart Attack": "heart_attack",
-        "Medical History: Hypertension": "hypertension",
-        "Medical History: Diabetes": "diabetes",
-        "Medical History: Asthma": "asthma",
-        "Medical History: Cancer": "cancer",
-        "Medical History: Kidney Disease": "kidney_disease",
-        "Medication: aspirin": "aspirin_medicine",
-        "Medication: aspirin regular": "aspirin_regular_medicine",
-        "Medication: cholesterol medicine": "cholesterol_medicine",
-        "Medication: cholesterol regular medicine": "cholesterol_regular_medicine",
-        "Medication: diabetes medicine": "diabetes_medicine",
-        "Medication: diabetes regular medicine": "diabetes_regular_medicine",
-        "Medication: hypertension medicine": "hypertension_medicine",
-        "Medication: hypertension regular medicine": "hypertension_regular_medicine",
-        "Risk Factor: smoking": "smoking",
-        "Risk Factor: smokeless tobacco": "smokeless_tobacco",
-        "Risk Factor: betel nut": "betel_nut",
-        "Risk Factor: fruits vegetables daily": "fruits_vegetables_daily",
-        "Risk Factor: extra salt": "extra_salt",
-        "Risk Factor: salty foods": "salty_foods",
-        "Risk Factor: sugary drinks": "sugary_drinks",
-        "Risk Factor: processed foods": "processed_foods",
-        "Risk Factor: red meat": "red_meat",
-        "Risk Factor: physical activity moderate": "physical_activity_moderate",
-        "Risk Factor: physical activity high": "physical_activity_high",
-        "Risk Factor: alcohol": "alcohol",
-        "Relative: Stroke": "relative_stroke",
-        "Relative: Heart Attack": "relative_heart_attack",
-        "Relative: Hypertension": "relative_hypertension",
-        "Relative: Diabetes": "relative_diabetes",
-        "Relative: Asthma": "relative_asthma",
-        "Relative: Cancer": "relative_cancer",
-        "Counselling: smoking": "counselling_smoking",
-        "Counselling: smokeless tobacco": "counselling_smokeless_tobacco",
-        "Counselling: fruits vegetables daily": "counselling_fruits_vegetables_daily",
-        "Counselling: extra salt": "counselling_extra_salt",
-        "Counselling: sugary drinks": "counselling_sugary_drinks",
-        "Counselling: processed foods": "counselling_processed_foods",
-        "Counselling: red meat": "counselling_red_meat",
-        "Counselling: physical activity moderate": "physical_activity_moderate",
-        "Counselling: alcohol": "counselling_alcohol",
-        "Counselling: medical adherence": "counselling_medical_adherence",
-      },
+      exportFields: {},
+      // exportFields: {
+      //   "Patient Name": "patient_name",
+      //   "Encounter": "assessment_name",
+      //   "Created Date": "assessment_created_at",
+      //   "Blood Pressure": "bp",
+      //   Height: "height",
+      //   Weight: "weight",
+      //   Waist: "waist",
+      //   Hip: "hip",
+      //   BMI: "bmi",
+      //   "Random Blood Sugar": "rbs",
+      //   "Fasting Blood Sugar": "fbs",
+      //   "2habf": "habf",
+      //   A1c: "a1c",
+      //   "Total Cholesterol": "total_cholesterol",
+      //   Ldl: "ldl",
+      //   Hdl: "hdl",
+      //   Triglycerides: "tg",
+      //   Creatinine: "creatinine",
+      //   Sodium: "sodium",
+      //   Potassium: "potassium",
+      //   Ketones: "ketones",
+      //   Protein: "protein",
+      //   "Medical History: Stroke": "stroke",
+      //   "Medical History: Heart Attack": "heart_attack",
+      //   "Medical History: Hypertension": "hypertension",
+      //   "Medical History: Diabetes": "diabetes",
+      //   "Medical History: Asthma": "asthma",
+      //   "Medical History: Cancer": "cancer",
+      //   "Medical History: Kidney Disease": "kidney_disease",
+      //   "Medication: aspirin": "aspirin_medicine",
+      //   "Medication: aspirin regular": "aspirin_regular_medicine",
+      //   "Medication: cholesterol medicine": "cholesterol_medicine",
+      //   "Medication: cholesterol regular medicine": "cholesterol_regular_medicine",
+      //   "Medication: diabetes medicine": "diabetes_medicine",
+      //   "Medication: diabetes regular medicine": "diabetes_regular_medicine",
+      //   "Medication: hypertension medicine": "hypertension_medicine",
+      //   "Medication: hypertension regular medicine": "hypertension_regular_medicine",
+      //   "Risk Factor: smoking": "smoking",
+      //   "Risk Factor: smokeless tobacco": "smokeless_tobacco",
+      //   "Risk Factor: betel nut": "betel_nut",
+      //   "Risk Factor: fruits vegetables daily": "fruits_vegetables_daily",
+      //   "Risk Factor: extra salt": "extra_salt",
+      //   "Risk Factor: salty foods": "salty_foods",
+      //   "Risk Factor: sugary drinks": "sugary_drinks",
+      //   "Risk Factor: processed foods": "processed_foods",
+      //   "Risk Factor: red meat": "red_meat",
+      //   "Risk Factor: physical activity moderate": "physical_activity_moderate",
+      //   "Risk Factor: physical activity high": "physical_activity_high",
+      //   "Risk Factor: alcohol": "alcohol",
+      //   "Relative: Stroke": "relative_stroke",
+      //   "Relative: Heart Attack": "relative_heart_attack",
+      //   "Relative: Hypertension": "relative_hypertension",
+      //   "Relative: Diabetes": "relative_diabetes",
+      //   "Relative: Asthma": "relative_asthma",
+      //   "Relative: Cancer": "relative_cancer",
+      //   "Counselling: smoking": "counselling_smoking",
+      //   "Counselling: smokeless tobacco": "counselling_smokeless_tobacco",
+      //   "Counselling: fruits vegetables daily": "counselling_fruits_vegetables_daily",
+      //   "Counselling: extra salt": "counselling_extra_salt",
+      //   "Counselling: sugary drinks": "counselling_sugary_drinks",
+      //   "Counselling: processed foods": "counselling_processed_foods",
+      //   "Counselling: red meat": "counselling_red_meat",
+      //   "Counselling: physical activity moderate": "physical_activity_moderate",
+      //   "Counselling: alcohol": "counselling_alcohol",
+      //   "Counselling: medical adherence": "counselling_medical_adherence",
+      // },
       preparedExportData:[],
       disablePrevButton: false,
       disableNextButton: false,
@@ -301,88 +302,293 @@ export default {
               loader.hide();
               if (response.data.error == false) {
                 this.exportData = response.data.data;
-                this.exportData.forEach(data => {
-                  // console.log('data', data);
-                  data.assessments.forEach((assessment, index) => {
+                // this.exportFields["Patient Name"] = "patient_name";
+                // this.exportFields["Assessment Name"] = "assessment_name";
+                // this.preparedExportData.push({
+                //   patient_name: 'test',
+                //   assessment_name: 'test assess'
+                // });
+                this.exportData.forEach((data, index) => {
+                  // console.log('data', data.reg.provider_type);
+                  var preparedRow = {};
+                  this.exportFields["Patient Name"] = "patient_name";
+                  preparedRow.patient_name = data.patient.body.first_name+' '+data.patient.body.last_name;
+                  // this.exportFields["Provider Type"] = "provider_type";
+                  // preparedRow.provider_type = data.reg.provider_type;
+                  data.assessments.forEach((assessment, assessmentIndex) => {
                     // console.log('observations', assessment.observations);
-                    let patient_name = index == 0 ? data.patient.body.first_name+' '+data.patient.body.last_name : '';
-                    let created_at = assessment.meta.created_at ? this.getFormatedDate(assessment.meta.created_at) : '';
-                    
-                    let rowData = {
-                      patient_name: patient_name,
-                      assessment_name: assessment.body.type,
-                      assessment_created_at: created_at,
-                      //measurements
-                      bp: assessment.observations.bp,
-                      height: assessment.observations.height,
-                      weight: assessment.observations.weight,
-                      waist: assessment.observations.waist,
-                      hip: assessment.observations.hip,
-                      bmi: assessment.observations.bmi,
-                      rbs: assessment.observations.bs,
-                      fbs: assessment.observations.bg,
-                      habf: assessment.observations.habf,
-                      a1c: assessment.observations.a1c,
-                      total_cholesterol: assessment.observations.total_cholesterol,
-                      ldl: assessment.observations.ldl,
-                      hdl: assessment.observations.hdl,
-                      tg: assessment.observations.tg,
-                      creatinine: assessment.observations.creatinine,
-                      sodium: assessment.observations.sodium,
-                      potassium: assessment.observations.potassium,
-                      ketones: assessment.observations.ketones,
-                      protein: assessment.observations.protein,
+                    let visitNumber = "visit_number"+assessmentIndex;
+                    this.exportFields[("visit_number"+assessmentIndex)] = ("visit_number"+assessmentIndex);
+                    preparedRow[("visit_number"+assessmentIndex)] = assessment.body.type;
                       //medical history
-                      stroke: assessment.observations.stroke,
-                      heart_attack: assessment.observations.heart_attack,
-                      hypertension: assessment.observations.hypertension,
-                      diabetes: assessment.observations.diabetes,
-                      asthma: assessment.observations.asthma,
-                      cancer: assessment.observations.cancer,
-                      kidney_disease: assessment.observations.kidney_disease,
-                      //medications
-                      aspirin_medicine: assessment.observations.aspirin_medicine,
-                      aspirin_regular_medicine: assessment.observations.aspirin_regular_medicine,
-                      cholesterol_medicine: assessment.observations.cholesterol_medicine,
-                      cholesterol_regular_medicine: assessment.observations.cholesterol_regular_medicine,
-                      diabetes_medicine: assessment.observations.diabetes_medicine,
-                      diabetes_regular_medicine: assessment.observations.diabetes_regular_medicine,
-                      hypertension_medicine: assessment.observations.hypertension_medicine,
-                      hypertension_regular_medicine: assessment.observations.hypertension_regular_medicine,
-                      //risk factors
-                      smoking: assessment.observations.smoking,
-                      smokeless_tobacco: assessment.observations.smokeless_tobacco,
-                      betel_nut: assessment.observations.betel_nut,
-                      fruits_vegetables_daily: assessment.observations.fruits_vegetables_daily,
-                      extra_salt: assessment.observations.extra_salt,
-                      salty_foods: assessment.observations.salty_foods,
-                      sugary_drinks: assessment.observations.sugary_drinks,
-                      processed_foods: assessment.observations.processed_foods,
-                      red_meat: assessment.observations.red_meat,
-                      physical_activity_moderate: assessment.observations.physical_activity_moderate,
-                      physical_activity_high: assessment.observations.physical_activity_high,
-                      alcohol: assessment.observations.alcohol,
-                      //counselling
-                      counselling_smoking: assessment.observations.counselling_smoking,
-                      counselling_smokeless_tobacco: assessment.observations.counselling_smokeless_tobacco,
-                      counselling_fruits_vegetables_daily: assessment.observations.counselling_fruits_vegetables_daily,
-                      counselling_extra_salt: assessment.observations.counselling_extra_salt,
-                      counselling_sugary_drinks: assessment.observations.counselling_sugary_drinks,
-                      counselling_processed_foods: assessment.observations.counselling_processed_foods,
-                      counselling_red_meat: assessment.observations.counselling_red_meat,
-                      counselling_physical_activity_moderate: assessment.observations.counselling_physical_activity_moderate,
-                      counselling_alcohol: assessment.observations.counselling_alcohol,
-                      counselling_medical_adherence: assessment.observations.counselling_medical_adherence,
-                      //relative problems
-                      relative_stroke: assessment.observations.relative_stroke,
-                      relative_heart_attack: assessment.observations.relative_heart_attack,
-                      relative_hypertension: assessment.observations.relative_hypertension,
-                      relative_diabetes: assessment.observations.relative_diabetes,
-                      relative_asthma: assessment.observations.relative_asthma,
-                      relative_cancer: assessment.observations.relative_cancer,
-                    };
-                    this.preparedExportData.push(rowData);
+                    let mhStroke = "Stroke"+assessmentIndex;
+                    this.exportFields[mhStroke] = mhStroke;
+                    preparedRow[mhStroke] =assessment.observations.stroke;
+                    let mhHa = "Heart Attack"+assessmentIndex;
+                    this.exportFields[mhHa] = mhHa;
+                    preparedRow[mhHa] =assessment.observations.heart_attack;
+                    let mhHtn = "Hypertension"+assessmentIndex;
+                    this.exportFields[mhHtn] = mhHtn;
+                    preparedRow[mhHtn] =assessment.observations.hypertension;
+                    let mhDiabetes = "Diabetes"+assessmentIndex;
+                    this.exportFields[mhDiabetes] = mhDiabetes;
+                    preparedRow[mhDiabetes] =assessment.observations.diabetes;
+                    let mhAsthma = "Asthma"+assessmentIndex;
+                    this.exportFields[mhAsthma] = mhAsthma;
+                    preparedRow[mhAsthma] =assessment.observations.asthma;
+                    let mhCancer= "Cancer"+assessmentIndex;
+                    this.exportFields[mhCancer] = mhCancer;
+                    preparedRow[mhCancer] =assessment.observations.cancer;
+                    let mhKd= "CKD"+assessmentIndex;
+                    this.exportFields[mhKd] = mhKd;
+                    preparedRow[mhKd] =assessment.observations.kidney_disease;
+                    //medications
+                    let medAspirin= "Aspirin"+assessmentIndex;
+                    this.exportFields[medAspirin] = medAspirin;
+                    preparedRow[medAspirin] =assessment.observations.aspirin_medicine;
+                    let medAspirinReg= "Aspirin Regular"+assessmentIndex;
+                    this.exportFields[medAspirinReg] = medAspirinReg;
+                    preparedRow[medAspirinReg] =assessment.observations.aspirin_regular_medicine;
+                    let medCholesterol= "Cholesterol"+assessmentIndex;
+                    this.exportFields[medCholesterol] = medCholesterol;
+                    preparedRow[medCholesterol] =assessment.observations.cholesterol_medicine;
+                    let medCholesterolReg= "Cholesterol Regular"+assessmentIndex;
+                    this.exportFields[medCholesterolReg] = medCholesterolReg;
+                    preparedRow[medCholesterolReg] =assessment.observations.cholesterol_regular_medicine;
+                    let medDiabetes= "Diabetes"+assessmentIndex;
+                    this.exportFields[medDiabetes] = medDiabetes;
+                    preparedRow[medDiabetes] =assessment.observations.diabetes_medicine;
+                    let medDiabetesReg= "Diabetes Regular"+assessmentIndex;
+                    this.exportFields[medDiabetesReg] = medDiabetesReg;
+                    preparedRow[medDiabetesReg] =assessment.observations.diabetes_regular_medicine;
+                    let medHtn= "HTN"+assessmentIndex;
+                    this.exportFields[medHtn] = medHtn;
+                    preparedRow[medHtn] =assessment.observations.hypertension_medicine;
+                    let medHtnReg= "HTN Regular"+assessmentIndex;
+                    this.exportFields[medHtnReg] = medHtnReg;
+                    preparedRow[medHtnReg] =assessment.observations.hypertension_regular_medicine;
+                    //risk factors
+                    let rfSmoke= "Smoking"+assessmentIndex;
+                    this.exportFields[rfSmoke] = rfSmoke;
+                    preparedRow[rfSmoke] =assessment.observations.smoking;
+                    let rfSmokeLess= "Smokeless Tobacco"+assessmentIndex;
+                    this.exportFields[rfSmokeLess] = rfSmokeLess;
+                    preparedRow[rfSmokeLess] =assessment.observations.smokeless_tobacco;
+                    let rfBetel= "Betel Nut"+assessmentIndex;
+                    this.exportFields[rfBetel] = rfBetel;
+                    preparedRow[rfBetel] =assessment.observations.betel_nut;
+                    let rfFruitVeg= "Fruits Vegetables"+assessmentIndex;
+                    this.exportFields[rfFruitVeg] = rfFruitVeg;
+                    preparedRow[rfFruitVeg] =assessment.observations.fruits_vegetables_daily;
+                    let rfSalt= "Extra Salt"+assessmentIndex;
+                    this.exportFields[rfSalt] = rfSalt;
+                    preparedRow[rfSalt] =assessment.observations.extra_salt;
+                    let rfSalty= "Salty Foods"+assessmentIndex;
+                    this.exportFields[rfSalty] = rfSalty;
+                    preparedRow[rfSalty] =assessment.observations.salty_foods;
+                    let rfSugary= "Sugary Drinks"+assessmentIndex;
+                    this.exportFields[rfSugary] = rfSugary;
+                    preparedRow[rfSugary] =assessment.observations.sugary_drinks;
+                    let rfProcessed= "Processed Foods"+assessmentIndex;
+                    this.exportFields[rfProcessed] = rfProcessed;
+                    preparedRow[rfProcessed] =assessment.observations.processed_foods;
+                    let rfMeat= "Red Meat"+assessmentIndex;
+                    this.exportFields[rfMeat] = rfMeat;
+                    preparedRow[rfMeat] =assessment.observations.red_meat;
+                    let rfActivityMod= "Physical Activity Moderate"+assessmentIndex;
+                    this.exportFields[rfActivityMod] = rfActivityMod;
+                    preparedRow[rfActivityMod] =assessment.observations.physical_activity_moderate;
+                    let rfActivityHigh= "Physical Activity High"+assessmentIndex;
+                    this.exportFields[rfActivityHigh] = rfActivityHigh;
+                    preparedRow[rfActivityHigh] =assessment.observations.physical_activity_high;
+                    let rfAlcohol= "Alcohol"+assessmentIndex;
+                    this.exportFields[rfAlcohol] = rfAlcohol;
+                    preparedRow[rfAlcohol] =assessment.observations.alcohol;
+                    //measurements
+                    let height= "Height"+assessmentIndex;
+                    this.exportFields[height] = height;
+                    preparedRow[height] =assessment.observations.height;
+                    let weight= "Weight"+assessmentIndex;
+                    this.exportFields[weight] = weight;
+                    preparedRow[weight] =assessment.observations.weight;
+                    let bmi= "BMI"+assessmentIndex;
+                    this.exportFields[bmi] = bmi;
+                    preparedRow[bmi] =assessment.observations.bmi;
+                    let rbs= "RBS"+assessmentIndex;
+                    this.exportFields[rbs] = rbs;
+                    preparedRow[rbs] =assessment.observations.rbs;
+                    let fbs= "FBS"+assessmentIndex;
+                    this.exportFields[fbs] = fbs;
+                    preparedRow[fbs] =assessment.observations.fbs;
+                    //relative problems
+                    let relativeStroke= "Family stroke"+assessmentIndex;
+                    this.exportFields[relativeStroke] = relativeStroke;
+                    preparedRow[relativeStroke] =assessment.observations.relative_stroke;
+                    let relativeHeartAttack= "Family Heart Attack"+assessmentIndex;
+                    this.exportFields[relativeHeartAttack] = relativeHeartAttack;
+                    preparedRow[relativeHeartAttack] =assessment.observations.relative_heart_attack;
+                    let relativeHtn= "Family HTN"+assessmentIndex;
+                    this.exportFields[relativeHtn] = relativeHtn;
+                    preparedRow[relativeHtn] =assessment.observations.relative_hypertension;
+                    let relativeDiabetes= "Family Diabetes"+assessmentIndex;
+                    this.exportFields[relativeDiabetes] = relativeDiabetes;
+                    preparedRow[relativeDiabetes] =assessment.observations.relative_diabetes;
+                    let relativeAsthma= "Family Asthma"+assessmentIndex;
+                    this.exportFields[relativeAsthma] = relativeAsthma;
+                    preparedRow[relativeAsthma] =assessment.observations.relative_asthma;
+                    let relativeCancer= "Family Cancer"+assessmentIndex;
+                    this.exportFields[relativeCancer] = relativeCancer;
+                    preparedRow[relativeCancer] =assessment.observations.relative_cancer;
+                    //   Counselling
+                    let counsellingSmoking= "Counselling Smoking"+assessmentIndex;
+                    this.exportFields[counsellingSmoking] = counsellingSmoking;
+                    preparedRow[counsellingSmoking] =assessment.observations.counselling_smoking;
+                    let counsellingSmokeless= "Counselling Smokeless"+assessmentIndex;
+                    this.exportFields[counsellingSmokeless] = counsellingSmokeless;
+                    preparedRow[counsellingSmokeless] =assessment.observations.counselling_smokeless_tobacco;
+                    let counsellingFruitsVegetables= "Counselling Fruits Vegetables Intake"+assessmentIndex;
+                    this.exportFields[counsellingFruitsVegetables] = counsellingFruitsVegetables;
+                    preparedRow[counsellingFruitsVegetables] =assessment.observations.counselling_fruits_vegetables_daily;
+                    let counsellingSalt= "Counselling Extra Salt"+assessmentIndex;
+                    this.exportFields[counsellingSalt] = counsellingSalt;
+                    preparedRow[counsellingSalt] =assessment.observations.counselling_extra_salt;
+                    let counsellingSugary= "Counselling Sugary Item"+assessmentIndex;
+                    this.exportFields[counsellingSugary] = counsellingSugary;
+                    preparedRow[counsellingSugary] =assessment.observations.counselling_sugary_drinks;
+                    let counsellingProcessed= "Counselling Processed Foods"+assessmentIndex;
+                    this.exportFields[counsellingProcessed] = counsellingProcessed;
+                    preparedRow[counsellingProcessed] =assessment.observations.counselling_processed_foods;
+                    let counsellingMeat= "Counselling Red Meat"+assessmentIndex;
+                    this.exportFields[counsellingMeat] = counsellingMeat;
+                    preparedRow[counsellingMeat] =assessment.observations.counselling_red_meat;
+                    let counsellingActivity= "Counselling Physical Inactivity"+assessmentIndex;
+                    this.exportFields[counsellingActivity] = counsellingActivity;
+                    preparedRow[counsellingActivity] =assessment.observations.counselling_physical_activity_moderate;
+                    let counsellingAlcohol= "Counselling Alcohol"+assessmentIndex;
+                    this.exportFields[counsellingAlcohol] = counsellingAlcohol;
+                    preparedRow[counsellingAlcohol] =assessment.observations.counselling_alcohol;
+                    let counsellingMed= "Counselling Medicine Adherence"+assessmentIndex;
+                    this.exportFields[counsellingMed] = counsellingMed;
+                    preparedRow[counsellingMed] =assessment.observations.counselling_medical_adherence;
+
+                    // this.exportFields["Start Date"] = "start_date";
+                    // let created_at = assessment.meta.created_at ? this.getFormatedDate(assessment.meta.created_at) : '';
+                    // preparedRow.start_date = created_at;
+                    // let rowData = {
+                    //   assessment_name: assessment.body.type,
+                    //   assessment_created_at: created_at,
+                    //   //measurements
+                    //   bp: assessment.observations.bp,
+                    //   height: assessment.observations.height,
+                    //   weight: assessment.observations.weight,
+                    //   waist: assessment.observations.waist,
+                    //   hip: assessment.observations.hip,
+                    //   bmi: assessment.observations.bmi,
+                    //   rbs: assessment.observations.bs,
+                    //   fbs: assessment.observations.bg,
+                    //   habf: assessment.observations.habf,
+                    //   a1c: assessment.observations.a1c,
+                    //   total_cholesterol: assessment.observations.total_cholesterol,
+                    //   ldl: assessment.observations.ldl,
+                    //   hdl: assessment.observations.hdl,
+                    //   tg: assessment.observations.tg,
+                    //   creatinine: assessment.observations.creatinine,
+                    //   sodium: assessment.observations.sodium,
+                    //   potassium: assessment.observations.potassium,
+                    //   ketones: assessment.observations.ketones,
+                    //   protein: assessment.observations.protein,
+                    //   //medical history
+                    //   stroke: assessment.observations.stroke,
+                    //   heart_attack: assessment.observations.heart_attack,
+                    //   hypertension: assessment.observations.hypertension,
+                    //   diabetes: assessment.observations.diabetes,
+                    //   asthma: assessment.observations.asthma,
+                    //   cancer: assessment.observations.cancer,
+                    //   kidney_disease: assessment.observations.kidney_disease,
+                    //   //medications
+                    //   aspirin_medicine: assessment.observations.aspirin_medicine,
+                    //   aspirin_regular_medicine: assessment.observations.aspirin_regular_medicine,
+                    //   cholesterol_medicine: assessment.observations.cholesterol_medicine,
+                    //   cholesterol_regular_medicine: assessment.observations.cholesterol_regular_medicine,
+                    //   diabetes_medicine: assessment.observations.diabetes_medicine,
+                    //   diabetes_regular_medicine: assessment.observations.diabetes_regular_medicine,
+                    //   hypertension_medicine: assessment.observations.hypertension_medicine,
+                    //   hypertension_regular_medicine: assessment.observations.hypertension_regular_medicine,
+                    //   //risk factors
+                    //   smoking: assessment.observations.smoking,
+                    //   smokeless_tobacco: assessment.observations.smokeless_tobacco,
+                    //   betel_nut: assessment.observations.betel_nut,
+                    //   fruits_vegetables_daily: assessment.observations.fruits_vegetables_daily,
+                    //   extra_salt: assessment.observations.extra_salt,
+                    //   salty_foods: assessment.observations.salty_foods,
+                    //   sugary_drinks: assessment.observations.sugary_drinks,
+                    //   processed_foods: assessment.observations.processed_foods,
+                    //   red_meat: assessment.observations.red_meat,
+                    //   physical_activity_moderate: assessment.observations.physical_activity_moderate,
+                    //   physical_activity_high: assessment.observations.physical_activity_high,
+                    //   alcohol: assessment.observations.alcohol,
+                    //   //counselling
+                    //   counselling_smoking: assessment.observations.counselling_smoking,
+                    //   counselling_smokeless_tobacco: assessment.observations.counselling_smokeless_tobacco,
+                    //   counselling_fruits_vegetables_daily: assessment.observations.counselling_fruits_vegetables_daily,
+                    //   counselling_extra_salt: assessment.observations.counselling_extra_salt,
+                    //   counselling_sugary_drinks: assessment.observations.counselling_sugary_drinks,
+                    //   counselling_processed_foods: assessment.observations.counselling_processed_foods,
+                    //   counselling_red_meat: assessment.observations.counselling_red_meat,
+                    //   counselling_physical_activity_moderate: assessment.observations.counselling_physical_activity_moderate,
+                    //   counselling_alcohol: assessment.observations.counselling_alcohol,
+                    //   counselling_medical_adherence: assessment.observations.counselling_medical_adherence,
+                    //   //relative problems
+                    //   relative_stroke: assessment.observations.relative_stroke,
+                    //   relative_heart_attack: assessment.observations.relative_heart_attack,
+                    //   relative_hypertension: assessment.observations.relative_hypertension,
+                    //   relative_diabetes: assessment.observations.relative_diabetes,
+                    //   relative_asthma: assessment.observations.relative_asthma,
+                    //   relative_cancer: assessment.observations.relative_cancer,
+                    // };
                   });
+                  if(typeof data.careplans != 'undefined') {
+                    data.careplans.body.diagnosis.forEach((diag, diagIndex) => {
+                      let diagTitle = "Diagnosis"+diagIndex;
+                      this.exportFields[diagTitle] = diagTitle;
+                      preparedRow[diagTitle] = diag.name;
+                    });
+                    data.careplans.body.investigations.forEach((investigation, investigationIndex) => {
+                      let investigationTitle = "Investigation"+investigationIndex;
+                      this.exportFields[investigationTitle] = investigationTitle;
+                      preparedRow[investigationTitle] = investigation;
+                    });
+                  }
+
+                  data.medications.forEach((med, medIndex) => {
+                    let medTitle = "Medication"+medIndex+" Name";
+                    this.exportFields[medTitle] = medTitle;
+                    preparedRow[medTitle] = med.body.title;
+                    let medDose = "Medication"+medIndex+" Dose";
+                    this.exportFields[medDose] = medDose;
+                    preparedRow[medDose] = med.body.dosage+''+med.body.unit;
+                    let medFreq = "Medication"+medIndex+" Frequency";
+                    this.exportFields[medFreq] = medFreq;
+                    preparedRow[medFreq] = med.body.activityDuration.repeat.frequency+''+med.body.activityDuration.repeat.periodUnit;
+                    let medDuration = "Medication"+medIndex+" Duration";
+                    this.exportFields[medDuration] = medDuration;
+                    preparedRow[medDuration] = med.body.activityDuration.review.period+''+med.body.activityDuration.review.periodUnit;
+                    let timeStr = med.body.time.toString();
+                    let medTime = "Medication"+medIndex+" Time";
+                    this.exportFields[medTime] = medTime;
+                    preparedRow[medTime] = timeStr;
+                  });
+
+                  if(typeof data.careplans != 'undefined') {
+                    let followupDateChw = "followupDate_Chw";
+                    this.exportFields[followupDateChw] = followupDateChw;
+                    preparedRow[followupDateChw] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[0].date : '';
+                    let followupDateCc = "followupDate_Cc";
+                    this.exportFields[followupDateCc] = followupDateCc;
+                    preparedRow[followupDateCc] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[1].date : '';
+                  }
+                  
+                  this.preparedExportData.push(preparedRow);
                 });
               }
             }
