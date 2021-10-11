@@ -183,10 +183,7 @@ const routes = [
   {
     path: '/unassigned-patients',
     name: 'unassignedPatientList',
-    component: UnassignedPatientList,
-    meta: {
-      role: 'admin'
-    }
+    component: UnassignedPatientList
   },
   {
     path: '/referrals',
