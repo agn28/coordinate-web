@@ -43,8 +43,9 @@
               <download-excel
                 :fetch="getExportData"
                 :export-fields="exportFields"
+                type="csv"
                 header="Summery of Patient Data"
-                name="patients.xls"
+                name="patients.csv"
               >
                 Export
                 <img
@@ -479,6 +480,25 @@ export default {
                     let relativeCancer= "Family Cancer"+assessmentIndex;
                     this.exportFields[relativeCancer] = relativeCancer;
                     preparedRow[relativeCancer] =assessment.observations.relative_cancer;
+                    //Personal Info
+                    let religion= "Religion"+assessmentIndex;
+                    this.exportFields[religion] = religion;
+                    preparedRow[religion] = assessment.observations.religion;
+                    let occupation= "Occupation"+assessmentIndex;
+                    this.exportFields[occupation] = occupation;
+                    preparedRow[occupation] = assessment.observations.occupation;
+                    let income= "Income"+assessmentIndex;
+                    this.exportFields[income] = income;
+                    preparedRow[income] = assessment.observations.income;
+                    let blood_group= "Blood Group"+assessmentIndex;
+                    this.exportFields[blood_group] = blood_group;
+                    preparedRow[blood_group] = assessment.observations.blood_group;
+                    let education= "Education"+assessmentIndex;
+                    this.exportFields[education] = education;
+                    preparedRow[education] = assessment.observations.education;
+                    let ethnicity= "Ethnicity"+assessmentIndex;
+                    this.exportFields[ethnicity] = ethnicity;
+                    preparedRow[ethnicity] = assessment.observations.ethnicity;
                     //   Counselling
                     let counsellingSmoking= "Counselling Smoking"+assessmentIndex;
                     this.exportFields[counsellingSmoking] = counsellingSmoking;

@@ -353,6 +353,14 @@
                     <div class="mt-3">
                         <label for="place">Place</label>
                         <input type="text" class="form-control" name="place" placeholder="Place" v-model="chwFollowUpPlace" required/>
+                        <!-- <multiselect
+                          v-model="chwFollowUpPlace"
+                          :options="times"
+                          :allow-empty="false"
+                          :searchable="true"
+                            select-label=""
+                            deselect-label=""
+                        ></multiselect> -->
                     </div>
                   </div>
               </div>
@@ -393,6 +401,14 @@
                     <div class="mt-3">
                         <label for="place">Place</label>
                         <input type="text" class="form-control" name="place" placeholder="Place" v-model="ccFollowUpPlace" required/>
+                        <!-- <multiselect
+                          v-model="ccFollowUpPlace"
+                          :options="times"
+                          :allow-empty="false"
+                          :searchable="true"
+                            select-label=""
+                            deselect-label=""
+                        ></multiselect> -->
                     </div>
                   </div>
               </div>
