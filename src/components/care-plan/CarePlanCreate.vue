@@ -856,10 +856,10 @@ export default {
       //check if medicine exists
       if (this.newMedication.length) {
         isMedicineExists =  this.newMedication.some(data => { return data.body.title == medicineTitle });
-        if (isMedicineExists) {
-          this.$toast.open({ message: 'Medicine already added', type: 'error'});
-          return;
-        }
+        // if (isMedicineExists) {
+        //   this.$toast.open({ message: 'Medicine already added', type: 'error'});
+        //   return;
+        // }
       }
 
       let startDate = new Date()
