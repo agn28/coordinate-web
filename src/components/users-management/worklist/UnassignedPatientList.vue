@@ -330,7 +330,7 @@ export default {
     },
     assignUser(users, patient) {
       console.log('selected', users);
-      return;
+      // return;
       this.$swal({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
