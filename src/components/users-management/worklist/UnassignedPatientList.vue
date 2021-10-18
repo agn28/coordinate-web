@@ -13,38 +13,34 @@
         </div>
       </div>
 
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-lg-12">
           <div class="patient-search">
             <div class="search">
               <div class="input-group md-form form-sm form-1 pl-0">
-                <div class="input-group-prepend">
-                  <span class="input-group-text lighten-3" id="basic-text1">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                </div>
                 <input
-                  class="form-control my-0 py-1 border-left-0"
+                  class="form-control my-0 py-1 border-right-0"
                   type="text"
-                  placeholder="Patient Name, NID"
+                  placeholder="Patient Name, ID, NID"
                   aria-label="Search"
                   v-model="search"
+                  @keyup.enter="getPatients('', 'last_item')"
                 />
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span v-if="selectedAssignee == ''">Filter By Practitioner</span>
-                    <span v-else> {{ selectedAssignee.name }} </span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <button @click="filterByPractioner('none')" class="dropdown-item" href="#">None</button>
-                    <button @click="filterByPractioner(assignee)" v-for="(assignee, index) in assignees" :key="index" class="dropdown-item" href="#">{{ assignee.name }}</button>
-                  </div>
+                <div class="input-group-prepend">
+                  <a
+                    href="javascript:void(0)"
+                    @click="getPatients('', 'last_item')"
+                    class="input-group-text lighten-3 text-decoration-none"
+                    id="btn-search"
+                  >
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <div class="row">
         <div class="col-lg-12">
@@ -54,18 +50,19 @@
                 <thead>
                   <tr>
                     <th scope="col">Patient Name</th>
+                    <th scope="col">NID</th>
+                    <th scope="col">Union</th>
                     <th scope="col">Upazila</th>
                     <th scope="col">District</th>
-                    <th scope="col">Next Visit Date</th>
-                    <th scope="col">Suggested CHW</th>
-                    <th scope="col">Task Created</th>
+                    <th scope="col">Suggested Assignee</th>
+                    <th scope="col">Center</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     class="pointer"
-                    v-for="(patient, index) in filteredList"
+                    v-for="(patient, index) in displayedPatients"
                     :key="index"
                   >
                     <template>
@@ -73,22 +70,23 @@
                         {{
                           patient.body.first_name + " " + patient.body.last_name
                         }}
-                      </td>
+                      </td> 
+                      <td>{{ patient.body.nid }}</td>
+                      <td>{{ patient.body.address.union }}</td>
                       <td>{{ patient.body.address.upazila }}</td>
                       <td>
                         {{ patient.body.address.district }}
                       </td>
-                      <td>{{ getNextVisitDate(patient) }}</td>
                       <td>
                         <!-- <div v-if="!hasAssignee(patient)" class="badge badge-danger">Not Assigned</div> -->
-                        <div>{{ patient.selected_user.name }}</div>
+                        <div v-for="(selected_user, index) in patient.selected_users" :key="index">{{ selected_user.name }}</div>
                       </td>
-                      <td>{{ getCreatedDate(patient) }}</td>
+                      <td>{{ patient.body.center.name }}</td>
 
                       <td>
                         <div>
                           <button
-                            @click.prevent="assignUser(patient.selected_user, patient)"
+                            @click.prevent="assignUser(patient.selected_users, patient)"
                             class="btn btn-success btn-sm"
                           >
                             Confirm
@@ -111,7 +109,7 @@
                 No patients found
               </p>
             </div>
-            <nav
+            <!-- <nav
               aria-label="Page navigation pull-right"
               v-if="this.filteredList.length"
             >
@@ -137,6 +135,30 @@
                   </button>
                 </li>
               </ul>
+            </nav> -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination my-3">
+                <li class="page-item">
+                  <button
+                    type="button"
+                    class="page-link"
+                    v-if="paginationOptions.currentPage != 1" @click="paginationOptions.currentPage--"
+                    :disabled="disablePrevButton"
+                  >
+                    Prev
+                  </button>
+                </li>
+                <li class="page-item">
+                  <button
+                    type="button"
+                    @click="paginationOptions.currentPage++" v-if="paginationOptions.currentPage < paginationOptions.pages.length" 
+                    class="page-link"
+                    :disabled="disableNextButton"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
             </nav>
           </div>
         </div>
@@ -147,7 +169,18 @@
         </template>
         <div class="form-group">
           <label for="users">Select a user</label>
-          <select
+          <multiselect
+            v-model="selectedPatient.selected_users"
+            :options="users"
+            label="name"
+            track-by="uid"
+            :multiple="true"
+            :allow-empty="false"
+            :searchable="true"
+            select-label=""
+            deselect-label=""
+          ></multiselect>
+          <!-- <select
             v-model="selectedPatient.selected_user"
             name="users"
             id="users"
@@ -156,14 +189,14 @@
             <option v-for="(user, index) in users" :key="index" :value="user">{{
               user.name
             }}</option>
-          </select>
+          </select> -->
         </div>
 
         <template v-slot:modal-footer>
           <div class="w-100">
             <b-button
               @click.prevent="
-                assignUser(selectedPatient.selected_user, selectedPatient)
+                assignUser(selectedPatient.selected_users, selectedPatient)
               "
               variant="link"
               size="md"
@@ -188,10 +221,11 @@
 <script>
 import moment from "moment";
 import TopNavBar from "../../TopNavBar";
+import Multiselect from 'vue-multiselect';
 
 export default {
   name: "UnassignedPatientList",
-  components: { TopNavBar },
+  components: { TopNavBar, Multiselect },
   data() {
     return {
       patients: [],
@@ -207,9 +241,16 @@ export default {
       disableNextButton: false,
       paginationOptions: {
         currentPage: 1,
-        perPage: 30,
+        perPage: 20,
+        // totalItems: 500,
+        pages: []
       },
     };
+  },
+  watch: {
+    patients () {
+        this.setPages();
+    }
   },
   computed: {
     filteredList() {
@@ -225,8 +266,26 @@ export default {
         );
       });
     },
+    displayedPatients () {
+        return this.paginate(this.patients);
+    }
   },
   methods: {
+    setPages() {
+      let numberOfPages = Math.ceil(
+        this.patients.length / this.paginationOptions.perPage
+      );
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.paginationOptions.pages.push(index);
+      }
+    },
+    paginate (patients) {
+        let page = this.paginationOptions.currentPage;
+        let perPage = this.paginationOptions.perPage;
+        let from = (page * perPage) - perPage;
+        let to = (page * perPage);
+        return  patients.slice(from, to);
+    },
     scrollToTop() {
       window.scrollTo(0, 0);
     },
@@ -269,7 +328,9 @@ export default {
       this.selectedPatient = {};
       this.$bvModal.hide("modal-assign-user");
     },
-    assignUser(user, patient) {
+    assignUser(users, patient) {
+      console.log('selected', users);
+      return;
       this.$swal({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -280,32 +341,33 @@ export default {
         confirmButtonText: "Yes, confirm it!"
       }).then(result => {
         if (result.value) {
-            let loader = this.$loading.show();
-      this.$http
-        .post("care-plans/assign-user", {
-          patient_id: patient.id,
-          user_id: user.uid,
-        })
-        .then(response => {
-          loader.hide();
-          if (response.status == 201) {
-            if (this.patients.indexOf(patient) > -1) {
-              this.patients.splice(this.patients.indexOf(patient), 1);
-            }
-            // careplan.meta.assigned_to = user.uid;
-            this.selectedUser = {};
-            this.$bvModal.hide("modal-assign-user");
-            this.$forceUpdate();
-            this.$toast.open({ message: 'Patient assigned', type: 'success'})
-            return;
-          }
-          
-          this.$toast.open({ message: 'Failed to assign patient', type: 'error'});
-        })
-        .catch(error => {
-            console.log('error: ', error)
-            loader.hide();
-        });
+          // return;
+          let loader = this.$loading.show();
+          this.$http
+            .post("care-plans/assign-user", {
+              patient_id: patient.id,
+              users: users,
+            })
+            .then(response => {
+              loader.hide();
+              if (response.status == 201) {
+                if (this.patients.indexOf(patient) > -1) {
+                  this.patients.splice(this.patients.indexOf(patient), 1);
+                }
+                // careplan.meta.assigned_to = user.uid;
+                this.selectedUser = {};
+                this.$bvModal.hide("modal-assign-user");
+                this.$forceUpdate();
+                this.$toast.open({ message: 'Patient assigned', type: 'success'})
+                return;
+              }
+              
+              this.$toast.open({ message: 'Failed to assign patient', type: 'error'});
+            })
+            .catch(error => {
+                console.log('error: ', error)
+                loader.hide();
+            });
         }
       });
       // console.log("user ", user.uid);
@@ -399,6 +461,17 @@ export default {
     },
     async getPatients(lastItemId = "", queryItemkey = "last_item") {
       let loader = this.$loading.show();
+      let searchKey = "";
+      this.disablePrevButton = false;
+      this.disableNextButton = false;
+
+      if (this.search) {
+        if (isNaN(this.search)) {
+          searchKey = "&name=" + this.search;
+        } else {
+          searchKey = "&nid=" + this.search;
+        }
+      }
       await this.$http
         .get(
           "/patients?per_page=" +
@@ -406,7 +479,8 @@ export default {
             "&" +
             queryItemkey +
             "=" +
-            lastItemId
+            lastItemId +
+            searchKey
         )
         .then(
           (response) => {
@@ -445,35 +519,49 @@ export default {
               (!("assigned_to" in plan.meta) || plan.meta.assigned_to == "")
           );
           if (hasCarePlan) {
-            this.getNearestChw(patient);
+            this.getNearestAssignee(patient);
             patient.taskCreatedDate = hasCarePlan.meta.created_at;
             return patient;
           }
         }
       });
       this.patients = this.patients.map((patient) => {
-        patient.selected_user = this.getNearestChw(patient);
+        patient.selected_users = this.getNearestAssignee(patient);
         return patient;
       });
     },
-    getNearestChw(patient) {
-      let chw = {};
+    getNearestAssignee(patient) {
+      let assignee = [];
       if (this.users.length > 0) {
-        let user = this.users.find((user) => {
+        let chw = this.users.find((user) => {
           if (user.address) {
-            if (
-              user.address.upazila == patient.body.address.upazila &&
-              user.address.district == patient.body.address.district
+            if (user.role == 'chw' && typeof user.address.union != 'undefined' &&
+              typeof patient.body.address.union != 'undefined' &&
+              user.address.union == patient.body.address.union
             ) {
-              chw = user;
-              return chw;
-            } else if (user.address.district == patient.body.address.district) {
-              chw = user;
-            }
+              return user;
+              // assignee.push(user);
+              // return chw;
+            } 
+            // else if (user.address.district == patient.body.address.district) {
+            //   chw = user;
+            // }
           }
         });
+        if(typeof chw != 'undefined') {assignee.push(chw)};
+        let chcp = this.users.find((user) => {
+          if (user.address) {
+            if (user.role == 'chcp' && typeof user.address.union != 'undefined' &&
+              typeof patient.body.address.union != 'undefined' &&
+              user.address.union == patient.body.address.union
+            ) {
+              return user;
+            } 
+          }
+        });
+        if(typeof chcp != 'undefined') {assignee.push(chcp)};
       }
-      return chw;
+      return assignee;
     },
     async getCarePlans() {
       let loader = this.$loading.show();
@@ -492,6 +580,9 @@ export default {
     async initialData() {
       await this.getCarePlans();
       await this.getUsers();
+      if (this.$route.query.search && this.$route.query.search != undefined) {
+        this.search = this.$route.query.search;
+      }
       await this.getPatients();
     },
   },

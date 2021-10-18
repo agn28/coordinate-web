@@ -44,7 +44,6 @@
                 :fetch="getExportData"
                 :export-fields="exportFields"
                 type="csv"
-                header="Summery of Patient Data"
                 name="patients.csv"
               >
                 Export
@@ -132,7 +131,7 @@
                     v-if="paginationOptions.currentPage != 1" @click="paginationOptions.currentPage--"
                     :disabled="disablePrevButton"
                   >
-                    Previous
+                    Prev
                   </button>
                 </li>
                 <li class="page-item">
