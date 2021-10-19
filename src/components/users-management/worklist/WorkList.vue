@@ -189,7 +189,7 @@ export default {
         typeof careplan.meta != "undefined" &&
         typeof careplan.meta.assigned_to != "undefined"
       ) {
-        let user = this.users.find(u => careplan.meta.assigned_to == u.uid);
+        let user = this.users.find(u => careplan.meta.assigned_to.includes(u.uid));
 
         return user ? user.name : "None";
       }
@@ -223,7 +223,7 @@ export default {
         typeof careplan.meta != "undefined" &&
         typeof careplan.meta.assigned_to != "undefined"
       ) {
-        let user = this.users.find(u => careplan.meta.assigned_to == u.uid);
+        let user = this.users.find(u => careplan.meta.assigned_to.includes(u.uid));
 
         if (user) {
           this.selectedUser = user;

@@ -136,7 +136,7 @@ export default {
       }
       this.selectedAssignee = assignee;
       this.patients = this.patients.filter( patient => {
-        if (this.hasAssignee(patient) && patient.body.next_assignment.meta.assigned_to == assignee.uid) {
+        if (this.hasAssignee(patient) && patient.body.next_assignment.meta.assigned_to.includes(assignee.uid)) {
           return patient;
         }
       });
@@ -149,7 +149,7 @@ export default {
         if (this.users.length > 0) {
           this.patients.forEach( patient => {
             if (this.hasAssignee(patient)) {
-                let user = this.users.find( user => user.uid == patient.body.next_assignment.meta.assigned_to)
+                let user = this.users.find( user => patient.body.next_assignment.meta.assigned_to.includes(user.uid))
                 if (user && this.assignees.indexOf(user) == -1) {
                   this.assignees.push(user);
                 } 

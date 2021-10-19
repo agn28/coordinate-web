@@ -298,7 +298,7 @@ export default {
       this.patients = this.patients.filter((patient) => {
         if (
           this.hasAssignee(patient) &&
-          patient.body.next_assignment.meta.assigned_to == assignee.uid
+          patient.body.next_assignment.meta.assigned_to.includes(assignee.uid)
         ) {
           return patient;
         }
@@ -403,7 +403,7 @@ export default {
         this.patients.forEach((patient) => {
           // if (this.hasAssignee(patient)) {
           let user = this.users.find(
-            (user) => user.uid == patient.body.next_assignment.meta.assigned_to
+            (user) => patient.body.next_assignment.meta.assigned_to.includes(user.uid)
           );
           if (user && this.assignees.indexOf(user) == -1) {
             this.assignees.push(user);
@@ -516,7 +516,7 @@ export default {
           let hasCarePlan = this.carePlans.find(
             (plan) =>
               plan.body.patient_id == patient.id &&
-              (!("assigned_to" in plan.meta) || plan.meta.assigned_to == "")
+              (!("assigned_to" in plan.meta) || plan.meta.assigned_to == "" || plan.meta.assigned_to.length == 0)
           );
           if (hasCarePlan) {
             this.getNearestAssignee(patient);

@@ -70,7 +70,7 @@
                         <tr>
                           <th class="border-top-0">Action</th>
                           <th class="border-top-0">Generated On</th>
-                          <th class="border-top-0">Assigned To</th>
+                          <!-- <th class="border-top-0">Assigned To</th> -->
                           <th class="border-top-0">Completed At</th>
                           <th class="border-top-0">Status</th>
                           <th class="border-top-0">Outcome</th>
@@ -80,7 +80,7 @@
                         <tr v-for="(item, index) in previousData.careplan.activities" :key="index" v-if="item.category == 'survey'">
                           <td class="align-middle">{{ item.title }}</td>
                           <td class="text-center align-middle">{{ item.meta ? (item.meta.created_at ? getFormatedDate(item.meta.created_at._seconds) : 'N/A') : 'N/A'}}</td>
-                          <td>{{ item.meta ? (item.meta.assigned_to ? getUserName(item.meta.assigned_to) : 'N/A') : 'N/A'}}</td>
+                          <!-- <td>{{ item.meta ? (item.meta.assigned_to ? getUserName(item.meta.assigned_to) : 'N/A') : 'N/A'}}</td> -->
                           <td class="text-center align-middle">{{ item.meta ? (item.meta.completed_at ? getFormatedDate(item.meta.completed_at._seconds) : 'N/A') : 'N/A'}}</td>
                           <td class="text-capitalize">{{ item.meta ? (item.meta.status ? item.meta.status : 'N/A') : 'N/A'}}</td>
                           <td> {{ item.body ? (item.body.comment ? item.body.comment : 'N/A') : 'N/A' }}</td>

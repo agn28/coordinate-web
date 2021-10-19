@@ -220,9 +220,10 @@ export default {
     scrollToTop() {
       window.scrollTo(0,0);
     },
-    getUserName(id) {
-      let matchedUser = this.users.find(usr => usr.uid == id);
-      return matchedUser ? matchedUser.name : '';
+    getUserName(users_id) {
+      let matchedUser = '';
+      matchedUser = this.users.filter(user => users_id.includes(user.uid)).map(item => item.name);
+      return matchedUser.toString();
     },
     getUsers() {
         let loader = this.$loading.show();

@@ -172,7 +172,7 @@ export default {
   },
   computed: {
     assignTo: function() {
-      if (typeof this.carePlan.meta.assigned_to == "undefined") {
+      if (typeof this.carePlan.meta.assigned_to == "undefined" || this.carePlan.meta.assigned_to == '' || this.carePlan.meta.assigned_to.length == 0) {
         return "None";
       }
 
@@ -213,11 +213,13 @@ export default {
             this.users = response.data;
 
             if (
-              typeof this.carePlan.meta != "undefined" &&
-              typeof this.carePlan.meta.assigned_to != "undefined"
+              typeof this.carePlan.meta != "undefined" 
+              && typeof this.carePlan.meta.assigned_to != "undefined"
+              && (this.carePlan.meta.assigned_to != ''
+              || this.carePlan.meta.assigned_to.length != 0)
             ) {
               let user = this.users.find(
-                u => this.carePlan.meta.assigned_to == u.uid
+                u => this.carePlan.meta.assigned_to.includes(u.uid)
               );
 
               if (user) {

@@ -343,269 +343,223 @@ export default {
                   preparedRow.mobile = data.patient.body.mobile;
                   // this.exportFields["Provider Type"] = "provider_type";
                   // preparedRow.provider_type = data.reg.provider_type;
-                  data.assessments.forEach((assessment, assessmentIndex) => {
-                    // console.log('observations', assessment.observations);
-                    let visitNumber = "visit_number"+assessmentIndex;
-                    this.exportFields[("visit_number"+assessmentIndex)] = ("visit_number"+assessmentIndex);
-                    preparedRow[("visit_number"+assessmentIndex)] = assessment.body.type;
-                      //medical history
-                    let mhStroke = "Stroke"+assessmentIndex;
-                    this.exportFields[mhStroke] = mhStroke;
-                    preparedRow[mhStroke] =assessment.observations.stroke;
-                    let mhHa = "Heart Attack"+assessmentIndex;
-                    this.exportFields[mhHa] = mhHa;
-                    preparedRow[mhHa] =assessment.observations.heart_attack;
-                    let mhHtn = "Hypertension"+assessmentIndex;
-                    this.exportFields[mhHtn] = mhHtn;
-                    preparedRow[mhHtn] =assessment.observations.hypertension;
-                    let mhDiabetes = "Diabetes"+assessmentIndex;
-                    this.exportFields[mhDiabetes] = mhDiabetes;
-                    preparedRow[mhDiabetes] =assessment.observations.diabetes;
-                    let mhAsthma = "Asthma"+assessmentIndex;
-                    this.exportFields[mhAsthma] = mhAsthma;
-                    preparedRow[mhAsthma] =assessment.observations.asthma;
-                    let mhCancer= "Cancer"+assessmentIndex;
-                    this.exportFields[mhCancer] = mhCancer;
-                    preparedRow[mhCancer] =assessment.observations.cancer;
-                    let mhKd= "CKD"+assessmentIndex;
-                    this.exportFields[mhKd] = mhKd;
-                    preparedRow[mhKd] =assessment.observations.kidney_disease;
-                    //medications
-                    let medAspirin= "Aspirin"+assessmentIndex;
-                    this.exportFields[medAspirin] = medAspirin;
-                    preparedRow[medAspirin] =assessment.observations.aspirin_medicine;
-                    let medAspirinReg= "Aspirin Regular"+assessmentIndex;
-                    this.exportFields[medAspirinReg] = medAspirinReg;
-                    preparedRow[medAspirinReg] =assessment.observations.aspirin_regular_medicine;
-                    let medCholesterol= "Cholesterol"+assessmentIndex;
-                    this.exportFields[medCholesterol] = medCholesterol;
-                    preparedRow[medCholesterol] =assessment.observations.cholesterol_medicine;
-                    let medCholesterolReg= "Cholesterol Regular"+assessmentIndex;
-                    this.exportFields[medCholesterolReg] = medCholesterolReg;
-                    preparedRow[medCholesterolReg] =assessment.observations.cholesterol_regular_medicine;
-                    let medDiabetes= "Diabetes"+assessmentIndex;
-                    this.exportFields[medDiabetes] = medDiabetes;
-                    preparedRow[medDiabetes] =assessment.observations.diabetes_medicine;
-                    let medDiabetesReg= "Diabetes Regular"+assessmentIndex;
-                    this.exportFields[medDiabetesReg] = medDiabetesReg;
-                    preparedRow[medDiabetesReg] =assessment.observations.diabetes_regular_medicine;
-                    let medHtn= "HTN"+assessmentIndex;
-                    this.exportFields[medHtn] = medHtn;
-                    preparedRow[medHtn] =assessment.observations.hypertension_medicine;
-                    let medHtnReg= "HTN Regular"+assessmentIndex;
-                    this.exportFields[medHtnReg] = medHtnReg;
-                    preparedRow[medHtnReg] =assessment.observations.hypertension_regular_medicine;
-                    //risk factors
-                    let rfSmoke= "Smoking"+assessmentIndex;
-                    this.exportFields[rfSmoke] = rfSmoke;
-                    preparedRow[rfSmoke] =assessment.observations.smoking;
-                    let rfSmokeLess= "Smokeless Tobacco"+assessmentIndex;
-                    this.exportFields[rfSmokeLess] = rfSmokeLess;
-                    preparedRow[rfSmokeLess] =assessment.observations.smokeless_tobacco;
-                    let rfBetel= "Betel Nut"+assessmentIndex;
-                    this.exportFields[rfBetel] = rfBetel;
-                    preparedRow[rfBetel] =assessment.observations.betel_nut;
-                    let rfFruitVeg= "Fruits Vegetables"+assessmentIndex;
-                    this.exportFields[rfFruitVeg] = rfFruitVeg;
-                    preparedRow[rfFruitVeg] =assessment.observations.fruits_vegetables_daily;
-                    let rfSalt= "Extra Salt"+assessmentIndex;
-                    this.exportFields[rfSalt] = rfSalt;
-                    preparedRow[rfSalt] =assessment.observations.extra_salt;
-                    let rfSalty= "Salty Foods"+assessmentIndex;
-                    this.exportFields[rfSalty] = rfSalty;
-                    preparedRow[rfSalty] =assessment.observations.salty_foods;
-                    let rfSugary= "Sugary Drinks"+assessmentIndex;
-                    this.exportFields[rfSugary] = rfSugary;
-                    preparedRow[rfSugary] =assessment.observations.sugary_drinks;
-                    let rfProcessed= "Processed Foods"+assessmentIndex;
-                    this.exportFields[rfProcessed] = rfProcessed;
-                    preparedRow[rfProcessed] =assessment.observations.processed_foods;
-                    let rfMeat= "Red Meat"+assessmentIndex;
-                    this.exportFields[rfMeat] = rfMeat;
-                    preparedRow[rfMeat] =assessment.observations.red_meat;
-                    let rfActivityMod= "Physical Activity Moderate"+assessmentIndex;
-                    this.exportFields[rfActivityMod] = rfActivityMod;
-                    preparedRow[rfActivityMod] =assessment.observations.physical_activity_moderate;
-                    let rfActivityHigh= "Physical Activity High"+assessmentIndex;
-                    this.exportFields[rfActivityHigh] = rfActivityHigh;
-                    preparedRow[rfActivityHigh] =assessment.observations.physical_activity_high;
-                    let rfAlcohol= "Alcohol"+assessmentIndex;
-                    this.exportFields[rfAlcohol] = rfAlcohol;
-                    preparedRow[rfAlcohol] =assessment.observations.alcohol;
-                    //measurements
-                    let height= "Height"+assessmentIndex;
-                    this.exportFields[height] = height;
-                    preparedRow[height] =assessment.observations.height;
-                    let heightUnit= "Height Unit"+assessmentIndex;
-                    this.exportFields[heightUnit] = heightUnit;
-                    preparedRow[heightUnit] =assessment.observations.height_unit;
-                    let weight= "Weight"+assessmentIndex;
-                    this.exportFields[weight] = weight;
-                    preparedRow[weight] =assessment.observations.weight;
-                    let weightUnit= "Weight Unit"+assessmentIndex;
-                    this.exportFields[weightUnit] = weightUnit;
-                    preparedRow[weightUnit] =assessment.observations.weight_unit;
-                    let bmi= "BMI"+assessmentIndex;
-                    this.exportFields[bmi] = bmi;
-                    preparedRow[bmi] =assessment.observations.bmi;
-                    let rbs= "RBS"+assessmentIndex;
-                    this.exportFields[rbs] = rbs;
-                    preparedRow[rbs] =assessment.observations.rbs;
-                    let rbsUnit= "RBS Unit"+assessmentIndex;
-                    this.exportFields[rbsUnit] = rbsUnit;
-                    preparedRow[rbsUnit] =assessment.observations.rbs_unit;
-                    let fbs= "FBS"+assessmentIndex;
-                    this.exportFields[fbs] = fbs;
-                    preparedRow[fbs] =assessment.observations.fbs;
-                    let fbsUnit= "FBS Unit"+assessmentIndex;
-                    this.exportFields[fbsUnit] = fbsUnit;
-                    preparedRow[fbsUnit] =assessment.observations.fbs_unit;
-                    //relative problems
-                    let relativeStroke= "Family stroke"+assessmentIndex;
-                    this.exportFields[relativeStroke] = relativeStroke;
-                    preparedRow[relativeStroke] =assessment.observations.relative_stroke;
-                    let relativeHeartAttack= "Family Heart Attack"+assessmentIndex;
-                    this.exportFields[relativeHeartAttack] = relativeHeartAttack;
-                    preparedRow[relativeHeartAttack] =assessment.observations.relative_heart_attack;
-                    let relativeHtn= "Family HTN"+assessmentIndex;
-                    this.exportFields[relativeHtn] = relativeHtn;
-                    preparedRow[relativeHtn] =assessment.observations.relative_hypertension;
-                    let relativeDiabetes= "Family Diabetes"+assessmentIndex;
-                    this.exportFields[relativeDiabetes] = relativeDiabetes;
-                    preparedRow[relativeDiabetes] =assessment.observations.relative_diabetes;
-                    let relativeAsthma= "Family Asthma"+assessmentIndex;
-                    this.exportFields[relativeAsthma] = relativeAsthma;
-                    preparedRow[relativeAsthma] =assessment.observations.relative_asthma;
-                    let relativeCancer= "Family Cancer"+assessmentIndex;
-                    this.exportFields[relativeCancer] = relativeCancer;
-                    preparedRow[relativeCancer] =assessment.observations.relative_cancer;
-                    //Personal Info
-                    let religion= "Religion"+assessmentIndex;
-                    this.exportFields[religion] = religion;
-                    preparedRow[religion] = assessment.observations.religion;
-                    let occupation= "Occupation"+assessmentIndex;
-                    this.exportFields[occupation] = occupation;
-                    preparedRow[occupation] = assessment.observations.occupation;
-                    let income= "Income"+assessmentIndex;
-                    this.exportFields[income] = income;
-                    preparedRow[income] = assessment.observations.income;
-                    let blood_group= "Blood Group"+assessmentIndex;
-                    this.exportFields[blood_group] = blood_group;
-                    preparedRow[blood_group] = assessment.observations.blood_group;
-                    let education= "Education"+assessmentIndex;
-                    this.exportFields[education] = education;
-                    preparedRow[education] = assessment.observations.education;
-                    let ethnicity= "Ethnicity"+assessmentIndex;
-                    this.exportFields[ethnicity] = ethnicity;
-                    preparedRow[ethnicity] = assessment.observations.ethnicity;
-                    //   Counselling
-                    let counsellingSmoking= "Counselling Smoking"+assessmentIndex;
-                    this.exportFields[counsellingSmoking] = counsellingSmoking;
-                    preparedRow[counsellingSmoking] =assessment.observations.counselling_smoking;
-                    let counsellingSmokeless= "Counselling Smokeless"+assessmentIndex;
-                    this.exportFields[counsellingSmokeless] = counsellingSmokeless;
-                    preparedRow[counsellingSmokeless] =assessment.observations.counselling_smokeless_tobacco;
-                    let counsellingFruitsVegetables= "Counselling Fruits Vegetables Intake"+assessmentIndex;
-                    this.exportFields[counsellingFruitsVegetables] = counsellingFruitsVegetables;
-                    preparedRow[counsellingFruitsVegetables] =assessment.observations.counselling_fruits_vegetables_daily;
-                    let counsellingSalt= "Counselling Extra Salt"+assessmentIndex;
-                    this.exportFields[counsellingSalt] = counsellingSalt;
-                    preparedRow[counsellingSalt] =assessment.observations.counselling_extra_salt;
-                    let counsellingSugary= "Counselling Sugary Item"+assessmentIndex;
-                    this.exportFields[counsellingSugary] = counsellingSugary;
-                    preparedRow[counsellingSugary] =assessment.observations.counselling_sugary_drinks;
-                    let counsellingProcessed= "Counselling Processed Foods"+assessmentIndex;
-                    this.exportFields[counsellingProcessed] = counsellingProcessed;
-                    preparedRow[counsellingProcessed] =assessment.observations.counselling_processed_foods;
-                    let counsellingMeat= "Counselling Red Meat"+assessmentIndex;
-                    this.exportFields[counsellingMeat] = counsellingMeat;
-                    preparedRow[counsellingMeat] =assessment.observations.counselling_red_meat;
-                    let counsellingActivity= "Counselling Physical Inactivity"+assessmentIndex;
-                    this.exportFields[counsellingActivity] = counsellingActivity;
-                    preparedRow[counsellingActivity] =assessment.observations.counselling_physical_activity_moderate;
-                    let counsellingAlcohol= "Counselling Alcohol"+assessmentIndex;
-                    this.exportFields[counsellingAlcohol] = counsellingAlcohol;
-                    preparedRow[counsellingAlcohol] =assessment.observations.counselling_alcohol;
-                    let counsellingMed= "Counselling Medicine Adherence"+assessmentIndex;
-                    this.exportFields[counsellingMed] = counsellingMed;
-                    preparedRow[counsellingMed] =assessment.observations.counselling_medical_adherence;
+                  //medical history
+                    // this.exportFields["Chw_stroke_0"] = "chw_stroke_0";
+                    // preparedRow[chw_stroke_0] = data.chw_enrollment.observations.stroke;
+                    // this.exportFields["Chw_heart_attack_0"] = "chw_heart_attack_0";
+                    // preparedRow[chw_heart_attack_0] = data.chw_enrollment.observations.heart_attack;
+                    // this.exportFields["Chw_hypertension_0"] = "chw_hypertension_0";
+                    // preparedRow[chw_hypertension_0] = data.chw_enrollment.observations.hypertension;
+                    // this.exportFields["Chw_diabetes_0"] = "chw_diabetes_0";
+                    // preparedRow[chw_diabetes_0] = data.chw_enrollment.observations.diabetes;
+                    // this.exportFields["Chw_asthma_0"] = "chw_asthma_0";
+                    // preparedRow[chw_asthma_0] = data.chw_enrollment.observations.asthma;
+                    // this.exportFields["Chw_cancer_0"] = "chw_cancer_0";
+                    // preparedRow[chw_cancer_0] = data.chw_enrollment.observations.cancer;
+                    // this.exportFields["Chw_ckd_0"] = "chw_ckd_0";
+                    // preparedRow[chw_ckd_0] = data.chw_enrollment.observations.kidney_disease;
 
-                    // this.exportFields["Start Date"] = "start_date";
-                    // let created_at = assessment.meta.created_at ? this.getFormatedDate(assessment.meta.created_at) : '';
-                    // preparedRow.start_date = created_at;
-                    // let rowData = {
-                    //   assessment_name: assessment.body.type,
-                    //   assessment_created_at: created_at,
-                    //   //measurements
-                    //   bp: assessment.observations.bp,
-                    //   height: assessment.observations.height,
-                    //   weight: assessment.observations.weight,
-                    //   waist: assessment.observations.waist,
-                    //   hip: assessment.observations.hip,
-                    //   bmi: assessment.observations.bmi,
-                    //   rbs: assessment.observations.bs,
-                    //   fbs: assessment.observations.bg,
-                    //   habf: assessment.observations.habf,
-                    //   a1c: assessment.observations.a1c,
-                    //   total_cholesterol: assessment.observations.total_cholesterol,
-                    //   ldl: assessment.observations.ldl,
-                    //   hdl: assessment.observations.hdl,
-                    //   tg: assessment.observations.tg,
-                    //   creatinine: assessment.observations.creatinine,
-                    //   sodium: assessment.observations.sodium,
-                    //   potassium: assessment.observations.potassium,
-                    //   ketones: assessment.observations.ketones,
-                    //   protein: assessment.observations.protein,
-                    //   //medical history
-                    //   stroke: assessment.observations.stroke,
-                    //   heart_attack: assessment.observations.heart_attack,
-                    //   hypertension: assessment.observations.hypertension,
-                    //   diabetes: assessment.observations.diabetes,
-                    //   asthma: assessment.observations.asthma,
-                    //   cancer: assessment.observations.cancer,
-                    //   kidney_disease: assessment.observations.kidney_disease,
-                    //   //medications
-                    //   aspirin_medicine: assessment.observations.aspirin_medicine,
-                    //   aspirin_regular_medicine: assessment.observations.aspirin_regular_medicine,
-                    //   cholesterol_medicine: assessment.observations.cholesterol_medicine,
-                    //   cholesterol_regular_medicine: assessment.observations.cholesterol_regular_medicine,
-                    //   diabetes_medicine: assessment.observations.diabetes_medicine,
-                    //   diabetes_regular_medicine: assessment.observations.diabetes_regular_medicine,
-                    //   hypertension_medicine: assessment.observations.hypertension_medicine,
-                    //   hypertension_regular_medicine: assessment.observations.hypertension_regular_medicine,
-                    //   //risk factors
-                    //   smoking: assessment.observations.smoking,
-                    //   smokeless_tobacco: assessment.observations.smokeless_tobacco,
-                    //   betel_nut: assessment.observations.betel_nut,
-                    //   fruits_vegetables_daily: assessment.observations.fruits_vegetables_daily,
-                    //   extra_salt: assessment.observations.extra_salt,
-                    //   salty_foods: assessment.observations.salty_foods,
-                    //   sugary_drinks: assessment.observations.sugary_drinks,
-                    //   processed_foods: assessment.observations.processed_foods,
-                    //   red_meat: assessment.observations.red_meat,
-                    //   physical_activity_moderate: assessment.observations.physical_activity_moderate,
-                    //   physical_activity_high: assessment.observations.physical_activity_high,
-                    //   alcohol: assessment.observations.alcohol,
-                    //   //counselling
-                    //   counselling_smoking: assessment.observations.counselling_smoking,
-                    //   counselling_smokeless_tobacco: assessment.observations.counselling_smokeless_tobacco,
-                    //   counselling_fruits_vegetables_daily: assessment.observations.counselling_fruits_vegetables_daily,
-                    //   counselling_extra_salt: assessment.observations.counselling_extra_salt,
-                    //   counselling_sugary_drinks: assessment.observations.counselling_sugary_drinks,
-                    //   counselling_processed_foods: assessment.observations.counselling_processed_foods,
-                    //   counselling_red_meat: assessment.observations.counselling_red_meat,
-                    //   counselling_physical_activity_moderate: assessment.observations.counselling_physical_activity_moderate,
-                    //   counselling_alcohol: assessment.observations.counselling_alcohol,
-                    //   counselling_medical_adherence: assessment.observations.counselling_medical_adherence,
-                    //   //relative problems
-                    //   relative_stroke: assessment.observations.relative_stroke,
-                    //   relative_heart_attack: assessment.observations.relative_heart_attack,
-                    //   relative_hypertension: assessment.observations.relative_hypertension,
-                    //   relative_diabetes: assessment.observations.relative_diabetes,
-                    //   relative_asthma: assessment.observations.relative_asthma,
-                    //   relative_cancer: assessment.observations.relative_cancer,
-                    // };
+                  // data.assessments.forEach((assessment, assessmentIndex) => {
+                  // Recording First enrollments of a patient
+                  let assessmentKeys = Object.keys(data.assessments[0]);
+                  assessmentKeys.forEach((key) => {
+                    let prefix = '';
+                    let assessment = data.assessments[0][key];
+                    if (key == 'chw_enrollment') {
+                      prefix = 'chw_';
+                    } else if (key == 'chcp_enrollment') {
+                      prefix = 'chcp_';
+                    } else if (key == 'nurse_enrollment') {
+                      prefix = 'nurse_';
+                    }
+                    let visitDate = prefix+"Visit Date_0";
+                    this.exportFields[visitDate] = visitDate;
+                    preparedRow[visitDate] = typeof assessment.meta == 'undefined' ||  typeof assessment.meta.created_at == 'undefined' ? '' : this.getFormatedDate(assessment.meta.created_at);
+
+                    //medical history
+                    let mhStroke = prefix+"Stroke_0";
+                    this.exportFields[mhStroke] = mhStroke;
+                    preparedRow[mhStroke] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.stroke == 'undefined' ? '' : assessment.observations.stroke;
+                    let mhHa = prefix+"Heart Attack_0";
+                    this.exportFields[mhHa] = mhHa;
+                    preparedRow[mhHa] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.heart_attack == 'undefined' ? '' :  assessment.observations.heart_attack;
+                    let mhHtn = prefix+"Hypertension_0";
+                    this.exportFields[mhHtn] = mhHtn;
+                    preparedRow[mhHtn] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.hypertension == 'undefined' ? '' :  assessment.observations.hypertension;
+                    let mhDiabetes = prefix+"Diabetes_0";
+                    this.exportFields[mhDiabetes] = mhDiabetes;
+                    preparedRow[mhDiabetes] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.diabetes == 'undefined' ? '' :  assessment.observations.diabetes;
+                    let mhAsthma = prefix+"Asthma_0";
+                    this.exportFields[mhAsthma] = mhAsthma;
+                    preparedRow[mhAsthma] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.asthma == 'undefined' ? '' :  assessment.observations.asthma;
+                    let mhCancer= prefix+"Cancer_0";
+                    this.exportFields[mhCancer] = mhCancer;
+                    preparedRow[mhCancer] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.cancer == 'undefined' ? '' :  assessment.observations.cancer;
+                    let mhKd= prefix+"CKD_0";
+                    this.exportFields[mhKd] = mhKd;
+                    preparedRow[mhKd] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.kidney_disease == 'undefined' ? '' :  assessment.observations.kidney_disease;
+                    //medications
+                    let medAspirin= prefix+"Aspirin_0";
+                    this.exportFields[medAspirin] = medAspirin;
+                    preparedRow[medAspirin] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.aspirin_medicine == 'undefined' ? '' :  assessment.observations.aspirin_medicine;
+                    let medAspirinReg= prefix+"Aspirin Regular_0";
+                    this.exportFields[medAspirinReg] = medAspirinReg;
+                    preparedRow[medAspirinReg] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.aspirin_regular_medicine == 'undefined' ? '' :  assessment.observations.aspirin_regular_medicine;
+                    let medCholesterol= prefix+"Cholesterol_0";
+                    this.exportFields[medCholesterol] = medCholesterol;
+                    preparedRow[medCholesterol] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.cholesterol_medicine == 'undefined' ? '' :  assessment.observations.cholesterol_medicine;
+                    let medCholesterolReg= prefix+"Cholesterol Regular_0";
+                    this.exportFields[medCholesterolReg] = medCholesterolReg;
+                    preparedRow[medCholesterolReg] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.cholesterol_regular_medicine == 'undefined' ? '' :  assessment.observations.cholesterol_regular_medicine;
+                    let medDiabetes= prefix+"Diabetes_0";
+                    this.exportFields[medDiabetes] = medDiabetes;
+                    preparedRow[medDiabetes] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.diabetes_medicine == 'undefined' ? '' :  assessment.observations.diabetes_medicine;
+                    let medDiabetesReg= prefix+"Diabetes Regular_0";
+                    this.exportFields[medDiabetesReg] = medDiabetesReg;
+                    preparedRow[medDiabetesReg] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.diabetes_regular_medicine == 'undefined' ? '' :  assessment.observations.diabetes_regular_medicine;
+                    let medHtn= prefix+"HTN_0";
+                    this.exportFields[medHtn] = medHtn;
+                    preparedRow[medHtn] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.hypertension_medicine == 'undefined' ? '' :  assessment.observations.hypertension_medicine;
+                    let medHtnReg= prefix+"HTN Regular_0";
+                    this.exportFields[medHtnReg] = medHtnReg;
+                    preparedRow[medHtnReg] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.hypertension_regular_medicine == 'undefined' ? '' :  assessment.observations.hypertension_regular_medicine;
+                    //risk factors
+                    let rfSmoke= prefix+"Smoking_0";
+                    this.exportFields[rfSmoke] = rfSmoke;
+                    preparedRow[rfSmoke] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.smoking == 'undefined' ? '' :  assessment.observations.smoking;
+                    let rfSmokeLess= prefix+"Smokeless Tobacco_0";
+                    this.exportFields[rfSmokeLess] = rfSmokeLess;
+                    preparedRow[rfSmokeLess] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.smokeless_tobacco == 'undefined' ? '' :  assessment.observations.smokeless_tobacco;
+                    let rfBetel= prefix+"Betel Nut_0";
+                    this.exportFields[rfBetel] = rfBetel;
+                    preparedRow[rfBetel] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.betel_nut == 'undefined' ? '' :  assessment.observations.betel_nut;
+                    let rfFruitVeg= prefix+"Fruits Vegetables_0";
+                    this.exportFields[rfFruitVeg] = rfFruitVeg;
+                    preparedRow[rfFruitVeg] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.fruits_vegetables_daily == 'undefined' ? '' :  assessment.observations.fruits_vegetables_daily;
+                    let rfSalt= prefix+"Extra Salt_0";
+                    this.exportFields[rfSalt] = rfSalt;
+                    preparedRow[rfSalt] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.extra_salt == 'undefined' ? '' :  assessment.observations.extra_salt;
+                    let rfSalty= prefix+"Salty Foods_0";
+                    this.exportFields[rfSalty] = rfSalty;
+                    preparedRow[rfSalty] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.salty_foods == 'undefined' ? '' :  assessment.observations.salty_foods;
+                    let rfSugary= prefix+"Sugary Drinks_0";
+                    this.exportFields[rfSugary] = rfSugary;
+                    preparedRow[rfSugary] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.sugary_drinks == 'undefined' ? '' :  assessment.observations.sugary_drinks;
+                    let rfProcessed= prefix+"Processed Foods_0";
+                    this.exportFields[rfProcessed] = rfProcessed;
+                    preparedRow[rfProcessed] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.processed_foods == 'undefined' ? '' :  assessment.observations.processed_foods;
+                    let rfMeat= prefix+"Red Meat_0";
+                    this.exportFields[rfMeat] = rfMeat;
+                    preparedRow[rfMeat] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.red_meat == 'undefined' ? '' :  assessment.observations.red_meat;
+                    let rfActivityMod= prefix+"Physical Activity Moderate_0";
+                    this.exportFields[rfActivityMod] = rfActivityMod;
+                    preparedRow[rfActivityMod] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.physical_activity_moderate == 'undefined' ? '' :  assessment.observations.physical_activity_moderate;
+                    let rfActivityHigh= prefix+"Physical Activity High_0";
+                    this.exportFields[rfActivityHigh] = rfActivityHigh;
+                    preparedRow[rfActivityHigh] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.physical_activity_high == 'undefined' ? '' :  assessment.observations.physical_activity_high;
+                    let rfAlcohol= prefix+"Alcohol_0";
+                    this.exportFields[rfAlcohol] = rfAlcohol;
+                    preparedRow[rfAlcohol] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.alcohol == 'undefined' ? '' :  assessment.observations.alcohol;
+                    //measurements
+                    let height= prefix+"Height_0";
+                    this.exportFields[height] = height;
+                    preparedRow[height] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.height == 'undefined' ? '' :  assessment.observations.height;
+                    let heightUnit= prefix+"Height Unit_0";
+                    this.exportFields[heightUnit] = heightUnit;
+                    preparedRow[heightUnit] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.height_unit == 'undefined' ? '' :  assessment.observations.height_unit;
+                    let weight= prefix+"Weight_0";
+                    this.exportFields[weight] = weight;
+                    preparedRow[weight] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.weight == 'undefined' ? '' :  assessment.observations.weight;
+                    let weightUnit= prefix+"Weight Unit_0";
+                    this.exportFields[weightUnit] = weightUnit;
+                    preparedRow[weightUnit] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.weight_unit == 'undefined' ? '' :  assessment.observations.weight_unit;
+                    let bmi= prefix+"BMI_0";
+                    this.exportFields[bmi] = bmi;
+                    preparedRow[bmi] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.bmi == 'undefined' ? '' :  assessment.observations.bmi;
+                    let rbs= prefix+"RBS_0";
+                    this.exportFields[rbs] = rbs;
+                    preparedRow[rbs] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.rbs == 'undefined' ? '' :  assessment.observations.rbs;
+                    let rbsUnit= prefix+"RBS Unit_0";
+                    this.exportFields[rbsUnit] = rbsUnit;
+                    preparedRow[rbsUnit] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.rbs_unit == 'undefined' ? '' :  assessment.observations.rbs_unit;
+                    let fbs= prefix+"FBS_0";
+                    this.exportFields[fbs] = fbs;
+                    preparedRow[fbs] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.fbs == 'undefined' ? '' :  assessment.observations.fbs;
+                    let fbsUnit= prefix+"FBS Unit_0";
+                    this.exportFields[fbsUnit] = fbsUnit;
+                    preparedRow[fbsUnit] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.fbs_unit == 'undefined' ? '' :  assessment.observations.fbs_unit;
+                    //relative problems
+                    let relativeStroke= prefix+"Family stroke_0";
+                    this.exportFields[relativeStroke] = relativeStroke;
+                    preparedRow[relativeStroke] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.relative_stroke == 'undefined' ? '' :  assessment.observations.relative_stroke;
+                    let relativeHeartAttack= prefix+"Family Heart Attack_0";
+                    this.exportFields[relativeHeartAttack] = relativeHeartAttack;
+                    preparedRow[relativeHeartAttack] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.relative_heart_attack == 'undefined' ? '' :  assessment.observations.relative_heart_attack;
+                    let relativeHtn= prefix+"Family HTN_0";
+                    this.exportFields[relativeHtn] = relativeHtn;
+                    preparedRow[relativeHtn] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.relative_hypertension == 'undefined' ? '' :  assessment.observations.relative_hypertension;
+                    let relativeDiabetes= prefix+"Family Diabetes_0";
+                    this.exportFields[relativeDiabetes] = relativeDiabetes;
+                    preparedRow[relativeDiabetes] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.relative_diabetes == 'undefined' ? '' :  assessment.observations.relative_diabetes;
+                    let relativeAsthma= prefix+"Family Asthma_0";
+                    this.exportFields[relativeAsthma] = relativeAsthma;
+                    preparedRow[relativeAsthma] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.relative_asthma == 'undefined' ? '' :  assessment.observations.relative_asthma;
+                    let relativeCancer= prefix+"Family Cancer_0";
+                    this.exportFields[relativeCancer] = relativeCancer;
+                    preparedRow[relativeCancer] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.relative_cancer == 'undefined' ? '' :  assessment.observations.relative_cancer;
+                    //Personal Info
+                    let religion= prefix+"Religion_0";
+                    this.exportFields[religion] = religion;
+                    preparedRow[religion] =  typeof assessment.observations == 'undefined' ||  typeof assessment.observations.religion == 'undefined' ? '' :  assessment.observations.religion;
+                    let occupation= prefix+"Occupation_0";
+                    this.exportFields[occupation] = occupation;
+                    preparedRow[occupation] =  typeof assessment.observations == 'undefined' ||  typeof assessment.observations.occupation == 'undefined' ? '' :  assessment.observations.occupation;
+                    let income= prefix+"Income_0";
+                    this.exportFields[income] = income;
+                    preparedRow[income] =  typeof assessment.observations == 'undefined' ||  typeof assessment.observations.income == 'undefined' ? '' :  assessment.observations.income;
+                    let blood_group= prefix+"Blood Group_0";
+                    this.exportFields[blood_group] = blood_group;
+                    preparedRow[blood_group] =  typeof assessment.observations == 'undefined' ||  typeof assessment.observations.blood_group == 'undefined' ? '' :  assessment.observations.blood_group;
+                    let education= prefix+"Education_0";
+                    this.exportFields[education] = education;
+                    preparedRow[education] =  typeof assessment.observations == 'undefined' ||  typeof assessment.observations.education == 'undefined' ? '' :  assessment.observations.education;
+                    let ethnicity= prefix+"Ethnicity_0";
+                    this.exportFields[ethnicity] = ethnicity;
+                    preparedRow[ethnicity] =  typeof assessment.observations == 'undefined' ||  typeof assessment.observations.ethnicity == 'undefined' ? '' :  assessment.observations.ethnicity;
+                    //   Counselling
+                    let counsellingSmoking= prefix+"Counselling Smoking_0";
+                    this.exportFields[counsellingSmoking] = counsellingSmoking;
+                    preparedRow[counsellingSmoking] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_smoking == 'undefined' ? '' :  assessment.observations.counselling_smoking;
+                    let counsellingSmokeless= prefix+"Counselling Smokeless_0";
+                    this.exportFields[counsellingSmokeless] = counsellingSmokeless;
+                    preparedRow[counsellingSmokeless] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_smokeless_tobacco == 'undefined' ? '' :  assessment.observations.counselling_smokeless_tobacco;
+                    let counsellingFruitsVegetables= prefix+"Counselling Fruits Vegetables Intake_0";
+                    this.exportFields[counsellingFruitsVegetables] = counsellingFruitsVegetables;
+                    preparedRow[counsellingFruitsVegetables] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_fruits_vegetables_daily == 'undefined' ? '' :  assessment.observations.counselling_fruits_vegetables_daily;
+                    let counsellingSalt= prefix+"Counselling Extra Salt_0";
+                    this.exportFields[counsellingSalt] = counsellingSalt;
+                    preparedRow[counsellingSalt] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_extra_salt == 'undefined' ? '' :  assessment.observations.counselling_extra_salt;
+                    let counsellingSugary= prefix+"Counselling Sugary Item_0";
+                    this.exportFields[counsellingSugary] = counsellingSugary;
+                    preparedRow[counsellingSugary] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_sugary_drinks == 'undefined' ? '' :  assessment.observations.counselling_sugary_drinks;
+                    let counsellingProcessed= prefix+"Counselling Processed Foods_0";
+                    this.exportFields[counsellingProcessed] = counsellingProcessed;
+                    preparedRow[counsellingProcessed] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_processed_foods == 'undefined' ? '' :  assessment.observations.counselling_processed_foods;
+                    let counsellingMeat= prefix+"Counselling Red Meat_0";
+                    this.exportFields[counsellingMeat] = counsellingMeat;
+                    preparedRow[counsellingMeat] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_red_meat == 'undefined' ? '' :  assessment.observations.counselling_red_meat;
+                    let counsellingActivity= prefix+"Counselling Physical Inactivity_0";
+                    this.exportFields[counsellingActivity] = counsellingActivity;
+                    preparedRow[counsellingActivity] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_physical_activity_moderate == 'undefined' ? '' :  assessment.observations.counselling_physical_activity_moderate;
+                    let counsellingAlcohol= prefix+"Counselling Alcohol_0";
+                    this.exportFields[counsellingAlcohol] = counsellingAlcohol;
+                    preparedRow[counsellingAlcohol] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_alcohol == 'undefined' ? '' :  assessment.observations.counselling_alcohol;
+                    let counsellingMed= prefix+"Counselling Medicine Adherence_0";
+                    this.exportFields[counsellingMed] = counsellingMed;
+                    preparedRow[counsellingMed] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.counselling_medical_adherence == 'undefined' ? '' :  assessment.observations.counselling_medical_adherence;
+
                   });
+                  
                   if(typeof data.careplans != 'undefined') {
                     data.careplans.body.diagnosis.forEach((diag, diagIndex) => {
                       let diagTitle = "Diagnosis"+diagIndex;
