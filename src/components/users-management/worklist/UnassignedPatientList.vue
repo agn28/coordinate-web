@@ -532,35 +532,37 @@ export default {
     },
     getNearestAssignee(patient) {
       let assignee = [];
-      if (this.users.length > 0) {
-        let chw = this.users.find((user) => {
-          if (user.address) {
-            if (user.role == 'chw' && typeof user.address.union != 'undefined' &&
-              typeof patient.body.address.union != 'undefined' &&
-              user.address.union == patient.body.address.union
-            ) {
-              return user;
-              // assignee.push(user);
-              // return chw;
-            } 
-            // else if (user.address.district == patient.body.address.district) {
-            //   chw = user;
-            // }
-          }
-        });
-        if(typeof chw != 'undefined') {assignee.push(chw)};
-        let chcp = this.users.find((user) => {
-          if (user.address) {
-            if (user.role == 'chcp' && typeof user.address.union != 'undefined' &&
-              typeof patient.body.address.union != 'undefined' &&
-              user.address.union == patient.body.address.union
-            ) {
-              return user;
-            } 
-          }
-        });
-        if(typeof chcp != 'undefined') {assignee.push(chcp)};
-      }
+      // if (this.users.length > 0) {
+        // let chw = this.users.find((user) => {
+        //   if (user.address) {
+        //     if (user.role == 'chw' && typeof user.address.union != 'undefined' &&
+        //       typeof patient.body.address.union != 'undefined' &&
+        //       user.address.union == patient.body.address.union
+      //       ) {
+      //         return user;
+      //         // assignee.push(user);
+      //         // return chw;
+      //       } 
+      //       // else if (user.address.district == patient.body.address.district) {
+      //       //   chw = user;
+      //       // }
+      //     }
+      //   });
+      //   if(typeof chw != 'undefined') {assignee.push(chw)};
+      //   let chcp = this.users.find((user) => {
+      //     if (user.address) {
+      //       if (user.role == 'chcp' && typeof user.address.union != 'undefined' &&
+      //         typeof patient.body.address.union != 'undefined' &&
+      //         user.address.union == patient.body.address.union
+      //       ) {
+      //         return user;
+      //       } 
+      //     }
+      //   });
+      //   if(typeof chcp != 'undefined') {assignee.push(chcp)};
+      // }
+      let chcp1 = this.users.find((user) => user.name == 'CHCP1');
+      if(typeof chcp1 != 'undefined') {assignee.push(chcp1)};
       return assignee;
     },
     async getCarePlans() {
