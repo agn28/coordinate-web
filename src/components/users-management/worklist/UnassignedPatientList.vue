@@ -533,11 +533,11 @@ export default {
     getNearestAssignee(patient) {
       let assignee = [];
       // if (this.users.length > 0) {
-        // let chw = this.users.find((user) => {
-        //   if (user.address) {
-        //     if (user.role == 'chw' && typeof user.address.union != 'undefined' &&
-        //       typeof patient.body.address.union != 'undefined' &&
-        //       user.address.union == patient.body.address.union
+      //   let chw = this.users.find((user) => {
+      //     if (user.address) {
+      //       if (user.role == 'chw' && typeof user.address.union != 'undefined' &&
+      //         typeof patient.body.address.union != 'undefined' &&
+      //         user.address.union == patient.body.address.union
       //       ) {
       //         return user;
       //         // assignee.push(user);

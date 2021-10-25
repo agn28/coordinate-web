@@ -313,6 +313,8 @@ export default {
                   var preparedRow = {};
                   this.exportFields["Patient Name"] = "patient_name";
                   preparedRow.patient_name = data.patient.body.first_name+' '+data.patient.body.last_name;
+                  this.exportFields["Registered On"] = "registered_on";
+                  preparedRow.registered_on = typeof data.patient.meta == 'undefined' ||  typeof data.patient.meta.created_at == 'undefined' ? '' : this.getFormatedDate(data.patient.meta.created_at);
                   this.exportFields["Village Name"] = "village_name";
                   preparedRow.village_name = data.patient.body.address.village;
                   this.exportFields["Village Code"] = "village_code";
@@ -593,12 +595,12 @@ export default {
                   });
 
                   if(typeof data.careplans != 'undefined') {
-                    let followupDateChw = "followupDate_Chw";
-                    this.exportFields[followupDateChw] = followupDateChw;
-                    preparedRow[followupDateChw] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[0].date : '';
                     let followupDateCc = "followupDate_Cc";
                     this.exportFields[followupDateCc] = followupDateCc;
-                    preparedRow[followupDateCc] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[1].date : '';
+                    preparedRow[followupDateCc] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[0].date : '';
+                    let followupDateNurse = "followupDate_Nurse";
+                    this.exportFields[followupDateNurse] = followupDateNurse;
+                    preparedRow[followupDateNurse] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[1].date : '';
                   }
                   
                   this.preparedExportData.push(preparedRow);
