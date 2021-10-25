@@ -413,7 +413,7 @@ export default {
                     let medCholesterolReg= prefix+"Cholesterol Regular_0";
                     this.exportFields[medCholesterolReg] = medCholesterolReg;
                     preparedRow[medCholesterolReg] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.cholesterol_regular_medicine == 'undefined' ? '' :  assessment.observations.cholesterol_regular_medicine;
-                    let medDiabetes= prefix+"Diabetes_0";
+                    let medDiabetes= prefix+"Diabetes Med_0";
                     this.exportFields[medDiabetes] = medDiabetes;
                     preparedRow[medDiabetes] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.diabetes_medicine == 'undefined' ? '' :  assessment.observations.diabetes_medicine;
                     let medDiabetesReg= prefix+"Diabetes Regular_0";
