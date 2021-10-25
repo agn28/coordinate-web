@@ -563,6 +563,10 @@ export default {
       // }
       let chcp1 = this.users.find((user) => user.name == 'CHCP1');
       if(typeof chcp1 != 'undefined') {assignee.push(chcp1)};
+      if(typeof patient.meta.collected_by != 'undefined' && patient.meta.collected_by != '') {
+        let chw = this.users.find((user) => user.uid == patient.meta.collected_by);
+        assignee.push(chw);
+      }
       return assignee;
     },
     async getCarePlans() {
