@@ -721,7 +721,7 @@ export default {
       isInvestigationMsg: false,
       newDiagnosis: [],
       diagnosis: {},
-      diagnosisList: ['lupus', 'diabetes', 'bronchitis', 'hypertension', 'cancer', 'Ciliac', 'Scleroderma', 'Abulia', 'Agraphia', 'Chorea', 'Coma'],
+      diagnosisList: ['lupus', 'diabetes', 'bronchitis', 'hypertension', 'cancer', 'Ciliac', 'Scleroderma', 'Abulia', 'Agraphia', 'Chorea', 'Coma', 'Bronchial Asthma', 'COPD'],
       isDiagnosisMsg: false,
       lastEncounter: null,
       lastReports: null,
