@@ -562,18 +562,25 @@ export default {
 
                   });
                   
-                  if(typeof data.careplans != 'undefined') {
-                    data.careplans.body.diagnosis.forEach((diag, diagIndex) => {
-                      let diagTitle = "Diagnosis"+diagIndex;
+                  data.careplans.forEach((careplan, careplanIndex) => {
+                    console.log('careplan', careplan);
+                    careplan.body.diagnosis.forEach((diag, diagIndex) => {
+                      let diagTitle = "Careplan"+careplanIndex+" Diagnosis"+diagIndex;
                       this.exportFields[diagTitle] = diagTitle;
                       preparedRow[diagTitle] = diag.name;
                     });
-                    data.careplans.body.investigations.forEach((investigation, investigationIndex) => {
-                      let investigationTitle = "Investigation"+investigationIndex;
+                    careplan.body.investigations.forEach((investigation, investigationIndex) => {
+                      let investigationTitle = "Careplan"+careplanIndex+" Investigation"+investigationIndex;
                       this.exportFields[investigationTitle] = investigationTitle;
                       preparedRow[investigationTitle] = investigation;
                     });
-                  }
+                    let followupDateCc = "Careplan"+careplanIndex+" followupDate_Cc";
+                    this.exportFields[followupDateCc] = followupDateCc;
+                    preparedRow[followupDateCc] = typeof careplan.body.follow_up_info !='undefined' ? careplan.body.follow_up_info[0].date : '';
+                    let followupDateNurse = "Careplan"+careplanIndex+" followupDate_Nurse";
+                    this.exportFields[followupDateNurse] = followupDateNurse;
+                    preparedRow[followupDateNurse] = typeof careplan.body.follow_up_info !='undefined' ? careplan.body.follow_up_info[1].date : '';
+                  });
 
                   data.medications.forEach((med, medIndex) => {
                     let medTitle = "Medication"+medIndex+" Name";
@@ -593,15 +600,6 @@ export default {
                     this.exportFields[medTime] = medTime;
                     preparedRow[medTime] = timeStr;
                   });
-
-                  if(typeof data.careplans != 'undefined') {
-                    let followupDateCc = "followupDate_Cc";
-                    this.exportFields[followupDateCc] = followupDateCc;
-                    preparedRow[followupDateCc] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[0].date : '';
-                    let followupDateNurse = "followupDate_Nurse";
-                    this.exportFields[followupDateNurse] = followupDateNurse;
-                    preparedRow[followupDateNurse] = typeof data.careplans.body.follow_up_info !='undefined' ? data.careplans.body.follow_up_info[1].date : '';
-                  }
                   
                   this.preparedExportData.push(preparedRow);
                 });
