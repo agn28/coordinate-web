@@ -518,7 +518,7 @@ export default {
         id: this.assessment_id
       };
       
-      this.$http.post("/assessments/except-oha", data).then(response => {
+      this.$http.post("/assessments/except-oha-mongo", data).then(response => {
         if (response.status == 201) {
           // this.saveInvestigation(created_at, this.assessment_id);
           this.saveDiagonosis(created_at, this.assessment_id);

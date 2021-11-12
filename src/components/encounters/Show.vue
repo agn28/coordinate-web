@@ -704,7 +704,7 @@ export default {
     },
 
     getLastEncounter() {
-      this.$http.get("/assessments/patients/" + this.patientId + "/last").then(
+      this.$http.get("/assessments/patients/" + this.patientId + "/last-mongo").then(
         (response) => {
           if (response.status == 200) {
             this.lastEncounter = response.data.data;

@@ -239,7 +239,7 @@ export default {
       );
     },
     getCarePlans() {
-      this.$http.get("/care-plans/patient/" + this.patientId).then(
+      this.$http.get("/care-plans/patient/mongo/" + this.patientId).then(
         (response) => {
           if (response.status == 200 && !response.data.error && response.data.error === false) {
             // console.log(response, 'carePlans');

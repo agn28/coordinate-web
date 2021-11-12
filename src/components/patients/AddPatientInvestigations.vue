@@ -347,7 +347,7 @@ export default {
         id: this.assessment_id
       };
       
-      this.$http.post("/assessments/except-oha", data).then(response => { 
+      this.$http.post("/assessments/except-oha-mongo", data).then(response => { 
         let loader = this.$loading.show();
         if (response.status == 200) {
           this.addBloodPressure();

@@ -156,7 +156,7 @@ export default {
       let query = "?type=review_required&per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey;
 
       //TODO: add query to request
-      this.$http.get("/patients" + query).then(
+      this.$http.get("/patients/all-mongo" + query).then(
         (response) => {
           if (response.status == 200) {
            

@@ -123,7 +123,7 @@
             },
             getCarePlans() {
                 let loader = this.$loading.show();
-                this.$http.get("/care-plans/patient/" + this.patientId, ).then(
+                this.$http.get("/care-plans/patient/mongo/" + this.patientId, ).then(
                     response => {
                     if (response.status == 200) {
                         this.carePlans = response.data.data;

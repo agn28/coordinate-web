@@ -239,7 +239,7 @@ export default {
     },
     lastGeneratedCareplans() {
       let loader = this.$loading.show();
-      this.$http.get("/care-plans/patient/" + this.patientId).then(
+      this.$http.get("/care-plans/patient/mongo/" + this.patientId).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
@@ -478,7 +478,7 @@ export default {
         id: this.assessment_id
       };
       
-      this.$http.post("/assessments/except-oha", data).then(response => {
+      this.$http.post("/assessments/except-oha-mongo", data).then(response => {
         if (response.status == 201) {
           this.saveInvestigation(created_at, this.assessment_id);
           this.saveDiagonosis(created_at, this.assessment_id);

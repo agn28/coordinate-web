@@ -1291,7 +1291,7 @@ export default {
       window.scrollTo(0, 0);
     },
     getGeneratedCareplans() {
-      this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
+      this.$http.get("/generated-care-plans/patient-mongo/" + this.patientId).then(
         (response) => {
           if (response.status == 200) {
             if (response.data.data) {
@@ -1347,7 +1347,7 @@ export default {
 
     getMedicationsByPatient() {
       let loader = this.$loading.show();
-      this.$http.get("/patients/" + this.patientId + "/medications").then(
+      this.$http.get("/patients/" + this.patientId + "/medications-mongo").then(
         (response) => {
           loader.hide();
           if (response.status == 201) {
@@ -1505,7 +1505,7 @@ export default {
     getLastReport() {
       let loader = this.$loading.show();
       this.$http
-        .get("/health-reports/patient/" + this.patientId + "/last")
+        .get("/health-reports/patient/" + this.patientId + "/last-mongo")
         .then(
           (response) => {
             loader.hide();
@@ -1574,11 +1574,12 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients/" + this.patientId).then(
+      this.$http.get("/patients/mongo/" + this.patientId).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
             this.patient = response.data.data;
+            console.log('pat', this.patient);
           }
         },
         (error) => {
@@ -1588,7 +1589,7 @@ export default {
     },
 
     getLastEncounter() {
-      this.$http.get("/assessments/patients/" + this.patientId + "/last").then(
+      this.$http.get("/assessments/patients/" + this.patientId + "/last-mongo").then(
         (response) => {
           if (response.status == 200) {
             this.lastEncounter = response.data.data;
@@ -1627,7 +1628,7 @@ export default {
     getObservations() {
       let loader = this.$loading.show();
       let encounters = this.encounters;
-      this.$http.get("/patients/" + this.patientId + "/observations").then(
+      this.$http.get("/patients/" + this.patientId + "/observations-mongo").then(
         (response) => {
           loader.hide();
 
@@ -2036,7 +2037,7 @@ export default {
       );
     },
     getCarePlanReport() {
-      this.$http.get("/care-plans/patient/" + this.patientId + "/all").then(
+      this.$http.get("/care-plans/patient/" + this.patientId + "/all-mongo").then(
         (response) => {
           this.pendingInvestigations = [];
           if (response.status == 200) {
@@ -2066,13 +2067,14 @@ export default {
 
     getLastRiskFactors() {
       this.$http
-        .get("/observations/patient/" + this.patientId + "/last-risk-factors")
+        .get("/observations/patient/" + this.patientId + "/last-risk-factors-mongo")
         .then(
           (response) => {
             this.pendingInvestigations = [];
             if (response.status == 200) {
               if (response.data.data) {
                 this.riskFactors = response.data.data;
+                console.log('this.riskFactors', this.riskFactors);
               }
             }
           },
@@ -2110,24 +2112,27 @@ export default {
         }
       }
     },
+    async initialData() {
+      this.patientId = this.$route.params.patientId;
+      await this.getPatients();
+      await this.getLastRiskFactors();
+      await this.getObservations();
+      await this.prepareBpConditions();
+      // this.getCarePlans();
+      await this.getLastEncounter();
+      await this.getNote();
+      await this.getCarePlanReport();
+      await this.getGeneratedCareplans();
+      await this.getLastReport();
+      await this.getMedicationsByPatient();
+      await this.getUsers();
+    }
   },
   created() {},
 
   mounted() {
-    this.patientId = this.$route.params.patientId;
-    this.getPatients();
-    this.getObservations();
-    this.prepareBpConditions();
-    // this.getCarePlans();
-    this.getLastEncounter();
-    this.getNote();
-    this.getCarePlanReport();
-    this.getGeneratedCareplans();
-    this.getLastRiskFactors();
-    this.getLastReport();
     this.scrollToTop();
-    this.getMedicationsByPatient();
-    this.getUsers();
+    this.initialData();
   },
   computed: {
     user() {

@@ -817,7 +817,7 @@ export default {
 
     getMedicationsByPatient() {
       let loader = this.$loading.show();
-      this.$http.get("/patients/" + this.patientId + "/medications").then(
+      this.$http.get("/patients/" + this.patientId + "/medications-mongo").then(
         (response) => {
           loader.hide();
           if (response.status == 201) {
@@ -963,7 +963,7 @@ export default {
       this.$refs.elCloseDiagnosis.click();
     },
     getGeneratedCareplans() {
-      this.$http.get("/generated-care-plans/patient/" + this.patientId).then(
+      this.$http.get("/generated-care-plans/patient-mongo/" + this.patientId).then(
         (response) => {
           if (response.status == 200) {
             if(response.data.data) {
@@ -976,7 +976,7 @@ export default {
     },
 
     lastGeneratedCareplans() {
-      this.$http.get("/care-plans/patient/" + this.patientId).then(
+      this.$http.get("/care-plans/patient/mongo" + this.patientId).then(
         (response) => {
           
           if (response.status == 200) {
@@ -1058,7 +1058,7 @@ export default {
       this.$router.push({ name: 'carePlanReview', params: { patientId: this.patientId } } );
     },
     getLastEncounter() {
-      this.$http.get("/assessments/patients/" + this.patientId + "/last").then(
+      this.$http.get("/assessments/patients/" + this.patientId + "/last-mongo").then(
         (response) => {
           if (response.status == 200) {
             if(response.data.data.meta.created_at) {
