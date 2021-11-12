@@ -1484,7 +1484,8 @@ export default {
     },
     getDate(encounter) {
       let date = "";
-      if (encounter.meta.created_at) {
+      console.log('encounter', encounter);
+      if (typeof encounter.meta != 'undefined') {
         date = moment(encounter.meta.created_at).format("Do MMMM YYYY");
       }
       return date;
