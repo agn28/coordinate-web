@@ -715,7 +715,7 @@ export default {
     },
 
     getEncounter() {
-      this.$http.get("/assessments/" + this.encounterId).then(
+      this.$http.get("/assessments/mongo/" + this.encounterId).then(
         (response) => {
           if (response.status == 200) {
             this.encounter = response.data.data;
@@ -728,7 +728,7 @@ export default {
     getObservations() {
       let loader = this.$loading.show();
       let encounters = this.encounters;
-      this.$http.get("/assessments/" + this.encounterId + "/observations").then(
+      this.$http.get("/assessments/" + this.encounterId + "/observations-mongo").then(
         (response) => {
           loader.hide();
           if (response.status == 200) {

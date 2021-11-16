@@ -202,7 +202,7 @@ export default {
     },
     getEncounters() {
       let loader = this.$loading.show();
-      this.$http.get(`/patients/${this.patientId}/assessments`).then(
+      this.$http.get(`/patients/${this.patientId}/assessments-mongo`).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
