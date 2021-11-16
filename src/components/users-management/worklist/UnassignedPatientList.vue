@@ -571,7 +571,7 @@ export default {
     },
     async getCarePlans() {
       let loader = this.$loading.show();
-      await this.$http.get("/care-plans").then(
+      await this.$http.get("/care-plans/mongo").then(
         (response) => {
           if (response.status == 200) {
             this.carePlans = response.data.data;

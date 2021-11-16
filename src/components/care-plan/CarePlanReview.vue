@@ -284,7 +284,7 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients/" + this.patientId).then(
+      this.$http.get("/patients/mongo/" + this.patientId).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
@@ -304,7 +304,7 @@ export default {
       return date;
     },
     getHealthReport() {
-      this.$http.get('/health-reports/' + this.reviewId).then(response => {
+      this.$http.get('/health-reports/mongo/' + this.reviewId).then(response => {
         if (response.status == 200) {
           this.allData = response.data;
 
@@ -368,7 +368,7 @@ export default {
       //TODO: work from here
 
 
-      this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
+      this.$http.put('/health-reports/mongo/' + this.reviewId, this.allData.data).then( response => {
         loader.hide();
         this.isLoading = false;
         if (response.status == 200 ) {
@@ -385,7 +385,7 @@ export default {
               created_at: new Date()
             }
 
-            this.$http.post('/patients/' + this.patientId + "/medications", medicationData).then( response => {
+            this.$http.post('/patients/' + this.patientId + "/medications-mongo", medicationData).then( response => {
               this.isLoading = false;
               if (response.status == 200 ) {
 
@@ -536,7 +536,7 @@ export default {
     saveDiagonosis(created_at, assesment_id) {
       if (this.newDiagnosis.length > 0) {
         let data = this.prepareDiagnosisData(this.user.uid, created_at, 'survey', this.patientId, assesment_id);
-        this.$http.post("/observations", data).then(response => {
+        this.$http.post("/observations/create-mongo", data).then(response => {
         }).catch(error => { console.log(error) });
 
       }

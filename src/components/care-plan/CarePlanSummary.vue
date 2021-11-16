@@ -335,7 +335,7 @@ export default {
     
 
     getHealthReport() {
-      this.$http.get('/health-reports/' + this.reviewId).then(response => {
+      this.$http.get('/health-reports/mongo/' + this.reviewId).then(response => {
         if (response.status == 200) {
           this.allData = response.data;
 

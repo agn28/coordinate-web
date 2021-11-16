@@ -774,7 +774,7 @@ export default {
     },
     getHealthReport() {
       this.isLoading = true;
-      this.$http.post('/health-reports/generate/' + this.patientId).then(response => {
+      this.$http.post('/health-reports/generate/mongo/' + this.patientId).then(response => {
         console.log(response, 'health response')
         this.isLoading = false;
         if (response.status == 200) {
@@ -802,7 +802,7 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients/" + this.patientId).then(
+      this.$http.get("/patients/mongo/" + this.patientId).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
@@ -976,7 +976,7 @@ export default {
     },
 
     lastGeneratedCareplans() {
-      this.$http.get("/care-plans/patient/mongo" + this.patientId).then(
+      this.$http.get("/care-plans/patient/mongo/" + this.patientId).then(
         (response) => {
           
           if (response.status == 200) {

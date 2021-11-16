@@ -1301,7 +1301,7 @@ export default {
     },
     patientHealthRecord() {
       let loader = this.$loading.show();
-      this.$http.get("/health-reports/" + this.review_id).then((response) => {
+      this.$http.get("/health-reports/mongo/" + this.review_id).then((response) => {
         if (response.status == 200) {
           this.allData = response.data;
           this.assessment = response.data.data.body.result;

@@ -454,7 +454,7 @@
         let loader = this.$loading.show();
 
         this.$http
-          .post("/health-reports/generate/" + this.patientId)
+          .post("/health-reports/generate/mongo" + this.patientId)
           .then(response => {
               loader.hide();
               if (!response.data.error) {

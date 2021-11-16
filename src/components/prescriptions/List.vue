@@ -174,7 +174,7 @@ export default {
         }
       }
 
-      this.$http.get("/patients/prescriptions?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId  + searchKey).then(
+      this.$http.get("/patients/prescriptions-mongo?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId  + searchKey).then(
         (response) => {
           console.log(response);
           if (response.status == 200) {
