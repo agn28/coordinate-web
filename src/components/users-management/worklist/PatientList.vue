@@ -204,7 +204,7 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients/all-mongo").then(
+      this.$http.get("/patients/work-list-mongo").then(
         response => {
           if (response.status == 200) {
             this.patients = response.data.data;

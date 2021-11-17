@@ -903,7 +903,7 @@ export default {
       let loader = this.$loading.show();
       query = query || {};
       //TODO: add query params to request
-      this.$http.get("/stats/summary", { params: query }).then(
+      this.$http.get("/stats/summary-mongo", { params: query }).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {

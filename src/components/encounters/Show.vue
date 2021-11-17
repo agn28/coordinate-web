@@ -719,6 +719,7 @@ export default {
         (response) => {
           if (response.status == 200) {
             this.encounter = response.data.data;
+            console.log('this.encounter', this.encounter);
           }
         },
         (error) => {}
