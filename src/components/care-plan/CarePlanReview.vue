@@ -188,6 +188,15 @@
               </div>
             </div>
         </div>
+        <div class="row mb-3">
+            <!-- care plan generation date -->
+            <div class="col-md-6">
+              <div class="card tab-card mb-3 card-blue-header">
+                <div class="card-header">Care Plan Generation Date</div>
+                  <div class="cc-follow-up-date p-3" v-if="careplanDate">Date: {{ moment(careplanDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
+              </div>
+            </div>
+        </div>
 
         <div class="text-center  py-3">
             <!-- <a href="javascript:void(0)" @click="$router.go(-1)" class="text-secondary " > <i class="fa fa-arrow-left text-secondary" ></i> Back to reivew</a> -->
@@ -232,6 +241,7 @@ export default {
       ccFollowUpDate: null,
       chwFollowUpPlace: null,
       ccFollowUpPlace: null,
+      careplanDate: moment().format("YYYY-MM-DD"),
       assessment_id: null,
       medications: [],
       newMedications: [],
@@ -362,11 +372,12 @@ export default {
       }));
       // this.allData.data.body.removed_counsellings = this.removedCounsellings.concat(counsellings);
       this.allData.data.body.removed_counsellings = counsellings;
+
+      this.allData.data.meta.created_at = this.careplanDate;
       
       this.saveObservationData();
 
       //TODO: work from here
-
 
       this.$http.put('/health-reports/mongo/' + this.reviewId, this.allData.data).then( response => {
         loader.hide();
@@ -410,6 +421,7 @@ export default {
           localStorage.removeItem('cc_follow_up_date');
           localStorage.removeItem('chw_follow_up_place')
           localStorage.removeItem('cc_follow_up_place');
+          localStorage.removeItem('care_plan_date');
           localStorage.removeItem('patientId');
           
           this.$router.push({ name: 'patients'});
@@ -619,6 +631,7 @@ export default {
     this.ccFollowUpDate = localStorage.getItem('cc_follow_up_date');
     this.chwFollowUpPlace = localStorage.getItem('chw_follow_up_place');
     this.ccFollowUpPlace = localStorage.getItem('cc_follow_up_place');
+    this.careplanDate = localStorage.getItem('care_plan_date');
     this.prepareData();
     this.getPatients();
     this.scrollToTop();

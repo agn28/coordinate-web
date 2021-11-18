@@ -416,6 +416,25 @@
             </div>
           </div>
 
+          <!-- Care plan date -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="card tab-card mb-3 card-blue-header">
+                <div class="card-header">Care plan generation date</div>
+                <div class="mb-2 p-3">
+                  <input
+                    type="date"
+                    v-model="careplanDate"
+                    class="form-control"
+                    :max="maxDate"
+                  />
+                </div>
+              </div>
+                    
+            </div>
+          </div>
+          
+
           <div class="text-center py-3 mb-3" v-if="!missingData && !isLoading">
               <button class="btn btn-primary px-5 radious-0" @click="proceed">Proceed To Confirmation</button>
           </div>
@@ -599,6 +618,8 @@ export default {
   },
   data() {
     return {
+      maxDate: "",
+      careplanDate: moment().format("YYYY-MM-DD"),
       missingData: false,
       cvdRisk: {},
       patientId: '',
@@ -1026,7 +1047,9 @@ export default {
       if (this.ccFollowUpPlace) {
         localStorage.setItem('cc_follow_up_place', this.ccFollowUpPlace);
       }
-
+      if (this.careplanDate) {
+        localStorage.setItem('care_plan_date', this.careplanDate);
+      }
       this.allData.careplan.activities = this.allData.careplan.activities
       
       this.allData.careplan.activities.forEach(activity => {
@@ -1185,6 +1208,7 @@ export default {
     this.prepareData();
     this.scrollToTop();
     this.getUsers();
+    this.maxDate = moment().format("YYYY-MM-DD");
   },
   
   created() {},

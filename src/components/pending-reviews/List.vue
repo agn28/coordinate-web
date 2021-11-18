@@ -22,6 +22,7 @@
                   placeholder="Patient Name, ID, NID"
                   aria-label="Search"
                   v-model="search"
+                  @keyup.enter="getPatients('', 'last_item')"
                 />
                 <div class="input-group-prepend">
                   <a href="javascript:void(0)" @click="getPatients('', 'last_item')" class="input-group-text lighten-3 text-decoration-none" id="basic-text1">
