@@ -237,8 +237,8 @@ export default {
       newDiagnosis: [],
       investigations: [],
       reviewId: '',
-      chwFollowUpDate: null,
-      ccFollowUpDate: null,
+      chwFollowUpDate: moment().format("YYYY-MM-DD"),
+      ccFollowUpDate: moment().format("YYYY-MM-DD"),
       chwFollowUpPlace: null,
       ccFollowUpPlace: null,
       careplanDate: moment().format("YYYY-MM-DD"),
@@ -415,8 +415,6 @@ export default {
           localStorage.removeItem('removedCounsellings');
           localStorage.removeItem('medications');
           localStorage.removeItem('newMedications');
-          localStorage.removeItem('chwSelectedFollowup');
-          localStorage.removeItem('ccSelectedFollowup');
           localStorage.removeItem('chw_follow_up_date')
           localStorage.removeItem('cc_follow_up_date');
           localStorage.removeItem('chw_follow_up_place')

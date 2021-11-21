@@ -295,7 +295,7 @@ export default {
           searchKey = "&nid=" + this.search;
         }
       }
-      await this.$http.get("/exports/patients?"+ queryItemkey + "=" + lastItemId + searchKey)
+      await this.$http.get("/exports/patients-mongo?"+ queryItemkey + "=" + lastItemId + searchKey)
         .then(
           (response) => {
             if (response.status == 200) {

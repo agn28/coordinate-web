@@ -323,46 +323,19 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">Community Center Follow Up</div>
-                <div class="follow-up p-3">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="chw_follow_up" value="1w" id="one-week" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
-                      <label class="form-check-label" for="one-week">1 week</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="chw_follow_up" value="2w" id="two-week" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
-                      <label class="form-check-label" for="two-week">2 weeks</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="chw_follow_up" value="1m" id="one-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
-                      <label class="form-check-label" for="one-month">1 month</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="chw_follow_up" value="3m" id="three-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
-                      <label class="form-check-label" for="three-month">3 months</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="chw_follow_up" value="6m" id="six-month" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
-                      <label class="form-check-label" for="six-month">6 months</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="chw_follow_up" value="1y" id="one-year" v-on:change="generateChwFollowUpDate" v-model="chwSelectedFollowup">
-                      <label class="form-check-label" for="one-year">1 year</label>
-                    </div>
-
-                    <div class="chw-follow-up-date mt-3" v-if="chwFollowUpDate"><b>Follow up date:</b> {{  moment(chwFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
-                    <div class="mt-3">
-                        <label for="place">Place</label>
-                        <input type="text" class="form-control" name="place" placeholder="Place" v-model="chwFollowUpPlace" required/>
-                        <!-- <multiselect
-                          v-model="chwFollowUpPlace"
-                          :options="times"
-                          :allow-empty="false"
-                          :searchable="true"
-                            select-label=""
-                            deselect-label=""
-                        ></multiselect> -->
-                    </div>
+                <div class="mb-2 p-3">
+                  <label for="place">Date</label>
+                  <input
+                    type="date"
+                    v-model="chwFollowUpDate"
+                    class="form-control"
+                    :min="maxDate"
+                  />
+                  <div class="mt-3">
+                      <label for="place">Place</label>
+                      <input type="text" class="form-control" name="place" placeholder="Place" v-model="chwFollowUpPlace" required/>
                   </div>
+                </div>
               </div>
                     
             </div>
@@ -371,46 +344,19 @@
             <div class="col-md-6">
               <div class="card tab-card mb-3 card-blue-header">
                 <div class="card-header">NCD Center Follow up</div>
-                <div class="follow-up p-3">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="cc_follow_up" value="1w" id="one-week" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
-                      <label class="form-check-label" for="one-week">1 week</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="cc_follow_up" value="2w" id="two-week" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
-                      <label class="form-check-label" for="two-week">2 weeks</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="cc_follow_up" value="1m" id="one-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
-                      <label class="form-check-label" for="one-month">1 month</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="cc_follow_up" value="3m" id="three-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
-                      <label class="form-check-label" for="three-month">3 months</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="cc_follow_up" value="6m" id="six-month" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
-                      <label class="form-check-label" for="six-month">6 months</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="cc_follow_up" value="1y" id="one-year" v-on:change="generateCcFollowUpDate" v-model="ccSelectedFollowup">
-                      <label class="form-check-label" for="one-year">1 year</label>
-                    </div>
-
-                    <div class="cc-follow-up-date mt-3" v-if="ccFollowUpDate"><b>Follow up date:</b> {{  moment(ccFollowUpDate, 'YYYY-MM-DD').format('DD MMM YYYY') }}</div>
-                    <div class="mt-3">
-                        <label for="place">Place</label>
-                        <input type="text" class="form-control" name="place" placeholder="Place" v-model="ccFollowUpPlace" required/>
-                        <!-- <multiselect
-                          v-model="ccFollowUpPlace"
-                          :options="times"
-                          :allow-empty="false"
-                          :searchable="true"
-                            select-label=""
-                            deselect-label=""
-                        ></multiselect> -->
-                    </div>
+                <div class="mb-2 p-3">
+                  <label for="place">Date</label>
+                  <input
+                    type="date"
+                    v-model="ccFollowUpDate"
+                    class="form-control"
+                    :min="maxDate"
+                  />
+                  <div class="mt-3">
+                    <label for="place">Place</label>
+                    <input type="text" class="form-control" name="place" placeholder="Place" v-model="ccFollowUpPlace" required/>
                   </div>
+                </div>
               </div>
                     
             </div>
@@ -747,10 +693,8 @@ export default {
       lastEncounter: null,
       lastReports: null,
       lastCareplans: [],
-      chwFollowUpDate: '',
-      ccFollowUpDate: '',
-      chwSelectedFollowup:  null,
-      ccSelectedFollowup:  null,
+      chwFollowUpDate: moment().format("YYYY-MM-DD"),
+      ccFollowUpDate: moment().format("YYYY-MM-DD"),
       chwFollowUpPlace: '',
       ccFollowUpPlace: '',
       removedCounsellings: [],
@@ -1070,8 +1014,6 @@ export default {
       })
 
       localStorage.setItem('report', JSON.stringify(this.allData));
-      localStorage.setItem('chwSelectedFollowup', this.chwSelectedFollowup);
-      localStorage.setItem('ccSelectedFollowup', this.ccSelectedFollowup);
       localStorage.setItem('removedCounsellings', JSON.stringify(this.removedCounsellings));
       localStorage.setItem('patientId', this.patientId);
       localStorage.setItem('investigations', JSON.stringify(this.investigations));
@@ -1092,44 +1034,6 @@ export default {
         (error) => {}
       );
     },
-    generateChwFollowUpDate() {
-      if (this.chwSelectedFollowup) {
-        let days = '';
-
-        let dateStr = this.chwSelectedFollowup.split(/(\d+)/).filter(Boolean);
-        if (dateStr[1] == 'w') {
-          days = parseInt(dateStr[0]) * 7;
-        }
-
-        if (dateStr[1] == 'm') {
-          days = parseInt(dateStr[0]) * 30;
-        }
-
-        if (dateStr[1] == 'y') {
-          days = parseInt(dateStr[0]) * 365;
-        } 
-        this.chwFollowUpDate =  moment().add(days, 'days').format('YYYY-MM-DD');
-      };
-    },
-    generateCcFollowUpDate() {
-      if (this.ccSelectedFollowup) {
-        let days = '';
-
-        let dateStr = this.ccSelectedFollowup.split(/(\d+)/).filter(Boolean);
-        if (dateStr[1] == 'w') {
-          days = parseInt(dateStr[0]) * 7;
-        }
-
-        if (dateStr[1] == 'm') {
-          days = parseInt(dateStr[0]) * 30;
-        }
-
-        if (dateStr[1] == 'y') {
-          days = parseInt(dateStr[0]) * 365;
-        } 
-        this.ccFollowUpDate =  moment().add(days, 'days').format('YYYY-MM-DD');
-      };
-    },
 
     prepareData() {
       this.getDrugs();
@@ -1146,8 +1050,6 @@ export default {
         let localInvestigations = localStorage.getItem('investigations');
         this.chwFollowUpDate = localStorage.getItem('chw_follow_up_date');
         this.ccFollowUpDate = localStorage.getItem('cc_follow_up_date');
-        this.chwSelectedFollowup = localStorage.getItem('chwSelectedFollowup');
-        this.ccSelectedFollowup = localStorage.getItem('ccSelectedFollowup');
         this.chwFollowUpPlace = localStorage.getItem('chw_follow_up_place');
         this.ccFollowUpPlace = localStorage.getItem('cc_follow_up_place');
         let localMedications = localStorage.getItem('medications');
