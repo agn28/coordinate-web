@@ -84,6 +84,30 @@
                 </tbody>
               </table>
             </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination my-3">
+                <li class="page-item">
+                  <button
+                    type="button"
+                    class="page-link"
+                    v-if="paginationOptions.currentPage != 1" @click="paginationOptions.currentPage--"
+                    :disabled="disablePrevButton"
+                  >
+                    Prev
+                  </button>
+                </li>
+                <li class="page-item">
+                  <button
+                    type="button"
+                    @click="paginationOptions.currentPage++" v-if="paginationOptions.currentPage < paginationOptions.pages.length" 
+                    class="page-link"
+                    :disabled="disableNextButton"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -104,14 +128,22 @@ export default {
       allPatients: [],
       users: [],
       search: "",
+      paginationOptions: {
+        currentPage: 1,
+        perPage: 20,
+        // totalItems: 500,
+        pages: []
+      },
       assignees: [],
       selectedAssignee: '',
-      carePlans: []
+      carePlans: [],
+      disablePrevButton: false,
+      disableNextButton: false,
     };
   },
   computed: {
     filteredList() {
-      return this.patients.filter(patient => {
+      return this.paginate(this.patients.filter((patient) => {
         return (
           patient.body.first_name
             .toLowerCase()
@@ -121,10 +153,30 @@ export default {
             .includes(this.search.toLowerCase()) ||
           patient.body.nid.toString().includes(this.search.toLowerCase())
         );
-      });
+      }));
+    }
+  },
+  watch: {
+    patients () {
+        this.setPages();
     }
   },
   methods: {
+    paginate (patients) {
+        let page = this.paginationOptions.currentPage;
+        let perPage = this.paginationOptions.perPage;
+        let from = (page * perPage) - perPage;
+        let to = (page * perPage);
+        return  patients.slice(from, to);
+    },
+    setPages() {
+      let numberOfPages = Math.ceil(
+        this.patients.length / this.paginationOptions.perPage
+      );
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.paginationOptions.pages.push(index);
+      }
+    },
     scrollToTop() {
       window.scrollTo(0,0);
     },

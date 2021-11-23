@@ -21,17 +21,11 @@
                   placeholder="Patient Name, ID, NID"
                   aria-label="Search"
                   v-model="search"
-                  @keyup.enter="getPatients('', 'last_item')"
                 />
                 <div class="input-group-prepend">
-                  <a
-                    href="javascript:void(0)"
-                    @click="getPatients('', 'last_item')"
-                    class="input-group-text lighten-3 text-decoration-none"
-                    id="btn-search"
-                  >
+                  <span class="input-group-text lighten-3" id="basic-text1">
                     <i class="fas fa-search" aria-hidden="true"></i>
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>
@@ -74,7 +68,7 @@
                 <tbody>
                   <tr
                     class="pointer bg-white tr-border-bttom-grey"
-                    v-for="(patient, index) in displayedPatients"
+                    v-for="(patient, index) in filteredList"
                     :key="index"
                     @click="
                       $router.push({
@@ -251,7 +245,7 @@ export default {
   },
   computed: {
     filteredList() {
-      return this.patients.filter((patient) => {
+      return this.paginate(this.patients.filter((patient) => {
         return (
           patient.body.first_name
             .toLowerCase()
@@ -261,10 +255,10 @@ export default {
             .includes(this.search.toLowerCase()) ||
           patient.body.nid.toString().includes(this.search.toLowerCase())
         );
-      });
+      }));
     },
     displayedPatients () {
-        return this.paginate(this.patients);
+      return this.paginate(this.patients);
     }
   },
   watch: {
@@ -715,9 +709,9 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.search && this.$route.query.search != undefined) {
-      this.search = this.$route.query.search;
-    }
+    // if (this.$route.query.search && this.$route.query.search != undefined) {
+    //   this.search = this.$route.query.search;
+    // }
     this.getPatients();
     this.scrollToTop();
   },
