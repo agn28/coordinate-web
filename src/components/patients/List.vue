@@ -595,6 +595,18 @@ export default {
                     preparedRow[medTime] = timeStr;
                   });
                   
+                  data.referrals.forEach((referral, referralIndex) => {
+                    let referralType = "Referred"+referralIndex+" by";
+                    this.exportFields[referralType] = referralType;
+                    preparedRow[referralType] = referral.body.type;
+                    let referralReason = "Referral"+referralIndex+" Reason";
+                    this.exportFields[referralReason] = referralReason;
+                    preparedRow[referralReason] = referral.body.reason;
+                    let referredTo = "Referral"+referralIndex+" Referred To";
+                    this.exportFields[referredTo] = referredTo;
+                    preparedRow[referredTo] = referral.body.referred_to;
+                  });
+                  
                   this.preparedExportData.push(preparedRow);
                 });
               }
