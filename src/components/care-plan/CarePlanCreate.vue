@@ -372,6 +372,7 @@
                     type="date"
                     v-model="careplanDate"
                     class="form-control"
+                    @change="oncareplanDateChange"
                     :max="maxDate"
                   />
                 </div>
@@ -693,8 +694,8 @@ export default {
       lastEncounter: null,
       lastReports: null,
       lastCareplans: [],
-      chwFollowUpDate: moment().format("YYYY-MM-DD"),
-      ccFollowUpDate: moment().format("YYYY-MM-DD"),
+      chwFollowUpDate: moment().add(1, 'M').format("YYYY-MM-DD"),
+      ccFollowUpDate: moment().add(1, 'M').format("YYYY-MM-DD"),
       chwFollowUpPlace: '',
       ccFollowUpPlace: '',
       removedCounsellings: [],
@@ -703,6 +704,10 @@ export default {
     };
   },
   methods: {
+    oncareplanDateChange() {
+      this.chwFollowUpDate = moment(this.careplanDate).add(1, 'M').format("YYYY-MM-DD");
+      this.ccFollowUpDate = moment(this.careplanDate).add(1, 'M').format("YYYY-MM-DD");
+    },
     scrollToTop() {
       window.scrollTo(0,0);
     },

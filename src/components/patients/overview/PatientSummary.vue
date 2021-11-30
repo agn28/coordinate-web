@@ -780,7 +780,7 @@
                   <td width="30%">{{ report.meta.generated_by.name }}</td>
                   <td width="5%" class="text-center">:</td>
                   <td width="60%">
-                    {{ moment(report.meta.created_at).format("DD-MM-YYYY") }}
+                    {{ report.meta.created_at }}
                   </td>
                   <td width="5%">
                     <!-- <a href="javascript:void(0)">View</a> -->
