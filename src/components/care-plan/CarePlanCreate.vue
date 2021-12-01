@@ -41,7 +41,40 @@
                           <td width="5%" class="text-center">:</td>
                           <td width="65%">{{ patient.body.gender }}</td>
                         </tr>
-                        
+                        <tr>
+                          <td width="30%" class="font-weight-bold">Village</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{
+                              patient.body.address ? patient.body.address.village : ""
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%" class="font-weight-bold">Union</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{ patient.body.address ? patient.body.address.union : "" }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%" class="font-weight-bold">Upazila</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{
+                              patient.body.address ? patient.body.address.upazila : ""
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%" class="font-weight-bold">District</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{
+                              patient.body.address ? patient.body.address.district : ""
+                            }}
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -150,7 +183,10 @@
             <div class="col-md-12">
                 <div class="card tab-card mb-3 card-blue-header">
                   <div class="card-header">Medication Recommendations</div>
-                    <button type="button" class="btn btn-primary right px-3 m-2 ml-auto radious-0"  data-toggle="modal" data-target="#modal-add-medication"><i class="fa fa-plus"></i> Add</button>
+                    <div class="col-md-6 ml-auto">
+                      <button type="button" class="btn btn-primary float-right px-3 m-2 ml-auto radious-0" @click="openCreateModal()"><i class="fa fa-plus"></i> Add New</button>
+                      <button type="button" class="btn btn-info float-right px-3 m-2 ml-auto radious-0" @click="contPrevMedication"><i class="fa fa-plus"></i> Continue </button>
+                    </div>
                     <h5 class="px-2">New Recommendations</h5>
                     <div class="table-responsive mb-3" v-if="allData && allData.careplan && allData.careplan.activities">
                       <table class="table tbl-bordered-td">
@@ -216,6 +252,11 @@
                             <td>{{ item.body.unit }}</td>
                             <td>{{ item.body.activityDuration.repeat.frequency }}  {{ item.body.activityDuration.repeat.periodUnit }}</td>
                             <td>{{ item.body.activityDuration.review.period }} {{ item.body.activityDuration.review.periodUnit }} </td>
+                            <td>
+                              <a href="javascript:void(0)" @click="editMed(item)" class="btn btn-sm btn-info">
+                                  <i class="fa fa-edit text-white"></i>
+                              </a>
+                            </td>
                             <td>
                               <a href="javascript:void(0)" @click="newMedication.splice(index, 1)" class="btn btn-sm btn-warning">
                                   <i class="fa fa-times text-white"></i>
@@ -389,18 +430,25 @@
       <!-- </form> -->
 
       <!-- pop ups -->
-      <div class="modal fade" id="modal-add-medication" tabindex="-1" role="dialog" aria-labelledby="modal-add-medication" aria-hidden="true">
+      <!-- <div class="modal fade" id="modal-add-medication" tabindex="-1" role="dialog" aria-labelledby="modal-add-medication" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
-          <div class="modal-content modal-blue-header p-0 radious-0">
-            <div class="modal-header py-2 px-3">
+          <div class="modal-content modal-blue-header p-0 radious-0"> -->
+            <!-- <div class="modal-header py-2 px-3">
               <h5 class="modal-title text-white">Add Medications</h5>
               <button type="button" ref="elCloseMedication" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-            </div>
-             <form @submit.prevent="addMedication">
-                <div class="modal-body p-3">
-                  <div class="form-row">
+            </div> -->
+            <b-modal id="modal-add-medication" class="modal-header">
+                <template v-slot:modal-header class="modal-header py-2 px-3">
+                  <h5 v-if="isEdit" class="modal-title">Update Medications</h5>
+                  <h5 v-else class="modal-title">Add Medications</h5>
+                  <button type="button" ref="elCloseMedication" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </template>
+                
+                <div class="form-row">
                       <div class="col-md-4 mb-3">
                           <label >Drug Name</label>
                           <multiselect
@@ -472,14 +520,36 @@
                           </select>
                       </div>
                   </div>
-                </div>
-                <div class="modal-footer p-3">
-                  <button type="submit" class="btn btn-primary radious-0" >Confirm</button>
-                </div>
-            </form>
-          </div>
+                <template v-slot:modal-footer>
+                  <div class="w-100">
+                    <b-button
+                      v-if="!isEdit"
+                      @click="addMedication()"
+                      variant="link"
+                      size="md"
+                      class="float-right font-weight-bold p-0 pl-4 pr-1"
+                    >Save</b-button>
+
+                    <b-button
+                      v-else
+                      @click="updateMedication()"
+                      variant="link"
+                      size="md"
+                      class="float-right font-weight-bold p-0 pl-4 pr-1"
+                    >Update</b-button>
+
+                    <b-button
+                      variant="link"
+                      size="md"
+                      class="float-right font-weight-bold p-0"
+                      @click="$bvModal.hide('modal-add-medication')"
+                    >Cancel</b-button>
+                  </div>
+                </template>
+              </b-modal>
+          <!-- </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- add Diagnosis -->
       <div class="modal fade" id="modal-add-diagnosis" tabindex="-1" role="dialog" aria-labelledby="modal-add-diagnosis" aria-hidden="true">
@@ -565,6 +635,7 @@ export default {
   },
   data() {
     return {
+      isEdit: false,
       maxDate: "",
       careplanDate: moment().format("YYYY-MM-DD"),
       missingData: false,
@@ -576,6 +647,7 @@ export default {
       medicationEnabled: false,
       medication: {},
       medications: [],
+      latestMedications: [],
       newMedication: [],
       activity: {},
       newActions: [],
@@ -708,6 +780,37 @@ export default {
       this.chwFollowUpDate = moment(this.careplanDate).add(1, 'M').format("YYYY-MM-DD");
       this.ccFollowUpDate = moment(this.careplanDate).add(1, 'M').format("YYYY-MM-DD");
     },
+    openCreateModal() {
+      console.log('opned')
+      this.medication = {
+        title: null,
+        dosage: null,
+        unit: null,
+        time: null,
+        frequency: null,
+        period: null,
+        review: null
+      }
+      this.isEdit = false;
+      this.$bvModal.show("modal-add-medication");
+    },
+    editMed(med) {
+      console.log(med);
+      this.isEdit = true;
+      this.$bvModal.show("modal-add-medication");
+      let duration = med.body.activityDuration.review.period+''+med.body.activityDuration.review.periodUnit;
+    
+      this.medication = {
+        title: { name: med.body.title },
+        dosage: med.body.dosage,
+        unit: med.body.unit,
+        time: med.body.time,
+        frequency: med.body.activityDuration.repeat.frequency,
+        period: med.body.activityDuration.repeat.periodUnit,
+        review: duration
+        
+      }
+    },
     scrollToTop() {
       window.scrollTo(0,0);
     },
@@ -803,6 +906,24 @@ export default {
       );
     },
 
+    getLatestMedicationsByPatient() {
+      let loader = this.$loading.show();
+      this.$http.get("/patients/" + this.patientId + "/latest-medications-mongo").then(
+        (response) => {
+          loader.hide();
+          if (response.status == 201) {
+            if (response.data.data) {
+              this.latestMedications = response.data.data;
+            }
+            
+          }
+        },
+        (error) => {
+          loader.hide();
+        }
+      );
+    },
+
     getDrugs() {
       this.$http.get('/drugs').then(response => {
         if (response.status == 200 && !response.data.error && response.data.error === false) {
@@ -879,8 +1000,77 @@ export default {
       this.newMedication.push({body: activity});
       this.medication = {};
       this.other_drug_name = null;
-      this.$refs.elCloseMedication.click();
+      this.$bvModal.hide("modal-add-medication");
       console.log('this.newMedication',this.newMedication);
+    },
+
+    updateMedication() {
+      console.log('this.medication', this.medication);
+      var matchedMed = this.newMedication.find( med => med.body.title == this.medication.title.name);
+      if(!matchedMed) {
+        this.$toast.open({ message: 'Title can not be edited', type: 'error'});
+        return;
+      }
+      let startDate = new Date()
+      let endDate = new Date()
+      let period = this.medication.period.split(/(\d+)/).filter(Boolean);
+      let review = this.medication.review.split(/(\d+)/).filter(Boolean);
+     
+      if (review[1] == 'w') {
+        endDate = endDate.addDays(review[0] * 7)
+      } else if (review[1] == 'm') {
+        endDate = endDate.addDays(review[0] * 30)
+      } else {
+        endDate = endDate.addDays(review[0])
+      }
+
+      let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
+      let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+      
+      matchedMed.body.title = this.medication.title.name;
+      matchedMed.body.dosage = this.medication.dosage;
+      matchedMed.body.unit = this.medication.unit;
+      matchedMed.body.time = this.medication.time;
+      matchedMed.body.activityDuration.start = startPeriod;
+      matchedMed.body.activityDuration.end = endPeriod;
+      matchedMed.body.activityDuration.repeat.frequency = this.medication.frequency;
+      matchedMed.body.activityDuration.repeat.periodUnit = period[0];
+      matchedMed.body.activityDuration.review.period = review[0];
+      matchedMed.body.activityDuration.review.periodUnit = review[1];
+
+      console.log('matchedMed', matchedMed);
+      // this.newMedication.push({body: activity});
+      this.medication = {};
+      this.other_drug_name = null;
+      this.$bvModal.hide("modal-add-medication");
+      console.log('this.newMedication',this.newMedication);
+    },
+
+    contPrevMedication() {
+      for (let medication of this.latestMedications) {
+        let startDate = new Date()
+        let endDate = new Date()
+        let review = medication.body.activityDuration.review
+        if (review.periodUnit == 'w') {
+          endDate = endDate.addDays(parseInt(review.period) * 7)
+        } else if (review.periodUnit == 'm') {
+          endDate = endDate.addDays(parseInt(review.period) * 30)
+        } else {
+          endDate = endDate.addDays(parseInt(review.period))
+        }
+
+        let startPeriod = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate()
+        let endPeriod = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+        medication.body.activityDuration.start = startPeriod;
+        medication.body.activityDuration.end = endPeriod;
+
+        this.newMedication.push({body: medication.body});
+        // this.medication = {};
+        // this.other_drug_name = null;
+        // this.$refs.elCloseMedication.click();
+        console.log('this.newMedication',this.newMedication); 
+      }
+      
     },
 
     addInvestigation() {
@@ -1047,6 +1237,7 @@ export default {
       this.getGeneratedCareplans();
       this.lastGeneratedCareplans();
       this.getMedicationsByPatient();
+      this.getLatestMedicationsByPatient();
       
       if (this.patientId == localStorage.getItem('patientId')) {
         let localData = localStorage.getItem('report');

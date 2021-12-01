@@ -41,6 +41,40 @@
                           <td width="5%" class="text-center">:</td>
                           <td width="65%">{{ patient.body.gender }}</td>
                         </tr>
+                        <tr>
+                          <td width="30%" class="font-weight-bold">Village</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{
+                              patient.body.address ? patient.body.address.village : ""
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%" class="font-weight-bold">Union</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{ patient.body.address ? patient.body.address.union : "" }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%" class="font-weight-bold">Upazila</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{
+                              patient.body.address ? patient.body.address.upazila : ""
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%" class="font-weight-bold">District</td>
+                          <td width="5%" class="text-center">:</td>
+                          <td width="65%">
+                            {{
+                              patient.body.address ? patient.body.address.district : ""
+                            }}
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
