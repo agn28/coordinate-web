@@ -1642,9 +1642,9 @@ export default {
                 let observation = obs.body;
                 if (observation.type == "survey") {
                   if (observation.data.name == "medical_history") {
-                    this.details.diabetes = observation.data.diabetes || "N/A";
+                    this.details.diabetes = observation.data.diabetes || this.details.diabetes || "N/A";
                     this.details.hypertension =
-                      observation.data.hypertension || "N/A";
+                      observation.data.hypertension || this.details.hypertension || "N/A";
                     this.details.stroke = observation.data.stroke || "N/A";
                     this.details.asthma = observation.data.asthma || "N/A";
                     this.details.heart_attack =
