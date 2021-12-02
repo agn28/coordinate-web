@@ -1645,13 +1645,13 @@ export default {
                     this.details.diabetes = observation.data.diabetes || this.details.diabetes || "N/A";
                     this.details.hypertension =
                       observation.data.hypertension || this.details.hypertension || "N/A";
-                    this.details.stroke = observation.data.stroke || "N/A";
-                    this.details.asthma = observation.data.asthma || "N/A";
+                    this.details.stroke = observation.data.stroke || this.details.stroke || "N/A";
+                    this.details.asthma = observation.data.asthma || this.details.asthma || "N/A";
                     this.details.heart_attack =
-                      observation.data.heart_attack || "N/A";
-                    this.details.cancer = observation.data.cancer || "N/A";
+                      observation.data.heart_attack || this.details.heart_attack || "N/A";
+                    this.details.cancer = observation.data.cancer || this.details.cancer || "N/A";
                     this.details.kidney_disease =
-                      observation.data.kidney_disease || "N/A";
+                      observation.data.kidney_disease || this.details.kidney_disease || "N/A";
                   } else if (observation.data.name == "risk_factors") {
                     this.details.smoking = observation.data.smoking || "N/A";
                     this.details.smokeles_tobacco =
