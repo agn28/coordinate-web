@@ -570,7 +570,7 @@ export default {
     }, 
     saveObservationData(data) {
       console.log('called obser: ', data)
-      this.$http.post("/observations", data).then(response => {
+      this.$http.post("/observations/create-mongo", data).then(response => {
         console.log('Observation response: ', response)
       }).catch(error => { console.log(error) });
     }
