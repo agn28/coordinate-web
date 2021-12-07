@@ -393,7 +393,7 @@ export default {
         // console.log('bl0od p.data; ', data);
         //create
         if (this.systolic_blood_pressure && this.diastolic_blood_pressure && this.pulse_rate) {
-          this.$http.post("/observations", data).then(response => {
+          this.$http.post("/observations/create-mongo", data).then(response => {
             console.log('blod press res: ', response);
           }).catch(error => {
             console.log(error);
@@ -408,7 +408,7 @@ export default {
       //create height
       if (this.height && this.height_unit) {
          let dataHeight  = this.prepareBodyMeasurementData(this.user.uid, created_at, 'body_measurement', 'height', this.height_unit, this.height, '', this.patientId, this.assessment_id);
-        this.$http.post("/observations", dataHeight).then(response => {
+        this.$http.post("/observations/create-mongo", dataHeight).then(response => {
           console.log('Height response: ', response)
         }).catch(error => { console.log(error) });
       }
@@ -417,7 +417,7 @@ export default {
       //create weight
       if (this.weight && this.weight_unit) {
         let dataWeight  = this.prepareBodyMeasurementData(this.user.uid, created_at, 'body_measurement', 'weight', this.weight_unit, this.weight, '', this.patientId, this.assessment_id);
-        this.$http.post("/observations", dataWeight).then(response => {
+        this.$http.post("/observations/create-mongo", dataWeight).then(response => {
           console.log('Weight response: ', response)
         }).catch(error => { console.log(error) });
       }
@@ -425,7 +425,7 @@ export default {
       //create waist
       if (this.waist && this.waist_unit) {
         let dataWaist   = this.prepareBodyMeasurementData(this.user.uid, created_at, 'body_measurement', 'waist', this.waist_unit, this.waist, '', this.patientId, this.assessment_id);
-        this.$http.post("/observations", dataWaist).then(response => {
+        this.$http.post("/observations/create-mongo", dataWaist).then(response => {
           console.log('Waist response: ', response)
         }).catch(error => { console.log(error) });
       }
@@ -433,7 +433,7 @@ export default {
       //create hip
       if (this.hip && this.hip_unit) {
         let dataHip     = this.prepareBodyMeasurementData(this.user.uid, created_at, 'body_measurement', 'hip', this.hip_unit, this.hip, '', this.patientId, this.assessment_id);
-        this.$http.post("/observations", dataHip).then(response => {
+        this.$http.post("/observations/create-mongo", dataHip).then(response => {
           console.log('Hip response: ', response)
         }).catch(error => { console.log(error) });
       }
