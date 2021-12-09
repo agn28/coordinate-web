@@ -115,7 +115,7 @@
         },
       getPatients() {
         let loader = this.$loading.show();
-        this.$http.get("/patients/" + this.patientId).then(response => {
+        this.$http.get("/patients/mongo/" + this.patientId).then(response => {
             loader.hide();
             if (response.status == 200) {
               this.patient = response.data.data;
@@ -129,7 +129,7 @@
       },
       getFollowups() {
           let loader = this.$loading.show();
-            this.$http.get("/patients/" + this.patientId + '/followups', ).then(
+            this.$http.get("/patients/mongo/" + this.patientId + '/followups', ).then(
             response => {
                 if (response.status == 200) {
                 this.followups = response.data.data;

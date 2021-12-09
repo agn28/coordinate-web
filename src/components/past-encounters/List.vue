@@ -119,7 +119,7 @@
       },
       getPatientInfo() {
         let loader = this.$loading.show();
-        this.$http.get("/patients/" + this.patientId).then(response => {
+        this.$http.get("/patients/mongo/" + this.patientId).then(response => {
             loader.hide();
             if (response.status == 200) {
               this.patient = response.data.data;
@@ -132,7 +132,7 @@
       },
       getAssessments() {
         let loader = this.$loading.show();
-        this.$http.get("/assessments/").then(response => {
+        this.$http.get("/assessments/all-mongo/").then(response => {
             loader.hide();
             if (response.status == 200) {
               this.assessments = response.data.data.filter(patient => patient.body.patient_id == this.patientId);

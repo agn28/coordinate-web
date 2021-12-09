@@ -77,7 +77,7 @@ export default {
       window.scrollTo(0,0);
     },
     getPatients() {
-      this.$http.get("/patients").then(response => {
+      this.$http.get("/patients/all-mongo").then(response => {
         if (response.status == 200) {
           this.patients = response.data.entry;
           sessionStorage.setItem('participants', JSON.stringify(this.patients));

@@ -244,7 +244,7 @@
       },
       getPatient() {
         let loader = this.$loading.show();
-        this.$http.get("/patients/" + this.patientId).then(response => {
+        this.$http.get("/patients/mongo/" + this.patientId).then(response => {
             loader.hide();
             if (response.status == 200) {
               this.patient = response.data.data;
@@ -279,7 +279,7 @@
 
           }
         }
-       await this.$http.post("/assessments/", data).then(response => {
+       await this.$http.post("/assessments/except-oha-mongo/", data).then(response => {
           if (response.status == 201) {
             this.assessmentId = response.data.id
              try {
@@ -330,7 +330,7 @@
       },
 
       storeEncounters(encounter) {
-        this.$http.post("/observations/", encounter).then(response => {
+        this.$http.post("/observations/create-mongo/", encounter).then(response => {
                 },
                 error => {
                 });

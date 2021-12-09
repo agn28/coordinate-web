@@ -168,7 +168,7 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients").then(
+      this.$http.get("/patients/all-mongo").then(
         response => {
           if (response.status == 200) {
             this.patients = response.data.data;
@@ -196,7 +196,7 @@ export default {
     },
     getCarePlans() {
       let loader = this.$loading.show();
-      this.$http.get("/care-plans/all").then(
+      this.$http.get("/care-plans/all-mongo").then(
         response => {
           if (response.status == 200) {
             this.carePlans = response.data.data;
@@ -226,7 +226,7 @@ export default {
       }).then(result => {
         if (result.value) {
           let loader = this.$loading.show();
-          this.$http.put("/care-plans/" + investigation.id, {
+          this.$http.put("/care-plans/mongo/" + investigation.id, {
             status: status,
             updated_by: this.user.uid
           })

@@ -154,7 +154,7 @@ export default {
     getObservations() {
       this.$http
         .get(
-          "/observations?patient_id=" +
+          "/observations/all-mongo?patient_id=" +
             this.patientId +
             "&assessment_id=" +
             this.encounterId

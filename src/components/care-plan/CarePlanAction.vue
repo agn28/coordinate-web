@@ -192,7 +192,7 @@ export default {
     },
     getCarePlan() {
       let loader = this.$loading.show();
-      this.$http.get("/care-plans/" + this.carePlanId).then(
+      this.$http.get("/care-plans/mongo/" + this.carePlanId).then(
         response => {
           if (response.status == 200) {
             this.carePlan = response.data.data;
@@ -238,7 +238,7 @@ export default {
     assignUser(value) {
       let loader = this.$loading.show();
       this.$http
-        .put("/care-plans/" + this.carePlanId, {
+        .put("/care-plans/mongo/" + this.carePlanId, {
           assigned_to: value.uid
         })
         .then(
@@ -255,7 +255,7 @@ export default {
     completeCarePlan() {
       let loader = this.$loading.show();
       this.$http
-        .put("/care-plans/" + this.carePlanId, {
+        .put("/care-plans/mongo/" + this.carePlanId, {
           status: "completed",
           comment: this.comment,
           completed_at: new Date()

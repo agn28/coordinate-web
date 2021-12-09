@@ -278,7 +278,7 @@ export default {
     },
     getPatients() {
       let loader = this.$loading.show();
-      this.$http.get("/patients/" + this.patientId).then(
+      this.$http.get("/patients/mongo/" + this.patientId).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
@@ -293,7 +293,7 @@ export default {
 
     getMedicationsByCareplan() {
       let loader = this.$loading.show();
-      this.$http.get("/generated-care-plans/" + this.generatedCarePlanId + "/medications").then(
+      this.$http.get("/generated-care-plans/" + this.generatedCarePlanId + "/medications-mongo").then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
@@ -308,7 +308,7 @@ export default {
 
     getGeneratedCarePlan() {
       let loader = this.$loading.show();
-      this.$http.get("/generated-care-plans/" + this.generatedCarePlanId).then(
+      this.$http.get("/generated-care-plans/mongo/" + this.generatedCarePlanId).then(
         (response) => {
           loader.hide();
           if (response.status == 200) {
@@ -386,7 +386,7 @@ export default {
       // loader.hide();
       // return;
 
-      this.$http.put('/health-reports/' + this.reviewId, this.allData.data).then( response => {
+      this.$http.put('/health-reports/mongo/' + this.reviewId, this.allData.data).then( response => {
         loader.hide();
         this.isLoading = false
         console.log('res: ', response.data)

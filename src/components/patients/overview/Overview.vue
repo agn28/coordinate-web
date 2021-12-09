@@ -276,7 +276,7 @@ export default {
     getObservations() {
       let loader = this.$loading.show();
       let encounters = this.encounters;
-      this.$http.get("/patients/" + this.patientId + "/observations").then(
+      this.$http.get("/patients/" + this.patientId + "/observations-mongo").then(
         (response) => {
           loader.hide();
           if (response.status == 200) {

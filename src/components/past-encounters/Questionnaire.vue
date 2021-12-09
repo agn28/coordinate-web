@@ -176,7 +176,7 @@
     },
       getPatient() {
         let loader = this.$loading.show();
-        this.$http.get("/patients/" + this.patientId).then(response => {
+        this.$http.get("/patients/mongo/" + this.patientId).then(response => {
             loader.hide();
             if (response.status == 200) {
               this.patient = response.data.data;

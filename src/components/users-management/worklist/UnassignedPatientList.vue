@@ -474,7 +474,7 @@ export default {
       }
       await this.$http
         .get(
-          "/patients?per_page=" +
+          "/patients/all-mongo?per_page=" +
             this.paginationOptions.perPage +
             "&" +
             queryItemkey +

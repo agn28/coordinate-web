@@ -923,7 +923,7 @@ export default {
       this.filterSummary();
     },
     getCenters() {
-      this.$http.get("/centers").then(
+      this.$http.get("/centers/mongo").then(
         (response) => {
           if (response.status == 200) {
             this.centers = response.data.data;

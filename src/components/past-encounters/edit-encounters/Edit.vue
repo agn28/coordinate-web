@@ -243,7 +243,7 @@
             window.scrollTo(0,0);
         },
       getPatient() {
-        this.$http.get("/patients/" + this.patientId).then(response => {
+        this.$http.get("/patients/mongo/" + this.patientId).then(response => {
             this.loader.hide();
             if (response.status == 200) {
               this.patient = response.data.data;
@@ -278,7 +278,7 @@
 
           }
         }
-        await this.$http.post("/assessments/", data).then(response => {
+        await this.$http.post("/assessments/except-oha-mongo", data).then(response => {
             if (response.status == 201) {
               this.assessmentId = response.data.id
               try {
@@ -328,14 +328,14 @@
 
       },
       storeEncounters(encounter) {
-        this.$http.post("/observations/", encounter).then(response => {
+        this.$http.post("/observations/create-mongo/", encounter).then(response => {
           },
           error => {
           });
       },
       async getAssessmentDetails() {
         this.loader = this.$loading.show();
-        await this.$http.get("/assessments/" + this.assessmentId).then(response => {
+        await this.$http.get("/assessments/mongo/" + this.assessmentId).then(response => {
             if (response.status == 200) {
               this.assessment = response.data.data;
               this.patientId = this.assessment.body.patient_id

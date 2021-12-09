@@ -2096,7 +2096,7 @@ export default {
             completed_at: moment()
           };
           completedItems.forEach((item) => {
-            this.$http.put("/care-plans/" + item.id, data).then(
+            this.$http.put("/care-plans/mongo/" + item.id, data).then(
               (response) => {
                 if (response.status == 200) {
                   this.getCarePlanReport();

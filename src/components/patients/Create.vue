@@ -69,7 +69,7 @@ export default {
       window.scrollTo(0,0);
     },
     save() {
-      this.$http.post("/patients", this.patient).then(response => {
+      this.$http.post("/patients/create-mongo/", this.patient).then(response => {
         if (response.status == 200) {
           this.$router.push(this.$route.query.redirect || "/");
         }

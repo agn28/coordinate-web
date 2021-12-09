@@ -321,7 +321,7 @@ export default {
       if(this.search) {
           searchKey = '&name=' + this.search;
       }
-      this.$http.get("/centers?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
+      this.$http.get("/centers/mongo?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
         response => {
           console.log('centers: ', response)
           if (response.status == 200) {
@@ -414,7 +414,7 @@ export default {
       let loader = this.$loading.show();
       
       this.$http
-        .put("/centers/" + this.newCenter.id, this.newCenter)
+        .put("/centers/mongo/" + this.newCenter.id, this.newCenter)
         .then(response => {
             console.log('update: response', response)
           if (response.status == 201) {
@@ -425,6 +425,7 @@ export default {
 
           this.$bvModal.hide("modal-center");
           loader.hide();
+          this.$forceUpdate();
           this.getCenters();
         })
         .catch(error => {
@@ -440,7 +441,7 @@ export default {
     createCenter() {
       let loader = this.$loading.show();
       this.$http
-        .post("/centers", this.newCenter)
+        .post("/centers/create-mongo", this.newCenter)
         .then(response => {
           if (response.status == 201) {
             this.centers.push(this.newCenter);
@@ -501,7 +502,7 @@ export default {
         if (result.value) {
             let loader = this.$loading.show();
       this.$http
-        .delete("/centers/" + center.id)
+        .delete("/centers/mongo/" + center.id)
         .then(response => {
           console.log('delete resp: ', response);
           loader.hide();

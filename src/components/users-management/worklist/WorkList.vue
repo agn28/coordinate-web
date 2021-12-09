@@ -200,7 +200,7 @@ export default {
     assignUser(user, careplan) {
       let loader = this.$loading.show();
       this.$http
-        .put("/care-plans/" + careplan.id, {
+        .put("/care-plans/mongo/" + careplan.id, {
           assigned_to: user.uid
         })
         .then(

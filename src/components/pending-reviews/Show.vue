@@ -1294,7 +1294,7 @@ export default {
     updatePatientHealthRecord() {
       let loader = this.$loading.show();
       this.$http
-        .put("/health-reports" + this.review_id, this.allData)
+        .put("/health-reports/mongo/" + this.review_id, this.allData)
         .then((response) => {
           loader.hide();
         });
@@ -1320,7 +1320,7 @@ export default {
     },
     getObservation() {
       let loader = this.$loading.show();
-      this.$http.get("/observations/").then((response) => {
+      this.$http.get("/observations/all-mongo/").then((response) => {
         if (!response.data.error) {
           loader.hide();
           this.observations = response.data.data;
@@ -1352,7 +1352,7 @@ export default {
       });
     },
     getPatientInfo() {
-      this.$http.get("/patients/" + this.patientId).then((response) => {
+      this.$http.get("/patients/mongo/" + this.patientId).then((response) => {
         if (response.status == 200) {
           this.patientMeta = response.data.data.meta;
           this.patientInfo = response.data.data.body;

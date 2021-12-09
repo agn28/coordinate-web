@@ -216,7 +216,7 @@
 
             getFollowups() {
                 let loader = this.$loading.show();
-                this.$http.get("/followups").then(response => {
+                this.$http.get("/followups/all-mongo/").then(response => {
                         if (response.status == 200) {
                             this.followups = response.data.data;
                             this.getPatients();
@@ -230,7 +230,7 @@
 
             getPatients(lastItemId = '', queryItemkey = 'last_item') {
                 let loader = this.$loading.show();
-                this.$http.get("/patients?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId).then(response => {
+                this.$http.get("/patients/all-mongo?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId).then(response => {
                     if (response.status == 200) {
                         loader.hide()
                         this.patients = response.data.data;
@@ -314,7 +314,7 @@
             },
             getCenters () {
                 let loader = this.$loading.show();
-                this.$http.get("/centers").then(response => {
+                this.$http.get("/centers/mongo").then(response => {
                     if (response.status == 200) {
                         loader.hide()
                         this.centers = response.data.data;

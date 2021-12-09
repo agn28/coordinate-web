@@ -637,7 +637,7 @@ import Multiselect from "vue-multiselect";
         // console.log('generate careplan: ', JSON.stringify(data));
         // return data;
 
-        this.$http.put('/health-reports/' + this.reviewId, data).then( response => {
+        this.$http.put('/health-reports/mongo/' + this.reviewId, data).then( response => {
           loader.hide();
           if (response.status == 200 ) {
             this.alert = 'success';
@@ -676,7 +676,7 @@ import Multiselect from "vue-multiselect";
         })
       },
       getPatientInfo() {
-        this.$http.get('/patients/' + this.patientId).then(response => {
+        this.$http.get('/patients/mongo/' + this.patientId).then(response => {
           if (response.status == 200) {
             this.patientMeta = response.data.data.meta
             this.patientInfo = response.data.data.body
@@ -687,7 +687,7 @@ import Multiselect from "vue-multiselect";
       },
 
       getDrugs() {
-        this.$http.get('/drugs').then(response => {
+        this.$http.get('/drugs/mongo').then(response => {
           if (response.status == 200 && !response.data.error && response.data.error === false) {
             this.drugs = response.data.data
             console.log(response, 'drugs');

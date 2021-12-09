@@ -93,7 +93,7 @@
         window.scrollTo(0,0);
       },
       getPatientInfo() {
-        this.$http.get("/patients/" + this.patientId).then(response => {
+        this.$http.get("/patients/mongo/" + this.patientId).then(response => {
             this.loader.hide();
             if (response.status == 200) {
               this.patient = response.data.data;
@@ -105,7 +105,7 @@
       },
       getAssessmentDetails() {
         this.loader = this.$loading.show();
-        this.$http.get("/assessments/" + this.assessmentId).then(response => {
+        this.$http.get("/assessments/mongo/" + this.assessmentId).then(response => {
             if (response.status == 200) {
               this.assessment = response.data.data;
               this.patientId = this.assessment.body.patient_id
@@ -118,7 +118,7 @@
           });
       },
       getObservation() {
-        this.$http.get("/observations/" ).then(response => {
+        this.$http.get("/observations/mongo/" ).then(response => {
             if (response.status == 200) {
               this.observations = response.data.data.filter(observation => observation.body.assessment_id == this.assessmentId && observation.body.type != 'survey' && observation.body.type != 'blood_pressure');
               this.bloodPressures = response.data.data.filter(observation => observation.body.assessment_id == this.assessmentId && observation.body.type == 'blood_pressure');
