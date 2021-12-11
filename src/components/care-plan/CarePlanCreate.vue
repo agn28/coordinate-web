@@ -925,7 +925,7 @@ export default {
     },
 
     getDrugs() {
-      this.$http.get('/drugs/mongo').then(response => {
+      this.$http.get('/drugs').then(response => {
         if (response.status == 200 && !response.data.error && response.data.error === false) {
           this.drugs = response.data.data;
           this.drugs.push({id: 'id_other', name: 'other'});

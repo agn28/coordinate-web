@@ -207,7 +207,7 @@ export default {
         // console.log(this.csv[i].name);
         //TODO: new api for bulk upload
         let loader = this.$loading.show();
-        this.$http.post("/drugs/create-batch-mongo", this.csv).then(
+        this.$http.post("/drugs/batch", this.csv).then(
           response => {
             loader.hide();
             if (response.status == 201) {
@@ -231,7 +231,7 @@ export default {
         searchKey = '&name=' + this.search;
       }
 
-      this.$http.get("/drugs/mongo?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
+      this.$http.get("/drugs?per_page=" + this.paginationOptions.perPage + '&' + queryItemkey + '=' + lastItemId + searchKey).then(
         response => {
           if (response.status == 200) {
             loader.hide();
@@ -279,7 +279,7 @@ export default {
       }
 
       let loader = this.$loading.show();
-      this.$http.post("/drugs/create-mongo", { name: this.newMedication }).then(
+      this.$http.post("/drugs", { name: this.newMedication }).then(
         response => {
           loader.hide();
           if (response.status == 201) {
@@ -306,7 +306,7 @@ export default {
       }).then(result => {
         if (result.value) {
           let loader = this.$loading.show();
-          this.$http.delete("/drugs/mongo/" + medication.id).then(
+          this.$http.delete("/drugs/" + medication.id).then(
             response => {
               let index = this.medications.findIndex(
                 r => r.id == medication.id

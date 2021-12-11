@@ -141,7 +141,7 @@ export default {
     },
     getSymptoms() {
       let loader = this.$loading.show();
-      this.$http.get("/drugs/all-mongo/").then(
+      this.$http.get("/medications").then(
         response => {
           if (response.status == 200) {
             this.symptoms = response.data.data;

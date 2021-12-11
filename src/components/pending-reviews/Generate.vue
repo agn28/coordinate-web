@@ -687,7 +687,7 @@ import Multiselect from "vue-multiselect";
       },
 
       getDrugs() {
-        this.$http.get('/drugs/mongo').then(response => {
+        this.$http.get('/drugs').then(response => {
           if (response.status == 200 && !response.data.error && response.data.error === false) {
             this.drugs = response.data.data
             console.log(response, 'drugs');
