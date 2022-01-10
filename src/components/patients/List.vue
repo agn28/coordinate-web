@@ -457,6 +457,12 @@ export default {
                     this.exportFields[rfAlcohol] = rfAlcohol;
                     preparedRow[rfAlcohol] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.alcohol == 'undefined' ? '' :  assessment.observations.alcohol;
                     //measurements
+                    let systolic= prefix+"Systolic_0";
+                    this.exportFields[systolic] = systolic;
+                    preparedRow[systolic] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.systolic == 'undefined' ? '' :  assessment.observations.systolic;
+                    let diastolic= prefix+"Diastolic_0";
+                    this.exportFields[diastolic] = diastolic;
+                    preparedRow[diastolic] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.diastolic == 'undefined' ? '' :  assessment.observations.diastolic;
                     let height= prefix+"Height_0";
                     this.exportFields[height] = height;
                     preparedRow[height] = typeof assessment.observations == 'undefined' ||  typeof assessment.observations.height == 'undefined' ? '' :  assessment.observations.height;
